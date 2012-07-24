@@ -1,0 +1,250 @@
+/*
+
+Edited By: Saranya
+Version: 1.0
+wp-content\plugins\contus-hd-flv-player\css\style.css
+Date : 21/2/2011
+*/
+  .mediaspace
+  {
+      margin-bottom: 10px;
+      margin-top: 10px;
+}
+ul li{
+    list-style:none;
+    
+   }
+  
+.widget-title
+{
+    margin: 0 0 0 0 !important;
+}
+.entry-title
+{
+    padding: 0 0 10px 20px!important;
+}
+.img{
+    width:96px !important;
+    height:54px !important;
+    cursor: pointer;
+}
+.imgBorder
+{
+height:54px !important;
+background: white;
+border: 1px solid lightGrey;
+border-bottom-left-radius: 3px 3px;
+border-bottom-right-radius: 3px 3px;
+border-top-left-radius: 3px 3px;
+border-top-right-radius: 3px 3px;
+display: inline-block;
+overflow: hidden;
+padding: 4px;
+
+}
+.sideThumb .imgBorder a{
+    padding:0 !important;
+}
+.imgHome
+{
+    width:128px !important;
+    height:72px !important;
+    cursor: pointer;
+ }
+
+.paddBotm a
+{
+    text-decoration: none;
+}
+.sideThumb
+{
+
+width:100% !important;
+height: 100% !important;
+}
+.imageContus
+{
+height:72px !important;
+background: white;
+border: 1px solid lightGrey;
+border-bottom-left-radius: 3px 3px;
+border-bottom-right-radius: 3px 3px;
+border-top-left-radius: 3px 3px;
+border-top-right-radius: 3px 3px;
+display: inline-block;
+overflow: hidden;
+
+}
+.imageContus img{
+    margin:0;
+    border:none
+}
+.left_float{
+    float:left;
+}
+.contusHome
+{
+    float:left;
+    padding:10px;
+    width:130px;
+}
+#contusfeatured{
+    width:100% !important;
+}
+#contusrecent{
+    width:100% !important;
+    
+}
+#contuspopular{
+     width:100% !important;
+    
+}
+.videoName
+{
+    cursor: pointer;
+    
+}
+.more{
+
+    color:olive;
+    font-size: 12px;
+}
+.related{
+
+    width:128px !important;
+    height:72px !important;
+    cursor: pointer !important;
+}
+.clear{
+
+    clear:both;
+}
+.comment
+{
+    margin-top: 20px;
+ }
+
+.songname{
+    color: blue;
+    font-weight: bold;
+   
+}
+.searchVideos
+{
+    float: left;
+    border: none;
+    height:25px;
+
+}
+.findVideos{
+
+    background-image:url(../images/find.gif);
+    border: none;
+    float : left;
+    height:32px;
+    width :32px;
+}
+#contussearch .searchbox
+{
+    width:200px;
+    margin: 0 0 0 20px;
+}
+
+.infiniteCarousel {
+  position: relative;
+  padding: 0px 0px 0px 0;
+  height:100px;
+ width:345px;
+}
+
+.infiniteCarousel .wrapper {
+  width: 300px; /* .infiniteCarousel width - (.wrapper margin-left + .wrapper margin-right) */
+  overflow: auto;
+  min-height: 8em;
+  margin: 0 20px;
+  position: absolute;
+  top: 0;
+}
+
+.infiniteCarousel ul a img {
+  border: 5px solid #000;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+}
+
+.infiniteCarousel .wrapper ul {
+  width: 9999px;
+  list-style-image:none;
+  list-style-position:outside;
+  list-style-type:none;
+  margin:0;
+  padding:0;
+  position: absolute;
+  top: 20;
+}
+
+.infiniteCarousel ul li {
+  display:block;
+  float:left;
+  padding: 10px;
+  height: 72px;
+  width: 128px;
+}
+
+.infiniteCarousel ul li a img {
+  display:block;
+}
+
+.infiniteCarousel .arrow {
+  display: block;
+  height: 80px;
+  width: 11px;
+  
+  text-indent: -999px;
+  
+/*  top: 37px;*/
+  
+  cursor: pointer;
+}
+
+.infiniteCarousel .forward {
+  background: url(../images/arrow_right.jpg) no-repeat 0 0;
+  float: right;
+/*  display: block;*/
+  margin: 10px 0;
+  
+}
+
+.infiniteCarousel .back {
+  background: url(../images/arrow_left.jpg) no-repeat 0 0;
+  float: left;
+/*  display: block;*/
+  margin: 10px 0;
+  
+}
+.more_title
+{
+    font-size: 16px;
+    color:black;
+    font-weight: bold;
+}
+
+.tagViews
+{
+    text-decoration: none;
+
+}
+.tags
+{
+float:left;color: #1BAFE0;font-weight:bold;
+font-family: arial, sans-serif;
+font-size: 11px;
+line-height: 1.2 !important;
+padding: 1px 0px 1px 0px;
+text-align: left;
+word-wrap: break-word;
+}
+
+
+
+
