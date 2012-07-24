@@ -1,0 +1,193 @@
+/*
+    Document   : style
+    Created on : Dec 22, 2010, 7:06:21 PM
+    Author     : User_2
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+
+ul li{
+    list-style:none;
+   }
+
+.img{
+    width:96px !important;
+    height:54px !important;
+    cursor: pointer;
+}
+.imgBorder
+{
+height:54px !important;
+background: white;
+border: 1px solid lightGrey;
+border-bottom-left-radius: 3px 3px;
+border-bottom-right-radius: 3px 3px;
+border-top-left-radius: 3px 3px;
+border-top-right-radius: 3px 3px;
+display: inline-block;
+overflow: hidden;
+padding: 4px;
+float:left;
+}
+.imgHome
+{
+    width:128px !important;
+    height:72px !important;
+    cursor: pointer;
+ }
+.sideThumb
+{
+float:left;
+width:100% !important;
+}
+.imageContus
+{
+height:72px !important;
+background: white;
+border: 1px solid lightGrey;
+border-bottom-left-radius: 3px 3px;
+border-bottom-right-radius: 3px 3px;
+border-top-left-radius: 3px 3px;
+border-top-right-radius: 3px 3px;
+display: inline-block;
+overflow: hidden;
+padding: 4px;
+}
+.contusHome
+{
+    float:left;
+    padding:10px;
+    width:130px;
+}
+.left_float{
+    float:left;
+}
+
+.videoName
+{
+color: #03C;
+display:block;
+text-align: left;
+cursor: pointer;
+padding: 0 0 0 5px;
+font-size: 12px;
+font-family:arial,sans-serif;
+font-weight: normal;
+float:left;
+line-height: 1.2;
+margin-bottom: 2px;
+overflow: hidden;
+width:40%;
+word-wrap: break-word;
+}
+.sideThumb .videoName a
+{
+ text-decoration: none;
+ background:none !important;
+ color:#00F !important;
+
+}
+.headingPlayer
+{
+font-size: 20px !important;
+font-family:arial,sans-serif !important;
+font-weight: bold !important;
+margin: 0 20px 15px 20px !important;
+}
+.sideThumb .videoName a:hover
+{
+ text-decoration: underline;
+ background:none !important;
+ color:#00F !important;
+
+}
+.videoHname
+{
+cursor:pointer;
+display:block;
+text-align:left;
+color: #03C;
+cursor: pointer;
+padding: 0 0 0 1px;
+font-size: 12px;
+font-weight: bold;
+line-height: 1.2;
+margin-bottom: 2px;
+overflow: hidden;
+font-family:arial,sans-serif;
+word-wrap: break-word;
+
+}
+
+.views
+{
+
+color: #666;
+font-family:arial,sans-serif;
+font-size: 11px;
+line-height: 1.2 !important;
+word-wrap: break-word;
+padding: 0 0 0 1px;
+text-align:left;
+}
+.playlistName{
+text-align: left;
+color: #666;
+font-family:arial,sans-serif;
+font-size: 11px;
+line-height: 1.2 !important;
+overflow: hidden;
+padding: 0 0 0 1px;
+text-align:left;
+
+}
+
+
+
+.comment
+{
+    margin-top: 20px;
+
+}
+.hitcount
+{
+    color: green;
+}
+.songname{
+    color: blue;
+    font-weight: bold;
+
+}
+.searchVideos
+{
+    float: left;
+    border: none;
+    height:25px;
+
+
+}
+
+
+ul.ulwidget{
+
+    width:100% !important;
+    float:left !important;
+    border:none !important;
+    margin: 0 !important;
+    }
+
+ul.ulwidget li{
+    width:100% !important;
+    float:left !important;
+    border:none !important;
+    margin: 2px !important;
+    padding: 3px 3px 3px 0!important;
+}
+
+ul.ulwidget li:hover{
+    background-color: #d1e1fa !important;
+/*    float:left !important;
+    border:none !important;
+    margin: 0 !important;*/
+}
