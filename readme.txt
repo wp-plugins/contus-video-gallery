@@ -8,9 +8,9 @@ Get the most exciting FLV player in the internet, designed and modified to suit 
 
 == Description ==
 
-Video Gallery Demo - http://www.apptha.com/demo/?product=wordpressvideoblog
+Video Gallery Demo - http://www.apptha.com/demo/?product=wordpressvideogallery
 
-Video Gallery Home Page - http://www.apptha.com/category/extension/Wordpress/Video-Blog
+Video Gallery Home Page - http://www.apptha.com/category/extension/Wordpress/Video-Gallery
 
 Contus Best Wordpress Video Gallery Plugin has a whole set of all utile features such as Options to have quickly visible options such as recent Videos, popular Videos and featured Videos and the ability to control number and order of these from back end, FLV & H.264 encoded video including MP4, M4V, M4A, MOV, Mp4v, F4V, social networking comments from the gallery page (like for Facebook), provision to alter width, height, skin, theme, aspect ratio, volume, downloads etc. from the backend, social Media Bookmark option (diggit, myspace, facebook, del.icio.us, spurl, furl, google), multiple Playlists, views count for video, Supported in the latest Wordpress 3.0.3 and all the other regular and utile features we could see in popular video sharing sites.
 
