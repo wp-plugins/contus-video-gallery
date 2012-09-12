@@ -8,7 +8,7 @@ Get the most exciting FLV player in the internet, designed and modified to suit 
 
 == Description ==
 
-Video Gallery Demo - http://www.apptha.com/demo/wordpress/contushome/
+Video Gallery Demo - http://www.apptha.com/demo/?product=wordpressvideogallery
 
 Video Gallery Home Page - http://www.apptha.com/category/extension/Wordpress/Video-Gallery
 
