@@ -1,15 +1,16 @@
 <?php
+
 /**
  * @name          : Wordpress VideoGallery.
- * @version	  	  : 1.5
+ * @version	  : 1.3
  * @package       : apptha
  * @subpackage    : contus-video-galleryversion-10
  * @author        : Apptha - http://www.apptha.com
  * @copyright     : Copyright (C) 2011 Powered by Apptha
- * @license	      : GNU General Public License version 2 or later; see LICENSE.txt
+ * @license	  : GNU General Public License version 2 or later; see LICENSE.txt
  * @Purpose       : Create playlist for player
  * @Creation Date : Fev 21 2011
- * @Modified Date : Jul 19, 2012
+ * @Modified Date : December 07 2011
  * */
 
 // look up for the path
@@ -18,11 +19,11 @@ require_once( dirname(__FILE__) . '/hdflv-config.php');
 // get the path url from querystring
 $playlist_id = $_GET['pid'];
 
-function get_out_now() {
-    exit;
-}
-
-add_action('shutdown', 'get_out_now', -1);
+//function get_out_now() {
+//    exit;
+//}
+//
+//add_action('shutdown', 'get_out_now', -1);
 
 global $wpdb;
 
@@ -50,7 +51,7 @@ if (isset($_GET['pid']) || isset($_GET['vid'])) {
         $select = "SELECT * FROM " . $wpdb->prefix ."hdflvvideoshare where vid='$vid'";
 
         $themediafiles = $wpdb->get_results($select);
-        $getPlaylist   = $wpdb->get_results("SELECT * FROM ".$wpdb->prefix."hdflvvideoshare_med2play WHERE media_id='$vid' ORDER BY sorder ASC ");
+        $getPlaylist   = $wpdb->get_results("SELECT playlist_id FROM ".$wpdb->prefix."hdflvvideoshare_med2play WHERE media_id='$vid'");
          foreach ($getPlaylist as $getPlaylists)
         {
             if ($getPlaylists->playlist_id != '')
@@ -63,11 +64,10 @@ if (isset($_GET['pid']) || isset($_GET['vid'])) {
             }
 
 
-       $fetch_video   = "SELECT * FROM " . $wpdb->prefix . "hdflvvideoshare w
+        $fetch_video   = "SELECT * FROM " . $wpdb->prefix . "hdflvvideoshare w
         INNER JOIN " . $wpdb->prefix . "hdflvvideoshare_med2play m
         WHERE (m.playlist_id = '$playlist_id'
-        AND m.media_id = w.vid AND m.media_id != '$vid') GROUP BY w.vid ORDER BY m.sorder ASC";
-      
+        AND m.media_id = w.vid AND m.media_id != '$vid') GROUP BY w.vid";
         $fetched       = $wpdb->get_results($fetch_video);
         $themediafiles = array_merge($themediafiles,$fetched);
         }

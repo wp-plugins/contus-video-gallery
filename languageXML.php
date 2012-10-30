@@ -1,17 +1,4 @@
 <?php
-/**
- * @name          : Wordpress VideoGallery.
- * @version	  	  : 1.5
- * @package       : apptha
- * @subpackage    : contus-video-galleryversion-10
- * @author        : Apptha - http://www.apptha.com
- * @copyright     : Copyright (C) 2011 Powered by Apptha
- * @license	      : GNU General Public License version 2 or later; see LICENSE.txt
- * @Purpose       : Langauge XML
- * @Creation Date : Feb 21, 2011
- * @Modified Date : Jul 19, 2012
- * */
-
 ob_clean();
 header ("content-type: text/xml");
 require_once( dirname(__FILE__) . '/hdflv-config.php');
@@ -111,8 +98,9 @@ if (count($langSettings) > 0)
     echo '</furl>';
     echo '<adindicator><![CDATA[Your selection will follow this sponsors message in - seconds]]>';
     echo '</adindicator>';
-    echo '<Skip><![CDATA[Skip this Video]]></Skip>';
-    echo '<Skip><![CDATA[Download this Video]]></Skip>';
+    echo '<skip><![CDATA[Skip this Video]]></skip>';
+    echo '<download><![CDATA[Download this Video]]></download>';
+    echo '<volume><![CDATA[Volume]]></volume>';
     echo '<errormessage><![CDATA['.$rs_lang[0]->errormessage.']]></errormessage>';
     echo '<buttonname><![CDATA['.$rs_lang[0]->btnname.']]></buttonname>';
     echo '</language>';

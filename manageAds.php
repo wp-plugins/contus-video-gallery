@@ -1,15 +1,16 @@
 <?php
+
 /**
  * @name          : Wordpress VideoGallery.
- * @version	  	  : 1.5
+ * @version	  : 1.3
  * @package       : apptha
  * @subpackage    : contus-video-galleryversion-10
  * @author        : Apptha - http://www.apptha.com
  * @copyright     : Copyright (C) 2011 Powered by Apptha
- * @license	      : GNU General Public License version 2 or later; see LICENSE.txt
- * @Purpose       : Video Ads Page
- * @Creation Date : Feb 21, 2011
- * @Modified Date : Jul 19, 2012
+ * @license	  : GNU General Public License version 2 or later; see LICENSE.txt
+ * @Purpose       : Common functions needed throughout the plugin
+ * @Creation Date : Fev 21 2011
+ * @Modified Date : December 07 2011
  * */
 
 $contus = dirname(plugin_basename(__FILE__));
@@ -54,25 +55,9 @@ $site_url = get_option('siteurl');
     }
 
     function validateInput(){
-        if(document.getElementById('btn2').checked == true){
-        	var val = document.getElementById('filepath1').value;
-        	if(val == ''){
-        		document.getElementById('message').innerHTML = 'Please Enter URL!';
-        		return false;
-            }
-            
-            var regexp = /^(((ht|f){1}((tp|tps):[/][/]){1}))[-a-zA-Z0-9@:%_\+.~#!?&//=]+$/;
-                        	
-            if(regexp.test(val)== false){
-            	document.getElementById('message').innerHTML = 'Please Enter Valid URL!';
-            	return false;
-                }
-            
-        	if(document.getElementById('name').value == ''){
-        		document.getElementById('message').innerHTML = 'Please Enter Title/Name!';
-        		return false;
-            }
-            
+        if(document.getElementById('btn2').checked == true && document.getElementById('filepath1').value == ''){
+            document.getElementById('message').innerHTML = 'Enter  URL';
+            return false;
         }
         if(document.getElementById('btn1').checked == true && document.getElementById('f1-upload-form').style.display != 'none'){
             document.getElementById('message').innerHTML = 'Upload Ads';
@@ -440,13 +425,13 @@ class HDVIDEOManageAds {
         }
 
         if ($plfilter != '0' && $plfilter != 'no') {
-            $join = " LEFT JOIN " . $wpdb->prefix . "hdflvvideoshare_med2play ON (vid = media_id) ";
+            $join = " LEFT JOIN " . $wpdb->prefix . "hdflv_med2play ON (vid = media_id) ";
             if ($where != '')
                 $where .= " AND ";
             $where .= " (playlist_id = '" . $plfilter . "') ";
             $pledit = true;
         } elseif ($plfilter == 'no') {
-            $join = " LEFT JOIN " . $wpdb->prefix . "hdflvvideoshare_med2play ON (vid = media_id) ";
+            $join = " LEFT JOIN " . $wpdb->prefix . "hdflv_med2play ON (vid = media_id) ";
             if ($where != '')
                 $where .= " AND ";
             $where .= " (media_id IS NULL) ";
@@ -576,13 +561,12 @@ class HDVIDEOManageAds {
                     <table class="form-table">
                         <tr valign="top">
                             <th scope="row"><?php _e('Ads title', 'ads') ?></th>
-                            <td><input type="text" size="50" id="ads_name"  name="ads_name" value="<?php echo $ads_name ?>" /></td>
+                            <td><input type="text" size="50"  name="ads_name" value="<?php echo $ads_name ?>" /></td>
                         </tr>
                         <tr valign="top">
                             <th scope="row"><?php _e('Ads URL', 'ads') ?></th>
 
-                            <td><input type="text" size="80" name="ads_filepath" value="<?php echo $ads_filepath ?>" /> 
-                            <input type="file" name="myfile" value="" size=40  />
+                            <td><input type="text" size="80"  name="ads_filepath" value="<?php echo $ads_filepath ?>" /> <input type="file" name="myfile" value="" size=40  />
                                 <br /><?php _e('Here you need to enter the URL to the file ( MP4, M4V, M4A, MOV, Mp4v or F4V)', 'ads') ?>
                                 <br /><?php echo _e('It also accept Youtube links. Example: http://www.youtube.com/watch?v=tTGHCRUdlBs', 'hdflv') ?>
                         </td>
@@ -591,7 +575,7 @@ class HDVIDEOManageAds {
                     </table>
                 </div>
                 <p>
-                    <input type="submit" class="button-primary" onclick="return validateEditAd();" name="edit_update" value="<?php _e('Update'); ?>" class="button button-highlighted" />
+                    <input type="submit" class="button-primary" name="edit_update" value="<?php _e('Update'); ?>" class="button button-highlighted" />
                     <input type="submit" class="button-secondary" name="cancel" value="<?php _e('Cancel'); ?>" class="button" />
                 </p>
             </div>
@@ -730,13 +714,7 @@ class HDVIDEOManageAds {
 </div><!--END wrap -->
 <?php
                                 }
-}?>
-<script>
-    function validateEditAd(){
-    	var adsName = document.getElementById('ads_name').value;   
-    	if(adsName == ''){
-    		alert('Please Enter Ads Tile!');
-    		return false;
-        }
-    }
-</script>
+}
+
+
+?>

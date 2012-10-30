@@ -1,15 +1,15 @@
 <?php
 /**
  * @name          : Wordpress VideoGallery.
- * @version	  	  : 1.5
+ * @version	  : 1.3
  * @package       : apptha
  * @subpackage    : contus-video-galleryversion-10
  * @author        : Apptha - http://www.apptha.com
  * @copyright     : Copyright (C) 2011 Powered by Apptha
- * @license	      : GNU General Public License version 2 or later; see LICENSE.txt
+ * @license	  : GNU General Public License version 2 or later; see LICENSE.txt
  * @Purpose       : Common function need throughout the plugin.
- * @Creation Date : Feb 21, 2011
- * @Modified Date : Jul 19, 2012
+ * @Creation Date : Feb 21 2011
+ * @Modified Date : December 07 2011
  * */
 
 
@@ -204,7 +204,7 @@ function get_vtags() {
   /*************************************************************** */
 
 function hd_add_media($wptfile_abspath, $wp_urlpath) {
-	global $wpdb;
+    global $wpdb;
     $uploadPath = $wpdb->get_row("SELECT uploads,ffmpeg_path FROM " . $wpdb->prefix . "hdflvvideoshare_settings order by settings_id desc limit 1");
     $uPath = $uploadPath->uploads;
     $pieces = explode(",", $_POST['hid']);
@@ -224,10 +224,8 @@ function hd_add_media($wptfile_abspath, $wp_urlpath) {
     // Get input informations from POST
     $sorder = $_POST['sorder'];
 
-    $act_name = strip_tags($_POST['name']);
-    $act_name = preg_replace("/[^a-zA-Z0-9\/_-\s]/", '', $act_name);
-    $act_description = strip_tags($_POST['description']);
-    
+    $act_name = trim($_POST['name']);
+    $act_description = trim($_POST['description']);
     if ($_POST['feature'] != '') {
         $act_feature = $_POST['feature'];
     } else {
@@ -305,22 +303,12 @@ function hd_add_media($wptfile_abspath, $wp_urlpath) {
             $act_opimage = $wp_urlpath . "$img2";
     }
     if ($_POST['tag_name'] != '') {
-        $tag_name = strip_tags($_POST['tag_name']);
+        $tag_name = $_POST['tag_name'];
         $seo_tag = preg_replace('/[&:\s]+/i', '-', $tag_name);
     }
     $now = date("Y-m-d H:i:s", time());
-    
-    $getLastVideoData = $wpdb->get_row("SELECT * FROM " . $wpdb->prefix . "hdflvvideoshare WHERE `vid` = (SELECT MAX(vid) FROM " . $wpdb->prefix. "hdflvvideoshare) ");
-    $videoName = $getLastVideoData->name;
-    $file = $getLastVideoData->file;
-    $image = $getLastVideoData->image;
-    $link = $getLastVideoData->link;
-    //SELECT * FROM `wp_hdflvvideoshare` WHERE `vid` = (SELECT MAX(vid) FROM `wp_hdflvvideoshare`)
-    if(($act_name != $videoName) && ($file != $act_filepath) && ($image != $act_image) && ($link != $act_link))
-    {
-   $insert_video = $wpdb->query("INSERT INTO " . $wpdb->prefix . "hdflvvideoshare ( name,description,file, file_type,duration, hdfile, image, opimage , download, link, featured, hitcount, post_date,prerollads,postrollads)
+    $insert_video = $wpdb->query("INSERT INTO " . $wpdb->prefix . "hdflvvideoshare ( name,description,file, file_type,duration, hdfile, image, opimage , download, link, featured, hitcount, post_date,prerollads,postrollads)
    VALUES ( '$act_name','$act_description','$act_filepath','$file_type','$duration','$act_hdpath', '$act_image', '$act_opimage', '$act_download', '$act_link' ,'$act_feature','0','$now','$prerollads','$postrollads')") or die('not inserting');
-    }
 
     if ($insert_video != 0) {
         $video_aid = $wpdb->insert_id;  // get index_id
@@ -449,14 +437,12 @@ function hd_update_media($media_id,$videourlmyfile,$hdurlmyfile,$thumurlmyfile,$
     $pieces = explode(",", $_POST['hid']);
     //print_r($pieces);
     $sorder = $_POST['sorder'];
-    
- 	$act_name = strip_tags($_POST['act_name']);
- 	$act_name = preg_replace("/[^a-zA-Z0-9\/_-\s]/", '', $act_name);
-    $act_description = strip_tags($_POST['act_description']);
+    $act_name = addslashes(trim($_POST['act_name']));
+    $act_description = addslashes(trim($_POST['act_description']));
     $act_filepath = addslashes(trim($_POST['act_filepath']));
     $act_image = addslashes(trim($_POST['act_image']));
     $act_hdpath = addslashes(trim($_POST['act_hdpath']));
-  	$act_link = addslashes(trim($_POST['act_link'])); 
+  $act_link = addslashes(trim($_POST['act_link'])); 
     $act_download = addslashes(trim($_POST['download']));
     $act_opimg = addslashes(trim($_POST['act_opimg']));
     $act_prerollads = addslashes(trim($_POST['act_prerollads']));
@@ -566,12 +552,20 @@ function hd_update_media($media_id,$videourlmyfile,$hdurlmyfile,$thumurlmyfile,$
     $act_opimg = addslashes(trim($_POST['act_opimg']));
     }
 
+//    $act_link  = $siteurl."/wp-content/plugins/".$dirPage."/hdflvplayer/images//".$linkurlmyfile[name];
+//    if ($linkurlmyfile['name']) {
+//    $act_link = $siteurl . "/wp-content/plugins/".$dirPage."/hdflvplayer/images//" . $linkurlmyfile[name];
+//    } else {
+//    $act_link = addslashes(trim($_POST['act_link']));
+//    }
        $act_link = addslashes(trim($_POST['act_link']));
         $result = $wpdb->query(" UPDATE " . $wpdb->prefix . "hdflvvideoshare SET postrollads = '$act_postrollads' , prerollads = '$act_prerollads' , name = '$act_name',description='$act_description',file='$act_filepath' ,hdfile='$act_hdpath' , image='$act_image' , opimage='$act_opimg' , download='$act_download', link='$act_link', featured='$act_feature'  WHERE vid = '$media_id' ");
         move_uploaded_file($_FILES["videourlmyfile"]["tmp_name"], "../wp-content/plugins/" . dirname(plugin_basename(__FILE__)) . "/hdflvplayer/images/" . $_FILES["videourlmyfile"]["name"]);
         move_uploaded_file($_FILES["hdurlmyfile"]["tmp_name"], "../wp-content/plugins/" . dirname(plugin_basename(__FILE__)) . "/hdflvplayer/images/" . $_FILES["hdurlmyfile"]["name"]);
         move_uploaded_file($_FILES["thumurlmyfile"]["tmp_name"], "../wp-content/plugins/" . dirname(plugin_basename(__FILE__)) . "/hdflvplayer/images/" . $_FILES["thumurlmyfile"]["name"]);
-        move_uploaded_file($_FILES["preimgurlmyfile"]["tmp_name"], "../wp-content/plugins/" . dirname(plugin_basename(__FILE__)) . "/hdflvplayer/images/" . $_FILES["preimgurlmyfile"]["name"]);       
+        move_uploaded_file($_FILES["preimgurlmyfile"]["tmp_name"], "../wp-content/plugins/" . dirname(plugin_basename(__FILE__)) . "/hdflvplayer/images/" . $_FILES["preimgurlmyfile"]["name"]);
+       // move_uploaded_file($_FILES["linkurlmyfile"]["tmp_name"], "../wp-content/plugins/" . dirname(plugin_basename(__FILE__)) . "/hdflvplayer/images/" . $_FILES["linkurlmyfile"]["name"]);
+      
     }
 
     // Finished
@@ -651,9 +645,8 @@ function hd_add_playlist() {
     global $wpdb;
 
     // Get input informations from POST
-    $p_name = strip_tags($_POST['p_name']);
-    $p_name = preg_replace("/[^a-zA-Z0-9\/_-\s]/", '', $p_name);
-    $p_description = strip_tags($_POST['p_description']);
+    $p_name = addslashes(trim($_POST['p_name']));
+    $p_description = addslashes(trim($_POST['p_description']));
     $p_playlistorder = $_POST['sortorder'];
     if (empty($p_playlistorder))
         $p_playlistorder = "ASC";
@@ -686,8 +679,7 @@ function hd_update_playlist() {
 
     // Get input informations from POST
     $p_id = (int) ($_POST['p_id']);
-    $p_name = strip_tags($_POST['p_name']);
-    $p_name = preg_replace("/[^a-zA-Z0-9\/_-\s]/", '', $p_name);
+    $p_name = addslashes(trim($_POST['p_name']));
     $p_description = addslashes(trim($_POST['p_description']));
     $p_playlistorder = $_POST['sortorder'];
 
@@ -878,8 +870,8 @@ function hd_add_ads($wptfile_abspath, $wp_urlpath) {
 // Get input informations from POST
     // $sorder = $_POST['sorder'];
 
-    $ads_name = strip_tags(trim($_POST['name']));
-	$ads_name = preg_replace("/[^a-zA-Z0-9\/_-\s]/", '', $ads_name);
+    $ads_name = trim($_POST['name']);
+
     if ($_POST['youtube-value'] != '') {
 
         $ads_filepath = addslashes(trim($_POST['youtube-value']));
@@ -905,61 +897,50 @@ function hd_add_ads($wptfile_abspath, $wp_urlpath) {
             } else
                 render_error(__('Could not retrieve Youtube video information', 'hdflv'));
         }else {
-            $ads_filepath = strip_tags($_POST['youtube-value']);
+            $ads_filepath = $_POST['youtube-value'];
         }
     } else {
         if ($adsVideo != '')
             $ads_filepath = $wp_urlpath . "$adsVideo";
     }
-    if($ads_filepath !='' && $ads_name != ''){
-    	$insert_video = $wpdb->query(" INSERT INTO " . $wpdb->prefix . "hdflvvideoshare_vgads ( ads_id,  file_path , title )
+    $insert_video = $wpdb->query(" INSERT INTO " . $wpdb->prefix . "hdflvvideoshare_vgads ( ads_id,  file_path , title )
 	VALUES ( '', '$ads_filepath', '$ads_name' )");
-    }else{
-    	render_error(__('Error in Add Ad', 'ads'));
-    	return;
-    }
+
 
     if ($insert_video != 0) {
-    	$video_aid = $wpdb->insert_id;  // get index_id
-    	$tags = explode(',', $act_tags);
+        $video_aid = $wpdb->insert_id;  // get index_id
+        $tags = explode(',', $act_tags);
 
-    	render_message(__('Media file', 'ads') . ' ' . substr($ads_name,0,10) . __(' added successfully', 'ads'));
-    	return;
+        render_message(__('Media file', 'ads') . ' ' . substr($ads_name,0,10) . __(' added successfully', 'ads'));
     }
 
-
+    return;
 }
 
 //Function used for updating media data(File path,name,etc..)
 function hd_update_ads($ads_id,$editfilepath) {
-	global $wpdb;
+    global $wpdb;
 
-	$dir = dirname(plugin_basename(__FILE__));
-	$dirExp = explode('/', $dir);
-	$dirPage = $dirExp[0];
-	$pieces = explode(",", $_POST['hid']);
-	$ads_name = strip_tags(trim($_POST['ads_name']));
-	$ads_name = preg_replace("/[^a-zA-Z0-9\/_-\s]/", '', $ads_name);
-	$ads_filepath = strip_tags(trim($_POST['ads_filepath']));
-	$siteurl = get_bloginfo('url');
-	if (!empty($ads_filepath)) {
+    $dir = dirname(plugin_basename(__FILE__));
+    $dirExp = explode('/', $dir);
+    $dirPage = $dirExp[0];
+    $pieces = explode(",", $_POST['hid']);
+    $ads_name = addslashes(trim($_POST['ads_name']));
+      $ads_filepath = addslashes(trim($_POST['ads_filepath']));
+    $siteurl = get_bloginfo('url');
+      if (!empty($ads_filepath)) {
 
-		if($editfilepath[name]){
-			$ads_filepath = $siteurl."/wp-content/plugins/".$dirPage."/hdflvplayer/images//".$editfilepath[name];}
-			else
-			{
-				$ads_filepath = strip_tags(trim($_POST['ads_filepath']));
-			}
-			if($ads_filepath != '' && $ads_name != ''){
-				$result = $wpdb->query("UPDATE " . $wpdb->prefix . "hdflvvideoshare_vgads SET title = '$ads_name',  file_path='$ads_filepath'  WHERE ads_id = '$ads_id' ");
+    if($editfilepath[name]){
+    $ads_filepath = $siteurl."/wp-content/plugins/".$dirPage."/hdflvplayer/images//".$editfilepath[name];}
+else
+{
+     $ads_filepath = addslashes(trim($_POST['ads_filepath']));
+}
+        $result = $wpdb->query("UPDATE " . $wpdb->prefix . "hdflvvideoshare_vgads SET title = '$ads_name',  file_path='$ads_filepath'  WHERE ads_id = '$ads_id' ");
    move_uploaded_file($_FILES["myfile"]["tmp_name"], "../wp-content/plugins/" . dirname(plugin_basename(__FILE__)) . "/hdflvplayer/images/" . $_FILES["myfile"]["name"]);
-   render_message(__('Update Successfully', 'ads'));
-}else{
-	render_error(__('Error in Update Ad', 'ads')); 
-}
-}
-	return;   
-}
+    render_message(__('Update Successfully', 'ads'));
+    return;
+}}
 
 //Function used for deleting ads(video)
 function hd_delete_ads($act_vid, $deletefile) {

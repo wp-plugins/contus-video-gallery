@@ -1,50 +1,43 @@
 <?php
 /*
   Plugin Name: Wordpress Video Gallery
-  Version: 1.5
+  Version: 1.6
   Plugin URI: http://www.apptha.com/category/extension/Wordpress/Video-Gallery
   Description: Simplifies the process of adding video to a WordPress blog. Powered by Apptha.
   Author: Apptha
   Author URI: http://www.apptha.com
  */
-
 $widgetPath = get_template_directory() . '/html/widgets';
 if (file_exists($widgetPath . '/ContusFeatureVideos.php')) {
     include_once($widgetPath . '/ContusFeatureVideos.php');
 } else {
     include_once(dirname(__FILE__) . '/ContusFeatureVideos.php');
 }
-
 if (file_exists($widgetPath . '/ContusPopularVideos.php')) {
     include_once($widgetPath . '/ContusPopularVideos.php');
 } else {
     include_once(dirname(__FILE__) . '/ContusPopularVideos.php');
 }
-
 if (file_exists($widgetPath . '/ContusRecentVideos.php')) {
     include_once($widgetPath . '/ContusRecentVideos.php');
 } else {
     include_once(dirname(__FILE__) . '/ContusRecentVideos.php');
 }
-
 if (file_exists($widgetPath . '/ContusRelatedVideos.php')) {
     include_once($widgetPath . '/ContusRelatedVideos.php');
 } else {
     include_once(dirname(__FILE__) . '/ContusRelatedVideos.php');
 }
-
 if (file_exists($widgetPath . '/ContusVideoCategory.php')) {
     include_once($widgetPath . '/ContusVideoCategory.php');
 } else {
     include_once(dirname(__FILE__) . '/ContusVideoCategory.php');
 }
-
 if (file_exists($widgetPath . '/ContusVideoSearch.php')) {
     include_once($widgetPath . '/ContusVideoSearch.php');
 } else {
     include_once(dirname(__FILE__) . '/ContusVideoSearch.php');
 }
-
 if (file_exists($widgetPath . '/contusBannerSlideshow.php')) {
     include_once($widgetPath . '/contusBannerSlideshow.php');
 } else {
@@ -52,7 +45,6 @@ if (file_exists($widgetPath . '/contusBannerSlideshow.php')) {
 }
 $videoid = 0;
 $site_url = get_option('siteurl');
-
 function HDFLV_ShareParse($content) {
     $content = preg_replace_callback('/\[hdvideo ([^]]*)\o]/i', 'HDFLV_shareRender', $content);
     $content = preg_replace_callback('/\[videohome]/', 'HDFLV_homemainplayer', $content);
@@ -63,46 +55,34 @@ function HDFLV_ShareParse($content) {
 
     return $content;
 }
-
 function HDFLV_banner($content) {
-
-
     global $wpdb;
     include_once("contusBannerSlideshow.php");
     $pageObj = new default_banner();
     $returnPlayer = $pageObj->videosbanner($content);
     return $returnPlayer;
 }
-/* * ** CONDITION FOR INCLUDE PLAUGIN LAYOUT FROM THEMES. *** */
 $videoGalleryPath = get_template_directory() . '/html/contusvideogallery.php';
 if (file_exists($videoGalleryPath)) {
-//File include from current theme.
     require_once($videoGalleryPath);
 } else {
 function HDFLV_homemainplayer() {
     global $wpdb;
     include_once("themes/default/home.php");
     $pageObj = new default_home();
-    // $returnPlayer = $pageObj->videosSharePlayer();
-    if (!empty($_REQUEST['video_search'])) {
+   if (!empty($_REQUEST['video_search'])) {
         return $returnPopular = $pageObj->hdvSearchVideos();
     } else {
         include_once("themes/default/home.php");
         include_once("themes/default/videocategory.php");
         $returncategories = $pageObj->categories();
-        //$returnPlayer = $pageObj->videosSharePlayer();
         $videosbanner = $pageObj->videosbanner();
-        //$catList = new videoCategory();
-        // $catList->categoryList();
         $returnFeatures = $pageObj->featureVideos();
         $returnRecent = $pageObj->recentVideos();
         $returnPopular = $pageObj->popularVideos();
-
         return $returnFeatures . $returnRecent . $returnPopular . $returncategories . $videosbanner;
     }
 }
-
-
     function HDFLV_homepage() {
         global $wpdb;
         include_once("themes/default/home.php");
@@ -111,17 +91,14 @@ function HDFLV_homemainplayer() {
             return $returnPopular = $pageObj->hdvSearchVideos();
         } else {
             include_once("themes/default/videocategory.php");
-            // return $returnPlayer = $pageObj->videosSharePlayer();
             $videosbanner = $pageObj->videosbanner();
             $catList = new videoCategory();
-            // $catList->categoryList();
             $returnFeatures = $pageObj->featureVideos();
             $returnRecent = $pageObj->recentVideos();
             $returnPopular = $pageObj->popularVideos();
             return $videosbanner . $returnFeatures . $returnRecent . $returnPopular;
         }
     }
-
     function HDFLV_morepage() {
         global $wpdb;
         include("themes/default/more.php");
@@ -133,7 +110,6 @@ function HDFLV_homemainplayer() {
         $moreCategorylist = $moreObj->categoryList();
         return $moreFeature . $moreRecent . $morePopular . $morePlaylist . $moreCategorylist;
     }
-
     function HDFLV_videopage() {
         global $wpdb;
         include("themes/default/video.php");
@@ -141,13 +117,10 @@ function HDFLV_homemainplayer() {
         $listVideos = $pageVideos->listVideos();
         return $listVideos;
     }
-
 }
-
 function HDFLV_shareRender($arguments= array()) {
     global $wpdb;
     global $videoid, $site_url;
-
     $configXML = $wpdb->get_row("SELECT configXML,width,height FROM " . $wpdb->prefix . "hdflvvideoshare_settings");
     if (isset($arguments['width'])) {
         $width = $arguments['width'];
@@ -159,7 +132,6 @@ function HDFLV_shareRender($arguments= array()) {
     } else {
         $height = $configXML->height;
     }
-
     $output .= "\n" . '<div align="center" id="mediaspace"><span id="video' . $videoid . '" class="HDFLV">' . "\n";
     $output .= '<a href="http://www.macromedia.com/go/getflashplayer">Get the Flash Player</a> to see this player.</span>' . "\n";
     $output .= '<script type="text/javascript">' . "\n";
@@ -168,8 +140,6 @@ function HDFLV_shareRender($arguments= array()) {
     $output .= 's' . $videoid . '.addParam("allowscriptaccess","always");' . "\n";
     $output .= 's' . $videoid . '.addParam("wmode","opaque");' . "\n";
     $flashvars = "baserefW=" . get_option('siteurl');
-
-
     if (isset($arguments['playlistid']) && isset($arguments['id'])) {
         $flashvars .="&pid=" . $arguments['playlistid'];
         $flashvars .="&vid=" . $arguments['id'];
@@ -185,10 +155,6 @@ function HDFLV_shareRender($arguments= array()) {
     $output .= 's' . $videoid . '.write("video' . $videoid . '");' . "\n";
     $output .= '</script></div>' . "\n";
     $videoid++;
-    //--------------------------------HTML5 START-------------------------------------------------------------//
-
-    /* Error Msg for Video not supported to player. */
-
     $output .= '<script type="text/javascript">
 
             function failed(e) {
@@ -197,7 +163,6 @@ function HDFLV_shareRender($arguments= array()) {
             if(txt =="iPod"|| txt =="iPad" || txt == "iPhone" || txt == "Linux armv7l")
             {
             alert("Player doesnot support this video."); } }</script>';
-    /* Player Div */
     $vid = $arguments['id'];
     $output .='<div id="player" style="display:none;height:100%">';
     $select = "SELECT * FROM " . $wpdb->prefix . "hdflvvideoshare where vid='$vid'";
@@ -206,102 +171,67 @@ function HDFLV_shareRender($arguments= array()) {
         $videourl = $media->file;
         $imgurl = $media->image;
     }
-    /* if video is youtube. */
     if (preg_match("/www\.youtube\.com\/watch\?v=[^&]+/", $videourl, $vresult)) {
         $urlArray = split("=", $vresult[0]);
         $videoid = trim($urlArray[1]);
         $output .='<iframe  type="text/html" width="' . $configXML->width . '" height="' . $configXML->height . '" src="http://www.youtube.com/embed/' . $videoid . '" frameborder="0"></iframe>';
     }
-
-    /* if video is uploaded or direct path. */ else {
+     else {
         $output .='<video id="video" poster="' . $imgurl . '"   src="' . $videourl . '" width="' . $configXML->width . '" height="' . $configXML->height . '" autobuffer controls onerror="failed(event)">
      Html5 Not support This video Format.
 </video>';
     }
     $output .='</div>';
-
-    /* Player Div closed.
-     * Script for checking platform.
-     */
-
-    $output .=' <script>
+   $output .=' <script>
             txt =  navigator.platform ;
-
             if(txt =="iPod"|| txt =="iPad" || txt == "iPhone" || txt == "Linux armv7l")
             {
                document.getElementById("player").style.display = "block";
                 document.getElementById("mediaspace").style.display = "none";
-
             }else{
                 document.getElementById("player").style.display = "none";
                 document.getElementById("mediaspace").style.display = "block";
-
             }
         </script>';
-    //--------------------------------HTML5 End-------------------------------------------------------------//
     return $output;
 }
-
 add_shortcode('hdvideo', 'HDFLV_shareRender');
 add_shortcode('banner', 'HDFLV_banner');
-
-
-/* Adding page & options */
-
 function HDFLVShareAddPage() {
-
     $dir = dirname(plugin_basename(__FILE__));
     $dirExp = explode('/', $dir);
     $dirPage = $dirExp[0];
     add_menu_page("Video Gallery", "Video Gallery", 2, "hdflvvideoshare", "show_Sharemenu", get_bloginfo('url') . "/wp-content/plugins/$dirPage/images/apptha.png");
     add_submenu_page("hdflvvideoshare", "Video Gallery", "All Videos", 4, "hdflvvideoshare", "show_Sharemenu");
     add_submenu_page("hdflvvideoshare", "Video Gallery", "Play List", 4, "playlist", "show_Sharemenu");
-//add_media_page(__('hdflvvideoshare', 'hdflvvideoshare'), __('Wordpress VideoGallery', 'hdflvvideoshare'), 'edit_posts', 'hdflvvideoshare', 'show_Sharemenu');
     add_submenu_page("hdflvvideoshare", "Video ADs", "Video ADs", 4, "vgads", "show_Sharemenu");
-//add_media_page(__('ads', 'vgads'), __('ADS VideoGallery', 'vgads'), 'edit_posts', 'vgads', 'show_Sharemenu');
     add_submenu_page("hdflvvideoshare", "GallerySettings", "Settings", 4, "hdflvvideosharesettings", "show_Sharemenu");
-//    add_options_page('Wordpress GallerySettings', 'Wordpress GallerySettings', '8', 'hdflvvideoshare.php', 'FlashShareOptions');
 }
-
 function show_Sharemenu() {
     switch ($_GET['page']) {
         case 'hdflvvideoshare' :
-
             include_once (dirname(__FILE__) . '/functions.php'); // admin functions
             include_once (dirname(__FILE__) . '/manage.php');
             $MediaCenter = new HDFLVShareManage();
             break;
         case 'playlist' :
-
             include_once (dirname(__FILE__) . '/functions.php'); // admin functions
             include_once (dirname(__FILE__) . '/playlist.php');
             $MediaCenter = new HDFLVShareManage();
             break;
-
-
         case 'vgads' :
-
             include_once (dirname(__FILE__) . '/functions.php'); // admin functions
             include_once (dirname(__FILE__) . '/manageAds.php');
             $MediaCenter = new HDVIDEOManageAds();
             break;
-
-
-        /* Function used to Edit player settings and generate settings form elements */
-
-
         case 'hdflvvideosharesettings' :
-
             include_once (dirname(__FILE__) . '/functions.php'); // admin functions
             include_once (dirname(__FILE__) . '/manage.php');
-
             global $wpdb;
             global $site_url;
             $message = '';
             $g = array(0 => 'Properties');
-
             $options = get_option('HDFLVSettings');
-
             if ($_POST) {
                 if (isset($_POST['feature'])) {
                     $feature = $_POST['feature'];
@@ -312,59 +242,53 @@ function show_Sharemenu() {
                 if (isset($_POST['popular'])) {
                     $popular = $_POST['popular'];
                 }
-
-// For the Player Setting checking whether the field is empty insert or else update
-
                 $settings = $wpdb->get_col("SELECT * FROM " . $wpdb->prefix . "hdflvvideoshare_settings");
-                if (count($settings) > 0) {
+                  if (count($settings) > 0) {
                     $query = " UPDATE " . $wpdb->prefix . "hdflvvideoshare_settings SET
-			autoplay= '" . $_POST['autoplay'] . "',playlist='" . $_POST['playlist'] . "',playlistauto='" . $_POST['playlistauto']
-                            . "',buffer='" . $_POST['buffer'] . "',normalscale='" . $_POST['normalscale'] . "',fullscreenscale='" . $_POST['fullscreenscale'] . "'";
+			autoplay= '" . intval($_POST['autoplay']) . "',playlist='" . intval($_POST['playlist']) . "',playlistauto='" . intval($_POST['playlistauto'])
+                            . "',buffer='" . intval($_POST['buffer']) . "',normalscale='" . intval($_POST['normalscale']) . "',fullscreenscale='" . intval($_POST['fullscreenscale']) . "'";
                     if ($_FILES['logopath']["name"] != '') {
                         $query .= ",logopath='" . $_FILES['logopath']["name"] . "'";
                     }
-                    $query .=",colCat = '" . $_POST['colCat'] . "',rowCat = '" . $_POST['rowCat'] . "',comment_option = '" . $_POST['comment_option'] . "',logo_target='" . $_POST['logotarget'] . "',volume='" . $_POST['volume'] . "',logoalign='" . $_POST['logoalign'] . "',hdflvplayer_ads='" . $_POST['hdflvplayer_ads']
-                            . "',HD_default='" . $_POST['HD_default'] . "',download='" . $_POST['download'] . "',logoalpha='" . $_POST['logoalpha'] . "',skin_autohide='" . $_POST['skin_autohide']
-                            . "',stagecolor='" . $_POST['stagecolor'] . "',skin='" . $_POST['skin'] . "',embed_visible='" . $_POST['embed_visible'] . "',enable_social_share='" . $_POST['enable_social_share'] . "',enable_banner_slider='".$_POST['enable_banner_slider']."',shareURL='" . $_POST['shareURL']
-                            . "',playlistXML='" . $_POST['playlistXML'] . "',debug='" . $_POST['debug'] . "',timer='" . $_POST['timer'] . "',zoom='" . $_POST['zoom']
-                            . "',email='" . $_POST['email'] . "',fullscreen='" . $_POST['fullscreen'] . "',width='" . $_POST['width'] . "',height='" . $_POST['height']
-                            . "',display_logo='" . $_POST['display_logo'] . "',uploads='" . $_POST['uploads'] . "',license='" . trim($_POST['license']) . "',ffmpeg_path='" . $_POST['ffmpeg_path']
+                    $query .=",colCat = '" . $_POST['colCat'] . "',rowCat = '" . $_POST['rowCat'] . "',comment_option = '" . intval($_POST['comment_option']) . "',logo_target='" . $_POST['logotarget'] . "',volume='" . intval($_POST['volume']) . "',logoalign='" . $_POST['logoalign'] . "',hdflvplayer_ads='" . intval($_POST['hdflvplayer_ads'])
+                            . "',HD_default='" . intval($_POST['HD_default']) . "',download='" . intval($_POST['download']) . "',logoalpha='" . intval($_POST['logoalpha']) . "',skin_autohide='" . intval($_POST['skin_autohide'])
+                            . "',stagecolor='" . $_POST['stagecolor'] . "',skin='" . $_POST['skin'] . "',embed_visible='" . intval($_POST['embed_visible']) . "',shareURL='" . $_POST['shareURL']
+                            . "',playlistXML='" . $_POST['playlistXML'] . "',debug='" . intval($_POST['debug']) . "',timer='" . intval($_POST['timer']) . "',zoom='" . intval($_POST['zoom'])
+                            . "',email='" . intval($_POST['email']) . "',fullscreen='" . intval($_POST['fullscreen']) . "',width='" . intval($_POST['width']) . "',height='" . intval($_POST['height'])
+                            . "',display_logo='" . intval($_POST['display_logo']) . "',uploads='" . $_POST['uploads'] . "',license='" . trim($_POST['license']) . "',ffmpeg_path='" . $_POST['ffmpeg_path']
                             . "',hideLogo='" . $_POST['hideLogo'] . "',keyApps ='" . $_POST['keyApps'] . "',preroll ='" . $_POST['preroll'] . "',postroll ='" . $_POST['postroll'] . "',feature='" . $_POST['feature'] . "',recent='" . $_POST['recent'] . "',popular='" . $_POST['popular']
-                            . "',gutterspace='" . $_POST['gutterspace']. "',rowsFea='" . $_POST['rowsFea'] . "',colFea='" . $_POST['colFea'] . "',rowsRec='" . $_POST['rowsRec'] . "',colRec='" . $_POST['colRec']
-                            . "',rowsPop='" . $_POST['rowsPop'] . "',colPop='" . $_POST['colPop'] . "',page='" . $_POST['page'] . "',category_page='" . $_POST['category_page'] . "',stylesheet='" . $_POST['stylesheet'] . "',homecategory='" . $_POST['homecategory'] . "',bannercategory='" . $_POST['bannercategory'] . "',banner_categorylist='" . $_POST['banner_categorylist'] . "',hbannercategory='" . $_POST['hbannercategory'] . "',hbanner_categorylist='" . $_POST['hbanner_categorylist']
-                            . "',vbannercategory='" . $_POST['vbannercategory'] . "',vbanner_categorylist='" . $_POST['vbanner_categorylist']
+                            . "',gutterspace='" . intval($_POST['gutterspace']). "',rowsFea='" . $_POST['rowsFea'] . "',colFea='" . $_POST['colFea'] . "',rowsRec='" . $_POST['rowsRec'] . "',colRec='" . $_POST['colRec']
+                            . "',rowsPop='" . $_POST['rowsPop'] . "',colPop='" . $_POST['colPop'] . "',page='" . $_POST['page'] . "',category_page='" . $_POST['category_page'] . "',stylesheet='" . $_POST['stylesheet'] . "',homecategory='" . $_POST['homecategory'] . "',bannercategory='" . $_POST['bannercategory'] . "',banner_categorylist='" . intval($_POST['banner_categorylist']) . "',hbannercategory='" . $_POST['hbannercategory'] . "',hbanner_categorylist='" . intval($_POST['hbanner_categorylist'])
+                            . "',vbannercategory='" . $_POST['vbannercategory'] . "',vbanner_categorylist='" . intval($_POST['vbanner_categorylist'])
                             . "',bannerw='" . $_POST['bannerw'] . "',playerw='" . $_POST['playerw'] . "',numvideos='" . $_POST['numvideos']
                             . "' WHERE settings_id = " . $settings[0]['settings_id'];
 
                     $updateSettings = $wpdb->query($query);
                 } else {
                     $insertSettings = $wpdb->query(" INSERT INTO " . $wpdb->prefix . "hdflvvideoshare_settings
-						VALUES (" . $_POST['autoplay'] . "," . $_POST['playlist'] . "," . $_POST['playlistauto'] . "," . $_POST['buffer']
-                                    . "," . $_POST['normalscale'] . "," . $_POST['fullscreenscale'] . "," . $_POST['logopath'] . "," . $_POST['logotarget']
-                                    . "," . $_POST['volume'] . "," . $_POST['logoalign'] . "," . $_POST['hdflvplayer_ads'] . "," . $_POST['HD_default']
-                                    . "," . $_POST['download'] . "," . $_POST['logoalpha'] . "," . $_POST['skin_autohide'] . "," . $_POST['stagecolor']
-                                    . "," . $_POST['skin'] . "," . $_POST['embed_visible'] . "," . $_POST['shareURL'] . "," . $_POST['playlistXML']
-                                    . "," . $_POST['uploads'] . "," . $_POST['debug'] . "," . $_POST['timer'] . "," . $_POST['zoom'] . "," . $_POST['email']
-                                    . "," . $_POST['fullscreen'] . "," . $_POST['width'] . "," . $_POST['height'] . "," . $_POST['display_logo'] . "," . $_POST['uploadurl'] . "," . trim($_POST['license'])
+						VALUES (" . intval($_POST['autoplay']) . "," . intval($_POST['playlist']) . "," . intval($_POST['playlistauto']) . "," . intval($_POST['buffer'])
+                                    . "," . intval($_POST['normalscale']) . "," . intval($_POST['fullscreenscale']) . "," . $_POST['logopath'] . "," . $_POST['logotarget']
+                                    . "," . intval($_POST['volume']) . "," . $_POST['logoalign'] . "," . intval($_POST['hdflvplayer_ads']) . "," . intval($_POST['HD_default'])
+                                    . "," . intval($_POST['download']) . "," . intval($_POST['logoalpha']) . "," . intval($_POST['skin_autohide']) . "," . $_POST['stagecolor']
+                                    . "," . $_POST['skin'] . "," . intval($_POST['embed_visible']) . "," . $_POST['shareURL'] . "," . $_POST['playlistXML']
+                                    . "," . $_POST['uploads'] . "," . intval($_POST['debug']) . "," . intval($_POST['timer']) . "," . intval($_POST['zoom']) . "," . intval($_POST['email'])
+                                    . "," . intval($_POST['fullscreen']) . "," . intval($_POST['width']) . "," . intval($_POST['height']) . "," . intval($_POST['display_logo']) . "," . $_POST['uploadurl'] . "," . trim($_POST['license'])
                                     . "," . $_POST['hideLogo'] . "," . $_POST['keyApps'] . "," . $_POST['preroll'] . "," . $_POST['postroll'] . "," . $_POST['feature'] . "," . $_POST['rowsFea'] . "," . $_POST['colFea']
-                                    . "," . $_POST['gutterspace'] . "," . $_POST['recent'] . "," . $_POST['rowsRec'] . "," . $_POST['colRec'] . "," . $_POST['ffmpeg_path']
-                                    . "," . $_POST['popular'] . "," . $_POST['rowsPop'] . "," . $_POST['colPop'] . "," . $_POST['page'] . "," . $_POST['category_page'] . "," . $_POST['stylesheet'] . "," . $_POST['comment_option'] . "," . $_POST['rowCat'] . "," . $_POST['colCat'] . "," . $_POST['homecategory'] . "," . $_POST['bannercategory'] . "," . $_POST['banner_categorylist'] . "," . $_POST['vbannercategory'] . "," . $_POST['vbanner_categorylist']
+                                    . "," . intval($_POST['gutterspace']) . "," . $_POST['recent'] . "," . $_POST['rowsRec'] . "," . $_POST['colRec'] . "," . $_POST['ffmpeg_path']
+                                    . "," . $_POST['popular'] . "," . $_POST['rowsPop'] . "," . $_POST['colPop'] . "," . $_POST['page'] . "," . $_POST['category_page'] . "," . $_POST['stylesheet'] . "," . intval($_POST['comment_option']) . "," . $_POST['rowCat'] . "," . $_POST['colCat'] . "," . $_POST['homecategory'] . "," . $_POST['bannercategory'] . "," . intval($_POST['banner_categorylist']) . "," . $_POST['vbannercategory'] . "," . intval($_POST['vbanner_categorylist'])
                                     . "," . $_POST['bannerw'] . "," . $_POST['playerw'] . "," . $_POST['numvideos'] . ")");
                 }
                 move_uploaded_file($_FILES["logopath"]["tmp_name"], "../wp-content/plugins/" . dirname(plugin_basename(__FILE__)) . "/hdflvplayer/images/" . $_FILES["logopath"]["name"]);
                 $message = '<div class="updated"><p><strong>Options saved.</strong></p></div>';
-
-
                 $langSettings = $wpdb->get_col("SELECT * FROM " . $wpdb->prefix . "hdflvvideoshare_language");
                 if (count($langSettings) > 0) {
-
                     $langsetUpdate = "UPDATE " . $wpdb->prefix . "hdflvvideoshare_language SET
 	   play= '" . $_POST['play'] . "',pause= '" . $_POST['pause'] . "',hdison= '" . $_POST['hdison'] . "',hdisoff= '" . $_POST['hdisoff'] . "',zoom= '" . $_POST['lang_zoom'] . "'
            ,share= '" . $_POST['lang_share'] . "',lang_fullscreen= '" . $_POST['lang_fullscreen'] . "',relatedvideos= '" . $_POST['relatedvideos'] . "'
            ,sharetheword= '" . $_POST['sharetheword'] . "',sendanemail= '" . $_POST['sendanemail'] . "' ,`to`= '" . $_POST['to'] . "',`from`= '" . $_POST['from'] . "',`note`= '" . $_POST['note'] . "',`send`= '" . $_POST['send'] . "',`copylink`= '" . $_POST['copylink'] . "'
            ,`copyembed`= '" . $_POST['copyembed'] . "',`facebook`= '" . $_POST['facebook'] . "',reddit= '" . $_POST['reddit'] . "',friendfeed= '" . $_POST['friendfeed'] . "',slashdot= '" . $_POST['slashdot'] . "'
            ,delicious= '" . $_POST['delicious'] . "',myspace= '" . $_POST['myspace'] . "',wong= '" . $_POST['wong'] . "',digg= '" . $_POST['digg'] . "',blinklist= '" . $_POST['blinklist'] . "'
-           ,bebo= '" . $_POST['bebo'] . "',fark= '" . $_POST['fark'] . "',tweet= '" . $_POST['tweet'] . "',furl= '" . $_POST['furl'] . "' WHERE lang_id=1";
+           ,bebo= '" . $_POST['bebo'] . "',fark= '" . $_POST['fark'] . "',tweet= '" . $_POST['tweet'] . "',furl= '" . $_POST['furl'] . "',volume= '" . $_POST['volumee'] . "',adtxt= '" . $_POST['adtxt'] . "',skip= '" . $_POST['skip'] . "',download= '" . $_POST['download'] . "' WHERE lang_id=1";
                     $langUpdated = $wpdb->query($langsetUpdate);
                 } else {
                     $langsetInsert = $wpdb->query(" INSERT INTO " . $wpdb->prefix . "hdflvvideoshare_language
@@ -373,22 +297,12 @@ function show_Sharemenu() {
                                     "," . $_POST['to'] . "," . $_POST['from'] . "," . $_POST['note'] . "," . $_POST['send'] . "," . $_POST['copylink'] .
                                     "," . $_POST['copyembed'] . "," . $_POST['facebook'] . "," . $_POST['reddit'] . "," . $_POST['friendfeed'] . "," . $_POST['slashdot'] .
                                     "," . $_POST['delicious'] . "," . $_POST['myspace'] . "," . $_POST['wong'] . "," . $_POST['digg'] . "," . $_POST['blinklist'] .
-                                    "," . $_POST['bebo'] . "," . $_POST['fark'] . "," . $_POST['tweet'] . "," . $_POST['furl'] . ")");
+                                    "," . $_POST['bebo'] . "," . $_POST['fark'] . "," . $_POST['tweet'] . "," . $_POST['furl'] . "," . $_POST['volumee'] . "," . $_POST['adtxt'] . "," . $_POST['skip'] . "," . $_POST['download'] . ")");
                 }
             }
-// For the Language XML settings checking whether the field is empty insert or else update
-
-
-
-
-
             echo $message;
-
             $ski = str_replace('wp-admin', 'wp-content', dirname($_SERVER['SCRIPT_FILENAME'])) . '/plugins/' . dirname(plugin_basename(__FILE__)) . '/hdflvplayer/skin';
-
             $skins = array();
-
-            // Pull the directories listed in the skins folder to generate the dropdown list with valid skin files
             chdir($ski);
             if ($handle = opendir($ski)) {
                 while (false !== ($file = readdir($handle))) {
@@ -400,11 +314,9 @@ function show_Sharemenu() {
                 }
                 closedir($handle);
             }
-
             $fetchSettings = $wpdb->get_row("SELECT * FROM " . $wpdb->prefix . "hdflvvideoshare_settings");
             $fetchLanguage = $wpdb->get_row("SELECT * FROM " . $wpdb->prefix . "hdflvvideoshare_language");
 ?>
-            <!--HTML design for admin settings -->
             <link rel="stylesheet" href="<?php echo $site_url . '/wp-content/plugins/' . dirname(plugin_basename(__FILE__)) . '/css/jquery.ui.all.css'; ?>">
 
             <script src="<?php echo $site_url . '/wp-content/plugins/' . dirname(plugin_basename(__FILE__)) . '/js/jquery-1.4.4.js'; ?>"></script>
@@ -443,18 +355,18 @@ function show_Sharemenu() {
             </script>
 
             <div class="wrap">
-            <?php 
+            <?php
              $folder   = dirname(plugin_basename(__FILE__));
             $site_url = get_bloginfo('url');
             $get_title = $wpdb->get_var("SELECT license FROM ".$wpdb->prefix."hdflvvideoshare_settings WHERE settings_id=1");
-          
+
                   $get_key     = app_videogall_encrypt();
                   if($get_title != $get_key)
         {
             ?>
                 <a href="http://www.apptha.com/shop/checkout/cart/add/product/12" target="_blank">
                 <img src="<?php echo $site_url.'/wp-content/plugins/'.$folder.'/images/buynow.png';?>" style="float:right;margin-top:10px" width="125" height="28"  height="43" /></a>
-	          <?php  } ?>             
+	          <?php  } ?>
                 <h2>Wordpress Video Gallery Settings</h2>
                 <form method="post" enctype="multipart/form-data" action="admin.php?page=hdflvvideoshare">
                     <div><p style="float:left">Welcome to the Wordpress Video Gallery Settings plugin options menu! &nbsp;&nbsp;
@@ -592,8 +504,8 @@ function show_Sharemenu() {
                             <td> <select name="logoalign" style="width:150px;">
                                     <option <?php if ($fetchSettings->logoalign == 'TL') { ?> selected="selected" <?php } ?> value="TL">Top Left</option>
                                     <option <?php if ($fetchSettings->logoalign == 'TR') { ?> selected="selected" <?php } ?> value="TR">Top Right</option>
-                                    <option <?php if ($fetchSettings->logoalign == 'LB') { ?> selected="selected" <?php } ?> value="LB">Left Bottom</option>
-                                    <option <?php if ($fetchSettings->logoalign == 'RB') { ?> selected="selected" <?php } ?> value="RB">Right Bottom</option>
+                                    <option <?php if ($fetchSettings->logoalign == 'BL') { ?> selected="selected" <?php } ?> value="BL">Left Bottom</option>
+                                    <option <?php if ($fetchSettings->logoalign == 'BR') { ?> selected="selected" <?php } ?> value="BR">Right Bottom</option>
                                 </select></td>
                         </tr>
                         <tr>
@@ -685,19 +597,6 @@ function show_Sharemenu() {
                             <th scope='row'>Embed Visible</th>
                             <td><input type='checkbox' class='check' <?php if ($fetchSettings->embed_visible == 1) { ?> checked <?php } ?> name="embed_visible" value="1" size=45  /></td>
                         </tr>
-                        <tr>
-                            <th scope='row'>Enable social share</th>
-                            <td><input type='checkbox' class='check' <?php if ($fetchSettings->enable_social_share == 1) { ?> checked <?php } ?> name="enable_social_share" value="1" size=45  /></td>
-                        </tr>
-                        <tr>
-                            <th scope='row'>Enable banner slider</th>
-                            <td><input type='checkbox' class='check' <?php if ($fetchSettings->enable_banner_slider == 1) { ?> checked <?php } ?> name="enable_banner_slider" value="1" size=45  /></td>
-                        </tr>
-<!--                        <tr>
-                            <th scope='row'>Debug</th>
-                            <td><input type='checkbox' class='check' <?php //if ($fetchSettings->debug == 1) {  ?> checked <?php //}  ?> name="debug" value="1" size=45  /></td>
-                        </tr>-->
-
                     </table>
                 </div>
             </div>
@@ -777,16 +676,17 @@ function show_Sharemenu() {
 <?php
                                               $vbannercategories = $wpdb->get_results("SELECT * FROM " . $wpdb->prefix . "hdflvvideoshare_playlist ");
                                               $vbannercategorylist = $wpdb->get_row("SELECT * FROM " . $wpdb->prefix . "hdflvvideoshare_settings ");
-?> 
+?>
 
 
                                               <tr>
                                                   <th>Banner Videos</th>
 
                                                   <td><input  onclick="vbanner(this.value,'');" type='radio' name="vbannercategory"  value="vpopular" <?php if ($fetchSettings->vbannercategory == vpopular)
-                                                  echo 'checked'; ?> /><?php _e('Popular Videos','hdflvvideoshare');?><br/>
+                                                  echo 'checked'; ?> />Popular Videos<br/>
                                                       <input  onclick="vbanner(this.value,'');" type='radio' name="vbannercategory"  value="vrecent"  <?php if ($fetchSettings->vbannercategory == vrecent)
                                                   echo 'checked'; ?> />Recent Videos<br/>
+
                                                       <input onclick="vbanner(this.value,'');" type='radio'  name="vbannercategory"  value="vfeatured"  <?php if ($fetchSettings->vbannercategory == vfeatured)
                                                   echo 'checked'; ?> />Featured Videos<br/>
                                       <input onclick="vbanner(this.value,'');" type='radio'  name="vbannercategory"  onclick="vbanner(this.value,'<?php echo $vbannercategorylist->vbanner_categorylist; ?>');" value="vcategory"  <?php if ($fetchSettings->vbannercategory == vcategory)
@@ -1198,11 +1098,25 @@ function show_Sharemenu() {
                                       <th scope='row'>Furl</th>
                                       <td><input type='text' class='text' name="furl"  value="<?php echo $fetchLanguage->furl; ?>"  size=25  /></td>
                                   </tr>
+                                  <tr>
+                                      <th scope='row'>Download</th>
+                                      <td><input type='text' class='text' name="download"  value="<?php echo $fetchLanguage->download; ?>"  size=25  /></td>
+                                  </tr>
+                                  <tr>
+                                      <th scope='row'>Skip</th>
+                                      <td><input type='text' class='text' name="skip"  value="<?php echo $fetchLanguage->skip; ?>"  size=25  /></td>
+                                  </tr>
+                                  <tr>
+                                      <th scope='row'>Adtxt</th>
+                                      <td><input type='text' class='text' name="adtxt"  value="<?php echo $fetchLanguage->adtxt; ?>"  size=25  /></td>
+                                  </tr>
+                                  <tr>
+                                      <th scope='row'>Volume</th>
+                                      <td><input type='text' class='text' name="volumee"  value="<?php echo $fetchLanguage->volume; ?>"  size=25  /></td>
+                                  </tr>
                               </table>
                           </div>
                       </div>
-                      <!-- End of Language XML -->
-
                   </div>
                   <p class='submit' style="float:left; padding-left: 866px "><input class='button-primary' type='submit' value='Update Options'></p>
                   <div class="clear"></div>
@@ -1212,16 +1126,11 @@ function show_Sharemenu() {
                                               break;
                                       }
                                   }
-
                                   function Hdflv_Sharehead() {
                                       global $site_url;
                                       echo '<script type="text/javascript" src="' . $site_url . '/wp-content/plugins/' . dirname(plugin_basename(__FILE__)) . '/swfobject.js"></script>' . "\n";
                                   }
-
                                   add_action('wp_head', 'Hdflv_Sharehead');
-
-                                  /* Loading default settings of player */
-
                                   function HdflvloadSharedefaults() {
                                       global $wpdb;
                                       $insertSettings = $wpdb->query("INSERT INTO " . $wpdb->prefix . " hdflvvideoshare_settings
@@ -1232,28 +1141,86 @@ function show_Sharemenu() {
 						VALUES (1,'play','pause','HD is On','HD is Off','Zoom','Share','Fullscreen','Related Videos',
                                                 'Share the Word','Send an Email','To','From','Note (Optional)','Send','Copy Link',
                                                 'Copy Embedcode','Facebook','reddit','friendfeed','slashdot','delicious','myspace','wong',
-                                                'digg','blinklist','bebo', 'fark','tweet','furl')");
-                                     
-                                   
+                                                'digg','blinklist','bebo', 'fark','tweet','furl','Download','Skip this Video','Your selection will follow this sponsors message in - seconds','Volume')");
+
+                                      $insertLanguage = $wpdb->query("INSERT INTO " . $wpdb->prefix . " hdflvvideoshare_playlist (`pid`, `playlist_name`, `playlist_desc`, `playlist_order`) VALUES
+                                                                           (2, 'Movie Trailer', '', 'ASC'),
+        (3, 'Animation', '', 'ASC'),
+        (4, 'Animals', '', 'ASC'),
+        (5, 'Cricket', '', 'ASC'),
+        (6, 'Video Game', '', 'ASC') ");
+                                      $insertLanguage = $wpdb->query("INSERT INTO " . $wpdb->prefix . "hdflvvideoshare (`vid`, `name`, `description`, `file`, `hdfile`, `file_type`, `duration`, `image`, `opimage`, `download`, `link`, `featured`, `hitcount`, `post_date`, `postrollads`, `prerollads`) VALUES
+('1', 'Fast And Furious 5 (Official Trailer) HD', '', 'www.youtube.com/watch?v=4PspF_GA-9U', '', 1, '2:27', 'http://img.youtube.com/vi/4PspF_GA-9U/1.jpg', 'http://img.youtube.com/vi/4PspF_GA-9U/0.jpg', '', 'http://www.youtube.com/watch?v=4PspF_GA-9U', 'ON', 2, '2011-11-15 07:22:39', '0', '0'),
+('2', 'Im Legend Trailer 1080p', '', 'www.youtube.com/watch?v=kAxppVB3SHo', '', 1, '2:04', 'http://img.youtube.com/vi/kAxppVB3SHo/1.jpg', 'http://img.youtube.com/vi/kAxppVB3SHo/0.jpg', '', 'http://www.youtube.com/watch?v=kAxppVB3SHo', 'ON', 1, '2011-11-15 07:23:32', '0', '0'),
+('3', 'Mission Impossible III Trailer 1', 'trailer of mission impossible 3 with tom cruise', 'www.youtube.com/watch?v=1E-9XIJzQdc&feature=related', '', 1, '1:36', 'http://img.youtube.com/vi/1E-9XIJzQdc/1.jpg', 'http://img.youtube.com/vi/1E-9XIJzQdc/0.jpg', '', 'http://www.youtube.com/watch?v=1E-9XIJzQdc&feature=related', 'ON', 1, '2011-11-15 07:23:51', '0', '0'),
+('4', 'Titanic - Official Trailer [1997]', 'Deep-sea explorer Brock Lovett has reached the most famous shipwreck of all - the Titanic. Emerging with a safe believed to contain a diamond called ', 'www.youtube.com/watch?v=zCy5WQ9S4c0', '', 1, '4:09', 'http://img.youtube.com/vi/zCy5WQ9S4c0/1.jpg', 'http://img.youtube.com/vi/zCy5WQ9S4c0/0.jpg', '', 'http://www.youtube.com/watch?v=zCy5WQ9S4c0', 'ON', 1, '2011-11-15 07:24:11', '0', '0'),
+('5', 'Harry Potter and the Deathly Hallows Trailer Official HD', '', 'www.youtube.com/watch?v=_EC2tmFVNNE', '', 1, '2:30', 'http://img.youtube.com/vi/_EC2tmFVNNE/1.jpg', 'http://img.youtube.com/vi/_EC2tmFVNNE/0.jpg', '', 'http://www.youtube.com/watch?v=_EC2tmFVNNE', 'ON', 1, '2011-11-15 07:24:34', '0', '0'),
+('6', 'Into the Wild -  Trailer', 'into the wild - trailer', 'www.youtube.com/watch?v=2LAuzT_x8Ek&feature=related', '', 1, '2:24', 'http://img.youtube.com/vi/2LAuzT_x8Ek/1.jpg', 'http://img.youtube.com/vi/2LAuzT_x8Ek/0.jpg', '', 'http://www.youtube.com/watch?v=2LAuzT_x8Ek&feature=related', 'ON', 1, '2011-11-15 07:24:49', '0', '0'),
+('7', 'Cecelia - The Balcony Girl - Dilsukhnagar Arena - 3D Animation Short Film', '', 'www.youtube.com/watch?v=JhKQz2TwSAE', '', 1, '4:04', 'http://img.youtube.com/vi/JhKQz2TwSAE/1.jpg', 'http://img.youtube.com/vi/JhKQz2TwSAE/0.jpg', '', 'http://www.youtube.com/watch?v=JhKQz2TwSAE', 'ON', 4, '2011-11-15 07:25:19', '0', '0'),
+('8', '3D Animation Short - Bolt [2009] - I Found Myself [HD]', 'Bolt finally realises what it', 'www.youtube.com/watch?v=aKFKixs3IkU', '', 1, '2:20', 'http://img.youtube.com/vi/aKFKixs3IkU/1.jpg', 'http://img.youtube.com/vi/aKFKixs3IkU/0.jpg', '', 'http://www.youtube.com/watch?v=aKFKixs3IkU', 'ON', 3, '2011-11-15 07:25:52', '0', '0'),
+('9', 'Feel  the Punch - Dilsukhnagar Arena - Award-Winning 3D Animation Short Film', 'A mind-game between a beggar and a commuter waiting to board a bus takes a startling turn as the commuter realizes he is outsmarted.', 'www.youtube.com/watch?v=BO3N6VdYCjY', '', 1, '3:20', 'http://img.youtube.com/vi/BO3N6VdYCjY/1.jpg', 'http://img.youtube.com/vi/BO3N6VdYCjY/0.jpg', '0', 'http://www.youtube.com/watch?v=BO3N6VdYCjY', 'ON', 2, '2011-11-15 07:26:12', '0', '0'),
+('10', 'Short Animation -ALARM- HD720', 'Moo-hyun Jang, a director of  independent Animation team, MESAI. Let me introduce the second short animation film, ALARM.', 'www.youtube.com/watch?v=vN83DfmH9Tw', '', 1, '8:50', 'http://img.youtube.com/vi/vN83DfmH9Tw/1.jpg', 'http://img.youtube.com/vi/vN83DfmH9Tw/0.jpg', '', 'http://www.youtube.com/watch?v=vN83DfmH9Tw', 'ON', 3, '2011-11-15 07:26:36', '0', '0'),
+('11', 'Lufuno the White Lion - HD 720p', 'Lufuno is one of the few male White Lions in North America and the only one of his kind to be professionally trained for film and commercial work. ', 'www.youtube.com/watch?v=gyE4wyqvOU4', '', 1, '2:43', 'http://img.youtube.com/vi/gyE4wyqvOU4/1.jpg', 'http://img.youtube.com/vi/gyE4wyqvOU4/0.jpg', '', 'http://www.youtube.com/watch?v=gyE4wyqvOU4', 'ON', 3, '2011-11-15 07:27:22', '0', '0'),
+('12', 'White Lion Cubs birth part 2 - eating meat', 'Four week old white lion cubs eating meat', 'www.youtube.com/watch?v=pogrcbuybRY', '', 1, '9:53', 'http://img.youtube.com/vi/pogrcbuybRY/1.jpg', 'http://img.youtube.com/vi/pogrcbuybRY/0.jpg', '', 'http://www.youtube.com/watch?v=pogrcbuybRY', 'ON', 1, '2011-11-15 07:27:39', '0', '0'),
+('13', 'HD: Lioness Hunts Zebra The Great Migration - BBC One', '', 'www.youtube.com/watch?v=INcW26-iyqU', '', 1, '0:38', 'http://img.youtube.com/vi/INcW26-iyqU/1.jpg', 'http://img.youtube.com/vi/INcW26-iyqU/0.jpg', '', 'http://www.youtube.com/watch?v=INcW26-iyqU', 'ON', 2, '2011-11-15 07:27:56', '0', '0'),
+('14', 'Longest Six by Sachin', 'Sachin Tendulkar Best and Longest Six', 'www.youtube.com/watch?v=uPxQLRJOMZ4', '', 1, '0:42', 'http://img.youtube.com/vi/uPxQLRJOMZ4/1.jpg', 'http://img.youtube.com/vi/uPxQLRJOMZ4/0.jpg', '', 'http://www.youtube.com/watch?v=uPxQLRJOMZ4', 'ON', 3, '2011-11-15 07:30:19', '0', '0'),
+('15', 'Quick Recap of Cricket World Cup 2011 Highlights HD HQ....', 'Cricket World Cup 2011 best ever highlights HD HQ....', 'www.youtube.com/watch?v=q76yIVfVBaI', '', 1, '4:52', 'http://img.youtube.com/vi/q76yIVfVBaI/1.jpg', 'http://img.youtube.com/vi/q76yIVfVBaI/0.jpg', '', 'http://www.youtube.com/watch?v=q76yIVfVBaI', 'ON', 2, '2011-11-15 07:30:35', '0', '0'),
+('16', 'Grand Theft Auto 5 Trailer (GTA V)', 'Check out GTA5 @ Rockstar Games ', 'www.youtube.com/watch?v=MXRqUjGmA7A', '', 1, '1:25', 'http://img.youtube.com/vi/MXRqUjGmA7A/1.jpg', 'http://img.youtube.com/vi/MXRqUjGmA7A/0.jpg', '', 'http://www.youtube.com/watch?v=MXRqUjGmA7A', 'ON', 3, '2011-11-15 07:32:10', '0', '0'),
+('17', 'BrainShake 2 the Hot New iPad Game', '', 'www.youtube.com/watch?v=5PX1PnfvzHs', '', 1, '1:18', 'http://img.youtube.com/vi/5PX1PnfvzHs/1.jpg', 'http://img.youtube.com/vi/5PX1PnfvzHs/0.jpg', '', 'http://www.youtube.com/watch?v=5PX1PnfvzHs', 'ON', 3, '2011-11-15 07:32:31', '0', '0')
+");
                                       $table_tags = $wpdb->prefix . 'hdflvvideoshare_tags';
                                       $table_tagsdata = $wpdb->get_results("SELECT * FROM " . $table_tags);
-                                     
-                                  }
-                                  
-                                  
-    function app_videogall_encrypt() 
-	{
+                                      if (empty($table_tagsdata)) {
 
-		$code = genenrateOscdomain(); 
+                                          $table_tagsdatainsert = $wpdb->query("INSERT INTO " . $wpdb->prefix . "hdflvvideoshare_tags (`vtag_id`, `tags_name`, `seo_name`, `media_id`) VALUES
+                    ('', 'The\, Fast\, And\, Furious\, (Official\, Trailer)\, velo', 'The-Fast-And-Furious-(Official-Trailer)-velo', '1'),
+                    ('', 'am\, Legend\, Movie\, Will Smith\, Richard\, Matheson', 'am,-Legend,-Movie,-Will-Smith,-Richard,-Matheson,-', '2'),
+                    ('', 'Mission\, Impossible\, III\, Trailer', 'Mission,-Impossible,-III,-Trailer,-1', '3'),
+                    ('', 'James\, Cameron\, Leonardo\, DiCaprio\, Kate\, Winslet', 'James,-Cameron,-Leonardo,-DiCaprio,-Kate,-Winslet,', '4'),
+                    ('', 'Harry\, Potter\, and\, the\, Deathly\, Hallows\, Trailer', 'Harry,-Potter,-and,-the,-Deathly,-Hallows,-Trailer', '5'),
+                    ('', 'into\, the\, wild\, kristen\, stewart\, Emile\, Hirsch ', 'into,-the,-wild,-kristen,-stewart,-Emile,-Hirsch,-', '6'),
+                    ('', 'DNA Incubation\, Cecelia\, The Balcony GirlDNA Incub', 'DNA-Incubation,-Cecelia,-The-Balcony-GirlDNA-Incub', '7'),
+                    ('', 'Bolt\, Found\, Myself\, Puppy\, Dog\, American\, White ', 'Bolt,-Found,-Myself,-Puppy,-Dog,-American,-White,-', '8'),
+                    ('', 'DNA Incubation\, Dilsukhnagar Arena Animation\, Stud', 'DNA-Incubation,-Dilsukhnagar-Arena-Animation,-Stud', '9'),
+                    ('', 'Animation\, 3d\, CG\, HD\, ALARM\, movie\, mentalray', 'Animation,-3d,-CG,-HD,-ALARM,-movie,-mentalray,-ma', '10'),
+                    ('', 'white lion\, way west media\, lion hd\, lio', 'white-lion,-way-west-media,-lion-hd,-lions-hd,-lio', '11'),
+                    ('', 'White\, lion\, cubs\, safari\, park\, feed\, cute\, eatin', 'White,-lion,-cubs,-safari,-park,-feed,-cute,-eatin', '12'),
+                    ('', 'lion\, chase\, hunt\, wildebeest\, baby\, calf\, zebra ', 'lion,-chase,-hunt,-wildebeest,-baby,-calf,-zebra,-', '13'),
+                    ('', 'Sachin\, Tendulkar\, Best\, Six\, Cricket', 'Sachin,-Tendulkar,-Best,-Six,-Cricket', '14'),
+                    ('', 'Cricket\, WC\, 2011\, Recap....', 'Cricket,-WC,-2011,-Recap....', '15'),
+                    ('', 'Grand\, Theft\, Auto\, gta\, gtav\, five\, GTA V\, GTA 5', 'Grand,-Theft,-Auto,-gta,-gtav,-five,-GTA-V,-GTA-5,', '16'),
+                    ('', 'iPad\, iPhone\, iPod touch\, game\, games', 'iPad,-iPhone,-iPod-touch,-game,-games,mobile', '17')
+");
+                                      }
+
+                                      $insertLanguage = $wpdb->query("INSERT INTO " . $wpdb->prefix . "hdflvvideoshare_med2play (`rel_id`, `media_id`, `playlist_id`, `porder`, `sorder`) VALUES
+(6, 27, 3, 0, 0),
+(7, 1, 2, 0, 0),
+(8, 2, 2, 0, 0),
+(9, 3, 2, 0, 0),
+(10, 4, 2, 0, 0),
+(11, 5, 2, 0, 0),
+(12, 6, 2, 0, 0),
+(13, 7, 3, 0, 0),
+(14, 8, 3, 0, 0),
+(15, 9, 3, 0, 0),
+(16, 10, 3, 0, 0),
+(17, 12, 4, 0, 0),
+(18, 13, 4, 0, 0),
+(19, 14, 5, 0, 0),
+(20, 15, 5, 0, 0),
+(21, 16, 6, 0, 0),
+(22, 17, 6, 0, 0),
+(23, 11, 4, 0, 0)");
+                                  }
+    function app_videogall_encrypt()
+	{
+		$code = genenrateOscdomain();
 		$app_videogall_getOffset = substr($code, 0, 25) . "CONTUS";
 		return $app_videogall_getOffset;
-		
 	}
-
 	function app_videogall_getOffset($tkey) {
-
 		$message = "EW-VGMP0EFIL9XEV8YZAL7KCIUQ6NI5OREH4TSEB3TSRIF2SI1ROTAIDALG-JW";
-
 		for ($i = 0; $i < strlen($tkey); $i++) {
 			$key_array[] = $tkey[$i];
 		}
@@ -1304,7 +1271,7 @@ function show_Sharemenu() {
 	}
 
 	 function genenrateOscdomain() {
-	
+
             $site_url = get_bloginfo('url');
             $strDomainName = $site_url;
             preg_match("/^(http:\/\/)?([^\/]+)/i", $strDomainName, $subfolder);
@@ -1323,13 +1290,8 @@ function show_Sharemenu() {
 			$response = "";
 		}
 		return $response;
-	}                         
-                                  
-                              
-
-                                  /* Function to uninstall player plugin */
-
-                                  function hdflv_Sharedeinstall() {
+	}
+                               function hdflv_Sharedeinstall() {
                                       global $wpdb, $wp_version;
 
                                       $hd_table = $wpdb->prefix . 'hdflvvideoshare';
@@ -1338,47 +1300,27 @@ function show_Sharemenu() {
                                       $hd_table_set = $wpdb->prefix . 'hdflvvideoshare_settings';
                                       $hd_table_lang = $wpdb->prefix . 'hdflvvideoshare_language';
                                   }
-
-                                  /* Function to invoke install player plugin */
-
                                   function hd_ShareInstall() {
 
                                       require_once(dirname(__FILE__) . '/install.php');
                                       hdflv_install();
-                                      HdflvloadSharedefaults();
                                   }
+                                  function hdflv_Shareactivate() {
+                                      HdflvloadSharedefaults();
+                                                     }
 
-                                  /* Function to activate player plugin */
-
-                               
                                   register_activation_hook(plugin_basename(dirname(__FILE__)) . '/hdflvvideoshare.php', 'hd_ShareInstall');
+                                  register_activation_hook(__FILE__, 'hdflv_Shareactivate');
                                   register_uninstall_hook(__FILE__, 'hdflv_Sharedeinstall');
-
-								  add_action('plugins_loaded', 'hd_ShareInstall');
-                                  /* Function to deactivate player plugin */
-
                                   function hdflv_Sharedeactivate() {
                                       global $wpdb;
                                       delete_option('HDFLVSettings');
                                       $homeDel = "DELETE FROM " . $wpdb->prefix . "posts WHERE post_content='[contusHome]'";
                                       $homeDelete = $wpdb->get_results($homeDel);
                                   }
-
-                                  //register_uninstall_hook(__FILE__, 'hdflv_Sharedeactivate');
-
-// CONTENT FILTER
-
                                   add_filter('the_content', 'HDFLV_ShareParse');
-
-// OPTIONS MENU
                                   add_action('admin_menu', 'HDFLVShareAddPage');
-                                  // For upgrade
                                   register_uninstall_hook(__FILE__, 'videopluginUninstalling');
-
-                                 // register_deactivation_hook(__FILE__, 'videopluginUninstalling');
-
-//DeActivate Plugin
-
                                   function videopluginUninstalling() { //for uninstalling digicommerce-plugin tables in database
                                       global $wpdb;
                                       $wpdb->query(" DELETE FROM " . $wpdb->prefix . "posts WHERE post_content = '[videomore]'");

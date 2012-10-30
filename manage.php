@@ -1,38 +1,35 @@
 <?php
 /**
  * @name          : Wordpress VideoGallery.
- * @version	  	  : 1.5
+ * @version	  : 1.3
  * @package       : apptha
  * @subpackage    : contus-video-galleryversion-10
  * @author        : Apptha - http://www.apptha.com
  * @copyright     : Copyright (C) 2011 Powered by Apptha
- * @license	      : GNU General Public License version 2 or later; see LICENSE.txt
- * @Purpose       : Common function need throughout the plugin.
- * @Creation Date : Feb 21, 2011
- * @Modified Date : Jul 19, 2012
+ * @license	  : GNU General Public License version 2 or later; see LICENSE.txt
+ * @Creation Date : Fev 21 2011
+ * @Modified Date : December 07 2011
  * */
 $contus = dirname(plugin_basename(__FILE__));
 $site_url = get_option('siteurl');
 ?>
 <script type="text/javascript" src="../wp-content/plugins/<?php echo $contus ?>/js/jquery-1.3.2.min.js"></script>
 <script type="text/javascript" src="../wp-content/plugins/<?php echo $contus ?>/js/jquery-ui-1.7.1.custom.min.js"></script>
-<script type="text/javascript" src="../wp-content/plugins/<?php echo $contus ?>/js/selectuser.js"></script>
+<script type="text/javascript" src="../wp-content/plugins/<?php echo $contus ?>/selectuser.js"></script>
 <link rel='stylesheet' href='../wp-content/plugins/<?php echo $contus ?>/css/styles123.css' type='text/css' media='all' />
 <script type="text/javascript">
     // When the document is ready set up our sortable with it's inherant function(s)
-      $(document).ready(function() {
+    $(document).ready(function() {
         $("#test-list").sortable({
             handle : '.handle',
             update : function () {
                 var order = $('#test-list').sortable('serialize');
-                   var url = "../wp-content/plugins/<?php echo $contus ?>/process-sortable.php";
+
                 //alert(order);
                 var playid = document.getElementById('playlistid2').value;
                 //$("#info").load("../wp-content/plugins/<?php echo $contus ?>/process-sortable.php?"+order+"&playid="+playid);
-//                 $.post("../wp-content/plugins/<?php echo $contus ?>/process-sortable.php",{getSortOrder:"getSortOrder",order:order,playid:playid},function(result){
-//                        jQuery("#viewCount"+ival).html(result);
-//                  });
-                showUser(url,playid,order);
+
+                showUser(playid,order);
                 //alert(myarray1);
                 //document.filterType.submit();
 
@@ -140,7 +137,7 @@ $site_url = get_option('siteurl');
     function submitUploadForm(form_handle)
     {
         document.forms[form_handle].target = "uploadvideo_target";
-        document.forms[form_handle].action = "../wp-content/plugins/<?php echo $contus; ?>/upload1.php?processing=1&token=<?php echo md5(DB_NAME); ?>";
+        document.forms[form_handle].action = "../wp-content/plugins/<?php echo $contus; ?>/upload1.php?processing=1";
         document.forms[form_handle].submit();
     }
     function setStatus(form_handle,status)
@@ -382,47 +379,6 @@ class HDFLVShareManage {
      
 //TODO:Include nonce !!!
 
-     if(isset($_REQUEST['doactionVideos']))
-		{
-			//
-			if (isset($_REQUEST['actionVideos']) == 'delete')
-         {
-         	for ($i = 0; $i < count($_POST['videoList']); $i++)
-            {
-            	$videoListId = is_numeric($_POST['videoList'][$i]);
-            	
-            	if($videoListId)
-            	{
-            		$videoListVal = $_POST['videoList'][$i];
-            		$wpdb->query(" DELETE FROM " . $wpdb->prefix . "hdflvvideoshare WHERE vid = $videoListVal");
-            	}
-         	//print_r($_REQUEST);
-            }
-            $msg = 'Video(s) Deleted Successfully';
-         }
-		}
-    if(isset($_REQUEST['doactionPlaylist']))
-		{
-			//
-			if (isset($_REQUEST['actionPlaylist']) == 'delete')
-         {
-         	for ($i = 0; $i < count($_POST['checkList']); $i++)
-            {
-            	$playListId = is_numeric($_POST['checkList'][$i]);
-            	
-            	if($playListId)
-            	{
-            		$playListVal = $_POST['checkList'][$i];
-            		$wpdb->query(" DELETE FROM " . $wpdb->prefix . "hdflvvideoshare_playlist WHERE pid = $playListVal");
-            	}
-         	//print_r($_REQUEST);
-            }
-            $this->mode = 'playlist';
-                                       // show playlist
-                                       $this->render_admin($this->mode);
-         
-         }
-		}
         if (isset($_POST['add_media'])) {
             hd_add_media($this->wptfile_abspath, $this->wp_urlpath);
             $this->mode = 'main';
@@ -444,60 +400,8 @@ class HDFLVShareManage {
                $thumurlmyfile= $_FILES["thumurlmyfile"];
                $preimgurlmyfile= $_FILES["preimgurlmyfile"];
                $linkurlmyfile= $_FILES["linkurlmyfile"];
-               $allExt = array();
-               
-            if($videourlmyfile['name'] != '' || $hdurlmyfile['name'] != ''){
-            	$allowedExtensions = array("MP4", "M4V", "M4A", "MOV", "Mp4v" ,"F4V","FLV",
-            							   "mp4", "m4v", "m4a", "mov", "Mp4v" ,"f4v","flv");	
-            	if($videourlmyfile['name']){
-                if(in_array(end(explode(".", $videourlmyfile['name'])), $allowedExtensions)){
-            		$allExt[1] = true;
-            	}else{
-            		$allExt[2] = '0';
-            	}
-            	}
-            	if($hdurlmyfile['name']){
-            	if (in_array(end(explode(".", $hdurlmyfile['name'])), $allowedExtensions)){
-            		$allExt[3] = true;
-            	}else{
-            		$allExt[4] = '0';	
-            	}
-            	}
-            }   
-            
-            if($thumurlmyfile['name'] != '' || $preimgurlmyfile['name'] != ''){
- 			$allowedExtensions = array("jpg", "jpeg", "png", "gif",
- 									   "JPG", "JPEG", "PNG", "GIF");
- 			if($thumurlmyfile['name']){
-	 			if(in_array(end(explode(".", $thumurlmyfile['name'])), $allowedExtensions)){
-	 				$allExt[5] = true;
-	 			}else{
-	 				$allExt[6] = '0';
-	 			}
- 			}
- 			if($preimgurlmyfile['name']){
-	 			if (in_array(end(explode(".", $preimgurlmyfile['name'])), $allowedExtensions)){
-	 				$allExt[7] = true;
-	 			}else{
-	 				$allExt[8] = '0';
-	 			}
-            }            
-            }
-
-            if(count($allExt)>0){
-            	$result = array_search('0', $allExt);
-
-            	if($result != ''){
-            		echo '<div class="error"><p>Warning - Invalid File Type Uploaded!</p></div>';
-            	}else{
-            		hd_update_media($this->act_vid,$videourlmyfile,$hdurlmyfile,$thumurlmyfile,$preimgurlmyfile,$linkurlmyfile);
-		            $this->mode = 'main';
-            	}
-            }else{
-		            hd_update_media($this->act_vid,$videourlmyfile,$hdurlmyfile,$thumurlmyfile,$preimgurlmyfile,$linkurlmyfile);
-		            $this->mode = 'main';
-            }
-
+            hd_update_media($this->act_vid,$videourlmyfile,$hdurlmyfile,$thumurlmyfile,$preimgurlmyfile,$linkurlmyfile);
+            $this->mode = 'main';
         }
         if (isset($_POST['cancel']) || isset($_POST['search']))
             $this->mode = 'main';
@@ -634,16 +538,6 @@ You can use the plugin code with flashvars when you would like to display a play
 
                 
                 <div style=clear:both></div>
-                 <?php if(isset($_REQUEST['doactionVideos']))
-	          {
-	          	if (isset($_REQUEST['actionVideos']) == 'delete')
-	          	{
- ?>
- 
-            <div  class="updated below-h2">
-                <p><?php echo 'Video(s) Deleted Successfully'; ?></p>
-            </div>
-<?php } } ?>   
                 <ul class="subsubsub">
                     <li>&nbsp;</li>
                 </ul>
@@ -657,13 +551,6 @@ You can use the plugin code with flashvars when you would like to display a play
 <?php $this->playlist_filter($plfilter); ?>
                 <input class="button-secondary" id="post-query-submit" type="submit" name="startfilter"  value="<?php _e('Filter', 'hdflvvideoshare'); ?> &raquo;" class="button" />
             </div>
-            <div style="margin-bottom: 5px;" class="alignleft actions">
-<select name="actionVideos" id="actionVideos">
-<option selected="selected" value="-1">Bulk Actions</option>
-<option value="delete">Delete</option>
-</select>
-<input id="doactionVideos" name="doactionVideos" class="button-secondary action" type="submit" value="Apply" name="" onClick="return deleteVideos();">
-</div>
         </div>
         <div class="tablenav">
             <div class="alignright actions">
@@ -679,9 +566,7 @@ You can use the plugin code with flashvars when you would like to display a play
                     
                     <?php if (isset($_REQUEST['plfilter']) && $_REQUEST['plfilter'] != 'no' && $_REQUEST['plfilter'] != '0' || isset($_REQUEST['playid'])) {
                         $id1 = '1'; ?><th id="Sort" class="manage-column column-id" scope="col"><?php _e('Sort', 'hdflvvideoshare'); ?> </th><?php } ?>
-<th id="cb" class="manage-column column-cb check-column" style="" scope="col">
-												<input name='checkAllVideos' id="checkAllVideos" type="checkbox" onclick="javascript:check_all_Videos('filterType', this)">
-												</th>
+
 <th id="id" class="manage-column column-id" scope="col"><?php _e('ID', 'hdflvvideoshare'); ?> </th>
 
                     <th id="title" class="manage-column column-title" scope="col"><?php _e('Title', 'hdflvvideoshare'); ?> </th>
@@ -696,7 +581,7 @@ You can use the plugin code with flashvars when you would like to display a play
             <tbody id="test-list" class="list:post">
             <input type=hidden id=playlistid2 name=playlistid2 value=<?php echo $plfilter ?> >
             <div name=txtHint ></div>
-            <?php //echo '<pre>';print_r($tables); exit;
+            <?php
                     if ($tables) {
                         $i = 0;
                         foreach ($tables as $table) {
@@ -707,13 +592,12 @@ You can use the plugin code with flashvars when you would like to display a play
                               if ($id1 == '1') {
                                 echo " <td>   <img src='../wp-content/plugins/" . dirname(plugin_basename(__FILE__)) . "/arrow.png' alt='move' width='16' height='16' class='handle' /></td></th>\n";
                             }
-                            echo '<td><input id="video_'.$table->vid.'"  type="checkbox" value="'.$table->vid.'" name="videoList[]"></td>';
                             echo "<th scope=\"row\" >$table->vid";
                       
                             echo "<td class='post-title column-title''><strong><a title='" . __('Edit this media', 'hdflvvideoshare') . "' href='$this->base_page&amp;mode=edit&amp;id=$table->vid'>" . stripslashes($table->name) . "</a></strong>\n";
                             echo "<span class='edit'>
-                            <a title='" . __('Edit this video', 'hdflvvideoshare') . "' href='$this->base_page&amp;mode=edit&amp;id=$table->vid'>" . __('Edit') . "</a>
-                                                      </span> | ";
+                                                                <a title='" . __('Edit this video', 'hdflvvideoshare') . "' href='$this->base_page&amp;mode=edit&amp;id=$table->vid'>" . __('Edit') . "</a>
+                                                              </span> | ";
                             echo "<span class='delete'>
                                                                 <a title='" . __('Delete this video', 'hdflvvideoshare') . "' href='$this->base_page&amp;mode=delete&amp;id=$table->vid' onclick=\"javascript:check=confirm( '" . __("Delete this file ?", 'hdflvvideoshare') . "');if(check==false) return false;\">" . __('Delete') . "</a>
                                                               </span>";
@@ -726,14 +610,14 @@ You can use the plugin code with flashvars when you would like to display a play
                             echo "<td>" . htmlspecialchars(stripslashes($table->file), ENT_QUOTES) . "</td>\n";
                             if (isset($_REQUEST['plfilter']) && $_REQUEST['plfilter'] != 'no' && $_REQUEST['plfilter'] != '0') {
                                 $a1 = mysql_query("SELECT sorder FROM " . $wpdb->prefix . "hdflvvideoshare_med2play where playlist_id=" . $_REQUEST['plfilter'] . " and media_id=$table->vid");
-                               $playlist1 = mysql_fetch_array($a1);
-
-                                echo "<td id=txtHint[$table->vid] >" . $playlist1[0] . "</td>\n";
+                                $playlist1 = mysql_fetch_array($a1);
+                                echo "<td id=txtHint[$table->vid] >" . $playlist11[0] . "</td>\n";
                             } elseif (isset($_REQUEST['playid'])) {
                                 $a1 = mysql_query("SELECT sorder FROM " . $wpdb->prefix . "hdflvvideoshare_med2play where playlist_id=" . $_REQUEST['playid'] . " and media_id=$table->vid");
-                                $playlist1 = mysql_fetch_array($a1); 
-                                echo "<td id=txtHint[$table->vid]>" . $playlist1[0] . "</td>\n";
+                                $playlist1 = mysql_fetch_array($a1);
+                                echo "<td id=txtHint[$table->vid]>" . $playlist11[0] . "</td>\n";
                             }
+
                             echo '</tr>';
                             $i++;
                         }
@@ -750,60 +634,7 @@ You can use the plugin code with flashvars when you would like to display a play
                     <br class="clear"/>
                 </div>
             </form>
-        </div><script>
-        function check_all_Videos(frm, chAll)
-        {
-            
-            var i=0;
-            comfList = document.forms[frm].elements['videoList[]'];
-            checkAll = (chAll.checked)?true:false; // what to do? Check all or uncheck all.
-            // Is it an array
-            if (comfList.length) {
-                if (checkAll) {
-                    for (i = 0; i < comfList.length; i++) {
-                        comfList[i].checked = true;
-                    }
-                }
-                else {
-                    for (i = 0; i < comfList.length; i++) {
-                        comfList[i].checked = false;
-                    }
-                }
-            }
-            else {
-                /* This will take care of the situation when your
-    checkbox/dropdown list (checkList[] element here) is dependent on
-                a condition and only a single check box came in a list.
-                 */
-                if (checkAll) {
-                    comfList.checked = true;
-                }
-                else {
-                    comfList.checked = false;
-                }
-            }
-
-            return;
-        }
-
-        function deleteVideos(){
-				if(document.getElementById('actionVideos').selectedIndex == 1)
-				{
-					var playlistDelete= confirm('Are you sure to delete video(s) ?');
-					if (playlistDelete){
-						return true;
-					}
-					else{
-						return false;
-					}
-				}
-				else if(document.getElementById('actionVideos').selectedIndex == 0)
-				{
-				return false;
-				}
-
-			}
-        </script>
+        </div><script></script>
         <!-- Manage Playlist-->
         <div class="wrap">
             
@@ -1428,35 +1259,14 @@ You can use the plugin code with flashvars when you would like to display a play
                               <?php if($get_title != $get_key)    {  ?>
                                <a href="http://www.apptha.com/shop/checkout/cart/add/product/12" target="_blank">
                                <img src="<?php echo $site_url.'/wp-content/plugins/'.$folder.'/images/buynow.png';?>" style="float:right;margin-top: 10px;" width="125" height="28"  height="43" /></a>
-	                            <?php } ?>     
-	                             <div style="clear: both"></div>
-	                            <?php if(isset($_REQUEST['doactionPlaylist']))
-	          {
-	          	if (isset($_REQUEST['actionPlaylist']) == 'delete')
-	          	{
- ?>
- 
-            <div  class="updated below-h2">
-                <p><?php echo 'Playlist(s) Deleted Successfully'; ?></p>
-            </div>
-<?php } } ?>               
+	                            <?php } ?>           
                                <h2><?php _e('Manage Playlist', 'hdflvvideoshare'); ?></h2>
                                <br class="clear"/>
                                
                                <form id="editplist" name="editplist" action="<?php echo $this->base_page; ?>" method="post">
-                               <div style="margin-bottom: 5px;" class="alignleft actions">
-<select name="actionPlaylist" id="actionPlaylist">
-<option selected="selected" value="-1">Bulk Actions</option>
-<option value="delete">Delete</option>
-</select>
-<input id="doactionPlaylist" name="doactionPlaylist" class="button-secondary action" type="submit" value="Apply" name="" onClick="return deletePlaylist();">
-</div>
                                    <table class="widefat" cellspacing="0">
                                        <thead>
                                            <tr>
-                                           <th id="cb" class="manage-column column-cb check-column" style="" scope="col">
-												<input type="checkbox" name='checkAll' id="checkAll" onclick="javascript:check_all('editplist', this)">
-												</th>
                                                <th scope="col"><?php _e('ID', 'hdflvvideoshare'); ?></th>
                                                <th scope="col"><?php _e('Name', 'hdflvvideoshare'); ?></th>
                                                <th scope="col" colspan="2"><?php _e('Action'); ?></th>
@@ -1471,7 +1281,6 @@ You can use the plugin code with flashvars when you would like to display a play
                                                } else {
                                                    echo "<tr>\n";
                                                }
-                                               echo '<td><input id="user_'.$table->pid.'"  type="checkbox" value="'.$table->pid.'" name="checkList[]"></td>';
                                                echo "<th scope=\"row\">$table->pid</th>\n";
                                                echo "<td><a onclick=\"submitplay($table->pid)\" href=\"#\" >" . stripslashes($table->playlist_name) . "</td>\n";
                                                echo "<td><a href=\"$this->base_page&amp;mode=plyedit&amp;pid=$table->pid#addplist\" class=\"edit\">" . __('Edit') . "</a></td>\n";
@@ -1487,57 +1296,6 @@ You can use the plugin code with flashvars when you would like to display a play
                                    <input type="hidden" name="playid" id="playid" value="" />
                                </form>
                                <script type="text/javascript">
-                               function deletePlaylist(){
-                   				if(document.getElementById('actionPlaylist').selectedIndex == 1)
-                   				{
-                   					var playlistDelete= confirm('Are you sure to delete playlist(s) ?');
-                   					if (playlistDelete){
-                   						return true;
-                   					}
-                   					else{
-                   						return false;
-                   					}
-                   				}
-                   				else if(document.getElementById('actionPlaylist').selectedIndex == 0)
-                   				{
-                   				return false;
-                   				}
-
-                   			}
-                               function check_all(frm, chAll)
-                               {
-                                   
-                                   var i=0;
-                                   comfList = document.forms[frm].elements['checkList[]'];
-                                   checkAll = (chAll.checked)?true:false; // what to do? Check all or uncheck all.
-                                   // Is it an array
-                                   if (comfList.length) {
-                                       if (checkAll) {
-                                           for (i = 0; i < comfList.length; i++) {
-                                               comfList[i].checked = true;
-                                           }
-                                       }
-                                       else {
-                                           for (i = 0; i < comfList.length; i++) {
-                                               comfList[i].checked = false;
-                                           }
-                                       }
-                                   }
-                                   else {
-                                       /* This will take care of the situation when your
-                           checkbox/dropdown list (checkList[] element here) is dependent on
-                                       a condition and only a single check box came in a list.
-                                        */
-                                       if (checkAll) {
-                                           comfList.checked = true;
-                                       }
-                                       else {
-                                           comfList.checked = false;
-                                       }
-                                   }
-
-                                   return;
-                               }
                                        function submitplay(playid)
                                        {
                                            document.getElementById('playid').value = playid;

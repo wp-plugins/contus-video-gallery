@@ -694,13 +694,12 @@ $div .= '<style> .video-block { padding-right:'.$configXML->gutterspace.'px } </
 
 
 				/* Now we use the LIMIT clause to grab a range of rows */
-				 $fetch_video = "SELECT * FROM " . $wpdb->prefix . "hdflvvideoshare w
+				$fetch_video = "SELECT * FROM " . $wpdb->prefix . "hdflvvideoshare w
         INNER JOIN " . $wpdb->prefix . "hdflvvideoshare_med2play m
         WHERE (m.playlist_id = '$getPlaylist'
-        AND m.media_id = w.vid) GROUP BY w.vid ORDER BY m.sorder";
-                                 
+        AND m.media_id = w.vid) GROUP BY w.vid";
+
 				$relatedSearch = $wpdb->get_results($fetch_video . " LIMIT " . $start . "," . $limit . "");
-                            
 				$playlist = $wpdb->get_var("SELECT playlist_name FROM " . $wpdb->prefix . "hdflvvideoshare_playlist WHERE pid = '$getPlaylist'");
 				$div = '<div> <h1> ' . $playlist . ' Videos</h1>';
 				$div .= '<style> .video-block { padding-right:'.$pageFetch->gutterspace.'px } </style>';
@@ -715,7 +714,6 @@ $div .= '<style> .video-block { padding-right:'.$configXML->gutterspace.'px } </
 						$nameS[$p] = $playlistVideo->name;
 						$hitcount[$p] = $playlistVideo->hitcount;
 						$duration[$p] = $playlistVideo->duration;
-                                               // $sorder[$p] = $playlistVideo->sorder;
 						$p++;
 					}
 

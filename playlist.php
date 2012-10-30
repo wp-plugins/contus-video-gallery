@@ -1,16 +1,17 @@
 <?php
 /**
  * @name          : Wordpress VideoGallery.
- * @version	      : 1.5
+ * @version	  : 1.3
  * @package       : apptha
  * @subpackage    : contus-video-galleryversion-10
  * @author        : Apptha - http://www.apptha.com
  * @copyright     : Copyright (C) 2011 Powered by Apptha
- * @license	      : GNU General Public License version 2 or later; see LICENSE.txt
+ * @license	  : GNU General Public License version 2 or later; see LICENSE.txt
  * @Purpose       : Create playlist for player
  * @Creation Date : Fev 21 2011
- * @Modified Date : Jul 19, 2012
+ * @Modified Date : December 07 2011
  * */
+
 
 $contus = dirname(plugin_basename(__FILE__));
 $site_url = get_option('siteurl');
@@ -463,41 +464,6 @@ class HDFLVShareManage {
 
 //TODO:Include nonce !!!
 
-    if(isset($_REQUEST['doactionPlaylist']))
-		{
-			//
-			if (isset($_REQUEST['actionPlaylist']) == 'delete')
-         {
-         	for ($i = 0; $i < count($_POST['checkList']); $i++)
-            {
-            	$playListId = is_numeric($_POST['checkList'][$i]);
-            	
-            	if($playListId)
-            	{
-            		$playListVal = $_POST['checkList'][$i];
-            		$wpdb->query(" DELETE FROM " . $wpdb->prefix . "hdflvvideoshare_playlist WHERE pid = $playListVal");
-            	}
-         	//print_r($_REQUEST);
-            }
-            $msg = 'Playlist(s) Deleted Successfully';
-         /* if (isset($_GET['selectVal'])) {
-	$_GET['selectVal'];
-	$checkVal = explode(',', $_GET['selectVal']);
-	$cnt=count($checkVal);
-	//$selectVal = $_GET['selectVal'];
-	for($i = 0; $i < $cnt; $i++)
-	{
-		
-		$selectValue = $checkVal[$i];
-        $wpdb->query(" DELETE FROM " . $wpdb->prefix . "hdflvvideoshare_playlist WHERE pid = $selectValue");
-      
-    }
-    return ;
-	
-}*/
-         }
-		}
-		
         if (isset($_POST['add_media'])) {
             hd_add_media($this->wptfile_abspath, $this->wp_urlpath);
             $this->mode = 'main';
@@ -644,33 +610,11 @@ class HDFLVShareManage {
             if($get_title != $get_key)        {            ?>
             <a href="http://www.apptha.com/shop/checkout/cart/add/product/12" target="_blank"><img src="<?php echo $site_url.'/wp-content/plugins/'.$folder.'/images/buynow.png';?>" style="float:right;margin-bottom:3px" width="125" height="28"  height="43" /></a>
             <?php  } ?>
-            <div style="clear: both"></div>
-            <?php if(isset($_REQUEST['doactionPlaylist']))
-	          {
-	          	if (isset($_REQUEST['actionPlaylist']) == 'delete')
-	          	{
- ?>
- 
-            <div  class="updated below-h2">
-                <p><?php echo 'Playlist(s) Deleted Successfully'; ?></p>
-            </div>
-<?php } } ?>
 	          
-                               <form id="editplist" name="editplist" action="" method="post" onSubmit="return deletePlaylist();">
-                                  <div style="margin-bottom: 5px;" class="alignleft actions">
-<select name="actionPlaylist" id="actionPlaylist">
-<option selected="selected" value="-1">Bulk Actions</option>
-<option value="delete">Delete</option>
-</select>
-<input id="doactionPlaylist" name="doactionPlaylist" class="button-secondary action" type="submit" value="Apply" name="">
-</div>
-
+                               <form id="editplist" name="editplist" action="<?php echo $this->base_page; ?>" method="post">
                                    <table class="widefat" cellspacing="0">
                                        <thead>
                                            <tr>
-                                            <th id="cb" class="manage-column column-cb check-column" style="" scope="col">
-												<input name='checkAll' id="checkAll" type="checkbox" onclick="javascript:check_all('editplist', this)">
-												</th>
                                                <th scope="col"><?php _e('ID', 'hdflvvideoshare'); ?></th>
                                                <th scope="col"><?php _e('Name', 'hdflvvideoshare'); ?></th>
                                                <th scope="col" colspan="2"><?php _e('Action'); ?></th>
@@ -685,7 +629,6 @@ class HDFLVShareManage {
                                                } else {
                                                    echo "<tr>\n";
                                                }
-                                               echo '<td><input id="user_'.$table->pid.'"  type="checkbox" value="'.$table->pid.'" name="checkList[]"></td>';
                                                echo "<th scope=\"row\">$table->pid</th>\n";
                                                echo "<td><a onclick=\"submitplay($table->pid)\" href=\"#\" >" . stripslashes($table->playlist_name) . "</td>\n";
                                                echo "<td><a href=\"$this->base_page&amp;mode=plyedit&amp;pid=$table->pid#addplist\" class=\"edit\">" . __('Edit') . "</a></td>\n";
@@ -701,57 +644,6 @@ class HDFLVShareManage {
                                    <input type="hidden" name="playid" id="playid" value="" />
                                </form>
                                <script type="text/javascript">
-                               function deletePlaylist(){
-          							if(document.getElementById('actionPlaylist').selectedIndex == 1)
-          							{
-          								var playlistDelete= confirm('Are you sure to delete playlist(s) ?');
-          								if (playlistDelete){
-          									return true;
-          								}
-          								else{
-          									return false;
-          								}
-          							}
-          							else if(document.getElementById('actionPlaylist').selectedIndex == 0)
-          							{
-          							return false;
-          							}
-          		
-          						}
-                                  function check_all(frm, chAll)
-                                  {
-                                      
-                                      var i=0;
-                                      comfList = document.forms[frm].elements['checkList[]'];
-                                      checkAll = (chAll.checked)?true:false; // what to do? Check all or uncheck all.
-                                      // Is it an array
-                                      if (comfList.length) {
-                                          if (checkAll) {
-                                              for (i = 0; i < comfList.length; i++) {
-                                                  comfList[i].checked = true;
-                                              }
-                                          }
-                                          else {
-                                              for (i = 0; i < comfList.length; i++) {
-                                                  comfList[i].checked = false;
-                                              }
-                                          }
-                                      }
-                                      else {
-                                          /* This will take care of the situation when your
-                              checkbox/dropdown list (checkList[] element here) is dependent on
-                                          a condition and only a single check box came in a list.
-                                           */
-                                          if (checkAll) {
-                                              comfList.checked = true;
-                                          }
-                                          else {
-                                              comfList.checked = false;
-                                          }
-                                      }
-
-                                      return;
-                                  }
                                        function submitplay(playid)
                                        {
                                            document.getElementById('playid').value = playid;

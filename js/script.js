@@ -1,4 +1,3 @@
-
 function currentvideo(vid,title,tag){
      document.getElementById('video_tag').innerHTML = '';
      fbcomments(vid,title);

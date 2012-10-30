@@ -23,14 +23,14 @@ $dirPage = $dirExp[0];
 $configXML = $wpdb->get_row("SELECT configXML,width,height,keyApps FROM " . $wpdb->prefix . "hdflvvideoshare_settings");
 $pluginPath = $site_url . '/wp-content/plugins/' . $dirPage;
 ?>
-<script type="text/javascript" src="<?php echo $site_url; ?>/wp-content/plugins/<?php echo $dirPage ?>/js/script.js"></script>
+
 <link rel="stylesheet" type="text/css" href="<?php echo $site_url; ?>/wp-content/plugins/<?php echo $dirPage ?>/css/style.css" />
 <!--[if lte IE 6]>
 <style type="text/css">
 </style>
 <![endif]-->
 
-<script type="text/javascript" src="<?php echo $site_url; ?>/wp-content/plugins/<?php echo $dirPage ?>/js/script.js"></script>
+
 <link rel="stylesheet" type="text/css" href="<?php echo $site_url; ?>/wp-content/plugins/<?php echo $dirPage ?>/css/style.css" />
 <!-- Jquery For the Slider -->
 <script type="text/javascript" src="<?php echo $site_url; ?>/wp-content/plugins/<?php echo $dirPage ?>/js/jquery-1.2.3.pack.js"></script>
@@ -106,6 +106,7 @@ $meta = $wpdb->get_var("select	ID from " . $wpdb->prefix . "posts WHERE post_con
 $moreName = $wpdb->get_var("select ID from " . $wpdb->prefix . "posts WHERE post_content='[videomore]' and post_status='publish' and post_type='page' limit 1");
 $styleSheet = $wpdb->get_var("select stylesheet from " . $wpdb->prefix . "hdflvvideoshare_settings WHERE settings_id='1'");
 ?>
+<script type="text/javascript" src="<?php echo $site_url; ?>/wp-content/plugins/<?php echo $dirPage ?>/js/script.js"></script>
 <script type="text/javascript">
         var baseurl,folder;
         baseurl = '<?php echo $site_url; ?>';
@@ -146,7 +147,7 @@ class default_videos {
         $vPageID    = $wpdb->get_var("select ID from " . $wpdb->prefix . "posts WHERE post_content='[video]' and post_status='publish' and post_type='page' limit 1");
         $moreName   = $wpdb->get_var("select ID from " . $wpdb->prefix . "posts WHERE post_content='[videomore]' and post_status='publish' and post_type='page' limit 1");
         $styleSheet = $wpdb->get_var("select stylesheet from " . $wpdb->prefix . "hdflvvideoshare_settings WHERE settings_id='1'");
-        $configXML  = $wpdb->get_row("SELECT configXML,comment_option,width,height,keyApps,enable_social_share FROM " . $wpdb->prefix . "hdflvvideoshare_settings");
+        $configXML  = $wpdb->get_row("SELECT configXML,comment_option,width,height,keyApps FROM " . $wpdb->prefix . "hdflvvideoshare_settings");
         $fbAppId = $configXML->keyApps;
         $vid = $_GET['vid'];
         if ($vid != '') {
@@ -204,22 +205,48 @@ class default_videos {
 
         $div = '<div class="video-cat-thumb">';
 
-        $div .='<h1 id="video_title" class="entry-title" align="left">' . $title . '</h1>';
-        $div .='<div name="mediaspace" id="mediaspace" class="mediaspace">';
-        $div .='<script type="text/javascript">';
-        $div .= 'var s' . $videoid . ' = new SWFObject("' . $site_url . '/wp-content/plugins/' . $dirPage . '/hdflvplayer/hdplayer.swf' . '","n' . $videoid . '","' . $configXML->width . '","' . $configXML->height . '","7");' . "\n";
-        $div .= 's' . $videoid . '.addParam("allowfullscreen","true");' . "\n";
-        $div .= 's' . $videoid . '.addParam("allowscriptaccess","always");' . "\n";
-        $div .= 's' . $videoid . '.addParam("wmode","opaque");' . "\n";
-        $div .= 's' . $videoid . '.addVariable("baserefW","' . $site_url . '");' . "\n";
-        if ($tagName != '') {
-            $div .= 's' . $videoid . '.addVariable("vid","' . $getVid[0] . '");' . "\n";
-            $div .= 's' . $videoid . '.addVariable("tagname","' . $tagName . '");' . "\n";
-        } else {
-            $div .= 's' . $videoid . '.addVariable("vid","' . $vid . '");' . "\n";
-        }
-        $div .= 's' . $videoid . '.write("mediaspace");' . "\n";
-        $div .='</script></div>';
+        
+        $div .='<div name="mediaspace" id="mediaspace" class="mediaspace" style="color: #666;">';
+
+        
+//        $div .='<script type="text/javascript">';
+//        $div .= 'var s' . $videoid . ' = new SWFObject("' . $site_url . '/wp-content/plugins/' . $dirPage . '/hdflvplayer/hdplayer.swf' . '","n' . $videoid . '","' . $configXML->width . '","' . $configXML->height . '","7");' . "\n";
+//        $div .= 's' . $videoid . '.addParam("allowfullscreen","true");' . "\n";
+//        $div .= 's' . $videoid . '.addParam("allowscriptaccess","always");' . "\n";
+//        $div .= 's' . $videoid . '.addParam("wmode","opaque");' . "\n";
+//        $div .= 's' . $videoid . '.addVariable("baserefW","' . $site_url . '");' . "\n";
+//        if ($tagName != '') {
+//            $div .= 's' . $videoid . '.addVariable("vid","' . $getVid[0] . '");' . "\n";
+//            $div .= 's' . $videoid . '.addVariable("tagname","' . $tagName . '");' . "\n";
+//        } else {
+//            $div .= 's' . $videoid . '.addVariable("vid","' . $vid . '");' . "\n";
+//        }
+//        $div .= 's' . $videoid . '.write("mediaspace");' . "\n";
+//        $div .='</script>';
+$playerwidth = $configXML->width;
+$playerheight  = $configXML->height
+?>
+
+<h1 id="video_title" class="entry-title" align="left"> <?php echo $title ?></h1>
+<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
+                            codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0"
+                           style="width:<?php echo $playerwidth?>px; height: <?php echo $playerheight?>px; background-color:#000; display: block;  ">
+                        <param name="movie"
+                               value="<?php echo $site_url . '/wp-content/plugins/'.$dirPage.'/hdflvplayer/hdplayer.swf'; ?>" />
+                        <param name="flashvars"
+                               value="baserefW=<?php echo $site_url; ?>&vid=<?php echo $vid; ?>&Preview=<?php echo $bannerSlideShow[$i]->image; ?>" />
+                        <param name="allowFullScreen" value="true" />
+                        <param name="wmode" value="transparent" />
+                        <param name="allowscriptaccess" value="always" />
+                        <embed
+                            src="<?php echo $site_url . '/wp-content/plugins/'.$dirPage.'/hdflvplayer/hdplayer.swf'; ?>"
+                            flashvars="baserefW=<?php echo $site_url; ?>&vid=<?php echo $vid ?>&Preview=<?php echo $bannerSlideShow[$i]->image; ?>"
+                            style="width:<?php echo $playerwidth?>px;  height: <?php echo $playerheight?>px; " allowFullScreen="true"
+                            allowScriptAccess="always" type="application/x-shockwave-flash"
+                            wmode="transparent"></embed>
+                    </object>
+<?php
+            $div .='</div>';
         $div .='<ul class="video-page-info">
         <li class="views"><b>Posted on </b>: ' . $post_date . '</li>
           <li class="views"><b>Views     </b>: ' . $views . '</li>
@@ -229,12 +256,9 @@ class default_videos {
                         <b>Tags          </b>: ' . $videoTags . ' ' . '</li>
 
  <li class="views"><b>Description     </b>: ' . $description . '</li>
-  </ul>';
-        if($configXML->enable_social_share == '1')
-        {
-        	$div .= $this->social_share();
-        }
-        $div .= '<div class="clear"></div>
+   </ul>
+         ' . $this->social_share() . '
+          <div class="clear"></div>
           <div class="clear"></div>';
 
         //--------------------------------HTML5 START-------------------------------------------------------------//
@@ -330,7 +354,7 @@ class default_videos {
         }
       
          $select = "select distinct(a.vid),name,description,file,hdfile,file_type,duration,image,opimage,download,link,featured,hitcount,
-post_date,postrollads,prerollads from " . $wpdb->prefix . "hdflvvideoshare a INNER JOIN " . $wpdb->prefix . "hdflvvideoshare_med2play b ON a.vid=b.media_id WHERE b.playlist_id=" . $getPlaylist[0]->playlist_id . " AND a.vid != ".$vid." ORDER BY b.sorder ASC";
+post_date,postrollads,prerollads from " . $wpdb->prefix . "hdflvvideoshare a INNER JOIN " . $wpdb->prefix . "hdflvvideoshare_med2play b ON a.vid=b.media_id WHERE b.playlist_id=" . $getPlaylist[0]->playlist_id . " AND a.vid != ".$vid." ORDER BY a.vid DESC";
   
         $uppedPlaylist = $playlist_id . '0';
 
@@ -374,7 +398,7 @@ post_date,postrollads,prerollads from " . $wpdb->prefix . "hdflvvideoshare a INN
         $vPageID = $wpdb->get_var("select ID from " . $wpdb->prefix . "posts WHERE post_content='[video]'");
         if ($configXML->comment_option == 1) {
             $div .='<h3 class="related-videos">Post Your Comments</h3>';
-            $div .='<div class="fbcomments"><script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script>
+            $div .='<div class=\"fbcomments\"><script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script>
             <fb:comments href="' .$currentURI.  '" num_posts="10" xid="' . $_GET['vid'] . '" width="500"  canpost="true"    ></fb:comments>
             </div>';
   

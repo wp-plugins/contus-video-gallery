@@ -1,16 +1,4 @@
 <?php
-/**
- * @name          : Wordpress VideoGallery.
- * @version	  	  : 1.5
- * @package       : apptha
- * @subpackage    : contus-video-galleryversion-10
- * @author        : Apptha - http://www.apptha.com
- * @copyright     : Copyright (C) 2011 Powered by Apptha
- * @license	      : GNU General Public License version 2 or later; see LICENSE.txt
- * @Purpose       : Video Gallery Popular Videos
- * @Creation Date : Feb 21, 2011
- * @Modified Date : Jul 19, 2012
- * */
 // Video Gallery Popular Videos
 //Popular Videos widget with the standard system of wordpress.
 class widget_ContusPopularVideos_init  extends WP_Widget  {

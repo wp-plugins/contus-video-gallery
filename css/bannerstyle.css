@@ -273,8 +273,9 @@ ul.lof-navigator li {
 #featured{float: left;}
 
 #featured li.ui-tabs-nav-item a {
-	display: block;
-	height: 60px;
+	display: inline-block;
+	height: 56px;
+        width: 98%;
 	line-height: 20px;
 	text-decoration: none;
         color:#fff;
@@ -346,12 +347,12 @@ ul.lof-navigator li {
                         background: #1E1E1E;
                          
 }
-ul.page-lof-navigator{float:left;margin: 0 !important; width: 100%;}
+ul.page-lof-navigator{float:left;margin: 0 !important; width: 100%; padding: 0;}
 ul.page-lof-navigator .slide_video_info{width: 67%; float: right; padding: 0 0 0 1%; font-family: arial;
                                         font-weight: bold;
                                         
 }
-.page-lof-slidecontent ul.page-lof-navigator .slide_video_info{font-size: 75%; line-height: normal; margin-top: 4%;}
+.page-lof-slidecontent ul.page-lof-navigator .slide_video_info{font-size: 75%; line-height: normal; margin-top: 6%;}
 
 ul.page-lof-navigator .slide_video_info .views{font-weight: normal;}
 
@@ -392,7 +393,7 @@ ul.page-lof-navigator .slide_video_info h3{margin: 0 !important; color:#fff !imp
 	color: #fff;
 	float: left;
 }
-.page-lof-slidecontent .page-lof-navigator li img{margin: 2% 0 0 0;}
+.page-lof-slidecontent .page-lof-navigator li img{margin: 3.5% 0 0 0;}
 
 
 

@@ -1,16 +1,5 @@
 <?php
-/**
- * @name          : Wordpress VideoGallery.
- * @version	  	  : 1.5
- * @package       : apptha
- * @subpackage    : contus-video-galleryversion-10
- * @author        : Apptha - http://www.apptha.com
- * @copyright     : Copyright (C) 2011 Powered by Apptha
- * @license	      : GNU General Public License version 2 or later; see LICENSE.txt
- * @Purpose       : Video Gallery Related Videos
- * @Creation Date : Feb 21, 2011
- * @Modified Date : Jul 19, 2012
- * */
+
 class widget_ContusRelatedVideos_init  extends WP_Widget  {
 
 function widget_ContusRelatedVideos_init()

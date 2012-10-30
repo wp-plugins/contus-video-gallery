@@ -36,9 +36,7 @@ if ($styleSheet == 'contus') {
 	href="<?php echo $site_url; ?>/wp-content/plugins/<?php echo $dirPage; ?>/css/contusStyle.css" />
 	<?php } ?>
 <!-- For the Player to display -->
-<script
-	type="text/javascript"
-	src="<?php echo $site_url; ?>/wp-content/plugins/<?php echo $dirPage; ?>/swfobject.js"></script>
+<script type="text/javascript" 	src="<?php echo $site_url; ?>/wp-content/plugins/<?php echo $dirPage; ?>/swfobject.js"></script>
 <script type="text/javascript">
     var baseurl,folder;
     baseurl = '<?php echo $site_url; ?>';
@@ -69,17 +67,8 @@ if ($styleSheet == 'contus') {
        $homebannercategories = $wpdb->get_row("SELECT * FROM " . $wpdb->prefix . "hdflvvideoshare_settings ");
        $bannertype = $homebannercategories->vbannercategory;
        $show = $homebannercategories->numvideos;
-       if($homebannercategories->enable_banner_slider == '1')
-        {
-        	$bannerwidth = $homebannercategories->bannerw;
-        	$playerwidth = $homebannercategories->playerw;
-        }
-        else 
-        {
-       		$bannerwidth = "500";
-       		$playerwidth = "500";
-        }
-       
+       $bannerwidth = $homebannercategories->bannerw;
+       $playerwidth = $homebannercategories->playerw;
 
           switch ($bannertype) {
         case 'vpopular' :
@@ -101,8 +90,6 @@ if ($styleSheet == 'contus') {
         default;
     }
 ?>
-        <script language="javascript" type="text/javascript" src="<?php echo $pluginPath; ?>/js/jquery.min.js"></script>
-        <script language="javascript" type="text/javascript" src="<?php echo $pluginPath; ?>/js/jquery-ui-min.js"></script>
         <link rel="stylesheet" type="text/css"	href="<?php echo $pluginPath; ?>/css/bannerstyle.css" />
         <script type="text/javascript">
             var baseurl;
@@ -110,17 +97,27 @@ if ($styleSheet == 'contus') {
             folder  = '<?php echo $dirPage; ?>'
         </script>
         <script type="text/javascript">
-            $(document).ready(function(){
-                //$("#featured > ul").tabs({fx:{opacity: "toggle"}}).tabs("rotate", 9000, true);
-                $("#featured").tabs({fx:{opacity: "toggle"}}).tabs("rotate", 5000, true);
-            });
-        </script>
+                  function switchVideo(vid){
+            sourceCode = document.getElementById(vid).innerHTML;
+            objectCode = sourceCode.replace('OBJEC','object');
+            embedCode  = objectCode.replace('embe','embed');
+            document.getElementById("nav-"+vid).className = 'ui-tabs-nav-item ui-tabs-selected';
 
-        <script type="text/javascript">
-            $(document).ready(function(){
-                var get_width = 'auto';
-                $("#slider_banner > ul").tabs({fx:{opacity: "toggle"}}).tabs("rotate",  '3000', true);
-            });
+            removeSelectItem = document.getElementById("activeCSS").value;
+            document.getElementById("nav-"+removeSelectItem).className = 'ui-tabs-nav-item';
+
+            document.getElementById('videoPlay').innerHTML = embedCode;
+            document.getElementById("activeCSS").value = vid;
+
+        }
+        window.onload = function(){
+            vid = "fragment-1";
+            sourceCode = document.getElementById(vid).innerHTML;
+            objectCode = sourceCode.replace('OBJEC','object');
+            embedCode  = objectCode.replace('embe','embed');
+            document.getElementById("nav-"+vid).className = 'ui-tabs-nav-item ui-tabs-selected';
+            document.getElementById('videoPlay').innerHTML = embedCode;
+        }
         </script>
 <?php
         $dirPage = $dirExp[0];
@@ -149,34 +146,17 @@ if ($styleSheet == 'contus') {
         //$bannerSlideShow[$i]->vid;
 
 ?>
-<?php
-$mobile = default_home::detect_mobile();?>
 <div id="featured" style="width: 100%;" >
     <div id="lofslidecontent45"	class="page-lof-slidecontent" style="width:<?php echo $bannerwidth; ?>px ">
-        <div class="right_side">
+                <div class="right_side">
+                    <div id="videoPlay" class="ui-tabs-panel" style="height:100%">
+                    </div>
+                </div>
+                <input type="hidden" id="activeCSS" value="fragment-1" />
 <?php for ($i = 0; $i < count($bannerSlideShow); $i++) {
  //echo $site_url . '/wp-content/plugins/' . dirname(plugin_basename(__FILE__)) . '/hdflvplayer/hdplayer.swf'; ?>
-                <div id="fragment-<?php echo $i + 1; ?>" class="ui-tabs-panel" style="height:100%;float:right">
-                    <?php 
-if($mobile === true){
-   if ($bannerSlideShow[$i]->file_type == 2){ $video=$bannerSlideShow[$i]->link;?>
-    <video id="video" src="<?php echo $video; ?>"  autobuffer controls onerror="failed(event)" width="701" height="303">
-             Html5 Not support This video Format.
-     </video>
-   <?php } elseif ($bannerSlideShow[$i]->file_type == 1)
-                        {
-                           if (preg_match('/www\.youtube\.com\/watch\?v=[^&]+/', $bannerSlideShow[$i]->link, $vresult))
-                            {
-                               $urlArray = explode("=", $vresult[0]);
-                               $videoid = trim($urlArray[1]);
-                            }
-?>
-                           <iframe  type="text/html" width=<?php echo $playerwidth?>px height="318px" src="http://www.youtube.com/embed/<?php echo $videoid; ?>" frameborder="0">
-                           </iframe>
-<?php
-                       }
-}else{?>
-                    <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
+                <div id="fragment-<?php echo $i + 1; ?>" >
+                    <objec classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
                             codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0"
                            style="width:<?php echo $playerwidth?>px; height: 318px">
                         <param name="movie"
@@ -186,33 +166,28 @@ if($mobile === true){
                         <param name="allowFullScreen" value="true" />
                         <param name="wmode" value="transparent" />
                         <param name="allowscriptaccess" value="always" />
-                        <embed
+                        <embe
                             src="<?php echo $site_url . '/wp-content/plugins/'.$dirPage.'/hdflvplayer/hdplayer.swf'; ?>"
                             flashvars="baserefW=<?php echo $site_url; ?>&vid=<?php echo $bannerSlideShow[$i]->vid; ?>&Preview=<?php echo $bannerSlideShow[$i]->image; ?>"
                             style="width:<?php echo $playerwidth?>px; height: 318px" allowFullScreen="true"
                             allowScriptAccess="always" type="application/x-shockwave-flash"
                             wmode="transparent"></embed>
                     </object>
-                    <?php } ?>
                 </div>
 <?php } ?>
-        </div>
         <!-- NAVIGATOR -->
-        <?php if($homebannercategories->enable_banner_slider == '1')
-        {
-        ?>
         <div class="page-bannershort" id="slider_banner" >
             <ul class="page-lof-navigator">
 <?php for ($i = 0; $i < count($bannerSlideShow); $i++) { ?>
 
-                <li class="ui-tabs-nav-item ui-tabs-selected" id="nav-fragment-<?php echo $i + 1; ?>">
+                <li class="ui-tabs-nav-item" id="nav-fragment-<?php echo $i + 1; ?>">
                     <div class="nav_container">
-                        <a href="#fragment-<?php echo $i + 1; ?>" onclick="return hitCountVideo('<?php echo $bannerSlideShow[$i]->vid?>','<?php echo $i?>');">
+                        <a href="javascript:void(0)" onclick=switchVideo("fragment-<?php echo $i + 1; ?>") >
                             <div class="page-thumb-img"><img src="<?php echo $bannerSlideShow[$i]->image; ?>"  alt="thumb image" /></div>
                             <div class="slide_video_info" >
 <?php echo substr($bannerSlideShow[$i]->name, 0, 35); ?>
                                 <div class="views">
-<?php echo $bannerSlideShow[$i]->duration . ' ' . '|' . ' <label id="'.$i.'">' . $bannerSlideShow[$i]->hitcount.'</label>' ?> views
+<?php echo $bannerSlideShow[$i]->duration . ' ' . '|' . ' ' . $bannerSlideShow[$i]->hitcount ?> views
                                 </div>
                             </div>
                         </a>
@@ -221,7 +196,6 @@ if($mobile === true){
 <?php } ?>
             </ul>
         </div>
-        <?php } ?>
         <!-- NAVIGATOR -->
     </div>
 
@@ -230,92 +204,10 @@ if($mobile === true){
         else {
             echo "No Banner videos";
         }
-        ?>
-        <script>
-        function hitCountVideo(vid,position)
-        {
-            var position = parseInt(position);
-            
-        	 var baseurl;
-             baseurl = '<?php echo $site_url; ?>';
-        	var xmlhttp;
-        	if (window.XMLHttpRequest)
-        	  {// code for IE7+, Firefox, Chrome, Opera, Safari
-        	  xmlhttp=new XMLHttpRequest();
-        	  }
-        	else
-        	  {// code for IE6, IE5
-        	  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-        	  }
-        	xmlhttp.onreadystatechange=function()
-        	  {
-        	  if (xmlhttp.readyState==4 && xmlhttp.status==200)
-        	    {
-        	    	document.getElementById(position).innerHTML=xmlhttp.responseText;
-      	    	
-        	    }
-        	  }
-        	xmlhttp.open("GET",baseurl+"/wp-content/plugins/"+folder+"/hitCount.php?vid="+vid,true);
-        	xmlhttp.send();
-        }
-        </script>
-        <?php
         // end list
         // echo widget closing tag;
     }
 
-    function detect_mobile()
-{
-    $_SERVER['ALL_HTTP'] = isset($_SERVER['ALL_HTTP']) ? $_SERVER['ALL_HTTP'] : '';
-
-    $mobile_browser = '0';
-
-    $agent = strtolower($_SERVER['HTTP_USER_AGENT']);
-
-    if(preg_match('/(up.browser|up.link|mmp|symbian|smartphone|midp|wap|phone|iphone|ipad|ipod|android|xoom)/i', $agent))
-        $mobile_browser++;
-
-    if((isset($_SERVER['HTTP_ACCEPT'])) and (strpos(strtolower($_SERVER['HTTP_ACCEPT']),'application/vnd.wap.xhtml+xml') !== false))
-        $mobile_browser++;
-
-    if(isset($_SERVER['HTTP_X_WAP_PROFILE']))
-        $mobile_browser++;
-
-    if(isset($_SERVER['HTTP_PROFILE']))
-        $mobile_browser++;
-
-    $mobile_ua = substr($agent,0,4);
-    $mobile_agents = array(
-                        'w3c ','acs-','alav','alca','amoi','audi','avan','benq','bird','blac',
-                        'blaz','brew','cell','cldc','cmd-','dang','doco','eric','hipt','inno',
-                        'ipaq','java','jigs','kddi','keji','leno','lg-c','lg-d','lg-g','lge-',
-                        'maui','maxo','midp','mits','mmef','mobi','mot-','moto','mwbp','nec-',
-                        'newt','noki','oper','palm','pana','pant','phil','play','port','prox',
-                        'qwap','sage','sams','sany','sch-','sec-','send','seri','sgh-','shar',
-                        'sie-','siem','smal','smar','sony','sph-','symb','t-mo','teli','tim-',
-                        'tosh','tsm-','upg1','upsi','vk-v','voda','wap-','wapa','wapi','wapp',
-                        'wapr','webc','winw','xda','xda-'
-                        );
-
-    if(in_array($mobile_ua, $mobile_agents))
-        $mobile_browser++;
-
-    if(strpos(strtolower($_SERVER['ALL_HTTP']), 'operamini') !== false)
-        $mobile_browser++;
-
-    // Pre-final check to reset everything if the user is on Windows
-    if(strpos($agent, 'windows') !== false)
-        $mobile_browser=0;
-
-    // But WP7 is also Windows, with a slightly different characteristic
-    if(strpos($agent, 'windows phone') !== false)
-        $mobile_browser++;
-
-    if($mobile_browser>0)
-        return true;
-    else
-        return false;
-}
 
 		function featureVideos() {
 
@@ -1160,14 +1052,4 @@ echo '</div></div>';
 
         }
 	//class over
-
-
-
-
-
-
-
-
-
-
         ?>

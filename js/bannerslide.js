@@ -1,15 +1,11 @@
 /**
- * @name          : Wordpress VideoGallery.
- * @version	  	  : 1.5
- * @package       : apptha
- * @subpackage    : contus-video-galleryversion-10
- * @author        : Apptha - http://www.apptha.com
- * @copyright     : Copyright (C) 2011 Powered by Apptha
- * @license	      : GNU General Public License version 2 or later; see LICENSE.txt
- * @Purpose       : Script for VideoGallery
- * @Creation Date : Feb 21, 2011
- * @Modified Date : Jul 19, 2012
- * */
+ * @version		$Id:  $Revision
+ * @package		mootool
+ * @subpackage	lofslidernews
+ * @copyright	Copyright (C) JAN 2010 LandOfCoder.com <@emai:landofcoder@gmail.com>. All rights reserved.
+ * @website     http://landofcoder.com
+ * @license		This plugin is dual-licensed under the GNU General Public License and the MIT License 
+ */
  Element.Events.extend({
 	'wheelup': {
 		type: Element.Events.mousewheel.type,

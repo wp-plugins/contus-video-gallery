@@ -2,15 +2,15 @@
 
 /**
  * @name          : Wordpress VideoGallery.
- * @version	      : 1.5
+ * @version	  : 1.3
  * @package       : apptha
  * @subpackage    : contus-video-galleryversion-10
  * @author        : Apptha - http://www.apptha.com
  * @copyright     : Copyright (C) 2011 Powered by Apptha
- * @license	      : GNU General Public License version 2 or later; see LICENSE.txt
+ * @license	  : GNU General Public License version 2 or later; see LICENSE.txt
  * @Purpose       : Create the tables for the installation.
  * @Creation Date : Fev 21 2011
- * @Modified Date : Jul 19, 2012
+ * @Modified Date : December 07 2011
  * */
 
 /* * ************************************************************* */
