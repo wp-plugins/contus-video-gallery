@@ -108,7 +108,7 @@ function videogallery_addpages() {//function to ddd videogallery menu list to wp
 add_action('admin_menu', 'videogallery_addpages');
 require_once(APPTHA_VGALLERY_BASEDIR . '/install.php');
 ///install file
-register_activation_hook( __FILE__, 'videogallery_install');
+register_activation_hook(APPTHA_VGALLERY_BASEDIR . '/install.php', 'videogallery_install');
 
 if($_GET['action']=="activate-plugin" && $_GET['plugin']=="contus-video-gallery/hdflvvideoshare.php"){
     global $wpdb;
