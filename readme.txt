@@ -8,31 +8,36 @@ Get the most exciting FLV player in the internet, designed and modified to suit 
 
 == Description ==
 
+Contus' Best WordPress Video Gallery Plugin has a whole set of utile features and options that make the product a versatile one. In addition to the quickly visible options such as recent Videos, popular Videos and featured Videos, the plugin also has the ability to control the number and order of these videos from back end.
+
 Video Gallery Demo - http://www.apptha.com/demo/?product=12
 
 Video Gallery Home Page - http://www.apptha.com/category/extension/Wordpress/Video-Gallery
 
-Contus Best Wordpress Video Gallery Plugin has a whole set of all utile features such as Options to have quickly visible options such as recent Videos, popular Videos and featured Videos and the ability to control number and order of these from back end, FLV & H.264 encoded video including MP4, M4V, M4A, MOV, Mp4v, F4V, social networking comments from the gallery page (like for Facebook), provision to alter width, height, skin, theme, aspect ratio, volume, downloads etc. from the backend, social Media Bookmark option (diggit, myspace, facebook, del.icio.us, spurl, furl, google), multiple Playlists, views count for video, Supported in the latest Wordpress 3.0.3 and all the other regular and utile features we could see in popular video sharing sites.
+FLV & H.264 encoded video including MP4, M4V, M4A, MOV, Mp4v, F4V, social networking comments from the gallery page (like for Facebook), provision to alter width, height, skin, theme, aspect ratio, volume, downloads etc. from the backend are few if the best features with this plugin. It also covers other regular and utile features which we could see in popular video sharing sites such as social media bookmark option (diggit, myspace, facebook, del.icio.us, spurl, furl, google), managing multiple playlists, views count for video and so forth.
 
-* HTML 5
-* Easy to install WORDPRESS VIDEO GALLERY Plugin comes with complete control on player through admin panel, with fantastic support.
-* FLV Video plugin which can play FLV video & H.264 encoded video including MP3, MP4, M4V, M4A, MOV, Mp4v, F4V formats.
-* Video Player which has option send to friend feature.
-* Can have Recent Videos,Popular Videos and Featured Videos.
-* Recent , Popular , Featured Videos are widgets in our plugin .So can enable or disable at admin.
-* Tags
+* Supports HTML 5 to play videos in iOS devices
+* Easy to install the WordPress Video Gallery plugin
+* Complete control on player through admin panel with a  fantastic support
+* This FLV Video plugin is capable to play FLV video & H.264 encoded video including MP3, MP4, M4V, M4A, MOV, Mp4v and F4V formats
+* Admin option to set Recent Videos, Popular Videos and Featured Videos
+* Admin option to enable/disable Recent Videos, Popular Videos and Featured Videos
 * Flexible player size
-* Ability to turn on/off, share, volume functions
-* This Video Plugin has Full screen feature
-* 1X, 2X and 3X zoom capabilities
-* Logo (opacity control)
+* Ability to turn on/off and share volume functions
+* Option to view videos on Full screen and also on 1X, 2X and 3X zoom capabilities
+* Admin option to set the Logo (opacity control)
 * Mouse wheel support (Rewind and forward)
-* Playlist Option available in this WORDPRESS VIDEO GALLERY Version.
-* Individual sort order for each Playlist in this FLV player.
-* Add Media Option.
-* Directly play youtube videos like a youtube player.
-* Multi Language options for Tool tips on Player.
-* Show custom ads / videos through Preroll and Postroll options.
+* Option to set individual playlists
+* Individual sort order for each Playlist in the FLV player
+* Media Option can be added
+* Directly play Youtube videos like in a Youtube player
+* Multi Language options for Tool tips on Player
+* Show custom ads / videos through Preroll and Postroll options
+* Disqus Commenting System enabled for front-end users
+* Option to set up SEO friendly URL
+* Option to include a well-suited meta information
+* Option to add RTMP based videos
+* Language pack can be set on any preferred language
 
 == Installation ==
 
@@ -47,15 +52,15 @@ Contus Best Wordpress Video Gallery Plugin has a whole set of all utile features
 * WordPress: 2.8 or newer
 
 = Basic Installation =
-1. Download and unzip the current version of the WORDPRESS VIDEO GALLERY plugin.
-2. Transfer the entire WORDPRESS VIDEO GALLERY directory to your /wp-content/plugins/ directory
-3. Activate the WORDPRESS VIDEO GALLERY plugin through the 'Plugins' menu in WordPress
+1. Download the current version of the WORDPRESS VIDEO GALLERY plugin.
+2. Go to your WordPress Admin Panel and click on Plugins >> Add New >> Upload
+3. Choose the downloaded package and Install and Active the VIDEO GALLERY plugin.
 4. That's it! You're done.
 
 == Screenshots ==
 Manage Video: http://www.hdflvplayer.net/wordpress-video-gallery/gallery/video-uploadlist.JPG
 
-Upload video file: http://www.hdflvplayer.net/wordpress-video-gallery/gallery/upload-file.JPG 
+Upload video file: http://www.hdflvplayer.net/wordpress-video-gallery/gallery/upload-file.JPG
 
 Upload youtube URL: http://www.hdflvplayer.net/wordpress-video-gallery/gallery/video-upload-file.JPG
 
@@ -72,21 +77,19 @@ Gallery settings: http://www.hdflvplayer.net/wordpress-video-gallery/gallery/gal
 == Other Notes ==
 
 = To Add video =
-1. Logon to Admin panel.
-2. Media -> WORDPRESS VIDEO GALLERY - > Add Video.
-3. Provide Youtube URL or Absolute path of the video (Eg.  Upload your videos to videos folder through FTP and provide the path as http://www.yourdomain.com/video/video.mp4).
+1. Go to your WordPress Admin panel.
+2. Click Video Gallery from left column >> All Videos >> Add Video.
+3. Add a new Video using anyone of the options(YouTube URL , Upload File, Custom URL, RTMP)
 4. Create and select the playlist from the Right column of the window to assign the video to the particular playlist.
-5. Provide the sort / order number next to playlist to play the video in order.
 
 = To change the global settings of the player =
-1. Logon to Admin panel.
-2. Look for Settings on the Left column and click Contus Gallery Settings Options.
-3. Change the settings as you wish.
+1. Go to your WordPress Admin panel.
+2. Click Video Gallery from left column >> Settings
+3. Change the Plugin / Player settings as you wish.
 4. You have options for Home page Recent,Popular,and Featured Videos enable,disable options with limit of rows and columns.
 
 = To Display Side Widgets of the Player Like Recent,Popular,and Featured Videos
-
-1) Logon to Admin Panel.
+1. Go to your WordPress Admin panel.
 2) Look for Apperance on the Left column and click Widgets Options.
 3) Drag and Drop the options what you want to show in the right side bar.
 
@@ -96,25 +99,25 @@ Gallery settings: http://www.hdflvplayer.net/wordpress-video-gallery/gallery/gal
 
 == Frequently Asked Questions ==
 = How can i activate video gallery plugin? =
-Download the zip file , install it and then rename the plugin name as wordpress-video-gallery.Then activate the plugin.
+Download the zip file, install it and then activate the plugin.
 
 = Where can I see the working demo of this Video Player or Video Plugin? =
-You can see the demo of our WORDPRESS VIDEO GALLERY Version or Video Plugin in this link - http://www.hdflvplayer.net/wordpress-video-gallery/demo/
+You can see the demo of our WORDPRESS VIDEO GALLERY Version or Video Plugin in this link - http://www.apptha-demo.com/template/videostream/
 
 = What are all the file formats HD FLV PLAYER can play? =
 Our FLV player supports FLV & H.264 encoded video including MP3, MP4, M4V, M4A, MOV, Mp4v, F4V formats.
 
 = How to contact the support / development team of our Video Player? =
 You can contact us through,
-Live Chat at http://www.hdflvplayer.net
-Email: support@hdflvplayer.net
-Forums at http://www.hdflvplayer.net/forum
+Live Chat at http://www.apptha.com
+Email: assist@apptha.com
+Forums at http://www.apptha.com/forum
 
 = Can I get the WORDPRESS VIDEO GALLERY plugin player customized to my needs? =
 Yes, but there will be additional charges based on the request for customization has to be made by the requester.
 
 = What is the advantage of using this Wordpress Video Gallery Plugin? =
-To know more features and advantages of our player and this video plugin, visit this link - http://www.hdflvplayer.net/wordpress-video-gallery/contus-video-gallery-features.php
+To know more features and advantages of our player and this video plugin, visit this link - http://www.apptha.com/category/extension/Wordpress/Video-Gallery
 
 = How to replace or remove the HD FLV Player demo logo from this WORDPRESS VIDEO GALLERY? =
-For replacing or removing the demo logo from this FLV player, you need to purchase our commercial version of the player. You can find the Flash FLV player product over here at http://www.hdflvplayer.net/wordpress/
+For replacing or removing the demo logo from this FLV player, you need to purchase our commercial version of the player. You can find the Flash FLV player product over here at http://www.apptha.com/category/extension/Wordpress/Video-Gallery
