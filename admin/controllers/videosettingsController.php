@@ -72,8 +72,10 @@ if (class_exists('SettingsController') != true) {//checks if the SettingsControl
                 $playList = filter_input(INPUT_POST, 'playlist');
                 $fullScreen = filter_input(INPUT_POST, 'fullscreen');
                 $playerSkin = filter_input(INPUT_POST, 'skin');
+                $default_player = filter_input(INPUT_POST, 'default_player');
 
                 $settingsData = array(
+                    'default_player' => $default_player,
                     'autoplay' => $autoPlay,
                     'HD_default' => $hdDefault,
                     'playlistauto' => $playListauto,
@@ -119,7 +121,7 @@ if (class_exists('SettingsController') != true) {//checks if the SettingsControl
                     'skin' => $playerSkin
                 );
 
-                $settingsDataformat = array('%d', '%d', '%d', '%s', '%s', '%d', '%d', '%d', '%d', '%d', '%d',
+                $settingsDataformat = array('%d','%d', '%d', '%d', '%s', '%s', '%d', '%d', '%d', '%d', '%d', '%d',
                     '%d', '%d', '%d', '%d', '%d', '%d', '%d', '%s', '%s', '%s',
                     '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%d', '%d', '%d',
                     '%d', '%d', '%d', '%d', '%d', '%d', '%d', '%d', '%d', '%d', '%d', '%s');

@@ -347,6 +347,15 @@ License: GPL2
                                   </tr>
                                   <tr class="gallery_separator">
 
+                                      <th><?php _e("Player in Home Page", "video_gallery"); ?></th>
+                                      <td><input type='radio' name="default_player"  value="0"  <?php if ($settingsGrid->default_player == 0)
+                                                  echo 'checked'; ?> /><label><?php _e("Single player", "video_gallery"); ?></label>
+                                          <input  type='radio' name="default_player"  value="1" <?php if ($settingsGrid->default_player == 1)
+                                              echo 'checked'; ?> /><label><?php _e("Banner", "video_gallery"); ?></label>
+                                      </td>
+                                  </tr>
+                                  <tr class="gallery_separator">
+
                                       <th><?php _e("Popular Videos", "video_gallery"); ?></th>
                                       <td><input  type='radio' name="popular"  value="1" <?php if ($settingsGrid->popular == 1)
                                               echo 'checked'; ?> /><label><?php _e("Enable", "video_gallery"); ?></label>

@@ -232,7 +232,8 @@ function videogallery_install() {
                 bannerw varchar(25) NOT NULL,
                 playerw varchar(25) NOT NULL,
                 numvideos varchar(25) NOT NULL,
-                gutterspace INT(3) NOT NULL
+                gutterspace INT(3) NOT NULL,
+                default_player INT(11) NOT NULL
                 ) $charset_collate;";
         $res = $wpdb->get_results($sql);
     }
@@ -413,7 +414,7 @@ function videogallery_install() {
     //------------video share settings -----------------
     $videoSettings = $wpdb->get_results("SELECT * FROM " . $table_settings);
     if (empty($videoSettings)) {
-        $contus_videoSettings = $wpdb->query("INSERT INTO " . $table_settings . "(`settings_id`, `autoplay`, `playlist`,
+        $contus_videoSettings = $wpdb->query("INSERT INTO " . $table_settings . "(`default_player`,`settings_id`, `autoplay`, `playlist`,
                     `playlistauto`, `buffer`, `normalscale`, `fullscreenscale`, `logopath`, `logo_target`,
                     `volume`, `logoalign`, `hdflvplayer_ads`, `HD_default`, `download`, `logoalpha`,
                     `skin_autohide`, `stagecolor`, `skin`, `embed_visible`, `shareURL`, `playlistXML`,
@@ -426,7 +427,7 @@ function videogallery_install() {
                     `vbanner_categorylist`,
                     `bannerw`,`playerw`,`numvideos`,`gutterspace`)
         VALUES
-                    (1, 1, 0, 1, 100, 0, 0, 'platoon.jpg', '' ,50, 'TL', 0, 0, 1, 0, 1, '', 'skin_black', 0, '', '', 0, 1, 0, 0, 1, 620, 300, 0, '0' ,'wp-content/uploads/videogallery', '', 'true', '','', '0', '0', '1', '2', '4', '1', '2', '4', '1', '2', '4', '20', '4', '', '','1','2','4','off','popular','1','hpopular','1','vpopular','1','650','450','5','20')");
+                    (0,1, 1, 0, 1, 100, 0, 0, 'platoon.jpg', '' ,50, 'TL', 0, 0, 1, 0, 1, '', 'skin_black', 0, '', '', 0, 1, 0, 0, 1, 620, 300, 0, '0' ,'wp-content/uploads/videogallery', '', 'true', '','', '0', '0', '1', '2', '4', '1', '2', '4', '1', '2', '4', '20', '4', '', '','1','2','4','off','popular','1','hpopular','1','vpopular','1','650','450','5','20')");
     }
     //------------Media to play -----------------
     $media2Play = $wpdb->get_results("SELECT * FROM " . $table_med2play . "where post_content='[videofeatured]'");

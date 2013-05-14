@@ -34,7 +34,8 @@ if (class_exists('ContusVideoView') != true) {
             $this->_singlevideoData = $this->home_playerdata();
             $this->_featuredvideodata = $this->home_featuredvideodata();
 
-            $this->_swfPath = APPTHA_VGALLERY_BASEURL . 'hdflvplayer' . DS . 'hdplayer_banner.swf';
+            $this->_bannerswfPath = APPTHA_VGALLERY_BASEURL . 'hdflvplayer' . DS . 'hdplayer_banner.swf';
+            $this->_swfPath = APPTHA_VGALLERY_BASEURL . 'hdflvplayer' . DS . 'hdplayer.swf';
             $this->_imagePath = APPTHA_VGALLERY_BASEURL . 'images' . DS;
         }
 
@@ -64,18 +65,23 @@ if (class_exists('ContusVideoView') != true) {
             $div .='<h3 id="video_title" style="width:' . $settingsData->width . ';"  class="more_title" align="left"></h3>';
             //FLASH PLAYER STARTS HERE
             $div .='<div id="flashplayer">';
+            if($settingsData->default_player==1){
+                $swf=$this->_bannerswfPath;
+            }else{
+                $swf=$this->_swfPath;
+            }
             //IF VIDEO IS Vimeo
             if ((preg_match('/vimeo/', $videoUrl)) && ($videoUrl != '')) {
                 $vresult = explode("/", $videoUrl);
                 $div .='<iframe  type="text/html" width="' . $settingsData->width . '" height="' . $settingsData->height . '"  src="http://player.vimeo.com/video/' . $vresult[3] . '" frameborder="0"></iframe>';
             } else {
                 $div .= '<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0"  width="' . $settingsData->width . '" height="' . $settingsData->height . '" >';
-                $div .= '<param name="movie" value="' . $this->_swfPath . '" />';
+                $div .= '<param name="movie" value="' . $swf . '" />';
                 $div .= '<param name="flashvars" value="baserefW=' . APPTHA_VGALLERY_BASEURL . '&vid=' . $videoId . '&Preview=' . $thumb_image . '&mid=' . $moduleName. '" />';
                 $div .= '<param name="allowFullScreen" value="true" />';
                 $div .= '<param name="wmode" value="transparent" />';
                 $div .= '<param name="allowscriptaccess" value="always" />';
-                $div .= '<embed src="' . $this->_swfPath . '"  flashvars="baserefW=' . APPTHA_VGALLERY_BASEURL . $baseref . '&showPlaylist=true&Preview=' . $thumb_image .'&mid=' . $moduleName. '   "';
+                $div .= '<embed src="' . $swf . '"  flashvars="baserefW=' . APPTHA_VGALLERY_BASEURL . $baseref . '&showPlaylist=true&Preview=' . $thumb_image .'&mid=' . $moduleName. '   "';
                 $div .= ' width="' . $settingsData->width . '" height="' . $settingsData->height . '"   allowFullScreen="true" allowScriptAccess="always" type="application/x-shockwave-flash" wmode="transparent"></embed>';
                 $div .='</object>';
             }
