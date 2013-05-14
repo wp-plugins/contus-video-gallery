@@ -28,7 +28,7 @@ function AddColumnIfNotExists($errorMsg, $table, $column, $attributes = "INT( 11
     }
 
     if (!$columnExists) {
-        $query="ALTER TABLE `$table_name` ADD `$column` $attributes";
+        echo $query="ALTER TABLE `$table_name` ADD `$column` $attributes";
         $wpdb->query($query);
         if (!$result = $wpdb->query($query)) {
             return false;
@@ -275,14 +275,14 @@ function videogallery_install() {
 
     $updateSlug=$updatestreamer_path=$updateislive=$updateordering=$updatekeyApps=$updatekeydisqusApps='';
 
-         $updateSlug = AddColumnIfNotExists($errorMsg, "$table_name", "slug","TEXT $charset_collate NOT NULL");
-         $updatestreamer_path = AddColumnIfNotExists($errorMsg, "$table_name", "streamer_path","MEDIUMTEXT $charset_collate NOT NULL");
-         $updateislive = AddColumnIfNotExists($errorMsg, "$table_name", "islive","INT( 11 ) NOT NULL");
-         $updateordering = AddColumnIfNotExists($errorMsg, "$table_name", "ordering","INT( 11 ) NOT NULL");
+         $updateSlug = $this->AddColumnIfNotExists($errorMsg, "$table_name", "slug","TEXT $charset_collate NOT NULL");
+         $updatestreamer_path = $this->AddColumnIfNotExists($errorMsg, "$table_name", "streamer_path","MEDIUMTEXT $charset_collate NOT NULL");
+         $updateislive = $this->AddColumnIfNotExists($errorMsg, "$table_name", "islive","INT( 11 ) NOT NULL");
+         $updateordering = $this->AddColumnIfNotExists($errorMsg, "$table_name", "ordering","INT( 11 ) NOT NULL");
 
 
-         $updatekeyApps = AddColumnIfNotExists($errorMsg, "$table_settings", "keyApps","varchar(50) $charset_collate NOT NULL");
-         $updatekeydisqusApps = AddColumnIfNotExists($errorMsg, "$table_settings", "keydisqusApps","varchar(50) $charset_collate NOT NULL");
+         $updatekeyApps = $this->AddColumnIfNotExists($errorMsg, "$table_settings", "keyApps","varchar(50) $charset_collate NOT NULL");
+         $updatekeydisqusApps = $this->AddColumnIfNotExists($errorMsg, "$table_settings", "keydisqusApps","varchar(50) $charset_collate NOT NULL");
 
 
     $site_url = get_option('siteurl');
