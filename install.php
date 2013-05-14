@@ -8,9 +8,9 @@ Author: Apptha
 Author URI: http://www.apptha.com
 License: GPL2
 */
-echo 'jsd';exit;
 function AddColumnIfNotExists($errorMsg, $table, $column, $attributes = "INT( 11 ) NOT NULL DEFAULT '0'") {
      global $wpdb;
+     echo 'jkdsfd';exit;
     $columnExists = false;
     $upgra = 'upgrade';
     $query = 'SHOW COLUMNS FROM ' . $table;
@@ -275,7 +275,7 @@ function videogallery_install() {
     }
 
     $updateSlug=$updatestreamer_path=$updateislive=$updateordering=$updatekeyApps=$updatekeydisqusApps='';
-echo 'df';
+
          $updateSlug = $this->AddColumnIfNotExists($errorMsg, "$table_name", "slug","TEXT $charset_collate NOT NULL");
          $updatestreamer_path = $this->AddColumnIfNotExists($errorMsg, "$table_name", "streamer_path","MEDIUMTEXT $charset_collate NOT NULL");
          $updateislive = $this->AddColumnIfNotExists($errorMsg, "$table_name", "islive","INT( 11 ) NOT NULL");
