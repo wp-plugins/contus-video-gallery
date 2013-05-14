@@ -55,7 +55,7 @@ if (class_exists('ContusVideoView') != true) {
             }
             $moduleName = "playerModule";
             $div = '<div align="center">'; //video player starts
-            $div .= '<style type="text/css"> .video-block {  padding-left:' . $settingsData->gutterspace . 'px} </style>';
+            $div .= '<style type="text/css"> .video-block {padding-left:0;  padding-right:' . $settingsData->gutterspace . 'px} </style>';
             if (!empty($this->_vId)) {
                 $baseref = '&amp;vid=' . $this->_vId;
             }else {
@@ -192,7 +192,7 @@ if (class_exists('ContusVideoView') != true) {
                 $image_path = str_replace('plugins/video-gallery/', 'uploads/videogallery/', APPTHA_VGALLERY_BASEURL);
                 if ($TypeSet) { //CHECKING FAETURED VIDEOS ENABLE STARTS
                     $div = '<div class="video_wrapper" id="'.$type_name.'_video">';
-                    $div .= '<style type="text/css"> .video-block {  padding-left:' . $this->_settingsData->gutterspace . 'px} </style>';
+                    $div .= '<style type="text/css"> .video-block {padding-left:0; padding-right:' . $this->_settingsData->gutterspace . 'px} </style>';
 //                    echo "<pre>";print_r($TypeOFvideos);
                     if (!empty($TypeOFvideos)) {
                         $div .='<h2 class="video_header">' . $typename . ' '.__('Videos', 'video_gallery').'</h2>';
