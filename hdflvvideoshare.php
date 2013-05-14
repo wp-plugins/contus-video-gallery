@@ -129,8 +129,8 @@ if($_GET['action']=="activate-plugin" && $_GET['plugin']=="contus-video-gallery/
     $updateSlug=$updatestreamer_path=$updateislive=$updateordering=$updatekeyApps=$updatekeydisqusApps='';
          $updateSlug = AddColumnIfNotExists($errorMsg, "$table_name", "slug","TEXT $charset_collate NOT NULL");
          $updatestreamer_path = AddColumnIfNotExists($errorMsg, "$table_name", "streamer_path","MEDIUMTEXT $charset_collate NOT NULL");
-         $updatepublish = AddColumnIfNotExists($errorMsg, "$table_name", "publish","INT( 11 ) NOT NULL");
-         $updateispublish = AddColumnIfNotExists($errorMsg, "$table_playlist", "is_publish","INT( 11 ) NOT NULL");
+         $updatepublish = AddColumnIfNotExists($errorMsg, "$table_name", "publish","INT( 11 ) NOT NULL DEFAULT 1");
+         $updateispublish = AddColumnIfNotExists($errorMsg, "$table_playlist", "is_publish","INT( 11 ) NOT NULL DEFAULT 1");
          $updateislive = AddColumnIfNotExists($errorMsg, "$table_name", "islive","INT( 11 ) NOT NULL");
          $updateordering = AddColumnIfNotExists($errorMsg, "$table_name", "ordering","INT( 11 ) NOT NULL");
          $updatekeyApps = AddColumnIfNotExists($errorMsg, "$table_settings", "keyApps","varchar(50) $charset_collate NOT NULL");
