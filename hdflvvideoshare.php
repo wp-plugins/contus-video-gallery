@@ -1,5 +1,4 @@
 <?php
-
 /*
   Plugin Name: Wordpress Video Gallery
   Plugin URI: http://www.apptha.com/category/extension/Wordpress/Video-Gallery
