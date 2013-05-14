@@ -42,6 +42,7 @@ function AddColumnIfNotExists($errorMsg, $table, $column, $attributes = "INT( 11
 
 function videogallery_install() {
     global $wpdb;
+    echo 'jdsnf';exit;
     // set tablename
     $table_name = $wpdb->prefix . 'hdflvvideoshare';
     $table_playlist = $wpdb->prefix . 'hdflvvideoshare_playlist';
