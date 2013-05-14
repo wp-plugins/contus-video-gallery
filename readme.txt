@@ -10,7 +10,7 @@ Get the most exciting FLV player in the internet, designed and modified to suit 
 
 Contus' Best WordPress Video Gallery Plugin has a whole set of utile features and options that make the product a versatile one. In addition to the quickly visible options such as recent Videos, popular Videos and featured Videos, the plugin also has the ability to control the number and order of these videos from back end.
 
-Video Gallery Demo - http://www.apptha.com/demo/?product=12
+Video Gallery Demo - http://www.apptha-demo.com/template/videostream/
 
 Video Gallery Home Page - http://www.apptha.com/category/extension/Wordpress/Video-Gallery
 
