@@ -112,7 +112,13 @@ require_once(APPTHA_VGALLERY_BASEDIR . '/install.php');
 register_activation_hook(__FILE__, 'videogallery_install');
 
 if($_GET['action']=="activate-plugin" && $_GET['plugin']=="contus-video-gallery/hdflvvideoshare.php"){
-    echo 'test';
+    $updateSlug=$updatestreamer_path=$updateislive=$updateordering=$updatekeyApps=$updatekeydisqusApps='';
+         $updateSlug = AddColumnIfNotExists($errorMsg, "$table_name", "slug","TEXT $charset_collate NOT NULL");
+         $updatestreamer_path = AddColumnIfNotExists($errorMsg, "$table_name", "streamer_path","MEDIUMTEXT $charset_collate NOT NULL");
+         $updateislive = AddColumnIfNotExists($errorMsg, "$table_name", "islive","INT( 11 ) NOT NULL");
+         $updateordering = AddColumnIfNotExists($errorMsg, "$table_name", "ordering","INT( 11 ) NOT NULL");
+         $updatekeyApps = AddColumnIfNotExists($errorMsg, "$table_settings", "keyApps","varchar(50) $charset_collate NOT NULL");
+         $updatekeydisqusApps = AddColumnIfNotExists($errorMsg, "$table_settings", "keydisqusApps","varchar(50) $charset_collate NOT NULL");
 }
 
 
