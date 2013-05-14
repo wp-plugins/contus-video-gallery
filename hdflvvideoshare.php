@@ -111,6 +111,8 @@ require_once(APPTHA_VGALLERY_BASEDIR . '/install.php');
 ///install file
 register_activation_hook(__FILE__, 'videogallery_install');
 
+print_r($_REQUEST);exit;
+
 function videogallery_menu() { //function  to declare the videogalery admin pages starts
     global $adminControllerPath, $adminModelPath, $adminViewPath;
     $adminPage = filter_input(INPUT_GET, 'page');
