@@ -273,18 +273,6 @@ function videogallery_install() {
         $resTags = $wpdb->get_results($sqlTags);
     }
 
-    $updateSlug=$updatestreamer_path=$updateislive=$updateordering=$updatekeyApps=$updatekeydisqusApps='';
-
-         $updateSlug = $this->AddColumnIfNotExists($errorMsg, "$table_name", "slug","TEXT $charset_collate NOT NULL");
-         $updatestreamer_path = $this->AddColumnIfNotExists($errorMsg, "$table_name", "streamer_path","MEDIUMTEXT $charset_collate NOT NULL");
-         $updateislive = $this->AddColumnIfNotExists($errorMsg, "$table_name", "islive","INT( 11 ) NOT NULL");
-         $updateordering = $this->AddColumnIfNotExists($errorMsg, "$table_name", "ordering","INT( 11 ) NOT NULL");
-
-
-         $updatekeyApps = $this->AddColumnIfNotExists($errorMsg, "$table_settings", "keyApps","varchar(50) $charset_collate NOT NULL");
-         $updatekeydisqusApps = $this->AddColumnIfNotExists($errorMsg, "$table_settings", "keydisqusApps","varchar(50) $charset_collate NOT NULL");
-
-
     $site_url = get_option('siteurl');
     // Creating the pages for the contus-more,contus-home and contus- video pages
     $postM = $wpdb->get_results("SELECT * FROM " . $wpdb->prefix . "posts where post_content='[videomore]'");
