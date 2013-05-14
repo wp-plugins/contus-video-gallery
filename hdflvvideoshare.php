@@ -132,6 +132,7 @@ if($_GET['action']=="activate-plugin" && $_GET['plugin']=="contus-video-gallery/
          $updateispublish = AddColumnIfNotExists($errorMsg, "$table_playlist", "is_publish","INT( 11 ) NOT NULL DEFAULT 1");
          $updateislive = AddColumnIfNotExists($errorMsg, "$table_name", "islive","INT( 11 ) NOT NULL");
          $updateordering = AddColumnIfNotExists($errorMsg, "$table_name", "ordering","INT( 11 ) NOT NULL");
+         $updatedefault_player = AddColumnIfNotExists($errorMsg, "$table_settings", "default_player","INT( 11 ) NOT NULL DEFAULT 0");
          $updatekeyApps = AddColumnIfNotExists($errorMsg, "$table_settings", "keyApps","varchar(50) $charset_collate NOT NULL");
          $updatekeydisqusApps = AddColumnIfNotExists($errorMsg, "$table_settings", "keydisqusApps","varchar(50) $charset_collate NOT NULL");
          upgrade_videos();
