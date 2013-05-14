@@ -112,6 +112,19 @@ require_once(APPTHA_VGALLERY_BASEDIR . '/install.php');
 register_activation_hook(__FILE__, 'videogallery_install');
 
 if($_GET['action']=="activate-plugin" && $_GET['plugin']=="contus-video-gallery/hdflvvideoshare.php"){
+    global $wpdb;
+    $table_name = $wpdb->prefix . 'hdflvvideoshare';
+    $table_settings = $wpdb->prefix . 'hdflvvideoshare_settings';
+
+    $charset_collate = '';
+
+    if (version_compare(mysql_get_server_info(), '4.1.0', '>=')) {
+        if (!empty($wpdb->charset))
+            $charset_collate = "DEFAULT CHARACTER SET $wpdb->charset";
+        if (!empty($wpdb->collate))
+            $charset_collate .= " COLLATE $wpdb->collate";
+    }
+
     $updateSlug=$updatestreamer_path=$updateislive=$updateordering=$updatekeyApps=$updatekeydisqusApps='';
          $updateSlug = AddColumnIfNotExists($errorMsg, "$table_name", "slug","TEXT $charset_collate NOT NULL");
          $updatestreamer_path = AddColumnIfNotExists($errorMsg, "$table_name", "streamer_path","MEDIUMTEXT $charset_collate NOT NULL");
