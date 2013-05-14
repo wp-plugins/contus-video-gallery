@@ -97,8 +97,8 @@ h4.playlistName {float:left; }
 .left{float: left;}
 .video-pagination a{margin: 0 5px; text-align: right;}
 .video-block a img,
-.video-block img {padding: 0 !important; margin: 0 !important; width: 128px !important; max-width: none;
-                    height: 72px !important; border:none}
+.video-block img {padding: 0 !important; margin: 0 !important; width: 140px !important; max-width: none;
+                    height: 90px !important; border:none}
 .views, .videoHname, .videoName, .playlistName {  font-size: 12px !important; }
 .playlistName {display: block;}
 .vid_info .playlistName{ float: right; }
@@ -125,12 +125,17 @@ h3.related-videos{margin: 0 !important; padding: 0 !important; text-align: left;
 .video_wrapper h5{overflow: hidden;}
 .video_wrapper h3{margin: 5px 0 !important; }
 .video_wrapper h5{margin: 5px 0 !important; }
+.video-block-container{ margin: 0px; }
+.video-block:first-child{ padding-left: 0px; }
 .video-block
 {   line-height: 17px;
     float:left;
     padding-bottom: 25px;
-    width:130px;
+    width:140px;
     min-height: 130px;
+    display: block;
+    list-style-type: none;
+    margin: 0 !important;
 }
 .video_thumb_content{display: table;}
 .video_duration{ position: absolute; right: 0; bottom: 10px; font-size: 10px; background: #000; padding: 0 3px; color: #fff; line-height: 11px; -webkit-border-radius: 2px; -moz-border-radius: 2px; border-radius: 2px;}
