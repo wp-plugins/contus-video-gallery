@@ -115,6 +115,7 @@ if($_GET['action']=="activate-plugin" && $_GET['plugin']=="contus-video-gallery/
     global $wpdb;
     $table_name = $wpdb->prefix . 'hdflvvideoshare';
     $table_settings = $wpdb->prefix . 'hdflvvideoshare_settings';
+    $table_playlist = $wpdb->prefix . 'hdflvvideoshare_playlist';
 
     $charset_collate = '';
 
@@ -128,10 +129,13 @@ if($_GET['action']=="activate-plugin" && $_GET['plugin']=="contus-video-gallery/
     $updateSlug=$updatestreamer_path=$updateislive=$updateordering=$updatekeyApps=$updatekeydisqusApps='';
          $updateSlug = AddColumnIfNotExists($errorMsg, "$table_name", "slug","TEXT $charset_collate NOT NULL");
          $updatestreamer_path = AddColumnIfNotExists($errorMsg, "$table_name", "streamer_path","MEDIUMTEXT $charset_collate NOT NULL");
+         $updatepublish = AddColumnIfNotExists($errorMsg, "$table_name", "publish","INT( 11 ) NOT NULL");
+         $updateispublish = AddColumnIfNotExists($errorMsg, "$table_playlist", "is_publish","INT( 11 ) NOT NULL");
          $updateislive = AddColumnIfNotExists($errorMsg, "$table_name", "islive","INT( 11 ) NOT NULL");
          $updateordering = AddColumnIfNotExists($errorMsg, "$table_name", "ordering","INT( 11 ) NOT NULL");
          $updatekeyApps = AddColumnIfNotExists($errorMsg, "$table_settings", "keyApps","varchar(50) $charset_collate NOT NULL");
          $updatekeydisqusApps = AddColumnIfNotExists($errorMsg, "$table_settings", "keydisqusApps","varchar(50) $charset_collate NOT NULL");
+         upgrade_videos();
 }
 
 

@@ -39,6 +39,26 @@ function AddColumnIfNotExists($errorMsg, $table, $column, $attributes = "INT( 11
     return true;
 }
 
+function upgrade_videos() {
+     global $wpdb;
+      $posttable = $wpdb->prefix . 'posts';
+    $videoID = $wpdb->get_results("select vid,name from " . $wpdb->prefix . "hdflvvideoshare");
+    for ($i = 0; $i < count($videoID); $i++) {
+            $slug = sanitize_title($videoID[$i]->name);
+            $name=$videoID[$i]->name;
+            $vid=$videoID[$i]->vid;
+            $post_content = "[hdvideo id=" . $vid . "]";
+            $contus_videoposts = $wpdb->query("INSERT INTO " . $posttable . " (`post_author`,`post_date`, `post_date_gmt`, `post_content`, `post_title`, `post_excerpt`, `post_status`, `comment_status`, `ping_status`, `post_password`, `post_name`, `to_ping`, `pinged`, `post_modified`, `post_modified_gmt`, `post_content_filtered`, `post_parent`, `guid`, `menu_order`, `post_type`, `post_mime_type`, `comment_count`) VALUES
+('1','2011-11-15 07:22:39', '2011-11-15 07:22:39', '$post_content', '$name', '', 'publish', 'closed', 'closed', '', '$slug', '', '', '2011-11-15 07:22:39', '2011-11-15 07:22:39', '', '0', '', '0','videogallery', '', '0')
+");
+            $post_id = $wpdb->insert_id;
+            $guid = get_bloginfo('url') . "/?post_type=videogallery&#038;p=".$post_id;
+     $wpdb->query("UPDATE ".$wpdb->prefix."hdflvvideoshare SET slug = $post_id WHERE vid = $vid");
+     $wpdb->query("UPDATE ".$posttable." SET guid = '$guid' WHERE ID = $post_id");
+        }
+    
+}
+
 function videogallery_install() {
     global $wpdb;
     // set tablename
