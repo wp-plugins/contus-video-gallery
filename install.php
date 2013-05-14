@@ -30,6 +30,7 @@ function AddColumnIfNotExists($errorMsg, $table, $column, $attributes = "INT( 11
     if (!$columnExists) {
         echo $query="ALTER TABLE `$table_name` ADD `$column` $attributes";
         $wpdb->query($query);
+        echo "<pre>";print_r($wpdb);exit;
         if (!$result = $wpdb->query($query)) {
             return false;
         }
@@ -274,7 +275,7 @@ function videogallery_install() {
     }
 
     $updateSlug=$updatestreamer_path=$updateislive=$updateordering=$updatekeyApps=$updatekeydisqusApps='';
-
+echo 'df';
          $updateSlug = $this->AddColumnIfNotExists($errorMsg, "$table_name", "slug","TEXT $charset_collate NOT NULL");
          $updatestreamer_path = $this->AddColumnIfNotExists($errorMsg, "$table_name", "streamer_path","MEDIUMTEXT $charset_collate NOT NULL");
          $updateislive = $this->AddColumnIfNotExists($errorMsg, "$table_name", "islive","INT( 11 ) NOT NULL");
