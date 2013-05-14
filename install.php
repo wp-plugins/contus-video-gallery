@@ -8,9 +8,9 @@ Author: Apptha
 Author URI: http://www.apptha.com
 License: GPL2
 */
+
 function AddColumnIfNotExists($errorMsg, $table, $column, $attributes = "INT( 11 ) NOT NULL DEFAULT '0'") {
      global $wpdb;
-     echo 'jkdsfd';exit;
     $columnExists = false;
     $upgra = 'upgrade';
     $query = 'SHOW COLUMNS FROM ' . $table;
@@ -28,9 +28,8 @@ function AddColumnIfNotExists($errorMsg, $table, $column, $attributes = "INT( 11
     }
 
     if (!$columnExists) {
-        echo $query="ALTER TABLE `$table_name` ADD `$column` $attributes";
+        $query="ALTER TABLE `$table_name` ADD `$column` $attributes";
         $wpdb->query($query);
-        echo "<pre>";print_r($wpdb);exit;
         if (!$result = $wpdb->query($query)) {
             return false;
         }
@@ -42,7 +41,6 @@ function AddColumnIfNotExists($errorMsg, $table, $column, $attributes = "INT( 11
 
 function videogallery_install() {
     global $wpdb;
-    echo 'jdsnf';exit;
     // set tablename
     $table_name = $wpdb->prefix . 'hdflvvideoshare';
     $table_playlist = $wpdb->prefix . 'hdflvvideoshare_playlist';
