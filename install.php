@@ -28,7 +28,7 @@ function AddColumnIfNotExists($errorMsg, $table, $column, $attributes = "INT( 11
     }
 
     if (!$columnExists) {
-        echo $query="ALTER TABLE `$table_name` ADD `$column` $attributes";
+        echo $query="ALTER TABLE `$table` ADD `$column` $attributes";
         $wpdb->query($query);
         if (!$result = $wpdb->query($query)) {
             return false;
