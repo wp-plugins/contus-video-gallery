@@ -13,7 +13,7 @@ function AddColumnIfNotExists($errorMsg, $table, $column, $attributes = "INT( 11
      global $wpdb;
     $columnExists = false;
     $upgra = 'upgrade';
-    echo $query = 'SHOW COLUMNS FROM ' . $table;
+    $query = 'SHOW COLUMNS FROM ' . $table;
 
 
     if (!$result=$wpdb->query($query)) {
@@ -28,7 +28,7 @@ function AddColumnIfNotExists($errorMsg, $table, $column, $attributes = "INT( 11
     }
 
     if (!$columnExists) {
-        echo $query="ALTER TABLE `$table` ADD `$column` $attributes";
+        $query="ALTER TABLE `$table` ADD `$column` $attributes";
         $wpdb->query($query);
         if (!$result = $wpdb->query($query)) {
             return false;
