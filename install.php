@@ -56,7 +56,13 @@ function upgrade_videos() {
      $wpdb->query("UPDATE ".$wpdb->prefix."hdflvvideoshare SET slug = $post_id WHERE vid = $vid");
      $wpdb->query("UPDATE ".$posttable." SET guid = '$guid' WHERE ID = $post_id");
         }
-    
+
+        $featuredID = $wpdb->get_results("select vid from " . $wpdb->prefix . "hdflvvideoshare where featured='ON'");
+        for ($i = 0; $i < count($featuredID); $i++) {
+            $vid=$featuredID[$i]->vid;
+     $wpdb->query("UPDATE ".$wpdb->prefix."hdflvvideoshare SET featured = 1 WHERE vid = $vid");
+        }
+
 }
 
 function videogallery_install() {
