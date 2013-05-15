@@ -86,7 +86,7 @@ License: GPL2
                                 <table class="form-table">
                                     <tr>
                                         <th scope='row'><?php _e("License Key", "video_gallery"); ?></th>
-                                        <td valign="top"><input type='text' name="license" value="<?php echo $settingsGrid->license ?>"  style="float: left;" size=35 /> <?php echo "<a target='_blank' href='http://www.apptha.com/checkout/cart/'><img src='" . APPTHA_VGALLERY_BASEURL . "images/buynow.gif' alt='Buy'/></a>"; ?></td>
+                                        <td valign="top"><input type='text' name="license" value="<?php echo $settingsGrid->license ?>"  style="float: left;" size=35 /> <?php echo "<a target='_blank' href='http://www.apptha.com/checkout/cart/add/product/12'><img src='" . APPTHA_VGALLERY_BASEURL . "images/buynow.gif' alt='Buy'/></a>"; ?></td>
                                     </tr>
 
                                 </table>
