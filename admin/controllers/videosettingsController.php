@@ -69,6 +69,8 @@ if (class_exists('SettingsController') != true) {//checks if the SettingsControl
                 $colFea = filter_input(INPUT_POST, 'colFea');
                 $rowCat = filter_input(INPUT_POST, 'rowCat');
                 $colCat = filter_input(INPUT_POST, 'colCat');
+                $rowMore = filter_input(INPUT_POST, 'rowMore');
+                $colMore = filter_input(INPUT_POST, 'colMore');
                 $playList = filter_input(INPUT_POST, 'playlist');
                 $fullScreen = filter_input(INPUT_POST, 'fullscreen');
                 $playerSkin = filter_input(INPUT_POST, 'skin');
@@ -116,6 +118,8 @@ if (class_exists('SettingsController') != true) {//checks if the SettingsControl
                     'colFea' => $colFea,
                     'rowCat' => $rowCat,
                     'colCat' => $colCat,
+                    'rowMore' => $rowMore,
+                    'colMore' => $colMore,
                     'playlist' => $playList,
                     'fullscreen' => $fullScreen,
                     'skin' => $playerSkin
@@ -124,7 +128,7 @@ if (class_exists('SettingsController') != true) {//checks if the SettingsControl
                 $settingsDataformat = array('%d','%d', '%d', '%d', '%s', '%s', '%d', '%d', '%d', '%d', '%d', '%d',
                     '%d', '%d', '%d', '%d', '%d', '%d', '%d', '%s', '%s', '%s',
                     '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%d', '%d', '%d',
-                    '%d', '%d', '%d', '%d', '%d', '%d', '%d', '%d', '%d', '%d', '%d', '%s');
+                    '%d', '%d', '%d', '%d', '%d', '%d', '%d', '%d', '%d', '%d', '%d', '%d', '%d', '%s');
 
                 $updateflag = $this->update_settings($settingsData, $settingsDataformat);
                 if ($updateflag) {

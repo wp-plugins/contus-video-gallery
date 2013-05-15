@@ -222,6 +222,8 @@ function videogallery_install() {
                 comment_option TINYINT(1) NOT NULL,
                 rowCat varchar(25) NOT NULL,
                 colCat varchar(25) NOT NULL,
+                rowMore varchar(25) NOT NULL,
+                colMore varchar(25) NOT NULL,
                 homecategory varchar(25) NOT NULL,
                 bannercategory varchar(25) NOT NULL,
                 banner_categorylist INT(3) NOT NULL DEFAULT '1',
@@ -425,9 +427,9 @@ function videogallery_install() {
                     `comment_option`, `rowCat`, `colCat`,`homecategory`,`bannercategory`,
                     `banner_categorylist`,`hbannercategory`,`hbanner_categorylist`,`vbannercategory`,
                     `vbanner_categorylist`,
-                    `bannerw`,`playerw`,`numvideos`,`gutterspace`)
+                    `bannerw`,`playerw`,`numvideos`,`gutterspace`,`colMore`,`rowMore`)
         VALUES
-                    (0,1, 1, 0, 1, 100, 0, 0, 'platoon.jpg', '' ,50, 'TL', 0, 0, 1, 0, 1, '', 'skin_black', 0, '', '', 0, 1, 0, 0, 1, 620, 300, 0, '0' ,'wp-content/uploads/videogallery', '', 'true', '','', '0', '0', '1', '2', '4', '1', '2', '4', '1', '2', '4', '20', '4', '', '','1','2','4','off','popular','1','hpopular','1','vpopular','1','650','450','5','20')");
+                    (0,1, 1, 0, 1, 100, 0, 0, 'platoon.jpg', '' ,50, 'TL', 0, 0, 1, 0, 1, '', 'skin_black', 0, '', '', 0, 1, 0, 0, 1, 620, 300, 0, '0' ,'wp-content/uploads/videogallery', '', 'true', '','', '0', '0', '1', '2', '4', '1', '2', '4', '1', '2', '4', '20', '4', '', '','1','2','4','off','popular','1','hpopular','1','vpopular','1','650','450','5','20','4','2')");
     }
     //------------Media to play -----------------
     $media2Play = $wpdb->get_results("SELECT * FROM " . $table_med2play . "where post_content='[videofeatured]'");

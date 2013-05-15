@@ -134,6 +134,8 @@ if($_GET['action']=="activate-plugin" && $_GET['plugin']=="contus-video-gallery/
          $updateordering = AddColumnIfNotExists($errorMsg, "$table_name", "ordering","INT( 11 ) NOT NULL");
          $updatedefault_player = AddColumnIfNotExists($errorMsg, "$table_settings", "default_player","INT( 11 ) NOT NULL DEFAULT 0");
          $updatekeyApps = AddColumnIfNotExists($errorMsg, "$table_settings", "keyApps","varchar(50) $charset_collate NOT NULL");
+         $updaterowMore = AddColumnIfNotExists($errorMsg, "$table_settings", "rowMore","varchar(25) $charset_collate NOT NULL");
+         $updatecolMore = AddColumnIfNotExists($errorMsg, "$table_settings", "colMore","varchar(25) $charset_collate NOT NULL");
          $updatekeydisqusApps = AddColumnIfNotExists($errorMsg, "$table_settings", "keydisqusApps","varchar(50) $charset_collate NOT NULL");
          upgrade_videos();
 }
@@ -186,7 +188,7 @@ function add_meta_details() {
 
     if (!empty($videoID)) {
         $keyApps = $wpdb->get_var("SELECT keyApps FROM " . $wpdb->prefix . "hdflvvideoshare_settings");
-        $videoID = $wpdb->get_var("select vid from " . $wpdb->prefix . "hdflvvideoshare WHERE slug='$videoID'");
+        $videoID = $wpdb->get_var("select vid from " . $wpdb->prefix . "hdflvvideoshare WHERE slug='".intval($videoID)."'");
         $video_count = $wpdb->get_row("SELECT t1.description,t4.tags_name,t1.name,t1.image"
                         . " FROM " . $wpdb->prefix . "hdflvvideoshare AS t1"
                         . " LEFT JOIN " . $wpdb->prefix . "hdflvvideoshare_med2play AS t2"

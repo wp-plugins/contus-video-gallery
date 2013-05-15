@@ -48,7 +48,7 @@ if(class_exists('ContusVideo') != true)
 
         public function get_tag_name($vid)
         {//function for getting Tag name starts
-           $video_count = $this->_wpdb->get_var("SELECT tags_name from " . $this->_wpdb->prefix . "hdflvvideoshare_tags WHERE media_id='$vid'");
+           $video_count = $this->_wpdb->get_var("SELECT tags_name from " . $this->_wpdb->prefix . "hdflvvideoshare_tags WHERE media_id='".intval($vid)."'");
            return $video_count;
         }//function for getting Tag name ends
         public function get_video_detail($vid)
@@ -61,7 +61,7 @@ if(class_exists('ContusVideo') != true)
                where w.vid='$vid' and w.publish='1' AND p.is_publish='1' GROUP BY w.vid";
 
         $themediafiles = $wpdb->get_results($select);
-        $getPlaylist   = $wpdb->get_results("SELECT playlist_id FROM ".$wpdb->prefix."hdflvvideoshare_med2play WHERE media_id='$vid' LIMIT 1");
+        $getPlaylist   = $wpdb->get_results("SELECT playlist_id FROM ".$wpdb->prefix."hdflvvideoshare_med2play WHERE media_id='".intval($vid)."' LIMIT 1");
          foreach ($getPlaylist as $getPlaylists)
         {
             if ($getPlaylists->playlist_id != '')
@@ -78,7 +78,7 @@ if(class_exists('ContusVideo') != true)
         INNER JOIN " . $wpdb->prefix . "hdflvvideoshare_med2play m
         INNER JOIN " . $wpdb->prefix . "hdflvvideoshare_playlist p
         WHERE (m.playlist_id = '$playlist_id'
-        AND m.media_id = w.vid AND p.pid=m.playlist_id AND m.media_id != '$vid' AND w.publish='1' AND p.is_publish='1' ) GROUP BY w.vid";
+        AND m.media_id = w.vid AND p.pid=m.playlist_id AND m.media_id != '".intval($vid)."' AND w.publish='1' AND p.is_publish='1' ) GROUP BY w.vid";
         $fetched       = $wpdb->get_results($fetch_video);
 
 
@@ -95,7 +95,7 @@ if(class_exists('ContusVideo') != true)
                                                             INNER JOIN " . $wpdb->prefix . "hdflvvideoshare_med2play m
                                                             INNER JOIN " . $wpdb->prefix . "hdflvvideoshare_playlist p
                                                     INNER JOIN " . $wpdb->prefix  . "posts s ON s.ID=w.slug
-                                                            WHERE (w.vid=$r->vid AND m.media_id != '$vid' AND w.publish='1' AND p.is_publish='1' ) GROUP BY w.vid";
+                                                            WHERE (w.vid=$r->vid AND m.media_id != '".intval($vid)."' AND w.publish='1' AND p.is_publish='1' ) GROUP BY w.vid";
 
                                             $arrGreat       = $wpdb->get_row($query);
                                             $arr1[] = $arrGreat;
@@ -104,7 +104,7 @@ if(class_exists('ContusVideo') != true)
                                                             INNER JOIN " . $wpdb->prefix . "hdflvvideoshare_med2play m
                                                             INNER JOIN " . $wpdb->prefix . "hdflvvideoshare_playlist p
                                                     INNER JOIN " . $wpdb->prefix  . "posts s ON s.ID=w.slug
-                                                            WHERE (w.vid=$r->vid AND m.media_id != '$vid' AND w.publish='1' AND p.is_publish='1' ) GROUP BY w.vid";
+                                                            WHERE (w.vid=$r->vid AND m.media_id != '".intval($vid)."' AND w.publish='1' AND p.is_publish='1' ) GROUP BY w.vid";
 
                                             $arrLess       = $wpdb->get_row($query);
                                             $arr2[] = $arrLess;
@@ -123,12 +123,12 @@ if(class_exists('ContusVideo') != true)
         {//function for getting Tag name starts
             global $wpdb;
        $playlist_id     =$pid;
-            $playlist = $wpdb->get_row("SELECT * FROM " . $wpdb->prefix . "hdflvvideoshare_playlist WHERE pid = '$playlist_id'");
+            $playlist = $wpdb->get_row("SELECT * FROM " . $wpdb->prefix . "hdflvvideoshare_playlist WHERE pid = '".intval($playlist_id)."'");
     if ($playlist)
     {
         $select = " SELECT * FROM " . $wpdb->prefix . "hdflvvideoshare w";
         $select .= " INNER JOIN " . $wpdb->prefix . "hdflvvideoshare_med2play m";
-        $select .= " WHERE (m.playlist_id = '$playlist_id'";
+        $select .= " WHERE (m.playlist_id = '".intval($playlist_id)."'";
         $select .= " AND m.media_id = w.vid) GROUP BY w.vid ";
         $select .= " ORDER BY m.sorder ASC , m.porder " . $playlist->playlist_order . " ,w.vid " . $playlist->playlist_order;
         $themediafiles = $wpdb->get_results($wpdb->prepare($select));

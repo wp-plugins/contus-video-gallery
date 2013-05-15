@@ -86,7 +86,7 @@ License: GPL2
                                 <table class="form-table">
                                     <tr>
                                         <th scope='row'><?php _e("License Key", "video_gallery"); ?></th>
-                                        <td><input type='text' name="license" value="<?php echo $settingsGrid->license ?>" size=45  /></td>
+                                        <td valign="top"><input type='text' name="license" value="<?php echo $settingsGrid->license ?>"  style="float: left;" size=35 /> <?php echo "<a target='_blank' href='http://www.apptha.com/checkout/cart/'><img src='" . APPTHA_VGALLERY_BASEURL . "images/buynow.gif' alt='Buy'/></a>"; ?></td>
                                     </tr>
 
                                 </table>
@@ -400,11 +400,11 @@ License: GPL2
 
                               <tr class="gallery_separator">
                                   <th><?php _e("Category Videos", "video_gallery"); ?></th>
-                                  <td><input type='radio' name="homecategory"  value="1" <?php if ($settingsGrid->homecategory == 1)
+<!--                                  <td><input type='radio' name="homecategory"  value="1" <?php if ($settingsGrid->homecategory == 1)
                                                   echo 'checked'; ?> /><label><?php _e("Enable", "video_gallery"); ?></label>
                                       <input type='radio' name="homecategory"  value="0"  <?php if ($settingsGrid->homecategory == 0)
                                                   echo 'checked'; ?> /><label><?php _e("Disable", "video_gallery"); ?></label>
-                                  </td>
+                                  </td>-->
                               </tr>
 
                               <tr class="gallery_separator_row">
@@ -412,14 +412,14 @@ License: GPL2
                                   <td><label><?php _e("Columns", "video_gallery"); ?></label><input type="text" name="colCat" id="colCat" size="10" value="<?php echo $settingsGrid->colCat; ?>">
                                    </td>
                               </tr>
-<!--                               <tr><td> More Page</td>
+                               <tr class="gallery_separator"><th><?php _e("More Page", "video_gallery"); ?></th>
 
                                </tr>
 
-                                <tr><td>Rows<input type="text" name="rowCat" id="rowCat" size="10" value="<?php echo $settingsGrid->rowCat; ?>"></td>
-                                   <td>Columns<input type="text" name="colCat" id="colCat" size="10" value="<?php echo $settingsGrid->colCat; ?>">
+                                <tr class="gallery_separator_row"><td><label><?php _e("Rows", "video_gallery"); ?></label><input type="text" name="rowMore" id="rowMore" size="10" value="<?php echo $settingsGrid->rowMore; ?>"></td>
+                                   <td><label><?php _e("Columns", "video_gallery"); ?></label><input type="text" name="colMore" id="colMore" size="10" value="<?php echo $settingsGrid->colMore; ?>">
                                    </td>
-                               </tr>-->
+                               </tr>
                            </table>
                        </div>
                    </div>

@@ -254,7 +254,7 @@ echo "<pre>";print_r($homeplayerData);
             alert("'.$player_not_supprot.'"); } }</script>';
 
             $output .='<div id="player' . $videoId . '" style="display:none;height:100%">';
-            $select = "SELECT * FROM " . $wpdb->prefix . "hdflvvideoshare where vid='$vid'";
+            $select = "SELECT * FROM " . $wpdb->prefix . "hdflvvideoshare where vid='".intval($vid)."'";
             $fetched = $wpdb->get_results($select);
             foreach ($fetched as $media) {
                 $videourl = $media->file;
@@ -290,7 +290,7 @@ echo "<pre>";print_r($homeplayerData);
                     <div class="video-page-info">
                         <div class="video-page-date"><strong>'.__("Posted on", "video_gallery").'    </strong>: ' . date("m-d-Y", strtotime($post_date)) . '</div>
                         <div class="video-page-views"><strong>'.__("Views", "video_gallery").'       </strong>: ' . $hitcount . '</div>
-                            
+
                     </div>
                     <div class="video-page-category"><strong>'.__("Category", "video_gallery").' </strong>: ';
 
@@ -383,7 +383,7 @@ echo "<pre>";print_r($homeplayerData);
                            INNER JOIN " . $wpdb->prefix . "hdflvvideoshare_med2play b ON a.vid=b.media_id
                            INNER JOIN " . $wpdb->prefix . "hdflvvideoshare_playlist p ON p.pid=b.playlist_id
                            INNER JOIN " . $wpdb->prefix . "posts s ON s.ID=a.slug
-                           WHERE b.playlist_id=" . $video_playlist_id . " AND a.vid != " . $videoId . " and a.publish='1' AND p.is_publish='1'
+                           WHERE b.playlist_id=" . intval($video_playlist_id) . " AND a.vid != " . intval($videoId) . " and a.publish='1' AND p.is_publish='1'
                            ORDER BY a.vid DESC";
 
 if ($configXML->embed_visible == 1) {
@@ -415,7 +415,7 @@ if ($configXML->embed_visible == 1) {
 
                 $output .='<div class="video-page-desc"><strong>'.__("Description", "video_gallery").'     </strong>: ' . $description . '</div>
                     </div>';
-                
+
                 $output .='<div ><h2 class="related-videos">'.__("Related Videos", "video_gallery").'</h2>';
                 $related = mysql_query($select);
                 if (!empty($related))
