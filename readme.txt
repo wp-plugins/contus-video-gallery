@@ -3,7 +3,7 @@ Contributors: Contus Support
 Tags: Video Player plugin, video, flash player, flv player, WORDPRESS VIDEO GALLERY, flv player wordpress, hd flv player, youtube plugin, youtube Video Player, high definition Video Player, flash, play flv wordpress, player, Video Plugin, wp flv player, wp flv plugin, flv player 2009,  WORDPRESS VIDEO GALLERY, wp flv, wordpress flv plugin, wp hd flv player, flv player plugin, wordpress flv player
 Requires at least: 2.8
 Tested up to: 3.5.1
-Stable tag: 2.0
+Stable tag: 2.1
 Get the most exciting FLV player in the internet, designed and modified to suit your Wordpress websites.  Installing this Video Plugin is real easy and if you have any difficulty in installation, contact our Video Player support team and quickly resolve your issue.  You can either download this Video Plugin directly from our website or through Wordpress plugins page itself.  This WORDPRESS VIDEO GALLERY Version  has many advanced features that you cannot find elsewhere, such as that you can play youtube videos directly through this player, and it can also aptly be called as a youtube player.
 
 == Description ==
