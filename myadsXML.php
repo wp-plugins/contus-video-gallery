@@ -24,14 +24,13 @@ $limit = '';
 
 
 
-        $selectPlaylist .= " (SELECT * FROM " . $wpdb->prefix . "hdflvvideoshare_vgads w" . ")";
+        $selectPlaylist .= "SELECT * FROM " . $wpdb->prefix . "hdflvvideoshare_vgads where publish=1" ;
         $adsFiles = $wpdb->get_results($wpdb->prepare($selectPlaylist));
         $themediafiles = $adsFiles;
         ob_clean();
        // header ("content-type: text/xml");
             echo '<?xml version="1.0" encoding="utf-8"?>';
             echo '<ads >';
-            $current_path="components/com_contushdvideoshare/videos/";
 
             if(count($themediafiles)>0)
         {

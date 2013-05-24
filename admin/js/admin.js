@@ -56,17 +56,21 @@ function PlaylistdeleteIds()
     return false;
 }
 
+function clear_upload(){
+       document.getElementById("normalvideoform-value").value = '';
+    }
+
 function Videoadtype()
 {
     if(document.getElementById('filebtn').checked==true)
     {
-        document.getElementById('videoadfile').style.display = "block";
+        document.getElementById('upload2').style.display = "block";
         document.getElementById('videoadurl').style.display = "none";
     }
 
     if(document.getElementById('urlbtn').checked==true)
     {
-        document.getElementById('videoadfile').style.display = "none";
+        document.getElementById('upload2').style.display = "none";
         document.getElementById('videoadurl').style.display = "block";
     }
 

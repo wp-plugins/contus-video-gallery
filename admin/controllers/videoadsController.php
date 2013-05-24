@@ -55,7 +55,13 @@ if(class_exists('VideoadController') != true)
                 if(isset($this->_addnewVideoad))
                 {
                     $videoadName = filter_input(INPUT_POST, 'videoadname');
+                    $videoadFilepath = filter_input(INPUT_POST, 'normalvideoform-value');
+                    if(empty($videoadFilepath))
                     $videoadFilepath = filter_input(INPUT_POST, 'videoadfilepath');
+                    else{
+                        $image_path = str_replace('plugins/contus-video-gallery/', 'uploads/videogallery/', APPTHA_VGALLERY_BASEURL);
+                        $videoadFilepath=$image_path.$videoadFilepath;
+                    }
                     $videoadPublish = filter_input(INPUT_POST, 'videoadpublish');
 
                     $videoadData = array(
