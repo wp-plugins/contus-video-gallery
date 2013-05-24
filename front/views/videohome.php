@@ -204,7 +204,7 @@ if (class_exists('ContusVideoView') != true) {
 ?>
 
 <?php
-                $image_path = str_replace('plugins/video-gallery/', 'uploads/videogallery/', APPTHA_VGALLERY_BASEURL);
+                $image_path = str_replace('plugins/contus-video-gallery/', 'uploads/videogallery/', APPTHA_VGALLERY_BASEURL);
                 if ($TypeSet) { //CHECKING FAETURED VIDEOS ENABLE STARTS
                     $div = '<div class="video_wrapper" id="'.$type_name.'_video">';
                     $div .= '<style type="text/css"> .video-block {padding-left:' . $this->_settingsData->gutterspace . 'px} </style>';
@@ -312,7 +312,7 @@ WHERE w.publish='1' and p.is_publish='1' and m.playlist_id=" . intval($catList->
                 $div .='<div> <h4 class="clear more_title">' . $catList->playlist_name . '</h4></div>';
                 if (!empty($playlistCount)) {
                     $inc        = 1;
-                    $image_path = str_replace('plugins/video-gallery/', 'uploads/videogallery/', APPTHA_VGALLERY_BASEURL);
+                    $image_path = str_replace('plugins/contus-video-gallery/', 'uploads/videogallery/', APPTHA_VGALLERY_BASEURL);
                     $div .= '<ul class="video-block-container">';
                     foreach ($playLists as $playList) {
 

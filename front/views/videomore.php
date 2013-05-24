@@ -131,7 +131,7 @@ $pagenum    = isset($this->_pagenum) ? absint($this->_pagenum) : 1;
                     $j          = 0;
                     $clearwidth = 0;
                     $clear      = $fetched[$j] = '';
-                    $image_path = str_replace('plugins/video-gallery/', 'uploads/videogallery/', APPTHA_VGALLERY_BASEURL);
+                    $image_path = str_replace('plugins/contus-video-gallery/', 'uploads/videogallery/', APPTHA_VGALLERY_BASEURL);
                     foreach ($TypeOFvideos as $video) {
                         $duration[$j] = $video->duration; //VIDEO DURATION
                         $imageFea[$j] = $video->image; //VIDEO IMAGE
@@ -248,7 +248,7 @@ WHERE w.publish='1' and p.is_publish='1' and m.playlist_id=" . intval($catList->
                 if (!empty($playlistCount)) {
                     $i          = 0;
                     $inc        = 1;
-                    $image_path = str_replace('plugins/video-gallery/', 'uploads/videogallery/', APPTHA_VGALLERY_BASEURL);
+                    $image_path = str_replace('plugins/contus-video-gallery/', 'uploads/videogallery/', APPTHA_VGALLERY_BASEURL);
                     $div .= '<ul class="video-block-container">';
                     foreach ($playLists as $playList) {
 
@@ -341,7 +341,7 @@ if (($inc % $this->_colCat ) == 0 && $inc!=0) {//COLUMN COUNT
                 if (!empty($TypeOFvideos)) {
                     $i          = 0;
                     $inc        = 0;
-                    $image_path = str_replace('plugins/video-gallery/', 'uploads/videogallery/', APPTHA_VGALLERY_BASEURL);
+                    $image_path = str_replace('plugins/contus-video-gallery/', 'uploads/videogallery/', APPTHA_VGALLERY_BASEURL);
                     $div .= '<ul class="video-block-container">';
 
                     foreach ($TypeOFvideos as $playList) {

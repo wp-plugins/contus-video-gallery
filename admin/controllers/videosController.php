@@ -118,7 +118,7 @@ if (class_exists('VideoController') != true) {//checks if the VideoController cl
                     $duration = $this->convertTime($sec);
                 } else {
                     $act_filepath1 = $_REQUEST['normalvideoform-value'];
-                    $video_path=str_replace('plugins/video-gallery/', 'uploads/videogallery/', APPTHA_VGALLERY_BASEURL);
+                    $video_path=str_replace('plugins/contus-video-gallery/', 'uploads/videogallery/', APPTHA_VGALLERY_BASEURL);
                     $act_filepath1=$video_path.$act_filepath1;
                     $act_filepath = addslashes(trim($_POST['customurl']));
                     $ffmpeg_path = $this->_settingsData->ffmpeg_path;

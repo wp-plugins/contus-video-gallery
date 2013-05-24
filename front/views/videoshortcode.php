@@ -423,7 +423,7 @@ if ($configXML->embed_visible == 1) {
                 if ($result != '') {
                     //Slide Display Here
                     $output .= '<ul id="mycarousel" class="jcarousel-skin-tango" style="margin:0 !important;">';
-                    $image_path = str_replace('plugins/video-gallery/', 'uploads/videogallery/', APPTHA_VGALLERY_BASEURL);
+                    $image_path = str_replace('plugins/contus-video-gallery/', 'uploads/videogallery/', APPTHA_VGALLERY_BASEURL);
                     while ($relFet = mysql_fetch_object($related)) {
                         $file_type = $relFet->file_type; // Video Type
                         $imageFea = $relFet->image; //VIDEO IMAGE
