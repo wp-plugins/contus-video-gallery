@@ -115,6 +115,7 @@ if($_GET['action']=="activate-plugin" && $_GET['plugin']=="contus-video-gallery/
     $table_name = $wpdb->prefix . 'hdflvvideoshare';
     $table_settings = $wpdb->prefix . 'hdflvvideoshare_settings';
     $table_playlist = $wpdb->prefix . 'hdflvvideoshare_playlist';
+    $table_ad = $wpdb->prefix . 'hdflvvideoshare_vgads';
 
     $charset_collate = '';
 
@@ -129,6 +130,7 @@ if($_GET['action']=="activate-plugin" && $_GET['plugin']=="contus-video-gallery/
          $updateSlug = AddColumnIfNotExists($errorMsg, "$table_name", "slug","TEXT $charset_collate NOT NULL");
          $updatestreamer_path = AddColumnIfNotExists($errorMsg, "$table_name", "streamer_path","MEDIUMTEXT $charset_collate NOT NULL");
          $updatepublish = AddColumnIfNotExists($errorMsg, "$table_name", "publish","INT( 11 ) NOT NULL DEFAULT 1");
+         $updateadpublish = AddColumnIfNotExists($errorMsg, "$table_ad", "publish","INT( 11 ) NOT NULL DEFAULT 1");
          $updateispublish = AddColumnIfNotExists($errorMsg, "$table_playlist", "is_publish","INT( 11 ) NOT NULL DEFAULT 1");
          $updateislive = AddColumnIfNotExists($errorMsg, "$table_name", "islive","INT( 11 ) NOT NULL");
          $updateordering = AddColumnIfNotExists($errorMsg, "$table_name", "ordering","INT( 11 ) NOT NULL");
