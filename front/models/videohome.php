@@ -147,7 +147,7 @@ if(class_exists('ContusVideo') != true)
         $select .= " INNER JOIN " . $wpdb->prefix . "hdflvvideoshare_med2play m";
         $select .= " WHERE (m.playlist_id = '".intval($playlist_id)."'";
         $select .= " AND m.media_id = w.vid) GROUP BY w.vid ";
-        $select .= " ORDER BY m.sorder ASC , m.porder " . $playlist->playlist_order . " ,w.vid " . $playlist->playlist_order;
+        $select .= " ORDER BY m.sorder ASC , m.porder ASC ,w.vid ASC";
         $themediafiles = $wpdb->get_results($wpdb->prepare($select));
     }
 
