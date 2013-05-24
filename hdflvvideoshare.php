@@ -199,7 +199,7 @@ function add_meta_details() {
                         . " ON t1.vid = t4.media_id"
                         . " WHERE t1.publish='1' and t3.is_publish='1' and t1.vid='" . intval($videoID) . "' limit 1");
 
-        $image_path = str_replace('plugins/video-gallery/', 'uploads/videogallery/', APPTHA_VGALLERY_BASEURL);
+        $image_path = str_replace('plugins/contus-video-gallery/', 'uploads/videogallery/', APPTHA_VGALLERY_BASEURL);
         $_imagePath = APPTHA_VGALLERY_BASEURL . 'images' . DS;
         $imageFea = $video_count->image;
         if ($imageFea == '') {  //If there is no thumb image for video

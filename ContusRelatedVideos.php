@@ -101,7 +101,7 @@ if(isset($_GET['p']))
             // were there any posts found?
             if (!empty($relatedVideos)) {
                 // posts were found, loop through them
-                $image_path = str_replace('plugins/video-gallery/', 'uploads/videogallery/', APPTHA_VGALLERY_BASEURL);
+                $image_path = str_replace('plugins/contus-video-gallery/', 'uploads/videogallery/', APPTHA_VGALLERY_BASEURL);
                 $_imagePath = APPTHA_VGALLERY_BASEURL . 'images' . DS;
                 foreach ($relatedVideos as $feature) {
                     $file_type = $feature->file_type; // Video Type

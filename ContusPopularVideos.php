@@ -95,7 +95,7 @@ class widget_ContusPopularVideos_init extends WP_Widget {
         // were there any posts found?
         if (!empty($populars)) {
             // posts were found, loop through them
-            $image_path = str_replace('plugins/video-gallery/', 'uploads/videogallery/', APPTHA_VGALLERY_BASEURL);
+            $image_path = str_replace('plugins/contus-video-gallery/', 'uploads/videogallery/', APPTHA_VGALLERY_BASEURL);
             $_imagePath = APPTHA_VGALLERY_BASEURL . 'images' . DS;
             foreach ($populars as $popular) {
                 $file_type = $popular->file_type; // Video Type

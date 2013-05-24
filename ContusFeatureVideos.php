@@ -94,7 +94,7 @@ class widget_ContusFeaturedVideos_init extends WP_Widget {
 // were there any posts found?
         if (!empty($features)) {
             // posts were found, loop through them
-            $image_path = str_replace('plugins/video-gallery/', 'uploads/videogallery/', APPTHA_VGALLERY_BASEURL);
+            $image_path = str_replace('plugins/contus-video-gallery/', 'uploads/videogallery/', APPTHA_VGALLERY_BASEURL);
             $_imagePath = APPTHA_VGALLERY_BASEURL . 'images' . DS;
 //            echo "<pre>";print_r($features);
             foreach ($features as $feature) {
