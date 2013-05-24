@@ -37,7 +37,7 @@ if ($settingsContent->autoplay == 1) {
 } else {
     $ap = 'false';
 }
-$image_path = str_replace('plugins/video-gallery/', 'uploads/videogallery/', APPTHA_VGALLERY_BASEURL);
+$image_path = str_replace('plugins/contus-video-gallery/', 'uploads/videogallery/', APPTHA_VGALLERY_BASEURL);
 header("content-type:text/xml;charset = utf-8");
 echo '<?xml version = "1.0" encoding = "utf-8"?>';
 echo "<playlist autoplay = '$ap' random = 'false'>";
