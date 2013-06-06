@@ -8,7 +8,6 @@ Author: Apptha
 Author URI: http://www.apptha.com
 License: GPL2
 */
-
 class widget_ContusPopularVideos_init extends WP_Widget {
 
     function widget_ContusPopularVideos_init() {

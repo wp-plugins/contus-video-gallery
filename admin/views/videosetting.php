@@ -8,9 +8,7 @@ Author: Apptha
 Author URI: http://www.apptha.com
 License: GPL2
 */
-
 ?>
-
 <!--   MENU OPTIONS STARTS  --->
 <div class="apptha_gallery">   
 <h2 class="nav-tab-wrapper">

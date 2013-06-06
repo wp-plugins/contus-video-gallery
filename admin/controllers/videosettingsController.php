@@ -8,7 +8,6 @@ Author: Apptha
 Author URI: http://www.apptha.com
 License: GPL2
 */
-
 WPimport('models/videosetting.php'); //including settings model file for get database information.
 
 if (class_exists('SettingsController') != true) {//checks if the SettingsController class has been defined starts
@@ -191,5 +190,4 @@ if ($handle = opendir($ski)) {
 if ($adminPage == 'hdflvvideosharesettings') {//including settings form if starts
     require_once(APPTHA_VGALLERY_BASEDIR . DS . 'admin/views/videosetting.php');
 }//including settings form if starts
-
-
+?>

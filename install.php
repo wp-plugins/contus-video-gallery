@@ -8,7 +8,6 @@ Author: Apptha
 Author URI: http://www.apptha.com
 License: GPL2
 */
-
 function AddColumnIfNotExists($errorMsg, $table, $column, $attributes = "INT( 11 ) NOT NULL DEFAULT '0'") {
      global $wpdb;
     $columnExists = false;
@@ -477,3 +476,4 @@ function videogallery_install() {
 ");
     }
 }
+?>

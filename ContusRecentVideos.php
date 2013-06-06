@@ -8,7 +8,6 @@ Author: Apptha
 Author URI: http://www.apptha.com
 License: GPL2
 */
-
 class widget_ContusRecentVideos_init extends WP_Widget {
 
     function widget_ContusRecentVideos_init() {
@@ -151,7 +150,6 @@ class widget_ContusRecentVideos_init extends WP_Widget {
 
 // Register widget for use
 }
-
 // Run code and init
 add_action('widgets_init', create_function('', 'return register_widget("widget_ContusRecentVideos_init");'));
 ?>

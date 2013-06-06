@@ -8,8 +8,6 @@ Author: Apptha
 Author URI: http://www.apptha.com
 License: GPL2
 */
-
-
 if(class_exists('SettingsModel') != true)
 {//checks the SettingsModel class has been defined if starts
     class SettingsModel

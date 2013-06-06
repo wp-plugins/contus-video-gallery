@@ -80,5 +80,4 @@ if(class_exists('VideoadModel') != true)
         
     }//VideoadModel class ends
 }//checks the VideoadModel class has been defined if ends
-
 ?>

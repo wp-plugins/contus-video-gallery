@@ -8,13 +8,10 @@ Author: Apptha
 Author URI: http://www.apptha.com
 License: GPL2
 */
-
 WPimport('models/videoad.php');//including videoad model file for get database information.
-
 if(class_exists('VideoadController') != true)
     {//checks if the VideoadController class has been defined starts
-    
-        class VideoadController extends VideoadModel
+            class VideoadController extends VideoadModel
         {//VideoadController class starts
 
             public $_status;
@@ -214,7 +211,6 @@ $videoadEdit = $videoadOBJ->videoad_edit($videoadId);
 $displayMsg = $videoadOBJ->get_message();
 $adminPage = filter_input(INPUT_GET, 'page');
 //$videoadOBJ->_reverseDirection;
-
 if ($adminPage == 'videoads')  
 {//including videoad form if starts
     require_once(APPTHA_VGALLERY_BASEDIR . DS . 'admin/views/videoads/videoads.php');
@@ -223,10 +219,4 @@ else if ($adminPage == 'newvideoad')
 {//including newvideo ad form if starts
     require_once(APPTHA_VGALLERY_BASEDIR . DS . 'admin/views/videoads/addvideoads.php');
 }//including newvideo ad form if ends
-
-
-
-?>
-
-
-      
+?>    

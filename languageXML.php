@@ -8,7 +8,6 @@ Author: Apptha
 Author URI: http://www.apptha.com
 License: GPL2
 */
-
 ob_clean();
 header ("content-type: text/xml");
 require_once( dirname(__FILE__) . '/hdflv-config.php');
@@ -122,3 +121,4 @@ global $wpdb;
     echo '</buttonname>';
     echo '</language>';
 exit();
+?>

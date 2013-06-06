@@ -8,7 +8,6 @@ Author: Apptha
 Author URI: http://www.apptha.com
 License: GPL2
 */
-
 ob_clean();
 header("cache-control: private");
 header ("Pragma: public");

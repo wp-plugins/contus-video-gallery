@@ -8,7 +8,6 @@ Author: Apptha
 Author URI: http://www.apptha.com
 License: GPL2
 */
-
 include_once($adminModelPath . 'video.php'); //including video model file for get database information.
 
 if (class_exists('VideoController') != true) {//checks if the VideoController class has been defined start
@@ -602,4 +601,3 @@ if ($adminPage == 'video') {//including video form if starts
 else if ($adminPage == 'newvideo') {//including newvideo ad form if starts
     require_once(APPTHA_VGALLERY_BASEDIR . DS . 'admin/views/video/addvideo.php');
 }//including newvideo ad form if ends
-

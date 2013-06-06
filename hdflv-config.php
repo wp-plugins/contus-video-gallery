@@ -8,9 +8,6 @@ Author: Apptha
 Author URI: http://www.apptha.com
 License: GPL2
 */
-
-
-
 /**
  * Bootstrap file for getting the ABSPATH constant to wp-load.php
  * This is requried when a plugin requires access not via the admin screen.

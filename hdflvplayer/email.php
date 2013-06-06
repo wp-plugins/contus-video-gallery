@@ -48,5 +48,4 @@ if(mail($to, $subject, $message, $headers))
 } else {
 	echo "output=error";
 }
-
 ?>

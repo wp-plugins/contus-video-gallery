@@ -8,7 +8,6 @@ Author: Apptha
 Author URI: http://www.apptha.com
 License: GPL2
 */
-
 require_once( dirname(__FILE__) . '/hdflv-config.php');
 $listitem=$_POST['listItem'];
 		$ids = implode(',', $listitem);
@@ -18,7 +17,5 @@ $listitem=$_POST['listItem'];
 		}
 		$sql .= ' END WHERE vid IN ('.$ids.')';
 		$wpdb->query($sql);
-
 		exit();
-
 ?>

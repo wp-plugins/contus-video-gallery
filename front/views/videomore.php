@@ -416,4 +416,3 @@ if (($inc % $this->_colF ) == 0 && $inc!=0) {//COLUMN COUNT
     echo 'class contusMore already exists';
 }
 ?>
-

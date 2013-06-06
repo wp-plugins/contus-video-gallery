@@ -8,7 +8,6 @@ Author: Apptha
 Author URI: http://www.apptha.com
 License: GPL2
 */
-
 if(class_exists('ContusShortcode') != true)
 {//checks the ContusShortcode class has been defined if starts
     class ContusShortcode
@@ -54,3 +53,4 @@ if(class_exists('ContusShortcode') != true)
         
     }//ContusVideo class ends
 }//checks the ContusVideo class has been defined if ends
+?>

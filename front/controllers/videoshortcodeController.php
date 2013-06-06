@@ -8,7 +8,6 @@ Author: Apptha
 Author URI: http://www.apptha.com
 License: GPL2
 */
-
 include_once($frontModelPath . 'videoshortcode.php');//including ContusVideo model file for get database information.
 if(class_exists('ContusVideoShortcodeController') != true)
     {

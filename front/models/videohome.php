@@ -8,7 +8,6 @@ Author: Apptha
 Author URI: http://www.apptha.com
 License: GPL2
 */
-
 if(class_exists('ContusVideo') != true)
 {//checks the ContusVideo class has been defined if starts
     class ContusVideo
@@ -188,8 +187,7 @@ if(class_exists('ContusVideo') != true)
               INNER JOIN " . $this->_wpdb->prefix . "posts s ON s.ID=w.slug
                 WHERE w.publish='1' AND p.is_publish='1' $where GROUP BY w.vid ORDER BY ".$thumImageorder." LIMIT ".$dataLimit;
             return $this->_wpdb->get_results($query);
-        }//function for getting settings data ends
-
-        
+        }//function for getting settings data ends       
     }//ContusVideo class ends
 }//checks the ContusVideo class has been defined if ends
+?>

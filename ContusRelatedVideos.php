@@ -8,7 +8,6 @@ Author: Apptha
 Author URI: http://www.apptha.com
 License: GPL2
 */
-
 class widget_ContusRelatedVideos_init extends WP_Widget {
 
     function widget_ContusRelatedVideos_init() {
@@ -258,7 +257,6 @@ if(isset($_GET['p']))
     }
 
 }
-
 // Run code and init
 add_action('widgets_init', create_function('', 'return register_widget("widget_ContusRelatedVideos_init");')); //adding product tag widget
 ?>

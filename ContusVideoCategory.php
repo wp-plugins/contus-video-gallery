@@ -8,8 +8,6 @@ Author: Apptha
 Author URI: http://www.apptha.com
 License: GPL2
 */
-
-
 class widget_ContusVideoCategory_init extends WP_Widget {
 
     function widget_ContusVideoCategory_init() {
@@ -112,6 +110,5 @@ class widget_ContusVideoCategory_init extends WP_Widget {
     }
 
 }
-
 add_action('widgets_init', create_function('', 'return register_widget("widget_ContusVideoCategory_init");')); //adding product tag widget
 ?>

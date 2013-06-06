@@ -8,5 +8,4 @@ Author: Apptha
 Author URI: http://www.apptha.com
 License: GPL2
 */
-
 ?>

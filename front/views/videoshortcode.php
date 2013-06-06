@@ -489,4 +489,3 @@ dsq.src = "http://"+ disqus_shortname + ".disqus.com/embed.js";
     echo 'class contusVideo already exists';
 }
 ?>
-
