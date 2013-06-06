@@ -59,7 +59,6 @@ if (isset($_GET['page']) && $_GET['page'] == 'ajaxplaylist') {
     exit;
 }
 add_action('init', 'videogallery_register');
-
 function videogallery_register() {
     $labels = array(
         'name' => _x('Contus Video Gallery', 'post type general name'),
@@ -74,7 +73,6 @@ function videogallery_register() {
         'not_found_in_trash' => __('Nothing found in Trash'),
         'parent_item_colon' => ''
     );
-
     $args = array(
         'labels' => $labels,
         'public' => true,
@@ -88,10 +86,8 @@ function videogallery_register() {
         'menu_position' => null,
         'supports' => array('title', 'editor', 'thumbnail')
     );
-
     register_post_type('videogallery', $args);
 }
-
 function videogallery_addpages() {//function to ddd videogallery menu list to wp admin action starts
     add_menu_page("Video Gallery", "Video Gallery", 'manage_options', "video", "videogallery_menu", APPTHA_VGALLERY_BASEURL . "/images/apptha.png");
     add_submenu_page("video", "Video Gallery", "All Videos", 'manage_options', "video", "videogallery_menu");
@@ -103,29 +99,24 @@ function videogallery_addpages() {//function to ddd videogallery menu list to wp
     add_submenu_page("", "New Videos", "", 'manage_options', "newvideoad", "videogallery_menu");
     add_submenu_page("video", "GallerySettings", "Settings", 'manage_options', "hdflvvideosharesettings", "videogallery_menu");
 }
-
 //function to ddd videogallery menu list to wp admin action ends
 add_action('admin_menu', 'videogallery_addpages');
 require_once(APPTHA_VGALLERY_BASEDIR . '/install.php');
 ///install file
 register_activation_hook(__FILE__, 'videogallery_install');
-
 if($_GET['action']=="activate-plugin" && $_GET['plugin']=="contus-video-gallery/hdflvvideoshare.php"){
     global $wpdb;
     $table_name = $wpdb->prefix . 'hdflvvideoshare';
     $table_settings = $wpdb->prefix . 'hdflvvideoshare_settings';
     $table_playlist = $wpdb->prefix . 'hdflvvideoshare_playlist';
     $table_ad = $wpdb->prefix . 'hdflvvideoshare_vgads';
-
     $charset_collate = '';
-
     if (version_compare(mysql_get_server_info(), '4.1.0', '>=')) {
         if (!empty($wpdb->charset))
             $charset_collate = "CHARACTER SET $wpdb->charset";
         if (!empty($wpdb->collate))
             $charset_collate .= " COLLATE $wpdb->collate";
     }
-
     $updateSlug=$updatestreamer_path=$updateislive=$updateordering=$updatekeyApps=$updatekeydisqusApps='';
          $updateSlug = AddColumnIfNotExists($errorMsg, "$table_name", "slug","TEXT $charset_collate NOT NULL");
          $updatestreamer_path = AddColumnIfNotExists($errorMsg, "$table_name", "streamer_path","MEDIUMTEXT $charset_collate NOT NULL");
@@ -141,8 +132,6 @@ if($_GET['action']=="activate-plugin" && $_GET['plugin']=="contus-video-gallery/
          $updatekeydisqusApps = AddColumnIfNotExists($errorMsg, "$table_settings", "keydisqusApps","varchar(50) $charset_collate NOT NULL");
          upgrade_videos();
 }
-
-
 function videogallery_menu() { //function  to declare the videogalery admin pages starts
     global $adminControllerPath, $adminModelPath, $adminViewPath;
     $adminPage = filter_input(INPUT_GET, 'page');
@@ -166,7 +155,6 @@ function videogallery_menu() { //function  to declare the videogalery admin page
             break;
     }//switch case for including the admin pages ends
 }
-
 //function  to declare the videogalery admin pages ends
 function videogallery_cssJs() {//function for adding css and javascript files starts
     wp_register_style('videogallery_css', plugins_url('admin/css/adminsettings.css', __FILE__));
@@ -174,20 +162,15 @@ function videogallery_cssJs() {//function for adding css and javascript files st
     wp_enqueue_script('videogallery_cssJs');
     wp_enqueue_style('videogallery_css');
 }
-
 //function for adding css and javascript files ends
 add_action('admin_init', 'videogallery_cssJs');
-
 // Function to add meta tag
-
 add_action('wp_head', 'add_meta_details');
-
 function add_meta_details() {
     global $wpdb;
     $videoID = url_to_custompostid(get_permalink());
     if (isset($_GET['p']))
         $videoID = intval($_GET['p']);
-
     if (!empty($videoID)) {
         $keyApps = $wpdb->get_var("SELECT keyApps FROM " . $wpdb->prefix . "hdflvvideoshare_settings");
         $videoID = $wpdb->get_var("select vid from " . $wpdb->prefix . "hdflvvideoshare WHERE slug='".intval($videoID)."'");
@@ -200,7 +183,6 @@ function add_meta_details() {
                         . " LEFT JOIN " . $wpdb->prefix . "hdflvvideoshare_tags AS t4"
                         . " ON t1.vid = t4.media_id"
                         . " WHERE t1.publish='1' and t3.is_publish='1' and t1.vid='" . intval($videoID) . "' limit 1");
-
         $image_path = str_replace('plugins/contus-video-gallery/', 'uploads/videogallery/', APPTHA_VGALLERY_BASEURL);
         $_imagePath = APPTHA_VGALLERY_BASEURL . 'images' . DS;
         $imageFea = $video_count->image;
@@ -232,65 +214,50 @@ function add_meta_details() {
 ';
     }
 }
-
 //adding css and javascript files
 function WPimport($path) {//function for includeing files starts
     include APPTHA_VGALLERY_BASEDIR . DS . 'admin' . DS . $path;
 }
-
 //function for includeing files ends
 include_once $frontControllerPath . 'videohomeController.php';
-
 function videogallery_pagereplace($pageContent) {//function for replacing content of the pages starts
     $pageContent = preg_replace_callback('/\[hdvideo ([^]]*)\o]/i', 'video_shortcodeplace', $pageContent);
     $pageContent = preg_replace_callback('/\[videohome]/', 'video_homereplace', $pageContent);
     $pageContent = preg_replace_callback('/\[videomore\]/', 'video_morereplace', $pageContent);
-
 //$pageContent = preg_replace_callback('/\[banner ([^]]*)\r]/i', 'HDFLV_banner', $pageContent);
     return $pageContent;
 }
-
 //function for replacing content of the pages ends
 add_filter('the_content', 'videogallery_pagereplace'); //content filter for adding the pages
-
 function url_to_custompostid($url) {
     global $wp_rewrite, $wpdb;
     $url = apply_filters('url_to_postid', $url);
-
     // First, check to see if there is a 'p=N' or 'page_id=N' to match against
     if (preg_match('#[?&](p|page_id|attachment_id)=(\d+)#', $url, $values)) {
         $id = absint($values[2]);
         if ($id)
             return $id;
     }
-
     // Check to see if we are using rewrite rules
     $rewrite = $wp_rewrite->wp_rewrite_rules();
-
     // Not using rewrite rules, and 'p=N' and 'page_id=N' methods failed, so we're out of options
     if (empty($rewrite))
         return 0;
-
     // Get rid of the #anchor
     $url_split = explode('#', $url);
     $url = $url_split[0];
-
     // Get rid of URL ?query=string
     $url_split = explode('?', $url);
     $url = $url_split[0];
-
     // Add 'www.' if it is absent and should be there
     if (false !== strpos(home_url(), '://www.') && false === strpos($url, '://www.'))
         $url = str_replace('://', '://www.', $url);
-
     // Strip 'www.' if it is present and shouldn't be
     if (false === strpos(home_url(), '://www.'))
         $url = str_replace('://www.', '://', $url);
-
     // Strip 'index.php/' if we're not using path info permalinks
     if (!$wp_rewrite->using_index_permalinks())
         $url = str_replace('index.php/', '', $url);
-
     if (false !== strpos($url, home_url())) {
         // Chop off http://domain.com
         $url = str_replace(home_url(), '', $url);
@@ -300,44 +267,33 @@ function url_to_custompostid($url) {
         $home_path = isset($home_path['path']) ? $home_path['path'] : '';
         $url = str_replace($home_path, '', $url);
     }
-
     // Trim leading and lagging slashes
     $url = trim($url, '/');
-
     $request = $url;
-
     // Look for matches.
     $request_match = $request;
     foreach ((array) $rewrite as $match => $query) {
-
         // If the requesting file is the anchor of the match, prepend it
         // to the path info.
         if (!empty($url) && ($url != $request) && (strpos($match, $url) === 0))
             $request_match = $url . '/' . $request;
-
         if (preg_match("!^$match!", $request_match, $matches)) {
-
             if ($wp_rewrite->use_verbose_page_rules && preg_match('/pagename=\$matches\[([0-9]+)\]/', $query, $varmatch)) {
                 // this is a verbose page match, lets check to be sure about it
                 if (!get_page_by_path($matches[$varmatch[1]]))
                     continue;
             }
-
             // Got a match.
             // Trim the query of everything up to the '?'.
             $query = preg_replace("!^.+\?!", '', $query);
-
             // Substitute the substring matches into the query.
             $query = addslashes(WP_MatchesMapRegex::apply($query, $matches));
-
             // Filter out non-public query vars
             global $wp;
             global $wpdb;
             parse_str($query, $query_vars);
-
-            $query = array();
+           $query = array();
             foreach ((array) $query_vars as $key => $value) {
-
                 if (in_array($key, $wp->public_query_vars)) {
                     $query[$key] = $value;
                 }
@@ -349,7 +305,6 @@ function url_to_custompostid($url) {
     }
     return 0;
 }
-
 // Function to display Plugin home page
 function video_homereplace() {
     global $frontControllerPath;
@@ -362,18 +317,14 @@ function video_homereplace() {
     $contentCategories = $pageOBJ->home_thumb('cat');
     return $contentPlayer . $contentPopular . $contentRecent . $contentFeatured . $contentCategories;
 }
-
 function video_shortcodeplace($arguments= array()) {
-
     global $frontControllerPath, $frontModelPath, $frontViewPath;
     include_once ($frontControllerPath . 'videoshortcodeController.php');
     $pageOBJ = new ContusVideoShortcodeView();
     $contentPlayer = $pageOBJ->HDFLV_shareRender($arguments);
     return $contentPlayer;
 }
-
 add_shortcode('hdvideo', 'video_shortcodeplace');
-
 // Function to display more page
 function video_morereplace() {
     global $frontControllerPath, $frontModelPath, $frontViewPath;
@@ -391,14 +342,12 @@ function video_morereplace() {
     $contentvideoPlayer = $videoOBJ->video_more_pages($more);
     return $contentvideoPlayer;
 }
-
 function render_error($message) {
     echo '<div class="wrap"><h2>&nbsp;</h2>
         <div class="error" id="error">
             <p><strong>' . $message . '</strong></p>
         </div></div>';
 }
-
 function videopluginUninstalling() { //for uninstalling digicommerce-plugin tables in database
     global $wpdb;
     $wpdb->query(" DELETE FROM " . $wpdb->prefix . "posts WHERE post_content = '[videomore]'");
@@ -417,6 +366,5 @@ function videopluginUninstalling() { //for uninstalling digicommerce-plugin tabl
     $wpdb->query(" DROP TABLE " . $wpdb->prefix . "hdflvvideoshare");
     $wpdb->query(" DELETE FROM " . $wpdb->prefix . "posts WHERE post_type = 'videogallery'");
 }
-
 register_uninstall_hook(__FILE__, 'videopluginUninstalling');
 ?>
