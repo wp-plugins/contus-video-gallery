@@ -167,3 +167,42 @@ display: block;
 width: 57px;
 height: 18px;
 }
+
+
+/***************************** Banner*********************************************************/
+
+#featured{height: 330px;
+/*overflow: hidden;*/
+}
+#gallery_banner_video{float: right; width:70%;}
+#gallery_banner_list{float: left; width: 30%;}
+#gallery_banner_list ul{padding: 0; margin: 0; list-style: none; background: transparent !important;}
+#gallery_banner_list ul li{list-style: none; margin: 0;
+/*background: transparent !important;*/
+clear: both;
+background: #eeeeee; /* Old browsers */
+background: -moz-linear-gradient(top,  #eeeeee 0%, #cccccc 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#eeeeee), color-stop(100%,#cccccc)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  #eeeeee 0%,#cccccc 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  #eeeeee 0%,#cccccc 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  #eeeeee 0%,#cccccc 100%); /* IE10+ */
+background: linear-gradient(to bottom,  #eeeeee 0%,#cccccc 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#cccccc',GradientType=0 ); /* IE6-9 */
+
+overflow: hidden;
+padding: 5px 5px 6px;
+}
+#gallery_banner_list ul li{margin-bottom: 1px;}
+#gallery_banner_list ul li.ui-tabs-selected{background: #f2f0f0; border: 1px solid #ccc; border-right-width: 0px; }
+#gallery_banner_list ul li{border: 1px solid #dfdfdf;border-right-width: 0px;}
+#gallery_banner_list ul li:hover{background: #dfdfdf;}
+#gallery_banner_list ul li .nav_container{}
+#gallery_banner_list ul li .nav_container .page-thumb-img{float: left;
+width: 80px;
+margin-right: 5px;}
+#gallery_banner_list ul li .nav_container .slide_video_info .category{color:#000;}
+#gallery_banner_list ul li .nav_container .slide_video_info{float: left;
+line-height: 16px;
+font-size: 12px;
+width: 99px;
+}
