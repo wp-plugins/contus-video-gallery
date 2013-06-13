@@ -51,6 +51,9 @@ if (file_exists($widgetPath . '/ContusVideoSearch.php')) {
 } else {
     include_once(dirname(__FILE__) . '/ContusVideoSearch.php');
 }
+if (file_exists($widgetPath . '/contusBannerSlideshow.php')) {
+    include_once($widgetPath . '/contusBannerSlideshow.php');
+}
 if (isset($_GET['page']) && $_GET['page'] == 'ajaxplaylist') {
     ob_start();
     ob_clean();
