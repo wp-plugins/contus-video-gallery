@@ -1,4 +1,14 @@
 /*
+Name: Wordpress Video Gallery
+Plugin URI: http://www.apptha.com/category/extension/Wordpress/Video-Gallery
+Description: jquery core file.
+Version: 2.2
+Author: Apptha
+Author URI: http://www.apptha.com
+License: GPL2
+*/
+
+/*
  * jQuery 1.2.3 - New Wave Javascript
  *
  * Copyright (c) 2008 John Resig (jquery.com)

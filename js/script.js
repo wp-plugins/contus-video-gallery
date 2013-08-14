@@ -1,37 +1,15 @@
-function currentvideo(vid,title,tag){
-     document.getElementById('video_tag').innerHTML = '';
-     fbcomments(vid,title);
-     document.getElementById('video_title').innerHTML=title;
-     if(tag != '')
-     {
-     var tagSplit=tag.split(",");
-     var tags ='<div class="tags">Tags:&nbsp;&nbsp;</div>';
+/*
+Name: Wordpress Video Gallery
+Plugin URI: http://www.apptha.com/category/extension/Wordpress/Video-Gallery
+Description: VIdeo Gallery plugin script file.
+Version: 2.2
+Author: Apptha
+Author URI: http://www.apptha.com
+License: GPL2
+*/
 
-       for (var i = 0; i < tagSplit.length; i++)
-        {
-           if(i <(tagSplit.length)-1)
-               {
-                   tags += "<a href='"+baseurl+"?page_id="+videoPage+"&tagname="+tagSplit[i]+"' class='tagViews'>"+tagSplit[i]+', '+"</a>";
-               }
-               else
-                   {
-                       tags += "<a href='"+baseurl+"?page_id="+videoPage+"&tagname="+tagSplit[i]+"'  class='tagViews'>"+tagSplit[i]+"</a>";
-                   }
+function currentvideo(title,vid){
 
-        }
-
-              document.getElementById('video_tag').innerHTML+=tags;
-     }
-     else
-         {
-            document.getElementById('video_tag').innerHTML+='';
-         }
-     if (vid=="")
-  {
-     // alert('Hi i am in empty');
-  document.getElementById("txtHint").innerHTML="";
-  return;
-  }
 if (window.XMLHttpRequest)
   {// code for IE7+, Firefox, Chrome, Opera, Safari
    xmlhttp=new XMLHttpRequest();
@@ -48,26 +26,9 @@ else
         //alert('i am ready');
     }
   }
+
 xmlhttp.open("GET",baseurl+"/wp-content/plugins/"+folder+"/hitCount.php?vid="+vid,true);
 xmlhttp.send();
-
+document.getElementById('video_title').innerHTML=title;
  }
- function fbcomments(vid,title) {
-   if (window.XMLHttpRequest)
-  {// code for IE7+, Firefox, Chrome, Opera, Safari
-   httpxml=new XMLHttpRequest();
-//alert(xmlhttp);
-  }
-httpxml.onreadystatechange=function()
-  {
-  if (httpxml.readyState==4 && httpxml.status==200)
-    {
-    var fbComments = httpxml.responseText;
-    document.getElementById("facebook").innerHTML = fbComments;
-    getfacebook();
-    return false;
-    }
-  }
-httpxml.open("GET",baseurl+"/wp-content/plugins/"+folder+"/fbcomment.php?vid="+vid+'&vname='+title+'&siturl='+baseurl+'&folder='+folder,true);
-httpxml.send();
-}
+ 
