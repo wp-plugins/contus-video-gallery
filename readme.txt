@@ -2,8 +2,8 @@
 Contributors: Contus Support
 Tags: Video Player plugin, video, flash player, flv player, WORDPRESS VIDEO GALLERY, flv player wordpress, hd flv player, youtube plugin, youtube Video Player, high definition Video Player, flash, play flv wordpress, player, Video Plugin, wp flv player, wp flv plugin, flv player 2009,  WORDPRESS VIDEO GALLERY, wp flv, wordpress flv plugin, wp hd flv player, flv player plugin, wordpress flv player
 Requires at least: 2.8
-Tested up to: 3.5.2
-Stable tag: 2.1
+Tested up to: 3.5.1
+Stable tag: 2.2
 Get the most exciting FLV player in the internet, designed and modified to suit your Wordpress websites.  Installing this Video Plugin is real easy and if you have any difficulty in installation, contact our Video Player support team and quickly resolve your issue.  You can either download this Video Plugin directly from our website or through Wordpress plugins page itself.  This WORDPRESS VIDEO GALLERY Version  has many advanced features that you cannot find elsewhere, such as that you can play youtube videos directly through this player, and it can also aptly be called as a youtube player.
 
 == Description ==
@@ -16,28 +16,35 @@ Video Gallery Home Page - http://www.apptha.com/category/extension/Wordpress/Vid
 
 FLV & H.264 encoded video including MP4, M4V, M4A, MOV, Mp4v, F4V, social networking comments from the gallery page (like for Facebook), provision to alter width, height, skin, theme, aspect ratio, volume, downloads etc. from the backend are few if the best features with this plugin. It also covers other regular and utile features which we could see in popular video sharing sites such as social media bookmark option (diggit, myspace, facebook, del.icio.us, spurl, furl, google), managing multiple playlists, views count for video and so forth.
 
+* Option to modify the colors of player’s skin icons, icons, text, etc.
 * Supports HTML 5 to play videos in iOS devices
+* Facility to share your videos using social networking
+* Option to monetize via IMA, pre-, mid-, post-roll video ads
 * Easy to install the WordPress Video Gallery plugin
-* Complete control on player through admin panel with a  fantastic support
+* Enthralls with responsive designing to help your visitors view your website on mobile
+* Provides complete control on player through admin panel with a fantastic support
 * This FLV Video plugin is capable to play FLV video & H.264 encoded video including MP3, MP4, M4V, M4A, MOV, Mp4v and F4V formats
-* Admin option to set Recent Videos, Popular Videos and Featured Videos
+* Supports RTL feature
 * Admin option to enable/disable Recent Videos, Popular Videos and Featured Videos
+* Easy to manage widgets like popular, featured, recent, related, video search, video categories.
 * Flexible player size
 * Ability to turn on/off and share volume functions
+* Option to set playlist to be open/close by default
 * Option to view videos on Full screen and also on 1X, 2X and 3X zoom capabilities
+* Facility to design your own logo, right click copyright and edit logo position in admin once you purchase our package.
 * Admin option to set the Logo (opacity control)
-* Mouse wheel support (Rewind and forward)
-* Option to set individual playlists
-* Individual sort order for each Playlist in the FLV player
-* Media Option can be added
-* Directly play Youtube videos like in a Youtube player
-* Multi Language options for Tool tips on Player
-* Show custom ads / videos through Preroll and Postroll options
-* Disqus Commenting System enabled for front-end users
-* Option to set up SEO friendly URL
+* Facility to enable/disable playlist, HD Default, playlist autoplay, autoplay.
+* Option to combine player to play particular video or playlist using shortcodes in pages or posts.
+* Offers complete control on number of columns and rows for the video thumb images.
+* Individual sort order for each videos in the FLV player
+* Multi- Language options for Tool tips on Player
+* Facebook, Disqus, and default WP Commenting System for front-end users
+* Facility to display the related videos on the side and center of the player. 
+* Option to set up SEO friendly URL using two permalink options: default and postname
 * Option to include a well-suited meta information
 * Option to add RTMP based videos
 * Language pack can be set on any preferred language
+* Provides FFMPEG path in backend and generates timer for upload video.
 
 == Installation ==
 
@@ -72,7 +79,7 @@ Video gallery(Front-end): http://www.hdflvplayer.net/wordpress-video-gallery/gal
 
 Videos(recent,popular,feature): http://www.hdflvplayer.net/wordpress-video-gallery/gallery/recent-popular.JPG
 
-Gallery settings: http://www.hdflvplayer.net/wordpress-video-gallery/gallery/gallery-settings.JPG , http://www.hdflvplayer.net/wordpress-video-gallery/gallery/gallery-settings2.JPG .
+Gallery settings: http://www.hdflvplayer.net/wordpress-video-gallery/gallery/gallery-settings.JPG .
 
 == Other Notes ==
 
