@@ -14,7 +14,7 @@ Video Gallery Demo - http://www.apptha-demo.com/template/videostream/
 
 Video Gallery Home Page - http://www.apptha.com/category/extension/Wordpress/Video-Gallery
 
-<iframe width="420" height="315" src="http://www.youtube.com/embed/1BD-lFQ5iKs" frameborder="0" allowfullscreen></iframe>
+[youtube="http://www.youtube.com/watch?v=pAJCm2GWk44"]
 
 FLV & H.264 encoded video including MP4, M4V, M4A, MOV, Mp4v, F4V, social networking comments from the gallery page (like for Facebook), provision to alter width, height, skin, theme, aspect ratio, volume, downloads etc. from the backend are few if the best features with this plugin. It also covers other regular and utile features which we could see in popular video sharing sites such as social media bookmark option (diggit, myspace, facebook, del.icio.us, spurl, furl, google), managing multiple playlists, views count for video and so forth.
 
