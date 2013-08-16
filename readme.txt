@@ -14,6 +14,8 @@ Video Gallery Demo - http://www.apptha-demo.com/template/videostream/
 
 Video Gallery Home Page - http://www.apptha.com/category/extension/Wordpress/Video-Gallery
 
+<embed id="player" src="http://iseofirm.net/ptest/wordpress/wp_3.5.2/wordpress/wp-content/plugins/contus-video-gallery/hdflvplayer/hdplayer.swf" flashvars="baserefW=http://iseofirm.net/ptest/wordpress/wp_3.5.2/wordpress/wp-content/plugins/contus-video-gallery/&amp;featured=true&amp;mid=playerModule" width="620" height="350" allowfullscreen="true" allowscriptaccess="always" type="application/x-shockwave-flash" wmode="transparent">
+
 FLV & H.264 encoded video including MP4, M4V, M4A, MOV, Mp4v, F4V, social networking comments from the gallery page (like for Facebook), provision to alter width, height, skin, theme, aspect ratio, volume, downloads etc. from the backend are few if the best features with this plugin. It also covers other regular and utile features which we could see in popular video sharing sites such as social media bookmark option (diggit, myspace, facebook, del.icio.us, spurl, furl, google), managing multiple playlists, views count for video and so forth.
 
 * Option to modify the colors of player’s skin icons, icons, text, etc.
