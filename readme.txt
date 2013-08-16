@@ -65,21 +65,24 @@ FLV & H.264 encoded video including MP4, M4V, M4A, MOV, Mp4v, F4V, social networ
 4. That's it! You're done.
 
 == Screenshots ==
-1. **Manage Video** - http://www.hdflvplayer.net/wordpress-video-gallery/gallery/video-uploadlist.JPG
 
-Upload video file: http://www.hdflvplayer.net/wordpress-video-gallery/gallery/upload-file.JPG
+1. **Video gallery(Front-end)**
 
-Upload youtube URL: http://www.hdflvplayer.net/wordpress-video-gallery/gallery/video-upload-file.JPG
+2. **Manage Video** - Displays Uploaded videos and details about the plugin.
 
-Upload custom URL: http://www.hdflvplayer.net/wordpress-video-gallery/gallery/custom-url.JPG
+3. **Upload video file** - Here you can upload video using Upload Method
 
-Manage video widgets: http://www.hdflvplayer.net/wordpress-video-gallery/gallery/widgets.JPG
+4. **Upload youtube URL** - Here you can upload video from YouTube
 
-Video gallery(Front-end): http://www.hdflvplayer.net/wordpress-video-gallery/gallery/front-video-page.JPG
+5. **Upload custom URL** - Here you can upload video via URL eg: http://www.domainname.com/foldername/video.mp4
 
-Videos(recent,popular,feature): http://www.hdflvplayer.net/wordpress-video-gallery/gallery/recent-popular.JPG
+6. **Upload RTMP Video** - You can add RTMP Streaming video
 
-Gallery settings: http://www.hdflvplayer.net/wordpress-video-gallery/gallery/gallery-settings.JPG .
+7. **Gallery settings** - You can control Player and Plugin here.
+
+8. **Manage video widgets** - We are providing 5 widgets. They are : Popular, Recent, Featured, Related videos, Video Search and Video Categories. You can assign the above mentioned widgets in any position of your template.
+
+9. **Videos(recent,popular,feature, Video Categories)** - We are also displaying Popular, Recent, Featured, Related videos and Video Categories in content page under player.
 
 == Other Notes ==
 
