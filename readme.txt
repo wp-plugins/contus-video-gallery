@@ -65,7 +65,7 @@ FLV & H.264 encoded video including MP4, M4V, M4A, MOV, Mp4v, F4V, social networ
 4. That's it! You're done.
 
 == Screenshots ==
-Manage Video: http://www.hdflvplayer.net/wordpress-video-gallery/gallery/video-uploadlist.JPG
+1. **Manage Video** - http://www.hdflvplayer.net/wordpress-video-gallery/gallery/video-uploadlist.JPG
 
 Upload video file: http://www.hdflvplayer.net/wordpress-video-gallery/gallery/upload-file.JPG
 
