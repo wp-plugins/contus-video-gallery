@@ -3,7 +3,7 @@
   Plugin Name: Wordpress Video Gallery
   Plugin URI: http://www.apptha.com/category/extension/Wordpress/Video-Gallery
   Description: Simplifies the process of adding video to a WordPress blog. Powered by Apptha.
-  Version: 2.2
+  Version: 2.3
   Author: Apptha
   Author URI: http://www.apptha.com
   License: GPL2
@@ -21,6 +21,11 @@ $frontModelPath         = APPTHA_VGALLERY_BASEDIR . '/front/models/';
 $frontControllerPath    = APPTHA_VGALLERY_BASEDIR . '/front/controllers/';
 $frontViewPath          = APPTHA_VGALLERY_BASEDIR . '/front/views/';
 $widgetPath             = get_template_directory() . '/html/widgets';
+
+global $dirPage;
+$dir                    = dirname(plugin_basename(__FILE__));
+$dirExp                 = explode('/', $dir);
+$dirPage                = $dirExp[0];
 
 ## Load widgets
 if (file_exists($widgetPath . '/ContusFeatureVideos.php')) {
@@ -117,7 +122,8 @@ add_action('admin_menu', 'videogallery_addpages');
 require_once(APPTHA_VGALLERY_BASEDIR . '/install.php');
 register_activation_hook(__FILE__, 'videogallery_install');
 
-if (isset($_GET['action']) && $_GET['action'] == "activate-plugin" && $_GET['plugin'] == "contus-video-gallery/hdflvvideoshare.php") {
+$plugin_main_file = $dirPage."/hdflvvideoshare.php";
+if (isset($_GET['action']) && $_GET['action'] == "activate-plugin" && $_GET['plugin'] == $plugin_main_file) {
 
     ## declare table names and global variable to access WP query
     global $wpdb;
@@ -136,11 +142,9 @@ if (isset($_GET['action']) && $_GET['action'] == "activate-plugin" && $_GET['plu
     }
 
     ## declare variables
-    $updateSlug = $updatestreamer_path = $updateislive = $updateordering = $updatekeyApps = $updatekeydisqusApps =
-    $sharepanel_up_BgColor = $sharepanel_down_BgColor = $sharepaneltextColor = $sendButtonColor = $sendButtonTextColor =
-    $textColor = $skinBgColor = $seek_barColor = $buffer_barColor = $skinIconColor = $pro_BgColor = $playButtonColor = $playButtonBgColor =
-    $playerButtonColor = $playerButtonBgColor = $relatedVideoBgColor = $scroll_barColor = $scroll_BgColor = $playlist_open =
-    $showPlaylist = $updatecontentId = $updateimaadpath = $updatepublisherId = $updateimaadwidth = $updateimaadheight = $midroll_ads = $adsSkip = $adsSkipDuration = $relatedVideoView = $imaAds = $trackCode = $showTag =
+    $updateSlug = $updatestreamer_path = $updateislive = $updateratecount = $updaterate = $updateordering = $updatekeyApps = $updatekeydisqusApps =
+    $player_colors = $playlist_open = $updatecolMore = $updateembedcode = $updatedefault_player = $updaterowMore =
+    $showPlaylist = $updatecontentId = $updateimaadpath = $updatepublisherId = $updateimaadwidth = $updateimaadheight = $midroll_ads = $adsSkip = $adsSkipDuration = $relatedVideoView = $imaAds = $trackCode = $showTag = $ratingscontrol =
     $updateaddescription = $updateimaadType = $updateadtargeturl = $updateadclickurl = $updateadimpressionurl = $updateadmethod = $updateadtype = $updateispublish =
     $shareIcon = $updateimaad = $updatechannels = $updatemidrollads = $volumecontrol = $playlist_auto = $progressControl = $imageDefault = $updatepublish = $updateadpublish = '';
 
@@ -152,6 +156,9 @@ if (isset($_GET['action']) && $_GET['action'] == "activate-plugin" && $_GET['plu
     $updatepublish          = AddColumnIfNotExists($errorMsg, "$table_name", "publish", "INT( 11 ) NOT NULL DEFAULT 1");
     $updateislive           = AddColumnIfNotExists($errorMsg, "$table_name", "islive", "INT( 11 ) NOT NULL");
     $updateordering         = AddColumnIfNotExists($errorMsg, "$table_name", "ordering", "INT( 11 ) NOT NULL");
+    $updateratecount        = AddColumnIfNotExists($errorMsg, "$table_name", "ratecount", "INT( 25 ) NOT NULL DEFAULT 0");
+    $updaterate             = AddColumnIfNotExists($errorMsg, "$table_name", "rate", "INT( 25 ) NOT NULL DEFAULT 0");
+    $updateembedcode        = AddColumnIfNotExists($errorMsg, "$table_name", "embedcode", "LONGTEXT NOT NULL");
 
     ## AD table update
     $updateadpublish        = AddColumnIfNotExists($errorMsg, "$table_ad", "publish", "INT( 11 ) NOT NULL DEFAULT 1");
@@ -178,24 +185,7 @@ if (isset($_GET['action']) && $_GET['action'] == "activate-plugin" && $_GET['plu
     $updaterowMore          = AddColumnIfNotExists($errorMsg, "$table_settings", "rowMore", "varchar(25) $charset_collate NOT NULL DEFAULT 2");
     $updatecolMore          = AddColumnIfNotExists($errorMsg, "$table_settings", "colMore", "varchar(25) $charset_collate NOT NULL DEFAULT 4");
     $updatekeydisqusApps    = AddColumnIfNotExists($errorMsg, "$table_settings", "keydisqusApps", "varchar(50) $charset_collate NOT NULL");
-    $sharepanel_up_BgColor  = AddColumnIfNotExists($errorMsg, "$table_settings", "sharepanel_up_BgColor", "varchar(50) $charset_collate NOT NULL");
-    $sharepanel_down_BgColor= AddColumnIfNotExists($errorMsg, "$table_settings", "sharepanel_down_BgColor", "varchar(50) $charset_collate NOT NULL");
-    $sharepaneltextColor    = AddColumnIfNotExists($errorMsg, "$table_settings", "sharepaneltextColor", "varchar(50) $charset_collate NOT NULL");
-    $sendButtonColor        = AddColumnIfNotExists($errorMsg, "$table_settings", "sendButtonColor", "varchar(50) $charset_collate NOT NULL");
-    $sendButtonTextColor    = AddColumnIfNotExists($errorMsg, "$table_settings", "sendButtonTextColor", "varchar(50) $charset_collate NOT NULL");
-    $textColor              = AddColumnIfNotExists($errorMsg, "$table_settings", "textColor", "varchar(50) $charset_collate NOT NULL");
-    $skinBgColor            = AddColumnIfNotExists($errorMsg, "$table_settings", "skinBgColor", "varchar(50) $charset_collate NOT NULL");
-    $seek_barColor          = AddColumnIfNotExists($errorMsg, "$table_settings", "seek_barColor", "varchar(50) $charset_collate NOT NULL");
-    $buffer_barColor        = AddColumnIfNotExists($errorMsg, "$table_settings", "buffer_barColor", "varchar(50) $charset_collate NOT NULL");
-    $skinIconColor          = AddColumnIfNotExists($errorMsg, "$table_settings", "skinIconColor", "varchar(50) $charset_collate NOT NULL");
-    $pro_BgColor            = AddColumnIfNotExists($errorMsg, "$table_settings", "pro_BgColor", "varchar(50) $charset_collate NOT NULL");
-    $playButtonColor        = AddColumnIfNotExists($errorMsg, "$table_settings", "playButtonColor", "varchar(50) $charset_collate NOT NULL");
-    $playButtonBgColor      = AddColumnIfNotExists($errorMsg, "$table_settings", "playButtonBgColor", "varchar(50) $charset_collate NOT NULL");
-    $playerButtonColor      = AddColumnIfNotExists($errorMsg, "$table_settings", "playerButtonColor", "varchar(50) $charset_collate NOT NULL");
-    $playerButtonBgColor    = AddColumnIfNotExists($errorMsg, "$table_settings", "playerButtonBgColor", "varchar(50) $charset_collate NOT NULL");
-    $relatedVideoBgColor    = AddColumnIfNotExists($errorMsg, "$table_settings", "relatedVideoBgColor", "varchar(50) $charset_collate NOT NULL");
-    $scroll_barColor        = AddColumnIfNotExists($errorMsg, "$table_settings", "scroll_barColor", "varchar(50) $charset_collate NOT NULL");
-    $scroll_BgColor         = AddColumnIfNotExists($errorMsg, "$table_settings", "scroll_BgColor", "varchar(50) $charset_collate NOT NULL");
+    $player_colors          = AddColumnIfNotExists($errorMsg, "$table_settings", "player_colors", "longtext $charset_collate NOT NULL");
     $playlist_open          = AddColumnIfNotExists($errorMsg, "$table_settings", "playlist_open", "INT( 3 ) NOT NULL");
     $showPlaylist           = AddColumnIfNotExists($errorMsg, "$table_settings", "showPlaylist", "INT( 3 ) NOT NULL");
     $midroll_ads            = AddColumnIfNotExists($errorMsg, "$table_settings", "midroll_ads", "INT( 3 ) NOT NULL");
@@ -205,10 +195,11 @@ if (isset($_GET['action']) && $_GET['action'] == "activate-plugin" && $_GET['plu
     $imaAds                 = AddColumnIfNotExists($errorMsg, "$table_settings", "imaAds", "INT( 3 ) NOT NULL");
     $trackCode              = AddColumnIfNotExists($errorMsg, "$table_settings", "trackCode", "TEXT $charset_collate NOT NULL");
     $showTag                = AddColumnIfNotExists($errorMsg, "$table_settings", "showTag", "INT( 3 ) NOT NULL");
+    $ratingscontrol         = AddColumnIfNotExists($errorMsg, "$table_settings", "ratingscontrol", "INT( 3 ) NOT NULL");
     $shareIcon              = AddColumnIfNotExists($errorMsg, "$table_settings", "shareIcon", "INT( 3 ) NOT NULL");
-    $volumecontrol          = AddColumnIfNotExists($errorMsg, "$table_settings", "volumecontrol", "INT( 3 ) NOT NULL");
+    $volumecontrol          = AddColumnIfNotExists($errorMsg, "$table_settings", "volumecontrol", "INT( 3 ) NOT NULL DEFAULT 1");
     $playlist_auto          = AddColumnIfNotExists($errorMsg, "$table_settings", "playlist_auto", "INT( 3 ) NOT NULL");
-    $progressControl        = AddColumnIfNotExists($errorMsg, "$table_settings", "progressControl", "INT( 3 ) NOT NULL");
+    $progressControl        = AddColumnIfNotExists($errorMsg, "$table_settings", "progressControl", "INT( 3 ) NOT NULL DEFAULT 1");
     $imageDefault           = AddColumnIfNotExists($errorMsg, "$table_settings", "imageDefault", "INT( 3 ) NOT NULL");
 
     ## Update Post table
@@ -265,8 +256,20 @@ function videogallery_admin_init() {
     wp_register_style('videogallery_css1', plugins_url('admin/css/adminsettings.css', __FILE__));
     wp_enqueue_style('videogallery_css1');
 }
+## function to add css and javascript files for admin
+function videogallery_jcar_js_css() {
+    wp_register_script('videogallery_jcar_lib_js', APPTHA_VGALLERY_BASEURL . 'js/jquery-1.2.3.pack.js');
+    wp_enqueue_script('videogallery_jcar_lib_js');
+    wp_register_script('videogallery_jcar_js', APPTHA_VGALLERY_BASEURL . 'js/jquery.jcarousel.pack.js');
+    wp_enqueue_script('videogallery_jcar_js');
+    wp_register_style('videogallery_jcar_css', APPTHA_VGALLERY_BASEURL . 'css/jquery.jcarousel.css');
+    wp_enqueue_style('videogallery_jcar_css');
+    wp_register_style('videogallery_jcar_skin_css', APPTHA_VGALLERY_BASEURL . 'css/skins.css');
+    wp_enqueue_style('videogallery_jcar_skin_css');
+    wp_register_script('videogallery_jcar_init_js', APPTHA_VGALLERY_BASEURL . 'js/mycarousel.js');
+    wp_enqueue_script('videogallery_jcar_init_js');   
+}
 add_action('wp_enqueue_scripts', 'videogallery_cssJs');
-
 ## Function to add og detail for facebook
 add_action('wp_head', 'add_meta_details');
 ## Function to add meta tag
@@ -298,6 +301,7 @@ function add_video_title() {
 ## Function definition to add og detail for facebook
 function add_meta_details() {
     global $wpdb;
+    global $dirPage;
     ## Get current video id from url, if permalink on
     $videoID            = url_to_custompostid(get_permalink());
     ## Get current video id from url, if permalink off
@@ -316,7 +320,7 @@ function add_meta_details() {
                         . " ON t1.vid = t4.media_id"
                         . " WHERE t1.publish='1' AND t3.is_publish='1' AND t1.vid='" . intval($videoID) . "' LIMIT 1");
         ## Get image path for thumb image
-        $image_path     = str_replace('plugins/contus-video-gallery/', 'uploads/videogallery/', APPTHA_VGALLERY_BASEURL);
+        $image_path     = str_replace('plugins/'.$dirPage.'/', 'uploads/videogallery/', APPTHA_VGALLERY_BASEURL);
         $_imagePath     = APPTHA_VGALLERY_BASEURL . 'images' . DS;
         if(!empty($video_count)){
         $imageFea       = $video_count->image;          ## Get image name
@@ -463,6 +467,7 @@ function video_homereplace() {
 ## Function to display Plugin video page
 function video_shortcodeplace($arguments= array()) {
     global $frontControllerPath, $frontModelPath, $frontViewPath;
+    videogallery_jcar_js_css();
     include_once ($frontControllerPath . 'videoshortcodeController.php');
     $pageOBJ            = new ContusVideoShortcodeView();
     $contentPlayer      = $pageOBJ->HDFLV_shareRender($arguments);
@@ -476,7 +481,6 @@ function video_morereplace() {
     global $frontControllerPath, $frontModelPath, $frontViewPath;
     include_once ($frontControllerPath . 'videomoreController.php');
     $more               = filter_input(INPUT_GET, 'more');
-    $playid             = '';
     $playid             = filter_input(INPUT_GET, 'playid');
     if (!empty($playid))
         $more           = 'cat';
@@ -512,7 +516,6 @@ function videogallerypluginUninstalling() {
     $wpdb->query(" DROP TABLE " . $wpdb->prefix . "hdflvvideoshare_settings");
     $wpdb->query(" DROP TABLE " . $wpdb->prefix . "hdflvvideoshare_playlist");
     $wpdb->query(" DROP TABLE " . $wpdb->prefix . "hdflvvideoshare_med2play");
-    $langfound          = false;
     $table_language     = $wpdb->prefix . 'hdflvvideoshare_language';
     foreach ($wpdb->get_results("SHOW TABLES;", ARRAY_N) as $row) {
         if ($row[0] == $table_language)

@@ -3,7 +3,7 @@
 Name: Wordpress Video Gallery
 Plugin URI: http://www.apptha.com/category/extension/Wordpress/Video-Gallery
 Description: Video Settings Controller.
-Version: 2.2
+Version: 2.3
 Author: Apptha
 Author URI: http://www.apptha.com
 License: GPL2
@@ -34,6 +34,7 @@ if (class_exists('SettingsController') != true) {//checks if the SettingsControl
                 $keyApps = filter_input(INPUT_POST, 'keyApps');
                 $keydisqusApps = filter_input(INPUT_POST, 'keydisqusApps');
                 $embedVisible = filter_input(INPUT_POST, 'embed_visible');
+                $ratingscontrol = filter_input(INPUT_POST, 'ratingscontrol');
                 $downLoad = filter_input(INPUT_POST, 'download');
                 $playerTimer = filter_input(INPUT_POST, 'timer');
                 $playerZoom = filter_input(INPUT_POST, 'zoom');
@@ -107,7 +108,27 @@ if (class_exists('SettingsController') != true) {//checks if the SettingsControl
                 $playlist_auto = filter_input(INPUT_POST, 'playlist_auto');
                 $progressControl = filter_input(INPUT_POST, 'progressControl');
                 $imageDefault = filter_input(INPUT_POST, 'imageDefault');
-
+                $player_color = array(
+                    'sharepanel_up_BgColor' => $sharepanel_up_BgColor,
+                    'sharepanel_down_BgColor' => $sharepanel_down_BgColor,
+                    'sharepaneltextColor' => $sharepaneltextColor,
+                    'sendButtonColor' => $sendButtonColor,
+                    'sendButtonTextColor' => $sendButtonTextColor,
+                    'textColor' => $textColor,
+                    'skinBgColor' => $skinBgColor,
+                    'seek_barColor' => $seek_barColor,
+                    'buffer_barColor' => $buffer_barColor,
+                    'skinIconColor' => $skinIconColor,
+                    'pro_BgColor' => $pro_BgColor,
+                    'playButtonColor' => $playButtonColor,
+                    'playButtonBgColor' => $playButtonBgColor,
+                    'playerButtonColor' => $playerButtonColor,
+                    'playerButtonBgColor' => $playerButtonBgColor,
+                    'relatedVideoBgColor' => $relatedVideoBgColor,
+                    'scroll_barColor' => $scroll_barColor,
+                    'scroll_BgColor' => $scroll_BgColor
+                    );
+                
                 $settingsData = array(
                     'default_player' => $default_player,
                     'category_page' => $category_page,
@@ -117,6 +138,7 @@ if (class_exists('SettingsController') != true) {//checks if the SettingsControl
                     'keyApps' => $keyApps,
                     'keydisqusApps' => $keydisqusApps,
                     'embed_visible' => $embedVisible,
+                    'ratingscontrol' => $ratingscontrol,
                     'download' => $downLoad,
                     'timer' => $playerTimer,
                     'zoom' => $playerZoom,
@@ -154,24 +176,7 @@ if (class_exists('SettingsController') != true) {//checks if the SettingsControl
                     'colMore' => $colMore,
                     'playlist' => $playList,
                     'fullscreen' => $fullScreen,
-                    'sharepanel_up_BgColor' => $sharepanel_up_BgColor,
-                    'sharepanel_down_BgColor' => $sharepanel_down_BgColor,
-                    'sharepaneltextColor' => $sharepaneltextColor,
-                    'sendButtonColor' => $sendButtonColor,
-                    'sendButtonTextColor' => $sendButtonTextColor,
-                    'textColor' => $textColor,
-                    'skinBgColor' => $skinBgColor,
-                    'seek_barColor' => $seek_barColor,
-                    'buffer_barColor' => $buffer_barColor,
-                    'skinIconColor' => $skinIconColor,
-                    'pro_BgColor' => $pro_BgColor,
-                    'playButtonColor' => $playButtonColor,
-                    'playButtonBgColor' => $playButtonBgColor,
-                    'playerButtonColor' => $playerButtonColor,
-                    'playerButtonBgColor' => $playerButtonBgColor,
-                    'relatedVideoBgColor' => $relatedVideoBgColor,
-                    'scroll_barColor' => $scroll_barColor,
-                    'scroll_BgColor' => $scroll_BgColor,
+                    'player_colors'=>  serialize($player_color),
                     'playlist_open' => $playlist_open,
                     'showPlaylist' => $showPlaylist,
                     'midroll_ads' => $midroll_ads,
@@ -187,7 +192,10 @@ if (class_exists('SettingsController') != true) {//checks if the SettingsControl
                     'progressControl' => $progressControl,
                     'imageDefault' => $imageDefault,
                 );
-$image_path = str_replace('plugins/contus-video-gallery/admin/controllers', 'uploads/videogallery/', dirname(__FILE__));
+            $dir                    = dirname(plugin_basename(__FILE__));
+            $dirExp                 = explode('/', $dir);
+            $dirPage                = $dirExp[0];
+$image_path = str_replace('plugins/'.$dirPage.'/admin/controllers', 'uploads/videogallery/', dirname(__FILE__));
                 if($_FILES['logopath']["name"] != ''){
 				$allowedExtensions = array('jpg','jpeg','png','gif');
 				$logoImage = strtolower($_FILES['logopath']["name"]);
@@ -201,14 +209,13 @@ $image_path = str_replace('plugins/contus-video-gallery/admin/controllers', 'upl
                                 }else{
                                     $settingsData['logopath'] = $logopath;
                                 }
-                $settingsDataformat = array('%d','%d','%d', '%d', '%d', '%s', '%s', '%d', '%d','%d', 
-                    '%d', '%d','%d', '%d', '%d', '%d', '%d', '%d', '%d','%s', 
-                    '%s', '%s','%s', '%s', '%s', '%s', '%s', '%s', '%s','%d', 
-                    '%d', '%d','%s', '%d', '%d', '%d', '%d', '%d', '%d','%d',
-                    '%d', '%d','%d', '%d', '%d', '%s', '%s', '%s', '%s','%s',
-                    '%s', '%s','%s', '%s', '%s', '%s', '%s', '%s', '%s','%s',
-                    '%s', '%s','%s', '%s', '%d', '%d', '%d', '%s', '%s','%s', 
-                    '%s', '%d','%d', '%d', '%d', '%d', '%d', '%s');
+                $settingsDataformat = array('%d','%d','%d', '%d', '%d', '%s', '%s', '%d', '%d', '%d',
+                    '%d', '%d', '%d','%d', '%d', '%d', '%d', '%d', '%d', '%d',
+                    '%s', '%s', '%s','%s', '%s', '%s', '%s', '%s', '%s', '%s',
+                    '%d', '%d', '%d','%s', '%d', '%d', '%d', '%d', '%d', '%d',
+                    '%d', '%d', '%d','%d', '%d', '%d', '%s', '%d', '%d', '%d',
+                    '%s', '%s', '%s', '%s', '%d','%d', '%d', '%d', '%d', '%d',
+                    '%s', '%s');
                 $updateflag = $this->update_settings($settingsData, $settingsDataformat);
                 if ($updateflag) {
                     $this->admin_redirect("admin.php?page=hdflvvideosharesettings&update=1");

@@ -3,7 +3,7 @@
   Name: Wordpress Video Gallery
   URI: http://www.apptha.com/category/extension/Wordpress/Video-Gallery
   Description: Wordpress Video Gallery Installation file.
-  Version: 2.2
+  Version: 2.3
   Author: Apptha
   Author URI: http://www.apptha.com
   License: GPL2
@@ -73,7 +73,9 @@ function delete_video_column($table, $column) {
 function upgrade_videos() {
     global $wpdb;
     $posttable              = $wpdb->prefix . 'posts';
-    $videoID                = $wpdb->get_results("select vid,name from " . $wpdb->prefix . "hdflvvideoshare");
+    $slugID                 = $wpdb->get_results("SELECT slug FROM " . $wpdb->prefix . "hdflvvideoshare ORDER BY vid DESC LIMIT 1");
+    if(empty($slugID)){
+    $videoID                = $wpdb->get_results("SELECT vid,name FROM " . $wpdb->prefix . "hdflvvideoshare");
     for ($i = 0; $i < count($videoID); $i++) {
         $slug               = sanitize_title($videoID[$i]->name);
         $name               = $videoID[$i]->name;
@@ -92,6 +94,7 @@ function upgrade_videos() {
     for ($i = 0; $i < count($featuredID); $i++) {
         $vid                = $featuredID[$i]->vid;
         $wpdb->query("UPDATE " . $wpdb->prefix . "hdflvvideoshare SET featured = 1 WHERE vid = $vid");
+    }
     }
 }
 
@@ -149,6 +152,7 @@ function videogallery_install() {
                     vid MEDIUMINT(10) NOT NULL AUTO_INCREMENT PRIMARY KEY,
                     name MEDIUMTEXT NULL,
                     description MEDIUMTEXT NOT NULL,
+                    embedcode LONGTEXT NOT NULL,
                     file MEDIUMTEXT NULL,
                     streamer_path MEDIUMTEXT NULL,
                     hdfile MEDIUMTEXT NULL,
@@ -161,6 +165,8 @@ function videogallery_install() {
                     link MEDIUMTEXT NULL,
                     featured varchar(25) NOT NULL,
                     hitcount int(25) NOT NULL DEFAULT '0',
+                    ratecount int(25) NOT NULL DEFAULT '0',
+                    rate int(25) NOT NULL DEFAULT '0',
                     post_date datetime NOT NULL,
                     postrollads VARCHAR(25) NOT NULL,
                     prerollads VARCHAR(25) NOT NULL,
@@ -217,6 +223,7 @@ function videogallery_install() {
                     skin_autohide INT(3) NOT NULL DEFAULT '0',
                     stagecolor VARCHAR(45) NOT NULL,
                     embed_visible INT(3) NOT NULL DEFAULT '0',
+                    ratingscontrol INT(3) NOT NULL DEFAULT '0',
                     shareURL VARCHAR(200) NOT NULL,
                     playlistXML VARCHAR(200) NOT NULL,
                     debug INT(3) NOT NULL DEFAULT '0',
@@ -264,24 +271,7 @@ function videogallery_install() {
                     numvideos varchar(25) NOT NULL,
                     gutterspace INT(3) NOT NULL,
                     default_player INT(11) NOT NULL,
-                    sharepanel_up_BgColor VARCHAR(45) NOT NULL,
-                    sharepanel_down_BgColor VARCHAR(45) NOT NULL,
-                    sharepaneltextColor VARCHAR(45) NOT NULL,
-                    sendButtonColor VARCHAR(45) NOT NULL,
-                    sendButtonTextColor VARCHAR(45) NOT NULL,
-                    textColor VARCHAR(45) NOT NULL,
-                    skinBgColor VARCHAR(45) NOT NULL,
-                    seek_barColor VARCHAR(45) NOT NULL,
-                    buffer_barColor VARCHAR(45) NOT NULL,
-                    skinIconColor VARCHAR(45) NOT NULL,
-                    pro_BgColor VARCHAR(45) NOT NULL,
-                    playButtonColor VARCHAR(45) NOT NULL,
-                    playButtonBgColor VARCHAR(45) NOT NULL,
-                    playerButtonColor VARCHAR(45) NOT NULL,
-                    playerButtonBgColor VARCHAR(45) NOT NULL,
-                    relatedVideoBgColor VARCHAR(45) NOT NULL,
-                    scroll_barColor VARCHAR(45) NOT NULL,
-                    scroll_BgColor VARCHAR(45) NOT NULL,
+                    player_colors LONGTEXT  NOT NULL,
                     playlist_open INT(3) NOT NULL,
                     showPlaylist INT(3) NOT NULL,
                     midroll_ads INT(3) NOT NULL,
@@ -342,7 +332,7 @@ function videogallery_install() {
     if (empty($postM)) {
         $contus_more = "INSERT INTO " . $wpdb->prefix . "posts(`post_author`, `post_date`, `post_date_gmt`, `post_content`, `post_title`, `post_excerpt`, `post_status`, `comment_status`, `ping_status`, `post_password`, `post_name`, `to_ping`, `pinged`, `post_modified`, `post_modified_gmt`, `post_content_filtered`, `post_parent`, `guid`, `menu_order`, `post_type`, `post_mime_type`, `comment_count`)
                         VALUES
-                        (1, NOW(), NOW(), '[videomore]', '', '', 'publish', 'open', 'open', '', 'video-more', '', '', '2011-01-10 10:42:23',
+                        (1, NOW(), NOW(), '[videomore]', 'Video Categories', '', 'publish', 'open', 'open', '', 'video-more', '', '', '2011-01-10 10:42:23',
                         '2011-01-10 10:42:23', '',0, '$site_url/?page_id=',0, 'page', '', 0)";
 
         $resMore     = $wpdb->get_results($contus_more);
@@ -382,24 +372,24 @@ function videogallery_install() {
     }
     if (empty($videoCategories)) {
 
-        $contus_videoCategories = $wpdb->query("INSERT INTO " . $wpdb->prefix . "hdflvvideoshare (`slug`, `name`, `description`, `file`, `hdfile`, `file_type`, `duration`, `image`, `opimage`, `download`, `link`, `featured`, `hitcount`, `post_date`, `postrollads`, `prerollads`, `publish`,`ordering`,`streamer_path`,`islive`) VALUES
-                                ($postid[0],'Pacific Rim Official Wondercon Trailer (2013) - Guillermo del Toro Movie HD', '', 'http://www.youtube.com/watch?v=Ef6vQBGqLW8', '', 1, '2:38', 'http://i3.ytimg.com/vi/Ef6vQBGqLW8/mqdefault.jpg', 'http://i3.ytimg.com/vi/Ef6vQBGqLW8/maxresdefault.jpg', '', 'http://www.youtube.com/watch?v=Ef6vQBGqLW8', '1', 1, '2013-08-06 13:54:39', '0', '0', '1','0','','0'),
-                                ($postid[1],'GI JOE 2 Retaliation Trailer 2 - 2013 Movie - Official [HD]', 'G I Joe Retaliation Trailer 2 - 2013 movie - official movie trailer in HD - sequel of the 2009 \'s GI Joe film - starring Channing Tatum, Adrianne Palicki, Dwayne Johnson, Bruce Willis - directed by Jon Chu.', 'http://www.youtube.com/watch?v=mKNpy-tGwxE', '', 1, '2:31', 'http://i3.ytimg.com/vi/mKNpy-tGwxE/mqdefault.jpg', 'http://i3.ytimg.com/vi/mKNpy-tGwxE/maxresdefault.jpg', '', 'http://www.youtube.com/watch?v=mKNpy-tGwxE', '1', 2, '2013-08-06 13:46:43', '0', '0', '1','1','','0'),
-                                ($postid[2],'2012 - Full HD trailer - At UK Cinemas November 13', 'Never before has a date in history been so significant to so many cultures, so many religions, scientists, and governments.  2012 is an epic adventure about a global cataclysm that brings an end to the world and tells of the heroic struggle of the survivo', 'http://www.youtube.com/watch?v=rvI66Xaj9-o', '', 1, '2:22', 'http://i3.ytimg.com/vi/rvI66Xaj9-o/mqdefault.jpg', 'http://i3.ytimg.com/vi/rvI66Xaj9-o/maxresdefault.jpg', '', 'http://www.youtube.com/watch?v=rvI66Xaj9-o', '1', 1, '2013-08-06 13:47:15', '0', '0', '1','2','','0'),
-                                ($postid[3],'Iron Man - Trailer [HD]', 'Paramount Pictures and Marvel Studios\' big screen adaptation of Marvel\'s legendary Super Hero Iron Man will launch into theaters on May 2, 2008. Oscar nominee Robert Downey Jr. stars as Tony Stark/Iron Man in the story of a billionaire industrialist and', 'http://www.youtube.com/watch?v=8hYlB38asDY', '', 1, '2:30', 'http://i3.ytimg.com/vi/8hYlB38asDY/mqdefault.jpg', 'http://i3.ytimg.com/vi/8hYlB38asDY/maxresdefault.jpg', '', 'http://www.youtube.com/watch?v=8hYlB38asDY', '1', 1, '2013-08-06 13:50:52', '0', '0', '1','3','','0'),
-                                ($postid[4],'THE AVENGERS Trailer 2012 Movie - Official [HD]', 'The Avengers Trailer 2012 - Official movie teaser trailer in HD - starring Robert Downey Jr., Chris Evans, Mark Ruffalo, Chris Hemsworth, Scarlett Johansson.Joss Whedon brings together the ultimate team of superheroes in the first official trailer for', 'http://www.youtube.com/watch?v=orfMJJEd0wk', '', 1, '1:47', 'http://i3.ytimg.com/vi/orfMJJEd0wk/mqdefault.jpg', 'http://i3.ytimg.com/vi/orfMJJEd0wk/maxresdefault.jpg', '', 'http://www.youtube.com/watch?v=orfMJJEd0wk', '1', 1, '2013-08-06 13:53:12', '0', '0', '1','4','','0'),
-                                ($postid[5],'Cronicles of Narnia :Prince Caspian Trailer HD 720p', 'Cronicles of Narnia :Prince Caspian Trailer High Definition 720p', 'http://www.youtube.com/watch?v=yfX1S-ifI3E', '', 1, '2:31', 'http://i3.ytimg.com/vi/yfX1S-ifI3E/mqdefault.jpg', 'http://i3.ytimg.com/vi/yfX1S-ifI3E/maxresdefault.jpg', '', 'http://www.youtube.com/watch?v=yfX1S-ifI3E', '1', 1, '2013-08-06 13:53:58', '0', '0', '1','5','','0'),
-                                ($postid[6],'The Hobbit: The Desolation of Smaug International Trailer (2013) - Lord of the Rings Movie HD', '', 'http://www.youtube.com/watch?v=TeGb5XGk2U0', '', 1, '1:57', 'http://i3.ytimg.com/vi/TeGb5XGk2U0/mqdefault.jpg', 'http://i3.ytimg.com/vi/TeGb5XGk2U0/maxresdefault.jpg', '', 'http://www.youtube.com/watch?v=TeGb5XGk2U0', '1', 4, '2013-08-06 14:00:39', '0', '0', '1','6','','0'),
-                                ($postid[7],'Pirates of the Caribbean: On Stranger Tides Trailer HD', '', 'http://www.youtube.com/watch?v=egoQRNKeYxw', '', 1, '2:29', 'http://i3.ytimg.com/vi/egoQRNKeYxw/mqdefault.jpg', 'http://i3.ytimg.com/vi/egoQRNKeYxw/maxresdefault.jpg', '', 'http://www.youtube.com/watch?v=egoQRNKeYxw', '1', 3, '2013-08-06 14:01:58', '0', '0', '1','7','','0'),
-                                ($postid[8],'Fast & Furious 6 - Official Trailer [HD]', 'Since Dom (Diesel) and Brians (Walker) Rio heist toppled a kingpins empire and left their crew with $100 million, our heroes have scattered across the globe. But their inability to return home and living forever on the lam have left their lives incomplete', 'http://www.youtube.com/watch?v=PP7pH4pqC5A', '', 1, '2:35', 'http://i3.ytimg.com/vi/PP7pH4pqC5A/mqdefault.jpg', 'http://i3.ytimg.com/vi/PP7pH4pqC5A/maxresdefault.jpg', '0', 'http://www.youtube.com/watch?v=PP7pH4pqC5A', '1', 2, '2013-08-06 14:04:38', '0', '0', '1','8','','0'),
-                                ($postid[9],'Samsung Demo HD - Blu-Ray Sound 7.1 ch', 'En el video se muestra el audio 7.1 de Samsung en sus equipos Blu-Ray como el HT-BD2 y el BD-P3600, este ultimo con salida de 8 canales discretos', 'http://www.youtube.com/watch?v=UJ1MOWg15Ec', '', 1, '1:40', 'http://i3.ytimg.com/vi/UJ1MOWg15Ec/mqdefault.jpg', 'http://i3.ytimg.com/vi/UJ1MOWg15Ec/maxresdefault.jpg', '', 'http://www.youtube.com/watch?v=UJ1MOWg15Ec', '1', 3, '2013-08-06 14:04:52', '0', '0', '1','9','','0'),
-                                ($postid[10],'White House Down Trailer #2 2013 Jamie Foxx Movie - Official [HD]', 'White House Down Trailer #2 2013 - Official movie trailer 2 in HD - starring Channing Tatum, Jamie Foxx, Maggie Gyllenhaal - directed by Roland Emmerich - a Washington, D.C. police officer is on a tour of the presidential mansion when a heavily armed grou', 'http://www.youtube.com/watch?v=Kkoor7Z6aeE', '', 1, '2:35', 'http://i3.ytimg.com/vi/Kkoor7Z6aeE/mqdefault.jpg', 'http://i3.ytimg.com/vi/Kkoor7Z6aeE/maxresdefault.jpg', '', 'http://www.youtube.com/watch?v=Kkoor7Z6aeE', '1', 3, '2013-08-06 14:08:59', '0', '0', '1','10','','0'),
-                                ($postid[11],'Landscapes: Volume 2', '', 'http://www.youtube.com/watch?v=DaYx4XmWEoI', '', 1, '3:31', 'http://i3.ytimg.com/vi/DaYx4XmWEoI/mqdefault.jpg', 'http://i3.ytimg.com/vi/DaYx4XmWEoI/maxresdefault.jpg', '', 'http://www.youtube.com/watch?v=DaYx4XmWEoI', '1', 1, '2013-08-06 14:09:48', '0', '0', '1','11','','0'),
-                                ($postid[12],'Krrish 3 - Official Theatrical Trailer (Exclusive)', 'Watch the Exclusive Official Theatrical Trailer of Krrish 3, the most awaited movie of the year starring Hrithik Roshan, Priyanka Chopra, Kangna Ranaut, Vivek Oberoi & Shaurya Chauhan. Releasing this Diwali...!Directed & Produced by - Rakesh Roshan', 'http://www.youtube.com/watch?v=MCCVVgtI5xU', '', 1, '2:16', 'http://i3.ytimg.com/vi/MCCVVgtI5xU/mqdefault.jpg', 'http://i3.ytimg.com/vi/MCCVVgtI5xU/maxresdefault.jpg', '', 'http://www.youtube.com/watch?v=MCCVVgtI5xU', '1', 2, '2013-08-06 14:10:54', '0', '0', '1','12','','0'),
-                                ($postid[13],'THE TWILIGHT SAGA: BREAKING DAWN PART 2 - TV Spot Generation', '', 'http://www.youtube.com/watch?v=ey0aA3YY0Mo', '', 1, '0:32', 'http://i3.ytimg.com/vi/ey0aA3YY0Mo/mqdefault.jpg', 'http://i3.ytimg.com/vi/ey0aA3YY0Mo/maxresdefault.jpg', '', 'http://www.youtube.com/watch?v=ey0aA3YY0Mo', '1', 3, 'http://www.youtube.com/watch?v=ey0aA3YY0Mo', '0', '0', '1','13','','0'),
-                                ($postid[14],'Journey To The Center Of The Earth HD Trailer', '', 'http://www.youtube.com/watch?v=iJkspWwwZLM', '', 1, '2:30', 'http://i3.ytimg.com/vi/iJkspWwwZLM/mqdefault.jpg', 'http://i3.ytimg.com/vi/iJkspWwwZLM/maxresdefault.jpg', '', 'http://www.youtube.com/watch?v=iJkspWwwZLM', '1', 2, '2013-08-06 14:12:07', '0', '0', '1','14','','0'),
-                                ($postid[15],'ICE AGE 4 Trailer 2012 Movie - Continental Drift - Official [HD]', 'Ice Age 4: Continental Drift Trailer 2012 Movie - Official Ice Age 4 trailer in [HD] - Scrat accidentally triggers the breakup of Pangea and thus the splitting of the continents.', 'http://www.youtube.com/watch?v=ja-qjGeDBZQ', '', 1, '2:33', 'http://i3.ytimg.com/vi/ja-qjGeDBZQ/mqdefault.jpg', 'http://i3.ytimg.com/vi/ja-qjGeDBZQ/maxresdefault.jpg', '', 'http://www.youtube.com/watch?v=ja-qjGeDBZQ', '1', 3, '2013-08-06 13:47:15', '0', '0', '1','15','','0'),
-                                ($postid[16],'Big Buck Bunny', 'Big Buck Bunny was the first project in the Blender Institute Amsterdam. This 10 minute movie has been made inspired by the best cartoon tradition.', 'http://www.youtube.com/watch?v=Vpg9yizPP_g', '', 1, '1:47', 'http://i3.ytimg.com/vi/Vpg9yizPP_g/mqdefault.jpg', 'http://i3.ytimg.com/vi/Vpg9yizPP_g/maxresdefault.jpg', '', 'http://www.youtube.com/watch?v=Vpg9yizPP_g', '1', 3, '2013-08-06 13:53:12', '0', '0', '1','16','','0')
+        $contus_videoCategories = $wpdb->query("INSERT INTO " . $table_name . " (`slug`, `name`, `description`, `embedcode`, `file`, `hdfile`, `file_type`, `duration`, `image`, `opimage`, `download`, `link`, `featured`, `hitcount`, `post_date`, `postrollads`, `prerollads`, `publish`,`ordering`,`streamer_path`,`islive`, `ratecount`, `rate`) VALUES
+                                ($postid[0],'Pacific Rim Official Wondercon Trailer (2013) - Guillermo del Toro Movie HD', '','', 'http://www.youtube.com/watch?v=Ef6vQBGqLW8', '', 1, '2:38', 'http://i3.ytimg.com/vi/Ef6vQBGqLW8/mqdefault.jpg', 'http://i3.ytimg.com/vi/Ef6vQBGqLW8/maxresdefault.jpg', '', 'http://www.youtube.com/watch?v=Ef6vQBGqLW8', '1', 1, '2013-08-06 13:54:39', '0', '0', '1','0','','0','0','0'),
+                                ($postid[1],'GI JOE 2 Retaliation Trailer 2 - 2013 Movie - Official [HD]', 'G I Joe Retaliation Trailer 2 - 2013 movie - official movie trailer in HD - sequel of the 2009 \'s GI Joe film - starring Channing Tatum, Adrianne Palicki, Dwayne Johnson, Bruce Willis - directed by Jon Chu.', '','http://www.youtube.com/watch?v=mKNpy-tGwxE', '', 1, '2:31', 'http://i3.ytimg.com/vi/mKNpy-tGwxE/mqdefault.jpg', 'http://i3.ytimg.com/vi/mKNpy-tGwxE/maxresdefault.jpg', '', 'http://www.youtube.com/watch?v=mKNpy-tGwxE', '1', 2, '2013-08-06 13:46:43', '0', '0', '1','1','','0','0','0'),
+                                ($postid[2],'2012 - Full HD trailer - At UK Cinemas November 13', 'Never before has a date in history been so significant to so many cultures, so many religions, scientists, and governments.  2012 is an epic adventure about a global cataclysm that brings an end to the world and tells of the heroic struggle of the survivo','', 'http://www.youtube.com/watch?v=rvI66Xaj9-o', '', 1, '2:22', 'http://i3.ytimg.com/vi/rvI66Xaj9-o/mqdefault.jpg', 'http://i3.ytimg.com/vi/rvI66Xaj9-o/maxresdefault.jpg', '', 'http://www.youtube.com/watch?v=rvI66Xaj9-o', '1', 1, '2013-08-06 13:47:15', '0', '0', '1','2','','0','0','0'),
+                                ($postid[3],'Iron Man - Trailer [HD]', 'Paramount Pictures and Marvel Studios\' big screen adaptation of Marvel\'s legendary Super Hero Iron Man will launch into theaters on May 2, 2008. Oscar nominee Robert Downey Jr. stars as Tony Stark/Iron Man in the story of a billionaire industrialist and','', 'http://www.youtube.com/watch?v=8hYlB38asDY', '', 1, '2:30', 'http://i3.ytimg.com/vi/8hYlB38asDY/mqdefault.jpg', 'http://i3.ytimg.com/vi/8hYlB38asDY/maxresdefault.jpg', '', 'http://www.youtube.com/watch?v=8hYlB38asDY', '1', 1, '2013-08-06 13:50:52', '0', '0', '1','3','','0','0','0'),
+                                ($postid[4],'THE AVENGERS Trailer 2012 Movie - Official [HD]', 'The Avengers Trailer 2012 - Official movie teaser trailer in HD - starring Robert Downey Jr., Chris Evans, Mark Ruffalo, Chris Hemsworth, Scarlett Johansson.Joss Whedon brings together the ultimate team of superheroes in the first official trailer for','', 'http://www.youtube.com/watch?v=orfMJJEd0wk', '', 1, '1:47', 'http://i3.ytimg.com/vi/orfMJJEd0wk/mqdefault.jpg', 'http://i3.ytimg.com/vi/orfMJJEd0wk/maxresdefault.jpg', '', 'http://www.youtube.com/watch?v=orfMJJEd0wk', '1', 1, '2013-08-06 13:53:12', '0', '0', '1','4','','0','0','0'),
+                                ($postid[5],'Cronicles of Narnia :Prince Caspian Trailer HD 720p', 'Cronicles of Narnia :Prince Caspian Trailer High Definition 720p','', 'http://www.youtube.com/watch?v=yfX1S-ifI3E', '', 1, '2:31', 'http://i3.ytimg.com/vi/yfX1S-ifI3E/mqdefault.jpg', 'http://i3.ytimg.com/vi/yfX1S-ifI3E/maxresdefault.jpg', '', 'http://www.youtube.com/watch?v=yfX1S-ifI3E', '1', 1, '2013-08-06 13:53:58', '0', '0', '1','5','','0','0','0'),
+                                ($postid[6],'The Hobbit: The Desolation of Smaug International Trailer (2013) - Lord of the Rings Movie HD', '','', 'http://www.youtube.com/watch?v=TeGb5XGk2U0', '', 1, '1:57', 'http://i3.ytimg.com/vi/TeGb5XGk2U0/mqdefault.jpg', 'http://i3.ytimg.com/vi/TeGb5XGk2U0/maxresdefault.jpg', '', 'http://www.youtube.com/watch?v=TeGb5XGk2U0', '1', 4, '2013-08-06 14:00:39', '0', '0', '1','6','','0','0','0'),
+                                ($postid[7],'Pirates of the Caribbean: On Stranger Tides Trailer HD', '','', 'http://www.youtube.com/watch?v=egoQRNKeYxw', '', 1, '2:29', 'http://i3.ytimg.com/vi/egoQRNKeYxw/mqdefault.jpg', 'http://i3.ytimg.com/vi/egoQRNKeYxw/maxresdefault.jpg', '', 'http://www.youtube.com/watch?v=egoQRNKeYxw', '1', 3, '2013-08-06 14:01:58', '0', '0', '1','7','','0','0','0'),
+                                ($postid[8],'Fast & Furious 6 - Official Trailer [HD]', 'Since Dom (Diesel) and Brians (Walker) Rio heist toppled a kingpins empire and left their crew with $100 million, our heroes have scattered across the globe. But their inability to return home and living forever on the lam have left their lives incomplete','', 'http://www.youtube.com/watch?v=PP7pH4pqC5A', '', 1, '2:35', 'http://i3.ytimg.com/vi/PP7pH4pqC5A/mqdefault.jpg', 'http://i3.ytimg.com/vi/PP7pH4pqC5A/maxresdefault.jpg', '0', 'http://www.youtube.com/watch?v=PP7pH4pqC5A', '1', 2, '2013-08-06 14:04:38', '0', '0', '1','8','','0','0','0'),
+                                ($postid[9],'Samsung Demo HD - Blu-Ray Sound 7.1 ch', 'En el video se muestra el audio 7.1 de Samsung en sus equipos Blu-Ray como el HT-BD2 y el BD-P3600, este ultimo con salida de 8 canales discretos','', 'http://www.youtube.com/watch?v=UJ1MOWg15Ec', '', 1, '1:40', 'http://i3.ytimg.com/vi/UJ1MOWg15Ec/mqdefault.jpg', 'http://i3.ytimg.com/vi/UJ1MOWg15Ec/maxresdefault.jpg', '', 'http://www.youtube.com/watch?v=UJ1MOWg15Ec', '1', 3, '2013-08-06 14:04:52', '0', '0', '1','9','','0','0','0'),
+                                ($postid[10],'White House Down Trailer #2 2013 Jamie Foxx Movie - Official [HD]', 'White House Down Trailer #2 2013 - Official movie trailer 2 in HD - starring Channing Tatum, Jamie Foxx, Maggie Gyllenhaal - directed by Roland Emmerich - a Washington, D.C. police officer is on a tour of the presidential mansion when a heavily armed grou','', 'http://www.youtube.com/watch?v=Kkoor7Z6aeE', '', 1, '2:35', 'http://i3.ytimg.com/vi/Kkoor7Z6aeE/mqdefault.jpg', 'http://i3.ytimg.com/vi/Kkoor7Z6aeE/maxresdefault.jpg', '', 'http://www.youtube.com/watch?v=Kkoor7Z6aeE', '1', 3, '2013-08-06 14:08:59', '0', '0', '1','10','','0','0','0'),
+                                ($postid[11],'Landscapes: Volume 2', '','', 'http://www.youtube.com/watch?v=DaYx4XmWEoI', '', 1, '3:31', 'http://i3.ytimg.com/vi/DaYx4XmWEoI/mqdefault.jpg', 'http://i3.ytimg.com/vi/DaYx4XmWEoI/maxresdefault.jpg', '', 'http://www.youtube.com/watch?v=DaYx4XmWEoI', '1', 1, '2013-08-06 14:09:48', '0', '0', '1','11','','0','0','0'),
+                                ($postid[12],'Krrish 3 - Official Theatrical Trailer (Exclusive)', 'Watch the Exclusive Official Theatrical Trailer of Krrish 3, the most awaited movie of the year starring Hrithik Roshan, Priyanka Chopra, Kangna Ranaut, Vivek Oberoi & Shaurya Chauhan. Releasing this Diwali...!Directed & Produced by - Rakesh Roshan','', 'http://www.youtube.com/watch?v=MCCVVgtI5xU', '', 1, '2:16', 'http://i3.ytimg.com/vi/MCCVVgtI5xU/mqdefault.jpg', 'http://i3.ytimg.com/vi/MCCVVgtI5xU/maxresdefault.jpg', '', 'http://www.youtube.com/watch?v=MCCVVgtI5xU', '1', 2, '2013-08-06 14:10:54', '0', '0', '1','12','','0','0','0'),
+                                ($postid[13],'THE TWILIGHT SAGA: BREAKING DAWN PART 2 - TV Spot Generation', '','', 'http://www.youtube.com/watch?v=ey0aA3YY0Mo', '', 1, '0:32', 'http://i3.ytimg.com/vi/ey0aA3YY0Mo/mqdefault.jpg', 'http://i3.ytimg.com/vi/ey0aA3YY0Mo/maxresdefault.jpg', '', 'http://www.youtube.com/watch?v=ey0aA3YY0Mo', '1', 3, 'http://www.youtube.com/watch?v=ey0aA3YY0Mo', '0', '0', '1','13','','0','0','0'),
+                                ($postid[14],'Journey To The Center Of The Earth HD Trailer', '','', 'http://www.youtube.com/watch?v=iJkspWwwZLM', '', 1, '2:30', 'http://i3.ytimg.com/vi/iJkspWwwZLM/mqdefault.jpg', 'http://i3.ytimg.com/vi/iJkspWwwZLM/maxresdefault.jpg', '', 'http://www.youtube.com/watch?v=iJkspWwwZLM', '1', 2, '2013-08-06 14:12:07', '0', '0', '1','14','','0','0','0'),
+                                ($postid[15],'ICE AGE 4 Trailer 2012 Movie - Continental Drift - Official [HD]', 'Ice Age 4: Continental Drift Trailer 2012 Movie - Official Ice Age 4 trailer in [HD] - Scrat accidentally triggers the breakup of Pangea and thus the splitting of the continents.','', 'http://www.youtube.com/watch?v=ja-qjGeDBZQ', '', 1, '2:33', 'http://i3.ytimg.com/vi/ja-qjGeDBZQ/mqdefault.jpg', 'http://i3.ytimg.com/vi/ja-qjGeDBZQ/maxresdefault.jpg', '', 'http://www.youtube.com/watch?v=ja-qjGeDBZQ', '1', 3, '2013-08-06 13:47:15', '0', '0', '1','15','','0','0','0'),
+                                ($postid[16],'Big Buck Bunny', 'Big Buck Bunny was the first project in the Blender Institute Amsterdam. This 10 minute movie has been made inspired by the best cartoon tradition.','', 'http://www.youtube.com/watch?v=Vpg9yizPP_g', '', 1, '1:47', 'http://i3.ytimg.com/vi/Vpg9yizPP_g/mqdefault.jpg', 'http://i3.ytimg.com/vi/Vpg9yizPP_g/maxresdefault.jpg', '', 'http://www.youtube.com/watch?v=Vpg9yizPP_g', '1', 3, '2013-08-06 13:53:12', '0', '0', '1','16','','0','0','0')
                                 ");
         ## video title array
         $videoName              = array(
@@ -451,44 +441,38 @@ function videogallery_install() {
         $contus_videoSettings   = $wpdb->query("INSERT INTO " . $table_settings . "(`default_player`,`settings_id`, `autoplay`, `playlist`,`playlistauto`,
                                 `buffer`, `normalscale`, `fullscreenscale`, `logopath`, `logo_target`,
                                 `volume`, `logoalign`, `hdflvplayer_ads`, `HD_default`, `download`,
-                                `logoalpha`,`skin_autohide`, `stagecolor`, `embed_visible`, `shareURL`,
-                                `playlistXML`,`debug`, `timer`, `zoom`, `email`,
-                                `fullscreen`, `width`, `height`, `display_logo`,`configXML`,
-                                `uploads`, `license`, `keyApps`,`keydisqusApps`,`preroll`,
-                                `postroll`,`feature`, `rowsFea`, `colFea`,`recent`,
-                                `rowsRec`, `colRec`, `popular`, `rowsPop`,`colPop`,
-                                `page`, `category_page`, `ffmpeg_path`, `stylesheet`,`comment_option`,
-                                `rowCat`, `colCat`,`homecategory`,`bannercategory`,`banner_categorylist`,
-                                `hbannercategory`,`hbanner_categorylist`,`vbannercategory`,`vbanner_categorylist`,`bannerw`,
-                                `playerw`,`numvideos`,`gutterspace`,`colMore`,`rowMore`,
-                                `sharepanel_up_BgColor`,`sharepanel_down_BgColor`,`sharepaneltextColor`,`sendButtonColor`,`sendButtonTextColor`,
-                                `textColor`,`skinBgColor`,`seek_barColor`,`buffer_barColor`,`skinIconColor`,
-                                `pro_BgColor`,`playButtonColor`,`playButtonBgColor`,`playerButtonColor`,`playerButtonBgColor`,
-                                `relatedVideoBgColor`,`scroll_barColor`,`scroll_BgColor`,`playlist_open`,`showPlaylist`,
-                                `midroll_ads`,`adsSkip`,`adsSkipDuration`,`relatedVideoView`,`imaAds`,
-                                `trackCode`,`showTag`,`shareIcon`,`volumecontrol`,`playlist_auto`,
-                                `progressControl`,`imageDefault`)
+                                `logoalpha`,`skin_autohide`, `stagecolor`, `embed_visible`, `ratingscontrol`, 
+                                `shareURL`,`playlistXML`,`debug`, `timer`, `zoom`,
+                                `email`,`fullscreen`, `width`, `height`, `display_logo`,
+                                `configXML`,`uploads`, `license`, `keyApps`,`keydisqusApps`,
+                                `preroll`,`postroll`,`feature`, `rowsFea`, `colFea`,
+                                `recent`,`rowsRec`, `colRec`, `popular`, `rowsPop`,
+                                `colPop`,`page`, `category_page`, `ffmpeg_path`, `stylesheet`,
+                                `comment_option`,`rowCat`, `colCat`,`homecategory`,`bannercategory`,
+                                `banner_categorylist`,`hbannercategory`,`hbanner_categorylist`,`vbannercategory`,`vbanner_categorylist`,
+                                `bannerw`,`playerw`,`numvideos`,`gutterspace`,`colMore`,
+                                `rowMore`,`player_colors`,`playlist_open`,`showPlaylist`,`midroll_ads`,
+                                `adsSkip`,`adsSkipDuration`,`relatedVideoView`,`imaAds`,`trackCode`,
+                                `showTag`,`shareIcon`,`volumecontrol`,`playlist_auto`,`progressControl`,
+                                `imageDefault`)
                                 VALUES
                                 (0,1, 1, 1, 1,
                                 3, 2, 2, 'platoon.jpg', '' ,
                                 50, 'BL', 0, 1, 1,
-                                100, 1, '', 1, '',
-                                '', 0, 1, 1, 1,
-                                1, 620, 350, 0, '0' ,
-                                'wp-content/uploads/videogallery', '', '','','0',
-                                '0', '1', '2', '4','1',
-                                '2', '4', '1', '2','4',
-                                '20', '4', '', '','1',
-                                '2','4','off','popular','1',
-                                'hpopular','1','vpopular','1','650',
-                                '450','5','20','4','2',
-                                '','','0x1d1d1d','0x1d1d1d','0xFFFFFF',
-                                '','','','','',
-                                '','','','','',
-                                '','','','1','1',
-                                '0','1','5','center','0',
-                                '','1','1','1','1',
-                                '1','1')");
+                                100, 1, '', 1, 1, 
+                                '','', 0, 1, 1,
+                                1,1, 620, 350, 0,
+                                '0' ,'wp-content/uploads/videogallery', '', '','',
+                                '0','0', '1', '2', '4',
+                                '1','2', '4', '1', '2',
+                                '4','20', '4', '', '',
+                                '1','2','4','off','popular',
+                                '1','hpopular','1','vpopular','1',
+                                '650','450','5','20','4',
+                                '2','','1','1','0',
+                                '1','5','center','0','',
+                                '1','1','1','1', '1',
+                                '1')");
     }
 
     ## Update video and category details in med2play table
@@ -514,5 +498,6 @@ function videogallery_install() {
                             (22, 17, 2, 0, 0),
                             (23, 11, 4, 0, 0)");
     }
+    flush_rewrite_rules();
 }
 ?>

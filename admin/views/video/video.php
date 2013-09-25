@@ -3,7 +3,7 @@
   Name: Wordpress Video Gallery
   Plugin URI: http://www.apptha.com/category/extension/Wordpress/Video-Gallery
   Description: Video view file.
-  Version: 2.2
+  Version: 2.3
   Author: Apptha
   Author URI: http://www.apptha.com
   License: GPL2
@@ -69,16 +69,22 @@ $dirPage = $dirExp[0];
             <?php _e('To display single video player on any page or post use the plugin code in any of the formats specified below.', 'video_gallery'); ?>
             <br><br>
 
-            <strong><?php _e('[hdvideo id=3 playlistid=2 width=400 height=400] or [hdvideo playlistid=2] or [hdvideo id=3]', 'video_gallery'); ?></strong>
+            <strong><?php _e('[hdvideo id=3 playlistid=2 width=400 height=400] or [hdvideo playlistid=2] or [hdvideo id=3] or [hdvideo playlistid=2 relatedvideos=on]', 'video_gallery'); ?></strong><br><br>
 
             <?php _e("id - The Video ID, you can find the video id on 'All Videos' admin page.", "video_gallery"); ?><br><br>
             <?php _e('Playlist id - You can find the Category ID on manage Category page.', 'video_gallery'); ?><br><br>
+            <?php _e('relatedvideos - You can enable/disable Related Videos on the page or post under the player. By default, it will be in "off" status.', 'video_gallery'); ?><br><br>
 
             <?php _e("Both the Video ID and Category ID will be generated automatically once you add new Video or Category to 'Wordpress Video Gallery'.", "video_gallery"); ?><br><br>
 
             <?php _e('You can use the plugin code with flashvars when you would like to display a player on any page/post with some specific settings.', 'video_gallery'); ?><br><br>
 
-            <strong><?php _e("[hdvideo id=3 flashvars=autoplay=true&zoomIcon=false]", "video_gallery"); ?></strong>
+            <strong><?php _e("[hdvideo id=4 flashvars=autoplay=true&zoomIcon=false]", "video_gallery"); ?></strong><br><br>
+            <?php _e('You can also enable ratings and view count for the video using the below short code.', 'video_gallery'); ?><br><br>
+            <strong><?php _e("[hdvideo id=1 ratingscontrol=on views=on title=on]", "video_gallery"); ?></strong><br><br>
+            <?php _e('ratingscontrol - You can enable/disable Ratings on the page or post under the player. By default, it will be in "off" status.', 'video_gallery'); ?><br><br>
+            <?php _e('title - You can enable/disable Title on the page or post above the player. By default, it will be in "off" status.', 'video_gallery'); ?><br><br>
+            <?php _e('views - You can enable/disable View count of the video on the page or post under the player. By default, it will be in "off" status.', 'video_gallery'); ?>
         </div>
 
 

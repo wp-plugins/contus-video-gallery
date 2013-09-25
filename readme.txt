@@ -2,8 +2,8 @@
 Contributors: Contus Support
 Tags: Video Player plugin, video, flash player, flv player, WORDPRESS VIDEO GALLERY, flv player wordpress, hd flv player, youtube plugin, youtube Video Player, high definition Video Player, flash, play flv wordpress, player, Video Plugin, wp flv player, wp flv plugin, flv player 2009,  WORDPRESS VIDEO GALLERY, wp flv, wordpress flv plugin, wp hd flv player, flv player plugin, wordpress flv player
 Requires at least: 2.8
-Tested up to: 3.5.2
-Stable tag: 2.2
+Tested up to: 3.5.1
+Stable tag: 2.3
 Get the most exciting FLV player in the internet, designed and modified to suit your Wordpress websites.  Installing this Video Plugin is real easy and if you have any difficulty in installation, contact our Video Player support team and quickly resolve your issue.  You can either download this Video Plugin directly from our website or through Wordpress plugins page itself.  This WORDPRESS VIDEO GALLERY Version  has many advanced features that you cannot find elsewhere, such as that you can play youtube videos directly through this player, and it can also aptly be called as a youtube player.
 
 == Description ==
@@ -26,6 +26,7 @@ FLV & H.264 encoded video including MP4, M4V, M4A, MOV, Mp4v, F4V, social networ
 * This FLV Video plugin is capable to play FLV video & H.264 encoded video including MP3, MP4, M4V, M4A, MOV, Mp4v and F4V formats
 * Supports RTL feature
 * Admin option to enable/disable Recent Videos, Popular Videos and Featured Videos
+* Admin option to enable/disable Rating
 * Easy to manage widgets like popular, featured, recent, related, video search, video categories.
 * Flexible player size
 * Ability to turn on/off and share volume functions
@@ -43,6 +44,8 @@ FLV & H.264 encoded video including MP4, M4V, M4A, MOV, Mp4v, F4V, social networ
 * Option to set up SEO friendly URL using two permalink options: default and postname
 * Option to include a well-suited meta information
 * Option to add RTMP based videos
+* Option to add Embed code based videos
+* Rating option for the videos
 * Language pack can be set on any preferred language
 * Provides FFMPEG path in backend and generates timer for upload video.
 
@@ -65,24 +68,21 @@ FLV & H.264 encoded video including MP4, M4V, M4A, MOV, Mp4v, F4V, social networ
 4. That's it! You're done.
 
 == Screenshots ==
+Manage Video: http://www.hdflvplayer.net/wordpress-video-gallery/gallery/video-uploadlist.JPG
 
-1. **Video gallery(Front-end)**
+Upload video file: http://www.hdflvplayer.net/wordpress-video-gallery/gallery/upload-file.JPG
 
-2. **Manage Video** - Displays Uploaded videos and details about the plugin.
+Upload youtube URL: http://www.hdflvplayer.net/wordpress-video-gallery/gallery/video-upload-file.JPG
 
-3. **Upload video file** - Here you can upload video using Upload Method
+Upload custom URL: http://www.hdflvplayer.net/wordpress-video-gallery/gallery/custom-url.JPG
 
-4. **Upload youtube URL** - Here you can upload video from YouTube
+Manage video widgets: http://www.hdflvplayer.net/wordpress-video-gallery/gallery/widgets.JPG
 
-5. **Upload custom URL** - Here you can upload video via URL eg: http://www.domainname.com/foldername/video.mp4
+Video gallery(Front-end): http://www.hdflvplayer.net/wordpress-video-gallery/gallery/front-video-page.JPG
 
-6. **Upload RTMP Video** - You can add RTMP Streaming video
+Videos(recent,popular,feature): http://www.hdflvplayer.net/wordpress-video-gallery/gallery/recent-popular.JPG
 
-7. **Gallery settings** - You can control Player and Plugin here.
-
-8. **Manage video widgets** - We are providing 5 widgets. They are : Popular, Recent, Featured, Related videos, Video Search and Video Categories. You can assign the above mentioned widgets in any position of your template.
-
-9. **Videos(recent,popular,feature, Video Categories)** - We are also displaying Popular, Recent, Featured, Related videos and Video Categories in content page under player.
+Gallery settings: http://www.hdflvplayer.net/wordpress-video-gallery/gallery/gallery-settings.JPG .
 
 == Other Notes ==
 

@@ -3,7 +3,7 @@
   Name: Wordpress Video Gallery
   Plugin URI: http://www.apptha.com/category/extension/Wordpress/Video-Gallery
   Description: Wordpress video gallery Related videos widget.
-  Version: 2.2
+  Version: 2.3
   Author: Apptha
   Author URI: http://www.apptha.com
   License: GPL2
@@ -71,16 +71,14 @@ class widget_ContusRelatedVideos_init extends WP_Widget {
         if (isset($_GET['p']))
             $videoID            = intval($_GET['p']);
         echo $before_widget;
-        $div                    .= '<div id="related-videos"  class="sidebar-wrap ">
-                                <h3 class="widget-title">' . $title . '</h3>';
-        $div                    .='<ul class="ulwidget">';
+        $moreName               = $wpdb->get_var("SELECT ID FROM " . $wpdb->prefix . "posts WHERE post_content='[videomore]' AND post_status='publish' AND post_type='page' LIMIT 1");
         if (!empty($videoID)) {
             $videoID            = $wpdb->get_var("SELECT vid FROM " . $wpdb->prefix . "hdflvvideoshare WHERE slug='$videoID'");
             if (!empty($videoID)) {
             $video_playlist_id  = $wpdb->get_var("SELECT playlist_id FROM " . $wpdb->prefix . "hdflvvideoshare_med2play WHERE media_id='$videoID'");
-            $moreName           = $wpdb->get_var("SELECT ID FROM " . $wpdb->prefix . "posts WHERE post_content='[videomore]' AND post_status='publish' AND post_type='page' LIMIT 1");
-            $styleSheet         = $wpdb->get_var("SELECT stylesheet FROM " . $wpdb->prefix . "hdflvvideoshare_settings WHERE settings_id='1'");
+            $ratingscontrol     = $wpdb->get_var("SELECT ratingscontrol FROM " . $wpdb->prefix . "hdflvvideoshare_settings WHERE settings_id='1'");
             $site_url           = get_bloginfo('url');
+            $ratearray = array("nopos1", "onepos1", "twopos1", "threepos1", "fourpos1", "fivepos1");
 
             $viewslang          = __('Views', 'video_gallery');
             $viewlang           = __('View', 'video_gallery');
@@ -101,10 +99,21 @@ class widget_ContusRelatedVideos_init extends WP_Widget {
                 $moreF          = $wpdb->get_results("select count(a.vid) as relatedcontus from " . $wpdb->prefix . "hdflvvideoshare a INNER JOIN " . $wpdb->prefix . "hdflvvideoshare_med2play b ON a.vid=b.media_id WHERE b.playlist_id=" . $playlistID . " ORDER BY a.vid DESC");
                 $countF         = $moreF[0]->relatedcontus;
             }
+            }
+        }
+        if(!empty($video_playlist_id)){
+            $link = '<a href="' . $site_url . '/?page_id=' . $moreName . '&amp;playid=' . $video_playlist_id . '">' . $title . '</a>';
+        } else {
+            $link = $title;
+        }
+        $div                    .= '<div id="related-videos"  class="sidebar-wrap ">
+                                <h3 class="widget-title">' . $link . '</h3>';
+        $div                    .='<ul class="ulwidget">';
+        if (!empty($videoID)) {
             ## were there any posts found?
             if (!empty($relatedVideos)) {
             ## posts were found, loop through them
-                $image_path     = str_replace('plugins/contus-video-gallery/', 'uploads/videogallery/', APPTHA_VGALLERY_BASEURL);
+                $image_path     = str_replace('plugins/'.$dirPage.'/', 'uploads/videogallery/', APPTHA_VGALLERY_BASEURL);
                 $_imagePath     = APPTHA_VGALLERY_BASEURL . 'images' . DS;
                 foreach ($relatedVideos as $feature) {
                     $file_type  = $feature->file_type; ## Video Type
@@ -113,7 +122,7 @@ class widget_ContusRelatedVideos_init extends WP_Widget {
                     if ($imageFea == '') {  ##If there is no thumb image for video
                         $imageFea = $_imagePath . 'nothumbimage.jpg';
                     } else {
-                        if ($file_type == 2) {          ##For uploaded image
+                        if ($file_type == 2 || $file_type == 5 ) {          ##For uploaded image
                             $imageFea = $image_path . $imageFea;
                         }
                     }
@@ -126,19 +135,29 @@ class widget_ContusRelatedVideos_init extends WP_Widget {
                         $div    .= '<span class="video_duration">' . $feature->duration . '</span>';
                     }
                     $div        .= '</div>';
-                    $div        .= '<div class="side_video_info"><h6><a href="' . $guid . '">';
+                    $div        .= '<div class="side_video_info"><a class="videoHname" href="' . $guid . '">';
                     if ($name > 25) {
-                        $div    .= substr($feature->name, 0, 25) . '';
+                        $div    .= substr($feature->name, 0, 25) . '..';
                     } else {
                         $div    .= $feature->name;
                     }
-                    $div        .= '</a></h6><div class="clear"></div>';
+                    $div        .= '</a><div class="clear"></div>';
                     if ($feature->hitcount > 1)
                         $viewlanguage = $viewslang;
                     else
                         $viewlanguage = $viewlang;
                     $div        .= '<span class="views">' . $feature->hitcount . ' ' . $viewlanguage;
                     $div        .= '</span>';
+                    ## Rating starts here
+                    if ($ratingscontrol == 1) {
+                            if (isset($feature->ratecount) && $feature->ratecount != 0) {
+                                $ratestar    = round($feature->rate / $feature->ratecount);
+                            } else {
+                                $ratestar    = 0;
+                            }
+                            $div             .= '<span class="ratethis1 '.$ratearray[$ratestar].'"></span>';
+                        }
+                    ## Rating ends here
                     $div        .= '</span>';
                     $div        .= '<div class="clear"></div>';
                     $div        .= '</div>';
@@ -146,8 +165,7 @@ class widget_ContusRelatedVideos_init extends WP_Widget {
                     
                 }
             }
-        }
-        else {
+             else {
             $div                .= "<li>" . __('No Related videos', 'video_gallery') . "</li>";
         }
         }

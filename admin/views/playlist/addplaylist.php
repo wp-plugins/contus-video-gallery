@@ -3,12 +3,20 @@
 Name: Wordpress Video Gallery
 Plugin URI: http://www.apptha.com/category/extension/Wordpress/Video-Gallery
 Description: add playlist model file.
-Version: 2.2
+Version: 2.3
 Author: Apptha
 Author URI: http://www.apptha.com
 License: GPL2
 */
 ?>
+<?php 
+$dir                    = dirname(plugin_basename(__FILE__));
+$dirExp                 = explode('/', $dir);
+$dirPage                = $dirExp[0];
+?>
+<script type="text/javascript">
+    folder  = '<?php echo $dirPage; ?>'
+</script>
 <div class="apptha_gallery">
 <?php       if(isset($playListId)){ ?>
 <h2><?php _e('Update Category','video_gallery'); ?></h2> <?php } else { ?> <h2  class="option_title"><?php echo "<img src='" . APPTHA_VGALLERY_BASEURL . "images/vid_ad.png' alt='move' width='30'/>"; ?><?php _e('Add a New Category','video_gallery'); ?></h2> <?php } ?>
@@ -52,8 +60,9 @@ License: GPL2
                         </table>
                         <input type="hidden" name="ordering" id="ordering" value="<?php echo $Playlistorder+1; ?>">
                     <?php       if(isset($playListId)){ ?>
-                    <input type="submit" name="playlistadd" onclick="return validateplyalistInput();" class="button-primary"  value="<?php _e('Update Category', 'video_gallery'); ?>" class="button" /></p> <?php }  else{?>
-                    <input type="submit" name="playlistadd" onclick="return validateplyalistInput();" class="button-primary"  value="<?php _e('Add Category', 'video_gallery'); ?>" class="button" /></p> <?php }  ?>
+                    <input type="submit" name="playlistadd" onclick="return validateplyalistInput();" class="button-primary"  value="<?php _e('Update Category', 'video_gallery'); ?>" class="button" /> <?php }  else{?>
+                    <input type="submit" name="playlistadd" onclick="return validateplyalistInput();" class="button-primary"  value="<?php _e('Add Category', 'video_gallery'); ?>" class="button" /> <?php }  ?>
+                    <input type="button" onclick="window.location.href='admin.php?page=playlist'" class="button-secondary" name="cancel" value="<?php _e('Cancel'); ?>" class="button" />
                     </form>
                 </div>
             </div>

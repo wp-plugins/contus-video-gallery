@@ -3,7 +3,7 @@
 Name: Wordpress Video Gallery
 Plugin URI: http://www.apptha.com/category/extension/Wordpress/Video-Gallery
 Description: video more page model file
-Version: 2.2
+Version: 2.3
 Author: Apptha
 Author URI: http://www.apptha.com
 License: GPL2
@@ -62,7 +62,7 @@ if(class_exists('ContusMore') != true)
         {//function for getting settings data starts
             $pagenum = isset($pagenum ) ? absint($pagenum ) : 1;
             $offset = ( $pagenum - 1 ) * $dataLimit;
-            $query = "SELECT t1.vid,t1.name,t1.description,s.guid,t3.pid,t3.playlist_name,t1.image,t1.file,t1.file_type,t1.duration,t1.hitcount,t2.playlist_id,t3.playlist_name FROM " . $this->_wpdb->prefix . "hdflvvideoshare AS t1
+            $query = "SELECT t1.vid,t1.name,t1.ratecount,t1.rate,t1.description,s.guid,t3.pid,t3.playlist_name,t1.image,t1.file,t1.file_type,t1.duration,t1.hitcount,t2.playlist_id,t3.playlist_name FROM " . $this->_wpdb->prefix . "hdflvvideoshare AS t1
                         LEFT JOIN " . $this->_wpdb->prefix . "hdflvvideoshare_med2play AS t2 ON t2.media_id = t1.vid
                         LEFT JOIN " . $this->_wpdb->prefix . "hdflvvideoshare_playlist AS t3 ON t3.pid = t2.playlist_id
                         LEFT JOIN " . $this->_wpdb->prefix . "hdflvvideoshare_tags AS t4 ON t4.media_id = t1.vid

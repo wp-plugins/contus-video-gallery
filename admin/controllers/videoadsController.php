@@ -3,7 +3,7 @@
 Name: Wordpress Video Gallery
 Plugin URI: http://www.apptha.com/category/extension/Wordpress/Video-Gallery
 Description: Video Ad Controller.
-Version: 2.2
+Version: 2.3
 Author: Apptha
 Author URI: http://www.apptha.com
 License: GPL2
@@ -68,10 +68,13 @@ if(class_exists('VideoadController') != true)
                     $admethod = filter_input(INPUT_POST, 'admethod');
                     $adtype = filter_input(INPUT_POST, 'adtype');
                     $videoadFilepath = filter_input(INPUT_POST, 'normalvideoform-value');
+                    $dir                    = dirname(plugin_basename(__FILE__));
+                    $dirExp                 = explode('/', $dir);
+                    $dirPage                = $dirExp[0];
                     if(empty($videoadFilepath))
                     $videoadFilepath = filter_input(INPUT_POST, 'videoadfilepath');
                     else{
-                        $image_path = str_replace('plugins/contus-video-gallery/', 'uploads/videogallery/', APPTHA_VGALLERY_BASEURL);
+                        $image_path = str_replace('plugins/'.$dirPage.'/', 'uploads/videogallery/', APPTHA_VGALLERY_BASEURL);
                         $videoadFilepath=$image_path.$videoadFilepath;
                     }
                     $videoadPublish = filter_input(INPUT_POST, 'videoadpublish');

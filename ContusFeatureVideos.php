@@ -3,7 +3,7 @@
   Name: Wordpress Video Gallery
   Plugin URI: http://www.apptha.com/category/extension/Wordpress/Video-Gallery
   Description: Wordpress video gallery Featured videos widget.
-  Version: 2.2
+  Version: 2.3
   Author: Apptha
   Author URI: http://www.apptha.com
   License: GPL2
@@ -65,13 +65,13 @@ class widget_ContusFeaturedVideos_init extends WP_Widget {
 <!-- For Getting The Page Id More and Video-->
 <?php
         $moreName           = $wpdb->get_var("SELECT ID FROM " . $wpdb->prefix . "posts WHERE post_content='[videomore]' AND post_status='publish' AND post_type='page' LIMIT 1");
-        $styleSheet         = $wpdb->get_var("SELECT stylesheet FROM " . $wpdb->prefix . "hdflvvideoshare_settings WHERE settings_id='1'");
-        $site_url           = get_bloginfo('url');
+        $ratingscontrol     = $wpdb->get_var("SELECT ratingscontrol FROM " . $wpdb->prefix . "hdflvvideoshare_settings WHERE settings_id='1'");
 ?>
         <!-- For Featured Videos -->
 <?php
         echo $before_widget;
         $fetched            = '';
+        $ratearray = array("nopos1", "onepos1", "twopos1", "threepos1", "fourpos1", "fivepos1");
         $viewslang          = __('Views', 'video_gallery');
         $viewlang           = __('View', 'video_gallery');
         $div                = '<div id="featured-videos"  class="sidebar-wrap ">
@@ -93,10 +93,10 @@ class widget_ContusFeaturedVideos_init extends WP_Widget {
         $countF             = $moreF[0]->contus;
         $div                .='<ul class="ulwidget">';
 
-## were there any posts found?
+        ## were there any posts found?
         if (!empty($features)) {
-## posts were found, loop through them
-            $image_path     = str_replace('plugins/contus-video-gallery/', 'uploads/videogallery/', APPTHA_VGALLERY_BASEURL);
+        ## posts were found, loop through them
+            $image_path     = str_replace('plugins/'.$dirPage.'/', 'uploads/videogallery/', APPTHA_VGALLERY_BASEURL);
             $_imagePath     = APPTHA_VGALLERY_BASEURL . 'images' . DS;
 
             foreach ($features as $feature) {
@@ -106,33 +106,44 @@ class widget_ContusFeaturedVideos_init extends WP_Widget {
                 if ($imageFea == '') {  ##If there is no thumb image for video
                     $imageFea = $_imagePath . 'nothumbimage.jpg';
                 } else {
-                    if ($file_type == 2) {          ##For uploaded image
+                    if ($file_type == 2 || $file_type == 5 ) {          ##For uploaded image
                         $imageFea = $image_path . $imageFea;
                     }
                 }
                 $vidF       = $feature->vid;
                 $name       = strlen($feature->name);
-##output to screen
+                ##output to screen
                 $div        .='<li class="clearfix sideThumb">';
                 $div        .='<div class="imgBorder"><a href="' . $guid . '"><img src="' . $imageFea . '" alt="' . $feature->name . '"  class="img" width="120" height="80" style="width: 120px; height: 80px;"  /></a>';
                 if ($feature->duration != 0.00) {
                     $div    .='<span class="video_duration">' . $feature->duration . '</span>';
                 }
                 $div        .='</div>';
-                $div        .='<div class="side_video_info"><h6><a href="' . $guid . '">';
+                $div        .='<div class="side_video_info"><a class="videoHname" href="' . $guid . '">';
                 if ($name > 25) {
-                    $div    .= substr($feature->name, 0, 25) . '';
+                    $div    .= substr($feature->name, 0, 25) . '..';
                 } else {
                     $div    .= $feature->name;
                 }
-                $div        .='</a></h6>';
+                $div        .='</a>';
                 $div        .='<div class="clear"></div>';
                 if ($feature->hitcount > 1)
                     $viewlanguage = $viewslang;
                 else
                     $viewlanguage = $viewlang;
                 $div        .='<span class="views">' . $feature->hitcount . ' ' . $viewlanguage . '</span>';
-
+                
+                ## Rating starts here
+                if ($ratingscontrol == 1) {
+                        if (isset($feature->ratecount) && $feature->ratecount != 0) {
+                            $ratestar    = round($feature->rate / $feature->ratecount);
+                        } else {
+                            $ratestar    = 0;
+                        }
+                        $div             .= '<span class="ratethis1 '.$ratearray[$ratestar].'"></span>';
+                    }
+                ## Rating ends here
+                            
                 $div        .='<div class="clear"></div>';
                 $div        .='<div class="clear"></div>';
                 $div        .='</div>';

@@ -3,7 +3,7 @@
   Name: Wordpress Video Gallery
   Plugin URI: http://www.apptha.com/category/extension/Wordpress/Video-Gallery
   Description: Wordpress video gallery Recent videos widget.
-  Version: 2.2
+  Version: 2.3
   Author: Apptha
   Author URI: http://www.apptha.com
   License: GPL2
@@ -66,8 +66,7 @@ class widget_ContusRecentVideos_init extends WP_Widget {
 <!-- For Getting The Page Id More and Video-->
 <?php
         $moreName               = $wpdb->get_var("SELECT ID FROM " . $wpdb->prefix . "posts WHERE post_content='[videomore]' AND post_status='publish' AND post_type='page' LIMIT 1");
-        $styleSheet             = $wpdb->get_var("SELECT stylesheet FROM " . $wpdb->prefix . "hdflvvideoshare_settings WHERE settings_id='1'");
-        $site_url               = get_bloginfo('url');
+        $ratingscontrol         = $wpdb->get_var("SELECT ratingscontrol FROM " . $wpdb->prefix . "hdflvvideoshare_settings WHERE settings_id='1'");
 ?>
 
         <!-- Recent videos -->
@@ -75,6 +74,7 @@ class widget_ContusRecentVideos_init extends WP_Widget {
 <?php
         echo $before_widget;
         $fetched                = '';
+        $ratearray = array("nopos1", "onepos1", "twopos1", "threepos1", "fourpos1", "fivepos1");
         $viewslang              = __('Views', 'video_gallery');
         $viewlang               = __('View', 'video_gallery');
         $div                    = '<div id="recent-videos" class="sidebar-wrap ">
@@ -97,7 +97,7 @@ class widget_ContusRecentVideos_init extends WP_Widget {
         ## were there any posts found?
         if (!empty($posts)) {
         ## posts were found, loop through them
-            $image_path         = str_replace('plugins/contus-video-gallery/', 'uploads/videogallery/', APPTHA_VGALLERY_BASEURL);
+            $image_path         = str_replace('plugins/'.$dirPage.'/', 'uploads/videogallery/', APPTHA_VGALLERY_BASEURL);
             $_imagePath         = APPTHA_VGALLERY_BASEURL . 'images' . DS;
             foreach ($posts as $post) {
                 $file_type      = $post->file_type; ## Video Type
@@ -106,7 +106,7 @@ class widget_ContusRecentVideos_init extends WP_Widget {
                 if ($image == '') {  ##If there is no thumb image for video
                     $image      = $_imagePath . 'nothumbimage.jpg';
                 } else {
-                    if ($file_type == 2) {          ##For uploaded image
+                    if ($file_type == 2 || $file_type == 5 ) {          ##For uploaded image
                         $image  = $image_path . $image;
                     }
                 }
@@ -120,19 +120,29 @@ class widget_ContusRecentVideos_init extends WP_Widget {
                 }
                 $div            .= '</div>';
 
-                $div            .= '<div class="side_video_info"><h6><a href="' . $guid . '">';
+                $div            .= '<div class="side_video_info"><a class="videoHname" href="' . $guid . '">';
                 if ($name > 25) {
-                    $div        .= substr($post->name, 0, 25) . '';
+                    $div        .= substr($post->name, 0, 25) . '..';
                 } else {
                     $div        .= $post->name;
                 }
-                $div            .= '</a></h6><div class="clear"></div>';
+                $div            .= '</a><div class="clear"></div>';
                 if ($post->hitcount > 1)
                     $viewlanguage = $viewslang;
                 else
                     $viewlanguage = $viewlang;
                 $div             .= '<span class="views">' . $post->hitcount . ' ' . $viewlanguage;
                 $div             .= '</span>';
+                ## Rating starts here
+                if ($ratingscontrol == 1) {
+                        if (isset($post->ratecount) && $post->ratecount != 0) {
+                            $ratestar    = round($post->rate / $post->ratecount);
+                        } else {
+                            $ratestar    = 0;
+                        }
+                        $div             .= '<span class="ratethis1 '.$ratearray[$ratestar].'"></span>';
+                    }
+                ## Rating ends here
                 $div             .= '<div class="clear"></div>';
                 $div             .= '</div>';
                 $div             .= '</li>';

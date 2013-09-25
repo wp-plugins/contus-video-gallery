@@ -3,7 +3,7 @@
   Name: Wordpress Video Gallery
   Plugin URI: http://www.apptha.com/category/extension/Wordpress/Video-Gallery
   Description: AdsXML file for player.
-  Version: 2.2
+  Version: 2.3
   Author: Apptha
   Author URI: http://www.apptha.com
   License: GPL2
@@ -28,10 +28,11 @@ if (count($themediafiles) > 0) {
             $clickurl       = $rows->clickurl;
             $impressionurl  = $rows->impressionurl;
             $description    = $rows->description;
+            $title          = $rows->title;
 
             echo '
                 <midroll targeturl="' . $targeturl . '" clickurl="' . $clickurl . '" impressionurl="' . $impressionurl . '">
-                <![CDATA[' . $description . ']]>
+                <![CDATA[' . $title . '<br>'.$description.'<br>'.$targeturl.']]>
                 </midroll>
                 ';
         }

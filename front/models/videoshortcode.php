@@ -3,7 +3,7 @@
 Name: Wordpress Video Gallery
 Plugin URI: http://www.apptha.com/category/extension/Wordpress/Video-Gallery
 Description: Video detail and short tag page model file.
-Version: 2.2
+Version: 2.3
 Author: Apptha
 Author URI: http://www.apptha.com
 License: GPL2
@@ -28,7 +28,7 @@ if(class_exists('ContusShortcode') != true)
  public function get_video_detail($vid)
         {//function for getting Tag name starts
             global $wpdb;
-           $video_count = $this->_wpdb->get_row("SELECT t1.vid,t1.description,t4.tags_name,t1.name,t1.post_date,t1.image,t1.file,t1.hitcount,t2.playlist_id,t3.playlist_name"
+           $video_count = $this->_wpdb->get_row("SELECT t1.vid,t1.description,t4.tags_name,t1.name,t1.post_date,t1.image,t1.file,t1.hitcount,t1.ratecount,t1.file_type,t1.embedcode,t1.rate,t2.playlist_id,t3.playlist_name"
                 . " FROM " . $this->_videoinfotable . " AS t1"
                 . " LEFT JOIN " . $wpdb->prefix . "hdflvvideoshare_med2play AS t2"
                 . " ON t2.media_id = t1.vid"

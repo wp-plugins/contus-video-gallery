@@ -3,17 +3,24 @@
   Name: Wordpress Video Gallery
   Plugin URI: http://www.apptha.com/category/extension/Wordpress/Video-Gallery
   Description: Add video view file.
-  Version: 2.2
+  Version: 2.3
   Author: Apptha
   Author URI: http://www.apptha.com
   License: GPL2
  */
 ?>
 <!-- Add A Video -->
+<?php 
+$dir                    = dirname(plugin_basename(__FILE__));
+$dirExp                 = explode('/', $dir);
+$dirPage                = $dirExp[0];
+?>
+<script type="text/javascript">
+    folder  = '<?php echo $dirPage; ?>'
+</script>
 <?php
 $act_vid = 0;
 $site_url = get_option('siteurl');
-$contus = dirname(plugin_basename(__FILE__));
 if (isset($_GET['videoId']))
     $act_vid = (int) $_GET['videoId'];
 ?>
@@ -26,23 +33,30 @@ if (isset($_GET['videoId']))
                 <?php endif; ?>
 <div class="apptha_gallery">
 <div class="wrap">
-    <script type="text/javascript" src="../wp-content/plugins/contus-video-gallery/admin/js/jquery-1.3.2.min.js"></script>
-    <script type="text/javascript" src="../wp-content/plugins/contus-video-gallery/admin/js/jquery-ui-1.7.1.custom.min.js"></script>
+    <script type="text/javascript" src="../wp-content/plugins/<?php echo $dirPage; ?>/admin/js/jquery-1.3.2.min.js"></script>
+    <script type="text/javascript" src="../wp-content/plugins/<?php echo $dirPage; ?>/admin/js/jquery-ui-1.7.1.custom.min.js"></script>
 
     <script type="text/javascript">
         function t1(t2)
         { 
             if(t2.value == "y" || t2 == "y")
             {
-                document.getElementById('upload2').style.display = "block"
+                document.getElementById('upload2').style.display = "block";
+                document.getElementById('supportformats').style.display = "";
+                document.getElementById('ffmpeg_disable_new4').style.display = "";
+                document.getElementById('ffmpeg_disable_new2').style.display = "";
+                document.getElementById('ffmpeg_disable_new1').style.display = "";
                 document.getElementById('youtube').style.display = "none";
+                document.getElementById('embedvideo').style.display = "none";
                 document.getElementById('customurl').style.display = "none";
             } else if(t2.value == "c" || t2 == "c"){
                 document.getElementById('youtube').style.display = "block";
                 document.getElementById('upload2').style.display = "none";
+                document.getElementById('embedvideo').style.display = "none";
                 document.getElementById('customurl').style.display = "none";
             } else if(t2.value == "url" || t2 == "url"){
                 document.getElementById('customurl').style.display = "block";
+                document.getElementById('embedvideo').style.display = "none";
                 document.getElementById('islive_visible').style.display = "none";
                 document.getElementById('stream1').style.display = "none";
                 document.getElementById('hdvideourl').style.display = "";
@@ -52,9 +66,23 @@ if (isset($_GET['videoId']))
                 document.getElementById('customurl').style.display = "block";
                 document.getElementById('islive_visible').style.display = "";
                 document.getElementById('stream1').style.display = "";
+                document.getElementById('embedvideo').style.display = "none";
                 document.getElementById('hdvideourl').style.display = "none";
                 document.getElementById('youtube').style.display = "none";
                 document.getElementById('upload2').style.display = "none";
+            } else if(t2.value == "embed" || t2 == "embed"){
+                document.getElementById('embedvideo').style.display = "block";
+                document.getElementById('islive_visible').style.display = "";
+                document.getElementById('stream1').style.display = "";
+                document.getElementById('customurl').style.display = "none";
+                document.getElementById('hdvideourl').style.display = "none";
+                document.getElementById('youtube').style.display = "none";
+                document.getElementById('adstypebox').style.display = "none";
+                document.getElementById('upload2').style.display = "block"
+                document.getElementById('supportformats').style.display = "none";
+                document.getElementById('ffmpeg_disable_new4').style.display = "none";
+                document.getElementById('ffmpeg_disable_new2').style.display = "none";
+                document.getElementById('ffmpeg_disable_new1').style.display = "none";
             }
         }
 
@@ -88,6 +116,9 @@ if (isset($_GET['videoId']))
                 <span><input type="radio" name="agree" id="btn1" value="y" onClick="t1(this)" /> <?php _e('Upload file', 'video_gallery'); ?></span>
                 <span><input type="radio" name="agree" id="btn3" value="url" onClick="t1(this)" /> <?php _e('Custom URL', 'video_gallery'); ?></span>
                 <span><input type="radio" name="agree" id="btn4" value="rtmp" onClick="t1(this)" /> <?php _e('RTMP', 'video_gallery'); ?></span>
+                <?php if(isset($settingsGrid->license) && strlen($settingsGrid->license) == 31){ ?>
+                <span><input type="radio" name="agree" id="btn5" value="embed" onClick="t1(this)" /> <?php _e('Embed Video', 'video_gallery'); ?></span>
+            <?php } ?>
             </h3>
                     
 
@@ -105,6 +136,18 @@ if (isset($_GET['videoId']))
                                 <span id="Youtubeurlmessage" style="display: block; "></span>
                                 <p><?php _e('Here you need to enter the video URL', 'video_gallery') ?></p>
                                 <p><?php _e('It accepts Youtube links like : http://www.youtube.com/watch?v=tTGHCRUdlBs or http://youtu.be/tTGHCRUdlBs', 'video_gallery') ?></p>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <div id="embedvideo" class="rtmp_inside inside" >
+                    <table class="form-table">
+                        <tr>
+                            <th scope="row"><?php _e('Embed Code', 'video_gallery') ?></th>
+                            <td class="rtmp_td">
+                                <textarea id="embedcode" name="embedcode" rows="5" cols="60"><?php if (isset($videoEdit->embedcode))echo stripslashes($videoEdit->embedcode); ?></textarea>
+                             <span id="embedmessage" style="display: block; margin-top:10px;color:red;font-size:12px;font-weight:bold;"></span>
                             </td>
                         </tr>
                     </table>
@@ -188,7 +231,7 @@ if (isset($_GET['videoId']))
 
                                                     </form>
                                                     <div id="upload2" class="inside" style="margin:15px;">
-                <?php _e('<b>Supported video formats:</b>( MP4, M4V, M4A, MOV, Mp4v or F4V)', 'video_gallery') ?>
+                <div id="supportformats"><?php _e('<b>Supported video formats:</b>( MP4, M4V, M4A, MOV, Mp4v or F4V)', 'video_gallery') ?></div>
                                                                                <table class="form-table">
                                                                                    <tr id="ffmpeg_disable_new1" name="ffmpeg_disable_new1"><td style="vertical-align: middle;"><?php _e('Upload Video', 'video_gallery') ?></td>
                                                                                        <td>
@@ -203,7 +246,7 @@ if (isset($_GET['videoId']))
                                                                                            </div>
                                                                                            <span id="uploadmessage" style="display: block; margin-top:10px;color:red;font-size:12px;font-weight:bold;"></span>
                                                                                            <div id="f1-upload-progress" style="display:none">
-                                                                                               <div style="float:left"><img id="f1-upload-image" src="<?php echo get_option('siteurl') . '/wp-content/plugins/contus-video-gallery/images/empty.gif' ?>" alt="Uploading"  style="padding-top:2px"/>
+                                                                                               <div style="float:left"><img id="f1-upload-image" src="<?php echo get_option('siteurl') . '/wp-content/plugins/'.$dirPage.'/images/empty.gif' ?>" alt="Uploading"  style="padding-top:2px"/>
                                                                                                    <label style="padding-top:0px;padding-left:4px;font-size:14px;font-weight:bold;vertical-align:top"  id="f1-upload-filename">PostRoll.flv</label></div>
                                                                                                <div style="float:right"> <span id="f1-upload-cancel">
                                                                                                        <a style="float:right;padding-right:10px;" href="javascript:cancelUpload('normalvideoform');" name="submitcancel">Cancel</a>
@@ -230,7 +273,7 @@ if (isset($_GET['videoId']))
                                                                                            </div>
 
                                                                                            <div id="f2-upload-progress" style="display:none">
-                                                                                               <div style="float:left"><img id="f2-upload-image" src="<?php echo get_option('siteurl') . '/wp-content/plugins/contus-video-gallery/images/empty.gif' ?>" alt="Uploading"  style="padding-top:2px" />
+                                                                                               <div style="float:left"><img id="f2-upload-image" src="<?php echo get_option('siteurl') . '/wp-content/plugins/'.$dirPage.'/images/empty.gif' ?>" alt="Uploading"  style="padding-top:2px" />
                                                                                                    <label style="padding-top:0px;padding-left:4px;font-size:14px;font-weight:bold;vertical-align:top"  id="f2-upload-filename">PostRoll.flv</label></div>
                                                                                                <div style="float:right"><span id="f2-upload-cancel">
                                                                                                        <a style="float:right;padding-right:10px;" href="javascript:cancelUpload('hdvideoform');" name="submitcancel">Cancel</a>
@@ -253,13 +296,13 @@ if (isset($_GET['videoId']))
                                                                                                    <input type="file" name="myfile"  onchange="enableUpload(this.form.name);" />
                                                                                                    <input type="button" class="button" name="uploadBtn" value="Upload Image"  disabled="disabled" onclick="return addQueue(this.form.name,this.form.myfile.value);" />
                                                                                                    <input type="hidden" name="mode" value="image" />
-                                                                                                   <label id="lbl_normal"><?php if (isset($videoEdit->file_type) && $videoEdit->file_type == 2)
+                                                                                                   <label id="lbl_normal"><?php if (isset($videoEdit->file_type) && ($videoEdit->file_type == 2 || $videoEdit->file_type == 5))
                                                                                    echo $videoEdit->image; ?></label>
                                                                                                </form>
                                                                                            </div>
                                                                                            <span id="uploadthumbmessage" style="display: block; margin-top:10px;color:red;font-size:12px;font-weight:bold;"></span>
                                                                                            <div id="f3-upload-progress" style="display:none">
-                                                                                               <div style="float:left"><img id="f3-upload-image" src="<?php echo get_option('siteurl') . '/wp-content/plugins/contus-video-gallery/images/empty.gif' ?>" alt="Uploading" style="padding-top:2px" />
+                                                                                               <div style="float:left"><img id="f3-upload-image" src="<?php echo get_option('siteurl') . '/wp-content/plugins/'.$dirPage.'/images/empty.gif' ?>" alt="Uploading" style="padding-top:2px" />
                                                                                                    <label style="padding-top:0px;padding-left:4px;font-size:14px;font-weight:bold;vertical-align:top"  id="f3-upload-filename">PostRoll.flv</label></div>
                                                                                                <div style="float:right"> <span id="f3-upload-cancel">
                                                                                                        <a style="float:right;padding-right:10px;" href="javascript:cancelUpload('thumbimageform');" name="submitcancel">Cancel</a>
@@ -284,7 +327,7 @@ if (isset($_GET['videoId']))
                                                                                                </form>
                                                                                            </div>
                                                                                            <div id="f4-upload-progress" style="display:none">
-                                                                                               <div style="float:left"><img id="f4-upload-image" src="<?php echo get_option('siteurl') . '/wp-content/plugins/contus-video-gallery/images/empty.gif' ?>" alt="Uploading" style="padding-top:2px" />
+                                                                                               <div style="float:left"><img id="f4-upload-image" src="<?php echo get_option('siteurl') . '/wp-content/plugins/'.$dirPage.'/images/empty.gif' ?>" alt="Uploading" style="padding-top:2px" />
                                                                                                    <label style="padding-top:0px;padding-left:4px;font-size:14px;font-weight:bold;vertical-align:top"  id="f4-upload-filename">PostRoll.flv</label></div>
                                                                                                <div style="float:right"><span id="f4-upload-cancel">
                                                                                                        <a style="float:right;padding-right:10px;" href="javascript:cancelUpload('previewimageform');" name="submitcancel">Cancel</a>
@@ -310,12 +353,13 @@ if (isset($_GET['videoId']))
                                                                                    echo $videoEdit->file; ?>"  />
                                                                            <input type="hidden" name="hdvideoform-value" id="hdvideoform-value" value="<?php if (isset($videoEdit->file_type) && $videoEdit->file_type == 2)
                                                                                    echo $videoEdit->hdfile; ?>" />
-                                                                           <input type="hidden" name="thumbimageform-value" id="thumbimageform-value"  value="<?php if (isset($videoEdit->file_type) && $videoEdit->file_type == 2)
+                                                                           <input type="hidden" name="thumbimageform-value" id="thumbimageform-value"  value="<?php if (isset($videoEdit->file_type) && ($videoEdit->file_type == 2 || $videoEdit->file_type == 5))
                                                                                    echo $videoEdit->image; ?>" />
                                                                            <input type="hidden" name="previewimageform-value" id="previewimageform-value"  value="<?php if (isset($videoEdit->file_type) && $videoEdit->file_type == 2)
                                                                                    echo $videoEdit->opimage; ?>" />
                                                                            <input type="hidden" name="youtube-value" id="youtube-value"  value="" />
                                                                            <input type="hidden" name="streamerpath-value" id="streamerpath-value" value="" />
+                                                                           <input type="hidden" name="embed_code" id="embed_code" value="" />
                                                                            <input type="hidden" name="islive-value" id="islive-value" value="0" />
                                                                            <input type="hidden" name="customurl" id="customurl1"  value="" />
                                                                            <input type="hidden" name="customhd" id="customhd1"  value="" />
@@ -400,7 +444,7 @@ if (isset($_GET['videoId']))
                                                                                    echo 'checked="checked"';
                                                                                }
                 ?> value="0"> <label>No</label>
-                                                                               <br/><?php _e('Note : Not supported for YouTube videos', 'video_gallery') ?>
+                                                                               <br/><?php _e('Note : Not supported for YouTube and Embed videos', 'video_gallery') ?>
                                                                            </td>
                                                                        </tr>
                                                                        <tr>
@@ -433,7 +477,7 @@ if (isset($_GET['videoId']))
                                                                                if ($settings[0]->preroll == 0 || $settings[0]->postroll == 0 || $settings[0]->midroll_ads == 0 || $settings[0]->imaAds == 1) {
                     ?>
 
-                                                                           <div class="stuffbox">
+                                                                           <div class="stuffbox" id="adstypebox">
                                                                                <h3 class="hndle"><span><?php _e('Select Ads', 'video_gallery'); ?></span></h3>
                                                                                <div class="inside" style="margin:15px;">
 <?php if ($settings[0]->preroll == 0) { ?>
@@ -637,6 +681,11 @@ if (isset($_GET['videoId']))
 ?>
                                                                                            t1("rtmp");
                                                                                            document.getElementById("btn4").checked = true;
+<?php
+                                                                                       } elseif (isset($videoEdit->file_type) && $videoEdit->file_type == 5) {
+?>
+                                                                                           t1("embed");
+                                                                                           document.getElementById("btn5").checked = true;
 <?php
                                                                                        }else{
                                                                                            ?>

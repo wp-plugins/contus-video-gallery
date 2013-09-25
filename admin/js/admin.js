@@ -2,7 +2,7 @@
 Name: Wordpress Video Gallery
 Plugin URI: http://www.apptha.com/category/extension/Wordpress/Video-Gallery
 Description: Admin action javacript file.
-Version: 2.2
+Version: 2.3
 Author: Apptha
 Author URI: http://www.apptha.com
 License: GPL2
@@ -60,52 +60,65 @@ function clear_upload(){
        document.getElementById("normalvideoform-value").value = '';
     }
 
-function Videoadtype()
+function Videoadtype(adtype)
 {
-    if(document.getElementById('prepostroll').checked==true)
+    if(adtype=="prepostroll")
     {
-       document.getElementById('upload2').style.display = "none";
-       document.getElementById('videoadurl').style.display = "block";
        document.getElementById('admethod').value = "prepost";
        document.getElementById('videoadmethod').style.display = "block";
        document.getElementById('videoaddetails').style.display = "block";
+       document.getElementById('adimpresurl').style.display = "block";
+        document.getElementById('adclickurl').style.display = "block";
+        document.getElementById('adtargeturl').style.display = "block";
+        document.getElementById('addescription').style.display = "block";
+        document.getElementById('adtitle').style.display = "block";
        document.getElementById('videoimaaddetails').style.display = "none";
     }
 
-    if(document.getElementById('midroll').checked==true)
+    if(adtype=="midroll")
     {
         document.getElementById('upload2').style.display = "none";
         document.getElementById('videoadmethod').style.display = "none";
         document.getElementById('admethod').value = "midroll";
         document.getElementById('videoadurl').style.display = "none";
         document.getElementById('videoaddetails').style.display = "block";
+        document.getElementById('adimpresurl').style.display = "block";
+        document.getElementById('adclickurl').style.display = "block";
+        document.getElementById('adtargeturl').style.display = "block";
+        document.getElementById('addescription').style.display = "block";
+        document.getElementById('adtitle').style.display = "block";
         document.getElementById('videoimaaddetails').style.display = "none";
     }
-    if(document.getElementById('imaad').checked==true)
+   else if(adtype=="imaad")
     {
         document.getElementById('upload2').style.display = "none";
         document.getElementById('videoadmethod').style.display = "none";
         document.getElementById('admethod').value = "imaad";
         document.getElementById('videoadurl').style.display = "none";
-        document.getElementById('videoaddetails').style.display = "none";
+        document.getElementById('videoaddetails').style.display = "block";
         document.getElementById('videoimaaddetails').style.display = "block";
+        document.getElementById('adimpresurl').style.display = "none";
+        document.getElementById('adclickurl').style.display = "none";
+        document.getElementById('adtargeturl').style.display = "none";
+        document.getElementById('addescription').style.display = "none";
+        document.getElementById('adtitle').style.display = "";
         document.getElementById('imaadTypevideo').checked=true;
-        changeimaadtype();
+        changeimaadtype('videoad');
     }
 
 
 }
-function Videoadmethod()
-{
-    if(document.getElementById('filebtn').checked==true)
-    {
+function Videoadtypemethod(adtype)
+{ 
+     if(adtype=="fileuplo")
+    { 
         document.getElementById('upload2').style.display = "block";
         document.getElementById('videoadurl').style.display = "none";
         document.getElementById('adtype').style.display = "file";
     }
 
-    if(document.getElementById('urlbtn').checked==true)
-    {
+    else if(adtype=="urlad")
+    { 
         document.getElementById('upload2').style.display = "none";
         document.getElementById('videoadurl').style.display = "block";
         document.getElementById('adtype').value  = "url";
@@ -113,9 +126,9 @@ function Videoadmethod()
 
 
 }
-function changeimaadtype()
+function changeimaadtype(adtype)
 {
-    if(document.getElementById('imaadTypetext').checked==true)
+     if(adtype=="textad")
     {
         document.getElementById('adimapath').style.display = "none";
         document.getElementById('adimawidth').style.display = "";
@@ -123,10 +136,10 @@ function changeimaadtype()
         document.getElementById('adimapublisher').style.display = "";
         document.getElementById('adimacontentid').style.display = "";
         document.getElementById('adimachannels').style.display = "";
-
+         document.getElementById('imaadTypetext').checked=true;
     }
 
-    if(document.getElementById('imaadTypevideo').checked==true)
+    else if(adtype=="videoad")
     {
         document.getElementById('adimapath').style.display = "";
         document.getElementById('adimawidth').style.display = "none";
@@ -134,7 +147,7 @@ function changeimaadtype()
         document.getElementById('adimapublisher').style.display = "none";
         document.getElementById('adimacontentid').style.display = "none";
         document.getElementById('adimachannels').style.display = "none";
-
+         document.getElementById('imaadTypevideo').checked=true;
     }
 }
 
@@ -196,12 +209,13 @@ function validateadInput (){
         document.getElementById('name').focus();
         return false;
     }
-    } else if(document.getElementById('midroll').checked==true && document.getElementById('name').value == ''){
+    } else if(document.getElementById('name').value == ''){
         document.getElementById('nameerrormessage').innerHTML = 'Enter Ad Name';
         document.getElementById('name').focus();
         return false;
 
-    } else if(document.getElementById('imaad').checked==true){
+    } 
+    if(document.getElementById('imaad').checked==true){
     if(document.getElementById('imaadTypetext').checked==true && document.getElementById('publisherId').value == '')
     {
         document.getElementById('imapublisherIderrormessage').innerHTML = 'Enter IMA Ad Publisher ID';
@@ -220,12 +234,25 @@ function validateadInput (){
         document.getElementById('channels').focus();
         return false;
 
-    }else if(document.getElementById('imaadTypevideo').checked==true && document.getElementById('imaadpath').value == '')
+    }else {
+        if(document.getElementById('imaadTypevideo').checked==true)
     {
+        if(document.getElementById('imaadpath').value == ''){
         document.getElementById('imaadpatherrormessage').innerHTML = 'Enter IMA Ad Path';
         document.getElementById('imaadpath').focus();
         return false;
+        } else{
+                var thevideoadurl=document.getElementById("imaadpath").value;
+                var tomatch= /(http:\/\/|https:\/\/)[A-Za-z0-9\.-]{3,}\.[A-Za-z]{3}|(http:\/\/|https:\/\/)/
+                if (!tomatch.test(thevideoadurl))
+                {
+                    document.getElementById('imaadpatherrormessage').innerHTML = 'Enter Valid IMA Ad URL';
+                    document.getElementById("imaadpath").focus();
+                    return false;
+    }
+            }
 
+    }
     }
     
 }
@@ -391,7 +418,7 @@ function updateQueue(statuscode,statusmessage,outfile)
 function submitUploadForm(form_handle)
 {
     document.forms[form_handle].target = "uploadvideo_target";
-    document.forms[form_handle].action = "../wp-content/plugins/contus-video-gallery/admin/ajax/videoupload.php?processing=1";
+    document.forms[form_handle].action = "../wp-content/plugins/"+folder+"/admin/ajax/videoupload.php?processing=1";
     document.forms[form_handle].submit();
 }
 function setStatus(form_handle,status)
@@ -419,7 +446,7 @@ function setStatus(form_handle,status)
             document.getElementById(divprefix + "-upload-status").innerHTML = "Queued";
             document.getElementById(divprefix + "-upload-message").style.display = "none";
             document.getElementById(divprefix + "-upload-filename").innerHTML = document.forms[form_handle].myfile.value;
-            document.getElementById(divprefix + "-upload-image").src = '../wp-content/plugins/contus-video-gallery/images/empty.gif';
+            document.getElementById(divprefix + "-upload-image").src = '../wp-content/plugins/'+folder+'/images/empty.gif';
             document.getElementById(divprefix + "-upload-cancel").innerHTML = '<a style="float:right;padding-right:10px;" href=javascript:cancelUpload("'+form_handle+'") name="submitcancel">Cancel</a>';
             break;
 
@@ -429,7 +456,7 @@ function setStatus(form_handle,status)
             document.getElementById(divprefix + "-upload-status").innerHTML = "Uploading";
             document.getElementById(divprefix + "-upload-message").style.display = "none";
             document.getElementById(divprefix + "-upload-filename").innerHTML = document.forms[form_handle].myfile.value;
-            document.getElementById(divprefix + "-upload-image").src = '../wp-content/plugins/contus-video-gallery/images/loader.gif';
+            document.getElementById(divprefix + "-upload-image").src = '../wp-content/plugins/'+folder+'/images/loader.gif';
             document.getElementById(divprefix + "-upload-cancel").innerHTML = '<a style="float:right;padding-right:10px;" href=javascript:cancelUpload("'+form_handle+'") name="submitcancel">Cancel</a>';
             break;
         case "Retry":
@@ -441,7 +468,7 @@ function setStatus(form_handle,status)
             enableUpload(form_handle);
             break;
         case 0:
-            document.getElementById(divprefix + "-upload-image").src = '../wp-content/plugins/contus-video-gallery/images/success.gif';
+            document.getElementById(divprefix + "-upload-image").src = '../wp-content/plugins/'+folder+'/images/success.gif';
             document.getElementById(divprefix + "-upload-status").innerHTML = "";
             document.getElementById(divprefix + "-upload-message").style.display = "";
             document.getElementById(divprefix + "-upload-message").style.backgroundColor = "#CEEEB2";
@@ -451,7 +478,7 @@ function setStatus(form_handle,status)
 
 
         default:
-            document.getElementById(divprefix + "-upload-image").src = '../wp-content/plugins/contus-video-gallery/images/error.gif';
+            document.getElementById(divprefix + "-upload-image").src = '../wp-content/plugins/'+folder+'/images/error.gif';
             document.getElementById(divprefix + "-upload-status").innerHTML = " ";
             document.getElementById(divprefix + "-upload-message").style.display = "";
             document.getElementById(divprefix + "-upload-message").innerHTML = uploadmessage + " <a href=javascript:setStatus('" + form_handle + "','Retry')>Retry</a>";
@@ -644,14 +671,29 @@ function validateInput(){
             document.getElementById('islive-value').value=0;
         }
     }
-    if(document.getElementById('name').value == ''){
+    else if(document.getElementById('btn5').checked === true)
+    {
+        var embed_code = document.getElementById('embedcode').value;
+        embed_code = (embed_code + '').replace(/[\\"']/g, '\\$&').replace(/\u0000/g, '\\0');
+        document.getElementById('embed_code').value=embed_code;
+        if(embed_code===''){
+        document.getElementById('embedmessage').innerHTML = 'Enter Embed Code';
+        return false;
+        } else if(embed_code.indexOf('<iframe')!=0 && embed_code.indexOf('<embed')!=0 && embed_code.indexOf('<object')!=0){
+        document.getElementById('embedmessage').innerHTML = 'Enter Valid Embed Code';
+        return false;
+        } else{
+           document.getElementById('embedmessage').innerHTML = ''; 
+        }
+    }
+    if(document.getElementById('name').value === ''){
         document.getElementById('titlemessage').innerHTML = 'Enter Title';
         return false;
     }
     var check_box = document.getElementsByTagName('input');
     for (var i = 0; i < check_box.length; i++)
     {
-        if (check_box[i].type == 'checkbox')
+        if (check_box[i].type === 'checkbox')
         {
             if (check_box[i].checked) {
                 return true

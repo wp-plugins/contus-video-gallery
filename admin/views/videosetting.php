@@ -3,13 +3,22 @@
 Name: Wordpress Video Gallery
 Plugin URI: http://www.apptha.com/category/extension/Wordpress/Video-Gallery
 Description: video settings view file.
-Version: 2.2
+Version: 2.3
 Author: Apptha
 Author URI: http://www.apptha.com
 License: GPL2
 */
 ?>
 <!--   MENU OPTIONS STARTS  --->
+<?php 
+$dir                    = dirname(plugin_basename(__FILE__));
+$dirExp                 = explode('/', $dir);
+$dirPage                = $dirExp[0];
+$player_colors          = unserialize($settingsGrid->player_colors);
+?>
+<script type="text/javascript">
+    folder  = '<?php echo $dirPage; ?>'
+</script>
 <div class="apptha_gallery">
 <h2 class="nav-tab-wrapper">
     <a href="?page=video" class="nav-tab "><?php _e('All Videos', 'video_gallery'); ?></a>
@@ -208,6 +217,10 @@ License: GPL2
                                 <th scope='row'><?php _e("Embed Visible", "video_gallery"); ?></th>
                                 <td><input type='checkbox' class='check' <?php if ($settingsGrid->embed_visible == 1) { ?> checked <?php } ?> name="embed_visible" value="1" size=45  /></td>
                                     </tr>
+                            <tr>
+                                <th scope='row'><?php _e("Enable Ratings", "video_gallery"); ?></th>
+                                <td><input type='checkbox' class='check' <?php if ($settingsGrid->ratingscontrol == 1) { ?> checked <?php } ?> name="ratingscontrol" value="1" size=45  /></td>
+                                    </tr>
                                 </table>
                             </div>
                         </div>
@@ -218,109 +231,109 @@ License: GPL2
                                     <!-- Share Popup Header color -->
                                     <tr>
                                         <th scope='row'><?php _e("Share Popup Header Color", "video_gallery"); ?></th>
-                                        <td><input type='text' name="sharepanel_up_BgColor" value="<?php echo $settingsGrid->sharepanel_up_BgColor ?>" size=45  />
+                                        <td><input type='text' name="sharepanel_up_BgColor" value="<?php echo $player_colors['sharepanel_up_BgColor']; ?>" size=45  />
                                         </td>
                                     </tr>
                                     <!-- Share Popup Background color -->
                                     <tr>
                                         <th scope='row'><?php _e("Share Popup Background Color", "video_gallery"); ?></th>
-                                        <td><input type='text' name="sharepanel_down_BgColor" value="<?php echo $settingsGrid->sharepanel_down_BgColor ?>" size=45  />
+                                        <td><input type='text' name="sharepanel_down_BgColor" value="<?php echo $player_colors['sharepanel_down_BgColor']; ?>" size=45  />
                                         </td>
                                     </tr>
                                     <!-- Share Popup Text color -->
                                     <tr>
                                         <th scope='row'><?php _e("Share Popup Text Color", "video_gallery"); ?></th>
-                                        <td><input type='text' name="sharepaneltextColor" value="<?php echo $settingsGrid->sharepaneltextColor ?>" size=45  />
+                                        <td><input type='text' name="sharepaneltextColor" value="<?php echo $player_colors['sharepaneltextColor']; ?>" size=45  />
                                         </td>
                                     </tr>
                                     <!-- Send Button Color -->
                                     <tr>
                                         <th scope='row'><?php _e("Send Button Color", "video_gallery"); ?></th>
-                                        <td><input type='text' name="sendButtonColor" value="<?php echo $settingsGrid->sendButtonColor ?>" size=45  />
+                                        <td><input type='text' name="sendButtonColor" value="<?php echo $player_colors['sendButtonColor']; ?>" size=45  />
                                         </td>
                                     </tr>
                                     <!-- Send Button Text Color -->
                                     <tr>
                                         <th scope='row'><?php _e("Send Button Text Color", "video_gallery"); ?></th>
-                                        <td><input type='text' name="sendButtonTextColor" value="<?php echo $settingsGrid->sendButtonTextColor ?>" size=45  />
+                                        <td><input type='text' name="sendButtonTextColor" value="<?php echo $player_colors['sendButtonTextColor']; ?>" size=45  />
                                         </td>
                                     </tr>
                                     <!-- Player Text Color -->
                                     <tr>
                                         <th scope='row'><?php _e("Player Text Color", "video_gallery"); ?></th>
-                                        <td><input type='text' name="textColor" value="<?php echo $settingsGrid->textColor ?>" size=45  />
+                                        <td><input type='text' name="textColor" value="<?php echo $player_colors['textColor']; ?>" size=45  />
                                         </td>
                                     </tr>
                                     <!-- Skin Background Color -->
                                     <tr>
                                         <th scope='row'><?php _e("Skin Background Color", "video_gallery"); ?></th>
-                                        <td><input type='text' name="skinBgColor" value="<?php echo $settingsGrid->skinBgColor ?>" size=45  />
+                                        <td><input type='text' name="skinBgColor" value="<?php echo $player_colors['skinBgColor']; ?>" size=45  />
                                         </td>
                                     </tr>
                                     <!-- Seek Bar Color -->
                                     <tr>
                                         <th scope='row'><?php _e("Seek Bar Color", "video_gallery"); ?></th>
-                                        <td><input type='text' name="seek_barColor" value="<?php echo $settingsGrid->seek_barColor ?>" size=45  />
+                                        <td><input type='text' name="seek_barColor" value="<?php echo $player_colors['seek_barColor']; ?>" size=45  />
                                         </td>
                                     </tr>
                                     <!-- Buffer Bar Color -->
                                     <tr>
                                         <th scope='row'><?php _e("Buffer Bar Color", "video_gallery"); ?></th>
-                                        <td><input type='text' name="buffer_barColor" value="<?php echo $settingsGrid->buffer_barColor ?>" size=45  />
+                                        <td><input type='text' name="buffer_barColor" value="<?php echo $player_colors['buffer_barColor']; ?>" size=45  />
                                         </td>
                                     </tr>
                                     <!-- Skin Icons Color -->
                                     <tr>
                                         <th scope='row'><?php _e("Skin Icons Color", "video_gallery"); ?></th>
-                                        <td><input type='text' name="skinIconColor" value="<?php echo $settingsGrid->skinIconColor ?>" size=45  />
+                                        <td><input type='text' name="skinIconColor" value="<?php echo $player_colors['skinIconColor']; ?>" size=45  />
                                         </td>
                                     </tr>
                                     <!-- Progress Bar Background Color -->
                                     <tr>
                                         <th scope='row'><?php _e("Progress Bar Background Color", "video_gallery"); ?></th>
-                                        <td><input type='text' name="pro_BgColor" value="<?php echo $settingsGrid->pro_BgColor ?>" size=45  />
+                                        <td><input type='text' name="pro_BgColor" value="<?php echo $player_colors['pro_BgColor']; ?>" size=45  />
                                         </td>
                                     </tr>
                                     <!-- Play Button Color -->
                                     <tr>
                                         <th scope='row'><?php _e("Play Button Color", "video_gallery"); ?></th>
-                                        <td><input type='text' name="playButtonColor" value="<?php echo $settingsGrid->playButtonColor ?>" size=45  />
+                                        <td><input type='text' name="playButtonColor" value="<?php echo $player_colors['playButtonColor']; ?>" size=45  />
                                         </td>
                                     </tr>
                                     <!-- Play Button Background Color -->
                                     <tr>
                                         <th scope='row'><?php _e("Play Button Background Color", "video_gallery"); ?></th>
-                                        <td><input type='text' name="playButtonBgColor" value="<?php echo $settingsGrid->playButtonBgColor ?>" size=45  />
+                                        <td><input type='text' name="playButtonBgColor" value="<?php echo $player_colors['playButtonBgColor']; ?>" size=45  />
                                         </td>
                                     </tr>
                                     <!-- Player Buttons Color -->
                                     <tr>
                                         <th scope='row'><?php _e("Player Buttons Color", "video_gallery"); ?></th>
-                                        <td><input type='text' name="playerButtonColor" value="<?php echo $settingsGrid->playerButtonColor ?>" size=45  />
+                                        <td><input type='text' name="playerButtonColor" value="<?php echo $player_colors['playerButtonColor']; ?>" size=45  />
                                         </td>
                                     </tr>
                                     <!-- Player Buttons Background Color -->
                                     <tr>
                                         <th scope='row'><?php _e("Player Buttons Background Color", "video_gallery"); ?></th>
-                                        <td><input type='text' name="playerButtonBgColor" value="<?php echo $settingsGrid->playerButtonBgColor ?>" size=45  />
+                                        <td><input type='text' name="playerButtonBgColor" value="<?php echo $player_colors['playerButtonBgColor']; ?>" size=45  />
                                         </td>
                                     </tr>
                                     <!-- Related Videos Background Color -->
                                     <tr id="related_bgColor" style="display:none;">
                                         <th scope='row'><?php _e("Related Videos Background Color", "video_gallery"); ?></th>
-                                        <td><input type='text' name="relatedVideoBgColor" value="<?php echo $settingsGrid->relatedVideoBgColor ?>" size=45  />
+                                        <td><input type='text' name="relatedVideoBgColor" value="<?php echo $player_colors['relatedVideoBgColor']; ?>" size=45  />
                                         </td>
                                     </tr>
                                     <!-- Related Videos Scroll Bar Color -->
                                     <tr id="related_scroll_barColor" style="display:none;">
                                         <th scope='row'><?php _e("Related Videos Scroll Bar Color", "video_gallery"); ?></th>
-                                        <td><input type='text' name="scroll_barColor" value="<?php echo $settingsGrid->scroll_barColor ?>" size=45  />
+                                        <td><input type='text' name="scroll_barColor" value="<?php echo $player_colors['scroll_barColor']; ?>" size=45  />
                                         </td>
                                     </tr>
                                     <!-- Related Videos Scroll Bar Background Color -->
                                     <tr id="related_scroll_barbgColor" style="display:none;">
                                         <th scope='row'><?php _e("Related Videos Scroll Bar Background Color", "video_gallery"); ?></th>
-                                        <td><input type='text' name="scroll_BgColor" value="<?php echo $settingsGrid->scroll_BgColor ?>" size=45  />
+                                        <td><input type='text' name="scroll_BgColor" value="<?php echo $player_colors['scroll_BgColor']; ?>" size=45  />
                                         </td>
                                     </tr>
                                 </table>
@@ -444,7 +457,7 @@ License: GPL2
                             </div>
                         </div>
                   <div class="portlet">
-                            <div class="portlet-header"><b><?php _e("Facebook Settings", "video_gallery"); ?></b></div>
+                            <div class="portlet-header"><b><?php _e("Comment Settings", "video_gallery"); ?></b></div>
                     <div class="portlet-content">
                         <table class="form-table">
                             <tr>

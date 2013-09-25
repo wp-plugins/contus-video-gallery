@@ -3,7 +3,7 @@
   Name: Wordpress Video Gallery
   Plugin URI: http://www.apptha.com/category/extension/Wordpress/Video-Gallery
   Description: Wordpress Video Gallery Video Category Widget.
-  Version: 2.2
+  Version: 2.3
   Author: Apptha
   Author URI: http://www.apptha.com
   License: GPL2
@@ -86,7 +86,7 @@ class widget_ContusVideoCategory_init extends WP_Widget {
                 $fetched        = $feature->playlist_name;
                 $playlist_id    = $feature->pid;
                 $div            .= '<li>';
-                $div            .= '<div class="clear"></div><a class="playlistName"  href="' . $site_url . '?page_id=' . $moreName . '&amp;playid=' . $playlist_id . '">' . $fetched . '</a>';
+                $div            .= '<div class="clear"></div><a class="videoHname "  href="' . $site_url . '?page_id=' . $moreName . '&amp;playid=' . $playlist_id . '">' . $fetched . '</a>';
                 $div            .= '</li>';
             }
         } else {
@@ -94,7 +94,7 @@ class widget_ContusVideoCategory_init extends WP_Widget {
         }
         ## end list
         if (($show < $countCategories)) {
-            $div                .= '<li  class="right"><a href="' . $site_url . '/?page_id=' . $moreName . '&amp;more=categories">' . __('More Categories', 'video_gallery') . '</a></li>';
+            $div                .= '<li><div class="right video-more"><a href="' . $site_url . '/?page_id=' . $moreName . '&amp;more=categories">' . __('More Categories', 'video_gallery') . ' &#187;</a></div></li>';
         }
         $div                    .= '</ul></div>';
 

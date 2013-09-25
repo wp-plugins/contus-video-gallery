@@ -3,7 +3,7 @@
 Name: Wordpress Video Gallery
 Plugin URI: http://www.apptha.com/category/extension/Wordpress/Video-Gallery
 Description: Video Controller.
-Version: 2.2
+Version: 2.3
 Author: Apptha
 Author URI: http://www.apptha.com
 License: GPL2
@@ -18,6 +18,7 @@ if (class_exists('VideoController') != true) {//checks if the VideoController cl
         public $_msg;
         public $_search;
         public $_videosearchQuery;
+        public $_settingsData;
         public $_addnewVideo;
         public $_searchBtn;
         public $_update;
@@ -64,6 +65,7 @@ if (class_exists('VideoController') != true) {//checks if the VideoController cl
                 $videoName = filter_input(INPUT_POST, 'name');
                 $slug = sanitize_title($videoName);
                 $videoDescription = filter_input(INPUT_POST, 'description');
+                $embedcode = filter_input(INPUT_POST, 'embed_code');
                 $tags_name = filter_input(INPUT_POST, 'tags_name');
                 $seo_tags_name=stripslashes($tags_name);
                 $seo_tags_name=strtolower($seo_tags_name);
@@ -121,7 +123,10 @@ if (class_exists('VideoController') != true) {//checks if the VideoController cl
                     $duration = $this->convertTime($sec);
                 } else {
                     $act_filepath1 = $_REQUEST['normalvideoform-value'];
-                    $video_path=str_replace('plugins/contus-video-gallery/', 'uploads/videogallery/', APPTHA_VGALLERY_BASEURL);
+                    $dir                    = dirname(plugin_basename(__FILE__));
+                    $dirExp                 = explode('/', $dir);
+                    $dirPage                = $dirExp[0];
+                    $video_path=str_replace('plugins/'.$dirPage.'/', 'uploads/videogallery/', APPTHA_VGALLERY_BASEURL);
                     $act_filepath1=$video_path.$act_filepath1;
                     $act_filepath = addslashes(trim($_POST['customurl']));
                     $ffmpeg_path = $this->_settingsData->ffmpeg_path;
@@ -188,10 +193,14 @@ if (class_exists('VideoController') != true) {//checks if the VideoController cl
                     $file_type = '4';
                     $act_opimage = $pre_image;
                     }
+                if(!empty($embedcode)){
+                    $file_type = '5';
+                    }
 
                 $videoData = array(
                     'name' => $videoName,
                     'description' => $videoDescription,
+                    'embedcode' => $embedcode,
                     'file' => $act_filepath,
                     'file_type' => $file_type,
                     'duration' => $duration,
@@ -242,12 +251,12 @@ if (class_exists('VideoController') != true) {//checks if the VideoController cl
                                     $new_list1 = $new_list - 1;
                                     if ($sorder[$new_list1] == '')
                                         $sorder[$new_list1] = '0';
-                                    $wpdb->query(" INSERT INTO " . $wpdb->prefix . "hdflvvideoshare_med2play (media_id,playlist_id,sorder) VALUES ($this->_videoId, $new_list, $sorder[$new_list1])");
+                                    $wpdb->query(" INSERT INTO " . $wpdb->prefix . "hdflvvideoshare_med2play (media_id,playlist_id,sorder) VALUES ($this->_videoId, $new_list, '0')");
                                 }
                             }
                             $i = 0;
                             foreach ($pieces as $new_list) {
-                                $wpdb->query(" UPDATE " . $wpdb->prefix . "hdflvvideoshare_med2play SET sorder= '$sorder[$i]' WHERE media_id = '$this->_videoId' and playlist_id = '$new_list'");
+                                $wpdb->query(" UPDATE " . $wpdb->prefix . "hdflvvideoshare_med2play SET sorder= '0' WHERE media_id = '$this->_videoId' and playlist_id = '$new_list'");
                                 $i++;
                             }
                         }
@@ -602,7 +611,7 @@ $Video_count = $videoOBJ->video_count($videosearchQuery, $searchBtn);
 $videoEdit = $videoOBJ->video_edit($videoId);
 $displayMsg = $videoOBJ->get_message();
 $searchMsg = $videoOBJ->_videosearchQuery;
-
+$settingsGrid = $videoOBJ->_settingsData;
 $adminPage = filter_input(INPUT_GET, 'page');
 if ($adminPage == 'video') {//including video form if starts
     require_once(APPTHA_VGALLERY_BASEDIR . DS . 'admin/views/video/video.php');

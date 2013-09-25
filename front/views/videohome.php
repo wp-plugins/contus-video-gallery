@@ -3,7 +3,7 @@
   Name: Wordpress Video Gallery
   Plugin URI: http://www.apptha.com/category/extension/Wordpress/Video-Gallery
   Description: Video home page view file
-  Version: 2.2
+  Version: 2.3
   Author: Apptha
   Author URI: http://www.apptha.com
   License: GPL2
@@ -20,55 +20,63 @@ if (class_exists('ContusVideoView') != true) {
         public $_videoDetail;
         public $_vId;
 
-        public function __construct() {                         ##contructor starts
+        public function __construct() {                                             ##contructor starts
             parent::__construct();
-            $this->_settingsData            = $this->settings_data();
-            $this->_videosData              = $this->videos_data();
-            $this->_mPageid                 = $this->More_pageid();
-            $this->_feaMore                 = $this->Video_count();
-            $this->_vId                     = filter_input(INPUT_GET, 'vid');
-            $this->_pId                     = filter_input(INPUT_GET, 'pid');
-            $this->_tagname                 = $this->Tag_detail($this->_vId);
-            $this->_pagenum                 = filter_input(INPUT_GET, 'pagenum');
+            $this->_settingsData            = $this->settings_data();               ## Get player settings
+            $this->_videosData              = $this->videos_data();                 ## Get particular video data
+            $this->_mPageid                 = $this->More_pageid();                 ## Get more page id
+            $this->_feaMore                 = $this->Video_count();                 ## Get featured videos count
+            $this->_vId                     = filter_input(INPUT_GET, 'vid');       ## Get vid from URL
+            $this->_pId                     = filter_input(INPUT_GET, 'pid');       ## Get pid from URL
+            $this->_tagname                 = $this->Tag_detail($this->_vId);       ## Get tag detail for the current video
+            $this->_pagenum                 = filter_input(INPUT_GET, 'pagenum');   ## Get current page number
             $this->_showF                   = 5;
             $this->_colCat                  = $this->_settingsData->colCat;
             $this->_site_url                = get_bloginfo('url');
             $this->_singlevideoData         = $this->home_playerdata();
-            $this->_featuredvideodata       = $this->home_featuredvideodata();
+            $this->_featuredvideodata       = $this->home_featuredvideodata();      ## Get featured videos data
             $this->_viewslang               = __('Views', 'video_gallery');
             $this->_viewlang                = __('View', 'video_gallery');
-            $this->_bannerswfPath           = APPTHA_VGALLERY_BASEURL . 'hdflvplayer' . DS . 'hdplayer_banner.swf';
-            $this->_swfPath                 = APPTHA_VGALLERY_BASEURL . 'hdflvplayer' . DS . 'hdplayer.swf';
-            $this->_imagePath               = APPTHA_VGALLERY_BASEURL . 'images' . DS;
+            $dir                            = dirname(plugin_basename(__FILE__));
+            $dirExp                         = explode('/', $dir);
+            $this->_plugin_name             = $dirExp[0];                           ## Get plugin folder name
+            $this->_bannerswfPath           = APPTHA_VGALLERY_BASEURL . 'hdflvplayer' . DS . 'hdplayer_banner.swf';     ## Declare banner swf path
+            $this->_swfPath                 = APPTHA_VGALLERY_BASEURL . 'hdflvplayer' . DS . 'hdplayer.swf';            ## Declare swf path
+            $this->_imagePath               = APPTHA_VGALLERY_BASEURL . 'images' . DS;                                  ## Declare image path
         }
         ##contructor ends
-        function home_player() {                ##FUNCTION FOR HOME PAGE STARTS
-            $fetchedVideosVideos            = $this->_videosData;
-            if (!empty($fetchedVideosVideos))
-                $fetchedVideos              = $fetchedVideosVideos[0];
+        function home_player() {                ## FUNCTION FOR HOME PAGE STARTS
             $settingsData                   = $this->_settingsData;
             $videoUrl = $videoId = $thumb_image = $homeplayerData = $file_type = '';
-            if (!empty($this->_featuredvideodata[0]))
+            if (!empty($this->_featuredvideodata[0])){
                 $homeplayerData             = $this->_featuredvideodata[0];
-            $image_path                     = str_replace('plugins/contus-video-gallery/', 'uploads/videogallery/', APPTHA_VGALLERY_BASEURL);
+            }
+            $image_path                     = str_replace('plugins/'.$this->_plugin_name.'/', 'uploads/videogallery/', APPTHA_VGALLERY_BASEURL);
             $_imagePath                     = APPTHA_VGALLERY_BASEURL . 'images' . DS;
             if (!empty($homeplayerData)) {
-                $videoUrl                   = $homeplayerData->file;
-                $videoId                    = $homeplayerData->vid;
-                $thumb_image                = $homeplayerData->image;
-                $file_type                  = $homeplayerData->file_type;
-                if ($thumb_image == '') {       ##If there is no thumb image for video
+                $videoUrl                   = $homeplayerData->file;                ## Get video URL
+                $videoId                    = $homeplayerData->vid;                 ## Get Video ID
+                $thumb_image                = $homeplayerData->image;               ## Get thumb image
+                $file_type                  = $homeplayerData->file_type;           ## Get file type of a video
+                if ($thumb_image == '') {       ## If there is no thumb image for video
                     $thumb_image            = $_imagePath . 'nothumbimage.jpg';
                 } else {
-                    if ($file_type == 2) {      ##For uploaded image
+                    if ($file_type == 2) {      ## For uploaded image
                         $thumb_image        = $image_path . $thumb_image;
                     }
                 }
             }
 
             $moduleName                     = "playerModule";
-            $div                            = '<div>'; ##video player starts
+            $div                            = '<div>'; ## video player starts
+            ## To increase hit count of a video
+            $div                            .= '<script type="text/javascript" src="' . APPTHA_VGALLERY_BASEURL . 'js/script.js"></script>';
             $div                            .= '<style type="text/css" scoped> .video-block {margin-left:' . $settingsData->gutterspace . 'px !important; } </style>';
+            $div                            .=' <script>
+                                            var baseurl,folder,videoPage;
+                                            baseurl = "' . $this->_site_url . '";
+                                            folder  = "' . $this->_plugin_name . '";
+                                            videoPage = "' . $this->_mPageid . '"; </script>';
             if (!empty($this->_vId)) {
                 $baseref                    = '&amp;vid=' . $this->_vId;
             } else {
@@ -76,7 +84,7 @@ if (class_exists('ContusVideoView') != true) {
             }
             $div                            .='<div id="mediaspace" class="mediaspace" style="color: #666;">';
             $div                            .='<h3 id="video_title" style="width:' . $settingsData->width . ';text-align: left;"  class="more_title"></h3>';
-            ##FLASH PLAYER STARTS HERE
+            ## FLASH PLAYER STARTS HERE
             $div                            .='<div id="flashplayer">';
             if ($settingsData->default_player == 1) {
                 $swf                        = $this->_bannerswfPath;
@@ -85,15 +93,21 @@ if (class_exists('ContusVideoView') != true) {
                 $swf                        = $this->_swfPath;
                 $showplaylist               = '';
             }
-            ##IF VIDEO IS Vimeo
+            ## IF VIDEO IS Vimeo
             if ((preg_match('/vimeo/', $videoUrl)) && ($videoUrl != '')) {
                 $vresult                    = explode("/", $videoUrl);
                 $div                        .='<iframe  type="text/html" width="' . $settingsData->width . '" height="' . $settingsData->height . '"  src="http://player.vimeo.com/video/' . $vresult[3] . '" frameborder="0"></iframe>';
-            } else {
-                $div                        .= '<embed id="player" src="' . $swf . '"  flashvars="baserefW=' . APPTHA_VGALLERY_BASEURL . $baseref . $showplaylist . '&amp;mid=' . $moduleName . '" width="' . $settingsData->width . '" height="' . $settingsData->height . '"   allowFullScreen="true" allowScriptAccess="always" type="application/x-shockwave-flash" wmode="transparent" />';
+            } 
+            ## Embed player code
+            else if($homeplayerData->file_type == 5 && !empty($homeplayerData->embedcode)){
+            $div                 .= stripslashes($homeplayerData->embedcode);
+            $div                 .= '<script> currentvideo("'.$homeplayerData->name.'",'.$homeplayerData->vid.'); </script>';
+            } else{            
+            ## Flash player code
+                $div                        .= '<embed id="player" src="' . $swf . '"  flashvars="baserefW=' . APPTHA_VGALLERY_BASEURL . $baseref . $showplaylist . '&amp;mtype=' . $moduleName . '" width="' . $settingsData->width . '" height="' . $settingsData->height . '"   allowFullScreen="true" allowScriptAccess="always" type="application/x-shockwave-flash" wmode="transparent" />';
             }
             $div                            .='</div>';
-            ##FLASH PLAYER ENDS AND HTML5 PLAYER STARTS HERE
+            ## FLASH PLAYER ENDS AND HTML5 PLAYER STARTS HERE
             $htmlvideo = '';
             $div                            .='<div id="htmlplayer">';
             if ((preg_match('/vimeo/', $videoUrl)) && ($videoUrl != '')) { ##IF VIDEO IS YOUTUBE
@@ -104,6 +118,8 @@ if (class_exists('ContusVideoView') != true) {
                 $imgval                     = explode("&", $imgstr[1]);
                 $videoId1                   = $imgval[0];
                 $htmlvideo                  ="<iframe  type='text/html' src='http://www.youtube.com/embed/" . $videoId1 . "' frameborder='0'></iframe>";
+            } else if($homeplayerData->file_type == 5 && !empty($homeplayerData->embedcode)){
+                $htmlvideo                 = stripslashes($homeplayerData->embedcode);
             } else {    ##IF VIDEO IS UPLOAD OR DIRECT PATH
                 if ($file_type == 2) {          ##For uploaded image
                     $videoUrl               = $image_path . $videoUrl;
@@ -140,9 +156,8 @@ if (class_exists('ContusVideoView') != true) {
                                             }
                                             }
                                             </script>';
-            ##ERROR MESSAGE FOR VIDEO NOT SUPPORTED TO PLAYER ENDS
-            ##HTML5 ENDS
-            ##            $div .='</div>';
+            ## ERROR MESSAGE FOR VIDEO NOT SUPPORTED TO PLAYER ENDS
+            ## HTML5 ENDS
             $div                        .= '<div id="video_tag" class="views"></div>';
             $div                        .= '</div>';
             $div                        .='</div>';
@@ -156,9 +171,9 @@ if (class_exists('ContusVideoView') != true) {
                 $TypeSet                = '';
                 switch ($type) {
                     case 'pop':         ##GETTING POPULAR VIDEOS STARTS
-                        $TypeSet        = $this->_settingsData->popular;       ##Popular Videos
-                        $rowF           = $this->_settingsData->rowsPop;          ##row field of popular videos
-                        $colF           = $this->_settingsData->colPop;           ##column field of popular videos
+                        $TypeSet        = $this->_settingsData->popular;            ## Popular Videos
+                        $rowF           = $this->_settingsData->rowsPop;            ## get row of popular videos
+                        $colF           = $this->_settingsData->colPop;             ## get column of popular videos
                         $dataLimit      = $rowF * $colF;
                         $thumImageorder = 'w.hitcount DESC';
                         $where          = '';
@@ -169,9 +184,9 @@ if (class_exists('ContusVideoView') != true) {
                         break;          ##GETTING POPULAR VIDEOS ENDS
 
                     case 'rec':
-                        $TypeSet        = $this->_settingsData->recent;
-                        $rowF           = $this->_settingsData->rowsRec;
-                        $colF           = $this->_settingsData->colRec;
+                        $TypeSet        = $this->_settingsData->recent;             ## Recent Videos
+                        $rowF           = $this->_settingsData->rowsRec;            ## get row of Recent videos
+                        $colF           = $this->_settingsData->colRec;             ## get column of Recent videos
                         $dataLimit      = $rowF * $colF;
                         $thumImageorder = 'w.vid DESC';
                         $where          = '';
@@ -184,9 +199,9 @@ if (class_exists('ContusVideoView') != true) {
                     case 'fea':
                         $thumImageorder = 'w.ordering ASC';
                         $where          = 'AND w.featured=1';
-                        $TypeSet        = $this->_settingsData->feature;
-                        $rowF           = $this->_settingsData->rowsFea;
-                        $colF           = $this->_settingsData->colFea;
+                        $TypeSet        = $this->_settingsData->feature;            ## feature Videos
+                        $rowF           = $this->_settingsData->rowsFea;            ## get row of feature videos
+                        $colF           = $this->_settingsData->colFea;             ## get column of feature videos
                         $dataLimit      = $rowF * $colF;
                         $TypeOFvideos   = $this->home_thumbdata($thumImageorder, $where, $dataLimit);
                         $typename       = __('Featured', 'video_gallery');
@@ -196,9 +211,9 @@ if (class_exists('ContusVideoView') != true) {
 
                     case 'cat':
                         if ($this->_settingsData->homecategory == 1) {
-                            $rowF       = $this->_settingsData->rowCat;
-                            $colF       = $this->_settingsData->colCat;
-                            $category_page = $this->_settingsData->category_page;
+                            $rowF       = $this->_settingsData->rowCat;             ## category Videos
+                            $colF       = $this->_settingsData->colCat;             ## get row of category videos
+                            $category_page = $this->_settingsData->category_page;   ## get column of category videos
                             $dataLimit  = $rowF * $colF;
                             $TypeOFvideos = $this->home_categoriesthumbdata($this->_pagenum, $category_page);
                             $CountOFVideos = $this->Countof_Videocategories();
@@ -209,8 +224,8 @@ if (class_exists('ContusVideoView') != true) {
                 }
 
                 $class = $div = '';
-
-                $image_path             = str_replace('plugins/contus-video-gallery/', 'uploads/videogallery/', APPTHA_VGALLERY_BASEURL);
+                $ratearray = array("nopos1", "onepos1", "twopos1", "threepos1", "fourpos1", "fivepos1");
+                $image_path             = str_replace('plugins/'.$this->_plugin_name.'/', 'uploads/videogallery/', APPTHA_VGALLERY_BASEURL);
                 if ($TypeSet) {                                             ## CHECKING FAETURED VIDEOS ENABLE STARTS
                     $div                = '<div class="video_wrapper" id="' . $type_name . '_video">';
                     $div               .= '<style type="text/css" scoped> .video-block {margin-left:' . $this->_settingsData->gutterspace . 'px !important;}  </style>';
@@ -218,8 +233,6 @@ if (class_exists('ContusVideoView') != true) {
                     if (!empty($TypeOFvideos)) {
                         $div           .= '<h2 class="video_header">' . $typename . ' ' . __('Videos', 'video_gallery') . '</h2>';
                         $j              = 0;
-                        $clearwidth     = 0;
-                        $clear          = '';
                         foreach ($TypeOFvideos as $video) {
                             $duration[$j]       = $video->duration;         ## VIDEO DURATION
                             $imageFea[$j]       = $video->image;            ## VIDEO IMAGE
@@ -230,13 +243,15 @@ if (class_exists('ContusVideoView') != true) {
                             if ($imageFea[$j] == '') {                      ## If there is no thumb image for video
                                 $imageFea[$j] = $this->_imagePath . 'nothumbimage.jpg';
                             } else {
-                                if ($file_type == 2) {          ##For uploaded image
+                                if ($file_type == 2 || $file_type == 5) {          ##For uploaded image
                                     $imageFea[$j] = $image_path . $imageFea[$j];
                                 }
                             }
                             $vidF[$j]           = $video->vid;              ## VIDEO ID
                             $nameF[$j]          = $video->name;             ## VIDEI NAME
                             $hitcount[$j]       = $video->hitcount;         ## VIDEO HITCOUNT
+                            $ratecount[$j]      = $video->ratecount;        ## VIDEO RATECOUNT
+                            $rate[$j]           = $video->rate;             ## VIDEO RATE
                             $j++;
                         }
 
@@ -254,24 +269,31 @@ if (class_exists('ContusVideoView') != true) {
                                 $div            .= '<span class="video_duration">' . $duration[$j] . '</span>';
                             }
                             $div                .= '</div>';
-                            $div                .= '<div class="vid_info"><h5><a href="' . $guid[$j] . '" class="videoHname">';
+                            $div                .= '<div class="vid_info"><a href="' . $guid[$j] . '" class="videoHname"><span>';
                             if (strlen($nameF[$j]) > 30) {
-                                $div            .= substr($nameF[$j], 0, 30) . '';
+                                $div            .= substr($nameF[$j], 0, 30) . '..';
                             } else {
                                 $div            .= $nameF[$j];
                             }
-                            $div                .= '</a></h5>';
+                            $div                .= '</span></a>';
                             $div                .= '';
+                            if ($fetched[$j] != '') {
+                                $div            .= '<a class="playlistName" href="' . $this->_site_url . '/?page_id=' . $this->_mPageid . '&amp;playid=' . $playlist_id[$j] . '"><span>' . $fetched[$j] . '</span></a>';
+                            }
+                            if ($this->_settingsData->ratingscontrol == 1) {
+                                if (isset($ratecount[$j]) && $ratecount[$j] != 0) {
+                                    $ratestar    = round($rate[$j] / $ratecount[$j]);
+                                } else {
+                                    $ratestar    = 0;
+                                }
+                                $div             .= '<span class="ratethis1 '.$ratearray[$ratestar].'"></span>';
+                            }
                             if ($hitcount[$j] > 1)
                                 $viewlang       = $this->_viewslang;
                             else
                                 $viewlang       = $this->_viewlang;
                             $div                .= '<span class="video_views">' . $hitcount[$j] . ' ' . $viewlang;
                             $div                .= '</span>';
-
-                            if ($fetched[$j] != '') {
-                                $div            .= ' <a class="playlistName" href="' . $this->_site_url . '/?page_id=' . $this->_mPageid . '&amp;playid=' . $playlist_id[$j] . '">' . $fetched[$j] . '</a>';
-                            }
                             $div                .= '</div>';
                             $div                .= '</li>';
                         }       ##FOR EACH ENDS
@@ -281,9 +303,9 @@ if (class_exists('ContusVideoView') != true) {
 
 
                         if (($this->_showF < $this->_feaMore)) {        ##PAGINATION STARTS
-                            $div                .= '<h5 class="more_title" ><a class="video-more" href="' . $this->_site_url . '/?page_id=' . $this->_mPageid . '&amp;more=' . $morePage . '">' . __('More Videos', 'video_gallery') . ' &#187;</a></h5>';
+                            $div                .= '<span class="more_title" ><a class="video-more" href="' . $this->_site_url . '/?page_id=' . $this->_mPageid . '&amp;more=' . $morePage . '">' . __('More Videos', 'video_gallery') . ' &#187;</a></span>';
                         } else if (($this->_showF == $this->_feaMore)) {
-                            $div                .= '<div style="float:right"> </div>';
+                            $div                .= '<div style="float:right"></div>';
                         }       ##PAGINATION ENDS
                     }
                     else
@@ -297,11 +319,11 @@ if (class_exists('ContusVideoView') != true) {
         function categoryList($CountOFVideos, $TypeOFvideos, $pagenum, $dataLimit, $category_page) {
             global $wpdb;
             $div                = '';
-            $pagenum            = isset($pagenum) ? absint($pagenum) : 1; ## Calculating page number
-            $start              = ( $pagenum - 1 ) * $dataLimit;     ## Video starting from
+            $ratearray = array("nopos1", "onepos1", "twopos1", "threepos1", "fourpos1", "fivepos1");
+            $pagenum            = isset($pagenum) ? absint($pagenum) : 1;               ## Calculating page number
             $div                .= '<style scoped> .video-block { margin-left:' . $this->_settingsData->gutterspace . 'px !important;} </style>';
             foreach ($TypeOFvideos as $catList) {
-## Fetch videos for every category
+            ## Fetch videos for every category
                 $sql            = "SELECT s.guid,w.* FROM " . $wpdb->prefix . "hdflvvideoshare as w
                                 INNER JOIN " . $wpdb->prefix . "hdflvvideoshare_med2play as m ON m.media_id = w.vid
                                 INNER JOIN " . $wpdb->prefix . "hdflvvideoshare_playlist as p on m.playlist_id = p.pid
@@ -313,23 +335,23 @@ if (class_exists('ContusVideoView') != true) {
                 $div            .='<div> <h4 class="clear more_title">' . $catList->playlist_name . '</h4></div>';
                 if (!empty($playlistCount)) {
                     $inc        = 1;
-                    $image_path = str_replace('plugins/contus-video-gallery/', 'uploads/videogallery/', APPTHA_VGALLERY_BASEURL);
+                    $image_path = str_replace('plugins/'.$this->_plugin_name.'/', 'uploads/videogallery/', APPTHA_VGALLERY_BASEURL);
                     $div        .= '<ul class="video-block-container">';
                     foreach ($playLists as $playList) {
 
                         $duration   = $playList->duration;
-                        $imageFea   = $playList->image;         ##VIDEO IMAGE
+                        $imageFea   = $playList->image;         ## VIDEO IMAGE
                         $file_type  = $playList->file_type;     ## Video Type
-                        $guid       = $playList->guid;          ##guid
-                        if ($imageFea == '') {                  ##If there is no thumb image for video
+                        $guid       = $playList->guid;          ## guid - url for video detail page
+                        if ($imageFea == '') {                  ## If there is no thumb image for video
                             $imageFea = $this->_imagePath . 'nothumbimage.jpg';
                         } else {
-                            if ($file_type == 2) {              ##For uploaded image
+                            if ($file_type == 2 || $file_type == 5) {              ##For uploaded image
                                 $imageFea = $image_path . $imageFea;
                             }
                         }
                         if (strlen($playList->name) > 30) {
-                            $playListName = substr($playList->name, 0, 30) . "";
+                            $playListName = substr($playList->name, 0, 30) . "..";
                         } else {
                             $playListName = $playList->name;
                         }
@@ -338,14 +360,25 @@ if (class_exists('ContusVideoView') != true) {
                         if ($duration != 0.00) {
                             $div    .= '<span class="video_duration">' . $duration . '</span>';
                         }
-                        $div        .= '</div><div class="vid_info"><h5><a href="' . $guid . '" class="videoHname">' . $playListName . '</a></h5>';
+                        $div        .= '</div><div class="vid_info"><a href="' . $guid . '" class="videoHname"><span>' . $playListName . '</span></a>';
+                        ## Rating starts here
+                        if ($this->_settingsData->ratingscontrol == 1) {
+                                if (isset($playList->ratecount) && $playList->ratecount != 0) {
+                                    $ratestar    = round($playList->rate / $playList->ratecount);
+                                } else {
+                                    $ratestar    = 0;
+                                }
+                                $div             .= '<span class="ratethis1 '.$ratearray[$ratestar].'"></span>';
+                            }
+                        ## Rating ends here
                         if ($playList->hitcount > 1)
                             $viewlang = $this->_viewslang;
                         else
                             $viewlang = $this->_viewlang;
 
                         $div         .= '<span class="video_views">' . $playList->hitcount . ' ' . $viewlang . '</span>';
-
+                        
+                            
                         $div         .= '</div></li>';
 
                         if (($inc % $this->_colCat ) == 0 && $inc != 0) {##COLUMN COUNT
@@ -367,6 +400,7 @@ if (class_exists('ContusVideoView') != true) {
 
             $div                     .='<div class="clear"></div>';
 
+            if($category_page!=0){
             ##PAGINATION STARTS
             $total          = $CountOFVideos;
             $num_of_pages   = ceil($total / $category_page);
@@ -382,7 +416,8 @@ if (class_exists('ContusVideoView') != true) {
             if ($page_links) {
                 $div        .='<div class="tablenav"><div class="tablenav-pages" >' . $page_links . '</div></div>';
             }
-##PAGINATION ENDS
+            ##PAGINATION ENDS
+        }
             return $div;
         }
 ##CATEGORY FUNCTION ENDS
