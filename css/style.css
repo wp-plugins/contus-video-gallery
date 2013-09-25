@@ -318,3 +318,7 @@ ul.ratethis1 li {cursor: pointer;float:left;}
 .threepos1 {background-position:0 -36px !important;}
 .fourpos1 {background-position:0 -48px !important;}
 .fivepos1 {background-position:0 -60px !important;}
+
+#videos-category .videoHname {
+min-height: initial;
+}
