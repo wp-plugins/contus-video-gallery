@@ -1,0 +1,139 @@
+/*
+Name: Wordpress Video Gallery
+Plugin URI: http://www.apptha.com/category/extension/Wordpress/Video-Gallery
+Description: Admin Settings css file
+Version: 2.3
+Author: Apptha
+Author URI: http://www.apptha.com
+License: GPL2
+*/
+.column { width: 50%; float: left; padding-bottom: 100px; }
+.apptha_gallery .portlet { margin: 0 ; -webkit-border-radius: 4px;-moz-border-radius: 4px;border-radius: 4px; border: 1px solid #AAA;}
+.apptha_gallery .admin_settings .column .portlet{ margin: 0 0em 1em 0; }
+.apptha_gallery .admin_settings .column:first-child .portlet{ margin: 0 1em 1em 0; }
+.portlet-header { margin: 0.3em; padding-bottom: 4px; padding-left: 10px;padding-top: 4px;font-size:12px;
+-webkit-border-radius: 3px;-moz-border-radius: 3px;border-radius: 3px;
+border: 1px solid #AAA;
+text-shadow: 0px 1px #F2F2F2;
+background: #e0e0e0; /* Old browsers */
+background: -moz-linear-gradient(top,  #e0e0e0 0%, #cccccc 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#e0e0e0), color-stop(100%,#cccccc)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  #e0e0e0 0%,#cccccc 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  #e0e0e0 0%,#cccccc 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  #e0e0e0 0%,#cccccc 100%); /* IE10+ */
+background: linear-gradient(to bottom,  #e0e0e0 0%,#cccccc 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e0e0e0', endColorstr='#cccccc',GradientType=0 ); /* IE6-9 */
+}
+.portlet-header .ui-icon { float: right; }
+.portlet-content { padding: 0.4em; font-size:12px;}
+.ui-sortable-placeholder { border: 1px dotted black; visibility: visible !important; height: 50px !important; }
+.ui-sortable-placeholder * { visibility: hidden; }
+.clearfix:after {content: ".";display: block;clear: both;visibility: hidden;line-height: 0;height: 0;}
+.clearfix {display: inline-block;}
+html[xmlns] .clearfix {display: block;}
+* html .clearfix {height: 1%;}
+.apptha_gallery .form-table{margin-bottom: 10px;}
+.apptha_gallery .wp-list-table{margin-top: 10px;}
+.apptha_gallery input[type="radio"]{margin: 0 0px 0 0; vertical-align: middle;}
+.apptha_gallery .admin_settings input[type="radio"]{margin: 0 3px 0 0;}
+.apptha_gallery #post-body-content{width: 98%;}
+.apptha_gallery h4.hndle{margin: 1.33em; font-size: 14px;}
+.apptha_gallery h4.hndle label{margin-right: 3em;}
+.apptha_gallery .widefat tbody th.check-column {padding: 10px 0 5px;}
+.apptha_gallery h2.option_title img{vertical-align: middle; margin-right: 5px;}
+.apptha_gallery h2.option_title {margin: 10px 0; padding: 0 0 6px 0; height: 30px; font-size: 18px;color: #000;border-bottom: 1px dotted #999;}
+.apptha_gallery h2.option_title .button-primary{float: right;*margin-top:-30px;}
+.apptha_gallery .tablenav .button-secondary{*line-height: 20px; *padding-top: 0;}
+.apptha_gallery .admin_video_search .search-box .button{*line-height: 20px;}
+.apptha_gallery .actions.bulk-actions .button-secondary {*line-height: 20px;*margin-top:-8px;}
+.wp-admin .apptha_gallery select {padding: 2px;height: auto;}
+
+.apptha_gallery .stuffbox h3{padding: 10px;}
+.apptha_gallery .check-column{}
+.apptha_gallery .drag-column{}
+.apptha_gallery .id-column{}
+.apptha_gallery .title-column{}
+.apptha_gallery .desc-column{}
+.apptha_gallery .pub-column{}
+.apptha_gallery .order-column{}
+.apptha_gallery table td{vertical-align: middle;}
+.apptha_gallery table tr#ffmpeg_disable_new1 td{vertical-align: top;}
+.apptha_gallery table th.sortable a span{ }
+.apptha_gallery table th.sortable a span.sorting-indicator{ }
+.apptha_gallery .videoform .videoform_title span{margin-right: 10px; font-family: sans-serif; font-size: 12px;}
+.apptha_gallery .videoform .videoform_title input[type="radio"] {margin: 0;}
+.apptha_gallery .videoform .add_video_publish .checkbox {background: transparent;}
+.apptha_gallery .videoform .add_video_publish .checkbox span{margin-right: 20px;}
+.apptha_gallery .videoform .add_video_publish .checkbox input[type="radio"]{margin-right: 5px;}
+.apptha_gallery .videoform input[type="submit"]{margin: 0 0 10px 10px;}
+#generate{    visibility: hidden;}
+.form-table th { font-size:12px;}
+#upload2, #customurl{display: none;}
+.admin_video_search {position: relative;z-index: 9;}
+.admin_video_action {overflow: hidden;clear: both;top: -32px; position: relative;z-index: 7;}
+
+.bottom_btn{}
+.bottom_btn .button-primary {}
+.form-table th{width: 40% !important;}
+.form-table label{margin: 0 10px 0 0;}
+.form-table input[type="text"]{margin: 0 !important;}
+.admin_short_video_info{background: #e9f6fa;
+padding: 10px;
+-moz-border-radius: 4px;
+-webkit-border-radius: 4px;
+border-radius: 4px;
+list-style: none;
+margin: 4px 0px 17px 0;
+text-align: left; color: #333; text-shadow: 0 1px #f4f4f4;font-size: 13px;
+-moz-box-shadow: inset 0 1px 10px #add7ea;
+-webkit-box-shadow: inset 0 1px 10px #add7ea;
+box-shadow: inset 0 1px 10px #add7ea;
+}
+
+.wp-list-table #test-list tr{width: 100% !important;}
+.apptha_gallery h2 .nav-tab {
+padding: 5px 25px;
+font-weight: 200;
+font-size: 18px;
+line-height: 24px;
+}
+.apptha_gallery div.updated {background-color: #FFFFE0;border-color: #E6DB55; padding: 10px; margin: 5px 15px 2px 0;}
+.apptha_gallery tr.gallery_separator td, 
+.apptha_gallery tr.gallery_separator th{padding: 25px 0 0 10px;}
+.apptha_gallery tr.gallery_separator_row td,
+.apptha_gallery tr.gallery_separator_row th{padding: 5px 0 8px 10px;}
+
+.apptha_gallery .has-right-sidebar .inner-sidebar {top: 60px;right: 28px;}
+.apptha_gallery .has-right-sidebar .inner-sidebar .inside{max-height: 300px;
+                                                          *height: 300px;
+overflow-y: scroll;}
+
+.apptha_gallery #customurl.rtmp_inside .form-table input[type="text"] {float: left;}
+.apptha_gallery #customurl.rtmp_inside .rtmp_td p{clear: both;}
+.apptha_gallery #youtube.rtmp_inside .rtmp_td p{clear: both; margin: 0;}
+
+#streamermessage,
+#rtmplivemessage,
+#videourlmessage, 
+#thumburlmessage,
+#Youtubeurlmessage
+{
+ color: #ff0000;
+
+}
+.hint_heading{ display: block;
+width: 100%;
+font-size: 18px;
+padding: 5px 0 5px 0;
+border-bottom: 1px solid #ccc;
+margin-bottom: 10px;
+color: #000;
+}
+#jaxcat{
+    color: #ff0000;
+}
+
+
+
+
+
