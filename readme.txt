@@ -1,5 +1,5 @@
 === WORDPRESS VIDEO GALLERY ===
-Contributors: Contus Support
+Contributors: hdflvplayer
 Tags: Video Player plugin, video, flash player, flv player, WORDPRESS VIDEO GALLERY, flv player wordpress, hd flv player, youtube plugin, youtube Video Player, high definition Video Player, flash, play flv wordpress, player, Video Plugin, wp flv player, wp flv plugin, flv player 2009,  WORDPRESS VIDEO GALLERY, wp flv, wordpress flv plugin, wp hd flv player, flv player plugin, wordpress flv player
 Requires at least: 2.8
 Tested up to: 3.5.2
