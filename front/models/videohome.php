@@ -227,7 +227,7 @@ if(class_exists('ContusVideo') != true)
                 endforeach;
             }
 
-            $playlist = array_merge($rows,$arr2,$arr1);
+            $playlist = array_merge($rows,$arr1,$arr2);
 
     }
              return $playlist;
