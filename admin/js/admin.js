@@ -369,7 +369,7 @@ function addQueue(whichForm,myfile)
     }
     else
     {
-        if(extn != 'jpg' && extn != 'png' )
+        if(extn != 'jpg' && extn != 'png' && extn != 'jpeg' )
         {
             alert(extn+" is not a valid Image Extension");
             return false;

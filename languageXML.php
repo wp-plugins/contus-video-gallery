@@ -54,7 +54,7 @@ echo    '<Play><![CDATA[Play]]></Play>
         <live><![CDATA[LIVE]]></live>
         <fill_required_fields><![CDATA[Please fill in all required fields.]]></fill_required_fields>
         <wrong_email><![CDATA[Missing field Or Invalid email]]></wrong_email>
-        <email_wait><![CDATA[Wait..]]></email_wait>
+        <mail_wait><![CDATA[Wait..]]></mail_wait>
         <email_sent><![CDATA[Thank you! Video has been sent.]]></email_sent>
         <video_not_allow_embed_player><![CDATA[The requested video does not allow playback in the embedded players.]]></video_not_allow_embed_player>
         <youtube_ID_Invalid><![CDATA[The video ID that does not have 11 characters, or if the video ID contains invalid characters.]]></youtube_ID_Invalid>
