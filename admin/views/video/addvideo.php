@@ -444,7 +444,7 @@ if (isset($_GET['videoId']))
                                                                                    echo 'checked="checked"';
                                                                                }
                 ?> value="0"> <label>No</label>
-                                                                               <br/><?php _e('Note : Not supported for YouTube and Embed videos', 'video_gallery') ?>
+                                                                               <br/><?php _e('Note : Not supported for Custom URL, YouTube and Embed videos', 'video_gallery') ?>
                                                                            </td>
                                                                        </tr>
                                                                        <tr>
