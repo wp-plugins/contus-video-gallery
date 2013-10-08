@@ -3,7 +3,7 @@
   Name: Wordpress Video Gallery
   Plugin URI: http://www.apptha.com/category/extension/Wordpress/Video-Gallery
   Description: ConfigXML file for player.
-  Version: 2.3
+  Version: 2.3.1
   Author: Apptha
   Author URI: http://www.apptha.com
   License: GPL2
@@ -34,8 +34,8 @@ $imaAdsXML              = APPTHA_VGALLERY_BASEURL . 'myimaadsXML.php';
 
 
 $langXML                = APPTHA_VGALLERY_BASEURL . 'languageXML.php';
-$emailPath              = APPTHA_VGALLERY_BASEURL . 'hdflvplayer/email.php';
-$downloadPath           = APPTHA_VGALLERY_BASEURL . 'hdflvplayer/download.php';
+$emailPath              = APPTHA_VGALLERY_BASEURL . 'email.php';
+$downloadPath           = APPTHA_VGALLERY_BASEURL . 'download.php';
 $adsXml                 = APPTHA_VGALLERY_BASEURL . 'myadsXML.php';
 $skinPath               = APPTHA_VGALLERY_BASEURL . 'hdflvplayer' . DS . 'skin/skin_hdflv_white.swf';
 $playerTimer            = $settingsData->timer == 1 ? 'true' : 'false';

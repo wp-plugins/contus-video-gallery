@@ -3,7 +3,7 @@
   Name: Wordpress Video Gallery
   Plugin URI: http://www.apptha.com/category/extension/Wordpress/Video-Gallery
   Description: playlistxml file for player.
-  Version: 2.3
+  Version: 2.3.1
   Author: Apptha
   Author URI: http://www.apptha.com
   License: GPL2
@@ -141,7 +141,7 @@ foreach ($singleVideodata as $media) {
     }
     ## download allowed or not
     $individualdownload = $media->download;
-    if ((isset($individualdownload[0]) && $individualdownload[0] == 1) || (isset($individualdownload) && $individualdownload == 1 )) {
+    if ((((isset($individualdownload[0]) && $individualdownload[0] == 1) || (isset($individualdownload) && $individualdownload == 1 ))) && $file_type != 3) {
         $download       = 'true';
     } else {
         $download       = 'false';
