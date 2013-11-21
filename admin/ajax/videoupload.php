@@ -8,15 +8,9 @@ Author: Apptha
 Author URI: http://www.apptha.com
 License: GPL2
 */
-session_start();
-session_regenerate_id();
-
 // look up for the path
 require_once '../../hdflv-config.php';
 // get the path url from querystring
-
-function get_out_now() { exit; }
-add_action('shutdown', 'get_out_now', -1);
 $file_name = '';
 $error = "";
 $errorcode = 12;
