@@ -3,7 +3,7 @@
 Name: Wordpress Video Gallery
 Plugin URI: http://www.apptha.com/category/extension/Wordpress/Video-Gallery
 Description: add playlist model file.
-Version: 2.3.1
+Version: 2.3.1.0.1
 Author: Apptha
 Author URI: http://www.apptha.com
 License: GPL2
