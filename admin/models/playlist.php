@@ -3,7 +3,7 @@
 Name: Wordpress Video Gallery
 Plugin URI: http://www.apptha.com/category/extension/Wordpress/Video-Gallery
 Description: playlist model file.
-Version: 2.3.1.0.1
+Version: 2.5
 Author: Apptha
 Author URI: http://www.apptha.com
 License: GPL2
@@ -24,16 +24,16 @@ if (class_exists('PlaylistModel') != true) {//checks the VideoadModel class has 
 
 //contructor ends
 
-        public function insert_playlist($playlsitData, $playlistDataformat) {//function for inserting playlist starts
-            if ($this->_wpdb->insert($this->_playlisttable, $playlsitData, $playlistDataformat)) {
+        public function insert_playlist($playlsitData) {//function for inserting playlist starts
+            if ($this->_wpdb->insert($this->_playlisttable, $playlsitData)) {
                 return $this->_wpdb->insert_id;
             }
         }
 
 //function for inserting playlist ends
 
-        public function playlist_update($playlsitData, $playlistDataformat, $playlistId) {//function for updating playlist starts
-            return $this->_wpdb->update($this->_playlisttable, $playlsitData, array('pid' => $playlistId), $playlistDataformat);
+        public function playlist_update($playlsitData, $playlistId) {//function for updating playlist starts
+            return $this->_wpdb->update($this->_playlisttable, $playlsitData, array('pid' => $playlistId));
         }
 
 //function for updating playlist ends

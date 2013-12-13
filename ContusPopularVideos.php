@@ -3,7 +3,7 @@
 Name: Wordpress Video Gallery
 Plugin URI: http://www.apptha.com/category/extension/Wordpress/Video-Gallery
 Description: Wordpress video gallery popular videos widget.
-Version: 2.3.1.0.1
+Version: 2.5
 Author: Apptha
 Author URI: http://www.apptha.com
 License: GPL2
@@ -55,7 +55,6 @@ class widget_ContusPopularVideos_init extends WP_Widget {
         $dirPage            = $dirExp[0];
         ?>
 
-<script	type="text/javascript" src="<?php echo $site_url; ?>/wp-content/plugins/<?php echo dirname(plugin_basename(__FILE__)) ?>/js/script.js"></script>
 <script type="text/javascript">
     var baseurl;
     baseurl = '<?php echo $site_url; ?>';
@@ -64,7 +63,7 @@ class widget_ContusPopularVideos_init extends WP_Widget {
 <!-- For Getting The Page Id More and Video Page-->
 <?php
         $moreName           = $wpdb->get_var("SELECT ID FROM " . $wpdb->prefix . "posts WHERE post_content='[videomore]' AND post_status='publish' AND post_type='page' LIMIT 1");
-        $ratingscontrol     = $wpdb->get_var("SELECT ratingscontrol FROM " . $wpdb->prefix . "hdflvvideoshare_settings WHERE settings_id='1'");
+        $settings_result    = $wpdb->get_row("SELECT ratingscontrol,view_visible FROM " . $wpdb->prefix . "hdflvvideoshare_settings WHERE settings_id='1'");
 ?>
 
         <!-- For Popular videos -->
@@ -102,7 +101,7 @@ class widget_ContusPopularVideos_init extends WP_Widget {
             foreach ($populars as $popular) {
                 $file_type  = $popular->file_type; ## Video Type
                  $imagePop  = $popular->image;##VIDEO IMAGE
-                 $guid      = $popular->guid; ##guid
+                 $guid      = get_video_permalink($popular->slug); ##guid
                  if ($imagePop == '') {  ##If there is no thumb image for video
                         $imagePop = $_imagePath . 'nothumbimage.jpg';
                     } else {
@@ -126,14 +125,17 @@ class widget_ContusPopularVideos_init extends WP_Widget {
                         $div .= $popular->name;
                     }
                     $div .='</a><div class="clear"></div>';
-                    if($popular->hitcount>1)
-                                $viewlanguage = $viewslang;
-                                else
-                                   $viewlanguage = $viewlang;
+                    if ($settings_result->view_visible == 1) {
+                        if($popular->hitcount>1){
+                             $viewlanguage = $viewslang;
+                        } else {
+                             $viewlanguage = $viewlang;
+                        }
                         $div .='<span class="views">'.$popular->hitcount . ' '. $viewlanguage;
                         $div .= '</span>';
+                    }
                     ## Rating starts here
-                    if ($ratingscontrol == 1) {
+                    if ($settings_result->ratingscontrol == 1) {
                             if (isset($popular->ratecount) && $popular->ratecount != 0) {
                                 $ratestar    = round($popular->rate / $popular->ratecount);
                             } else {
@@ -151,7 +153,8 @@ class widget_ContusPopularVideos_init extends WP_Widget {
             $div         .="<li>".__('No Popular videos', 'video_gallery')."</li>";
         ## end list
         if (($show < $countP) || ($show == $countP)) {
-            $div         .='<li><div class="right video-more"><a href="' . $site_url . '/?page_id=' . $moreName . '&amp;more=pop">'.__('More Videos', 'video_gallery').' &#187;</a></div>';
+            $more_videos_link = get_morepage_permalink($moreName,'popular');
+            $div         .='<li><div class="right video-more"><a href="' . $more_videos_link . '">'.__('More&nbsp;Videos', 'video_gallery').'&nbsp;&#187;</a></div>';
             $div         .='<div class="clear"></div></li>';
         } else {
             $div         .='<li><div align="right"> </div></li>';

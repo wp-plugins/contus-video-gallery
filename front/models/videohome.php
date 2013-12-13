@@ -3,7 +3,7 @@
 Name: Wordpress Video Gallery
 Plugin URI: http://www.apptha.com/category/extension/Wordpress/Video-Gallery
 Description: video home page model file
-Version: 2.3.1.0.1
+Version: 2.5
 Author: Apptha
 Author URI: http://www.apptha.com
 License: GPL2
@@ -45,7 +45,7 @@ if(class_exists('ContusVideo') != true)
             global $wpdb;
             $pagenum    = isset($pagenum ) ? absint($pagenum ) : 1;
             $offset     = ( $pagenum - 1 ) * $dataLimit;
-            $query      = "SELECT * FROM " . $wpdb->prefix . "hdflvvideoshare_playlist WHERE is_publish='1' LIMIT " . $offset . "," . $dataLimit ;
+            $query      = "SELECT * FROM " . $wpdb->prefix . "hdflvvideoshare_playlist WHERE is_publish='1' ORDER BY playlist_order ASC LIMIT " . $offset . "," . $dataLimit ;
             $result     = $wpdb->get_results($query);
             return $result;
         }   ##function for getting settings data ends
@@ -129,22 +129,23 @@ if(class_exists('ContusVideo') != true)
            return $themediafiles;
         }   ##function for getting Tag name ends
 
-        public function video_Pid_detail($pid)
+        public function video_Pid_detail($pid,$type)
         {   ##function for getting Tag name starts
             global $wpdb;
-       $playlist_id     = $pid;
-            $playlist   = $wpdb->get_row("SELECT * FROM " . $wpdb->prefix . "hdflvvideoshare_playlist WHERE pid = '".intval($playlist_id)."'");
-    if ($playlist)
-    {
-        $select         = " SELECT w.*,s.guid,m.playlist_id FROM " . $wpdb->prefix . "hdflvvideoshare w";
+        $select         = " SELECT w.*,s.guid,m.playlist_id,u.display_name,u.ID FROM " . $wpdb->prefix . "hdflvvideoshare w";
         $select        .= " INNER JOIN " . $wpdb->prefix . "hdflvvideoshare_med2play m";
         $select        .= " INNER JOIN " . $wpdb->prefix . "hdflvvideoshare_playlist p";
         $select        .= " INNER JOIN " . $wpdb->prefix . "posts s ON s.ID=w.slug";
-        $select        .= " WHERE (m.playlist_id = '".intval($playlist_id)."'";
-        $select        .= " AND m.media_id = w.vid AND w.file_type!=5 AND w.publish='1' AND p.is_publish='1') GROUP BY w.vid ";
-        $select        .= " ORDER BY m.sorder ASC , m.porder ASC ,w.vid ASC";
+        $select        .= " LEFT JOIN " . $wpdb->prefix . "users u ON u.ID=w.member_id";
+        $select        .= " WHERE (m.playlist_id = '".intval($pid)."'";
+        if($type === 'playxml'){
+            $where = "AND w.file_type!=5";
+        } else {
+            $where = '';
+        }
+        $select        .= " AND m.media_id = w.vid $where AND w.publish='1' AND p.is_publish='1') GROUP BY w.vid ";
+        $select        .= " ORDER BY w.vid ASC";
         $themediafiles  = $wpdb->get_results($select);
-    }
            return $themediafiles;
         }   ##function for getting Tag name ends
 
@@ -160,7 +161,7 @@ if(class_exists('ContusVideo') != true)
                           INNER JOIN " . $this->_wpdb->prefix . "hdflvvideoshare_med2play m ON m.media_id = w.vid
                           INNER JOIN " . $this->_wpdb->prefix . "hdflvvideoshare_playlist p ON p.pid=m.playlist_id
                           INNER JOIN " . $this->_wpdb->prefix . "posts s ON s.ID=w.slug
-                          WHERE featured='1' AND w.file_type!=5 AND publish='1' AND p.is_publish='1' GROUP BY w.vid ORDER BY ordering ASC";
+                          WHERE featured='1' AND publish='1' AND p.is_publish='1' GROUP BY w.vid ORDER BY ordering ASC";
           return  $this->_wpdb->get_results($query);
         }   ##function for getting settings data ends
 
@@ -174,15 +175,35 @@ if(class_exists('ContusVideo') != true)
           return  $this->_wpdb->get_results($query);
         }   ##function for getting settings data ends
         
+        public function get_home_catthumbdata($thumImageorder,$dataLimit)
+        {//function for getting settings data starts
+              global $wpdb;
+           $query = "SELECT s.guid,w.*,p.playlist_name FROM " . $wpdb->prefix . "hdflvvideoshare as w
+                    INNER JOIN " . $wpdb->prefix . "hdflvvideoshare_med2play as m ON m.media_id = w.vid
+                    INNER JOIN " . $wpdb->prefix . "hdflvvideoshare_playlist as p on m.playlist_id = p.pid
+                    INNER JOIN " . $wpdb->prefix . "posts s ON s.ID=w.slug
+                    WHERE w.publish='1' AND p.is_publish='1' AND m.playlist_id=" . intval($thumImageorder) . "
+                    GROUP BY w.vid ORDER BY w.ordering asc LIMIT $dataLimit";
+            return $this->_wpdb->get_results($query);
+        }//function for getting settings data ends
         
          public function get_thumdata($thumImageorder,$where,$dataLimit)
         {   ##function for getting settings data starts
-            $query      = "SELECT distinct w.*,s.guid,p.playlist_name,p.pid FROM " . $this->_videoinfotable. " w
+            $query      = "SELECT distinct w.*,s.guid,p.playlist_name,p.pid,p.playlist_slugname FROM " . $this->_videoinfotable. " w
                           INNER JOIN " . $this->_wpdb->prefix . "hdflvvideoshare_med2play m ON m.media_id = w.vid
                           INNER JOIN " . $this->_wpdb->prefix . "hdflvvideoshare_playlist p ON p.pid=m.playlist_id
                           INNER JOIN " . $this->_wpdb->prefix . "posts s ON s.ID=w.slug
                           WHERE w.publish='1' AND p.is_publish='1' $where GROUP BY w.vid ORDER BY ".$thumImageorder." LIMIT ".$dataLimit;
             return $this->_wpdb->get_results($query);
+        }   ##function for getting settings data ends
+         public function get_countof_thumdata($thumImageorder,$where)
+        {   ##function for getting settings data starts
+           $query      = "SELECT w.vid FROM " . $this->_videoinfotable. " w
+                          INNER JOIN " . $this->_wpdb->prefix . "hdflvvideoshare_med2play m ON m.media_id = w.vid
+                          INNER JOIN " . $this->_wpdb->prefix . "hdflvvideoshare_playlist p ON p.pid=m.playlist_id
+                          INNER JOIN " . $this->_wpdb->prefix . "posts s ON s.ID=w.slug
+                          WHERE w.publish='1' AND p.is_publish='1' $where GROUP BY w.vid ORDER BY ".$thumImageorder;
+            return count($this->_wpdb->get_results($query));
         }   ##function for getting settings data ends
          public function get_playxmldata($getVid,$thumImageorder,$where,$numberofvideos)
         {   ##function for getting settings data starts
@@ -199,9 +220,8 @@ if(class_exists('ContusVideo') != true)
                            INNER JOIN " . $this->_wpdb->prefix . "hdflvvideoshare_playlist p ON p.pid=m.playlist_id
                            INNER JOIN " . $this->_wpdb->prefix . "posts s ON s.ID=w.slug
                            WHERE w.publish='1' AND p.is_publish='1' $where AND w.vid != $videoid
-                           ORDER BY $thumImageorder LIMIT ".($numberofvideos-1);
+                           GROUP BY w.vid ORDER BY $thumImageorder LIMIT ".($numberofvideos-1);
             $playlist  = $this->_wpdb->get_results($query);
-
                ## Array rotation to autoplay the videos correctly
             $arr1 = array();
             $arr2 = array();
@@ -227,10 +247,10 @@ if(class_exists('ContusVideo') != true)
                 endforeach;
             }
 
-            $playlist = array_merge($rows,$arr1,$arr2);
+            $finalplaylist = array_merge($rows,$arr1,$arr2);
 
     }
-             return $playlist;
+             return $finalplaylist;
         }   ##function for getting settings data ends
 
     }   ##ContusVideo class ends

@@ -2,8 +2,8 @@
 Contributors: hdflvplayer
 Tags: Video Player plugin, video, flash player, flv player, WORDPRESS VIDEO GALLERY, flv player wordpress, hd flv player, youtube plugin, youtube Video Player, high definition Video Player, flash, play flv wordpress, player, Video Plugin, wp flv player, wp flv plugin, flv player 2009,  WORDPRESS VIDEO GALLERY, wp flv, wordpress flv plugin, wp hd flv player, flv player plugin, wordpress flv player
 Requires at least: 2.8
-Tested up to: 3.6.1
-Stable tag: 2.3.1.0.1
+Tested up to: 3.8
+Stable tag: 2.5
 Get the most exciting FLV player in the internet, designed and modified to suit your Wordpress websites.  Installing this Video Plugin is real easy and if you have any difficulty in installation, contact our Video Player support team and quickly resolve your issue.  You can either download this Video Plugin directly from our website or through Wordpress plugins page itself.  This WORDPRESS VIDEO GALLERY Version  has many advanced features that you cannot find elsewhere, such as that you can play youtube videos directly through this player, and it can also aptly be called as a youtube player.
 
 == Description ==
@@ -25,6 +25,8 @@ FLV & H.264 encoded video including MP4, M4V, M4A, MOV, Mp4v, F4V, social networ
 * Provides complete control on player through admin panel with a fantastic support
 * This FLV Video plugin is capable to play FLV video & H.264 encoded video including MP3, MP4, M4V, M4A, MOV, Mp4v and F4V formats
 * Supports RTL feature
+* Supports Subtitle feature
+* Supports Member video upload option
 * Admin option to enable/disable Recent Videos, Popular Videos and Featured Videos
 * Admin option to enable/disable Rating
 * Easy to manage widgets like popular, featured, recent, related, video search, video categories.
@@ -44,6 +46,7 @@ FLV & H.264 encoded video including MP4, M4V, M4A, MOV, Mp4v, F4V, social networ
 * Option to set up SEO friendly URL using two permalink options: default and postname
 * Option to include a well-suited meta information
 * Option to add RTMP based videos
+* Option to add Viddler and Dailymotion videos
 * Option to add Embed code based videos
 * Rating option for the videos
 * Language pack can be set on any preferred language

@@ -3,7 +3,7 @@
   Name: Wordpress Video Gallery
   Plugin URI: http://www.apptha.com/category/extension/Wordpress/Video-Gallery
   Description: Wordpress video gallery Featured videos widget.
-  Version: 2.3.1.0.1
+  Version: 2.5
   Author: Apptha
   Author URI: http://www.apptha.com
   License: GPL2
@@ -55,8 +55,6 @@ class widget_ContusFeaturedVideos_init extends WP_Widget {
         $dirPage            = $dirExp[0];
         ?>
 <!-- Recent videos -->
-<script type="text/javascript" src="<?php echo $site_url; ?>/wp-content/plugins/<?php echo dirname(plugin_basename(__FILE__)) ?>/js/script.js"></script>
-
 <script type="text/javascript">
     var baseurl;
     baseurl = '<?php echo $site_url; ?>';
@@ -65,8 +63,8 @@ class widget_ContusFeaturedVideos_init extends WP_Widget {
 <!-- For Getting The Page Id More and Video-->
 <?php
         $moreName           = $wpdb->get_var("SELECT ID FROM " . $wpdb->prefix . "posts WHERE post_content='[videomore]' AND post_status='publish' AND post_type='page' LIMIT 1");
-        $ratingscontrol     = $wpdb->get_var("SELECT ratingscontrol FROM " . $wpdb->prefix . "hdflvvideoshare_settings WHERE settings_id='1'");
-?>
+        $settings_result    = $wpdb->get_row("SELECT ratingscontrol,view_visible FROM " . $wpdb->prefix . "hdflvvideoshare_settings WHERE settings_id='1'");
+        ?>
         <!-- For Featured Videos -->
 <?php
         echo $before_widget;
@@ -102,7 +100,7 @@ class widget_ContusFeaturedVideos_init extends WP_Widget {
             foreach ($features as $feature) {
                 $file_type  = $feature->file_type; ## Video Type
                 $imageFea   = $feature->image; ##VIDEO IMAGE
-                $guid       = $feature->guid; ##guid
+                $guid       = get_video_permalink($feature->slug); ##guid
                 if ($imageFea == '') {  ##If there is no thumb image for video
                     $imageFea = $_imagePath . 'nothumbimage.jpg';
                 } else {
@@ -127,14 +125,17 @@ class widget_ContusFeaturedVideos_init extends WP_Widget {
                 }
                 $div        .='</a>';
                 $div        .='<div class="clear"></div>';
-                if ($feature->hitcount > 1)
+                if ($settings_result->view_visible == 1) {
+                if ($feature->hitcount > 1){
                     $viewlanguage = $viewslang;
-                else
+                } else {
                     $viewlanguage = $viewlang;
+                }
                 $div        .='<span class="views">' . $feature->hitcount . ' ' . $viewlanguage . '</span>';
+                }
                 
                 ## Rating starts here
-                if ($ratingscontrol == 1) {
+                if ($settings_result->ratingscontrol == 1) {
                         if (isset($feature->ratecount) && $feature->ratecount != 0) {
                             $ratestar    = round($feature->rate / $feature->ratecount);
                         } else {
@@ -154,7 +155,8 @@ class widget_ContusFeaturedVideos_init extends WP_Widget {
             $div            .="<li>" . __('No Featured Videos', 'video_gallery') . "</li>";
         ## end list
         if (($show < $countF) || ($show == $countF)) {
-            $div            .='<li><div class="video-more"><a href="' . $site_url . '/?page_id=' . $moreName . '&amp;more=fea">' . __('More Videos', 'video_gallery') . ' &#187;</a></div>';
+            $more_videos_link = get_morepage_permalink($moreName,'featured');
+            $div            .='<li><div class="video-more"><a href="' . $more_videos_link . '">' . __('More&nbsp;Videos', 'video_gallery') . '&nbsp;&#187;</a></div>';
             $div            .='<div class="clear"></div></li>';
         } else {
             $div            .='<li><div align="right"> </div></li>';

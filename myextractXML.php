@@ -3,7 +3,7 @@
   Name: Wordpress Video Gallery
   Plugin URI: http://www.apptha.com/category/extension/Wordpress/Video-Gallery
   Description: playlistxml file for player.
-  Version: 2.3.1.0.1
+  Version: 2.5
   Author: Apptha
   Author URI: http://www.apptha.com
   License: GPL2
@@ -15,9 +15,14 @@ $contOBJ                = new ContusVideoController();                 ## includ
 $getVid                 = $pageOBJ->_vId;                              ## Get video ID from video home view
 $getPid                 = $pageOBJ->_pId;                              ## Get playlist ID from video home view
 $numberofvideos         = filter_input(INPUT_GET, 'numberofvideos');   ## Get number of videos from URL
-if (empty($numberofvideos))
+if (empty($numberofvideos)) {
     $numberofvideos     = 4;
+}
+$banner = 0;
 $type                   = filter_input(INPUT_GET, 'type');
+if (!empty($numberofvideos) && !empty($type)) {
+    $banner = 1;
+}
 if (!empty($type) && $type == 1) {                                     ## IF type = popular video
     $thumImageorder     = 'w.hitcount DESC';
     $where              = '';
@@ -33,13 +38,13 @@ if (!empty($type) && $type == 1) {                                     ## IF typ
 } else if (!empty($getVid)) {
     $singleVideodata    = $contOBJ->video_detail($getVid);             ## Get detail for particular video
 } else if (!empty($getPid)) {
-    $singleVideodata    = $contOBJ->video_Pid_detail($getPid);         ## Get detail for particular playlist
+    $singleVideodata    = $contOBJ->video_Pid_detail($getPid,'playxml');         ## Get detail for particular playlist
 } else {
     $singleVideodata    = $pageOBJ->_featuredvideodata;                ## Get detail of featured videos
 }
 $settingsContent        = $pageOBJ->settings_data();
 $tagsName               = $pageOBJ->Tag_detail($getVid);
-$videothum = $islive = $streamer = $duration = $videoPreview = $videotag = $postroll_id = '';
+$videothum = $islive = $streamer = $videoPreview = $videotag = $postroll_id = $subtitle = '';
 $pageOBJ->_imagePath    = APPTHA_VGALLERY_BASEURL . 'images' . DS;     ## declare image path
 ## autoplay value
 if ($settingsContent->playlistauto == 1) {
@@ -57,13 +62,21 @@ header("content-type:text/xml;charset = utf-8");
 echo '<?xml version = "1.0" encoding = "utf-8"?>';
 echo "<playlist autoplay = '$ap' random = 'false'>";
 ## Print all video details
+//echo "<pre>";print_r($singleVideodata);exit;
 foreach ($singleVideodata as $media) {
     $file_type          = $media->file_type;
+    $fbPath = '';
+    if($file_type != 5) {
     $videoUrl           = $media->file;
-    if (!empty($media->duration))
+    if (!empty($media->duration)  && $media->duration != '0:00' ){
     $duration           = $media->duration;
+    } else {
+        $duration = '';
+    }
     $views              = $media->hitcount;
+    if($banner != 1){
     $fbPath             = $media->guid;
+    }
     $hdvideoUrl         = $media->hdfile;
     $opimage            = $media->opimage;
     $image              = $media->image;
@@ -103,6 +116,18 @@ foreach ($singleVideodata as $media) {
         $streamer       = $media->streamer_path;
         $islive         = ($media->islive == 1) ? 'true' : 'false';
     }
+    
+    ## Get subtitles
+    $subtitle1 = $media->srtfile1;
+    $subtitle2 = $media->srtfile2;
+    if(!empty($subtitle1) && !empty($subtitle2)){
+        $subtitle = $image_path.$subtitle1.','.$image_path.$subtitle2;
+    } else if(!empty($subtitle1)){
+        $subtitle = $image_path.$subtitle1;
+    } else if(!empty($subtitle2)){
+        $subtitle = $image_path.$subtitle2;
+    }
+                
     ## Get preroll ad detail
     if ($settingsContent->preroll == 1) {
         $preroll        = ' allow_preroll = "false"';
@@ -149,6 +174,7 @@ foreach ($singleVideodata as $media) {
     ## Generate playlist XML
     echo    '<mainvideo
             views="' . $views . '"
+            subtitle ="'.$subtitle.'"
             duration="' . $duration . '"
             streamer_path="' . $streamer . '"
             video_isLive="' . $islive . '"
@@ -167,9 +193,10 @@ foreach ($singleVideodata as $media) {
             allow_download = "' . $download . '"
             video_hdpath = "' . $hdvideoUrl . '"
             copylink = "">
-            <title><![CDATA[' . htmlspecialchars($media->name) . ']]></title>
-            <tagline targeturl=""><![CDATA[' . htmlspecialchars($media->description) . ']]></tagline>
+            <title><![CDATA[' . strip_tags($media->name) . ']]></title>
+            <tagline targeturl=""><![CDATA[' . strip_tags($media->description) . ']]></tagline>
             </mainvideo>';
+}
 }
 echo '</playlist>';
 ## XML end here

@@ -3,7 +3,7 @@
 Name: Wordpress Video Gallery
 Plugin URI: http://www.apptha.com/category/extension/Wordpress/Video-Gallery
 Description: Video ad view file.
-Version: 2.3.1.0.1
+Version: 2.5
 Author: Apptha
 Author URI: http://www.apptha.com
 License: GPL2
@@ -56,13 +56,13 @@ License: GPL2
           <div class="alignleft actions">
             <select name="videoadactionup" id="videoadactionup">
                 <option value="-1" selected="selected">
-                    Bulk Actions
+                    <?php _e('Bulk Actions', 'video_gallery'); ?>
                 </option>
                 <option value="videoaddelete">
-                    Delete
+                    <?php _e('Delete', 'video_gallery'); ?>
                 </option>
             </select>
-            <input type="submit" name="videoadapply"  class="button-secondary action" value="Apply">
+            <input type="submit" name="videoadapply"  class="button-secondary action" value="<?php _e('Apply', 'video_gallery'); ?>">
         </div>
 
              <?php
@@ -92,30 +92,30 @@ License: GPL2
                         </th>
                         <th scope="col"  class="manage-column column-name sortable desc" style="">
                             <a  href="<?php echo get_bloginfo('url')?>/wp-admin/admin.php?page=videoads&orderby=id&order=<?php echo $reverse_direction; ?>">
-                                <span>Ad ID</span>
+                                <span><?php _e('Ad ID', 'video_gallery'); ?></span>
                                 <span class="sorting-indicator"></span>
                             </a>
                         </th>
                         <th scope="col" class="manage-column column-description sortable desc" style="">
-                            <a href="<?php echo get_bloginfo('url')?>/wp-admin/admin.php?page=videoads&orderby=title&order=<?php echo $reverse_direction; ?>" ><span>Title</span>
+                            <a href="<?php echo get_bloginfo('url')?>/wp-admin/admin.php?page=videoads&orderby=title&order=<?php echo $reverse_direction; ?>" ><span><?php _e('Title', 'video_gallery'); ?></span>
                                 <span class="sorting-indicator"></span>
                             </a>
                         </th>
                           <th scope="col"  class="manage-column column-name sortable desc" style="">
                             <a  href="<?php echo get_bloginfo('url')?>/wp-admin/admin.php?page=videoads&orderby=path&order=<?php echo $reverse_direction; ?>">
-                                <span>Path</span>
+                                <span><?php _e('Path', 'video_gallery'); ?></span>
                                 <span class="sorting-indicator"></span>
                             </a>
                         </th>
                         
                         <th scope="col" class="manage-column column-description sortable desc" style="">
-                            <span>Ad Type</span>
+                            <span><?php _e('Ad Type', 'video_gallery'); ?></span>
                         </th>
                         <th scope="col" class="manage-column column-description sortable desc" style="">
-                            <span>Ad Method</span>
+                            <span><?php _e('Ad Method', 'video_gallery'); ?></span>
                         </th>
                         <th scope="col" class="manage-column column-description sortable desc" style="">
-                            <a  href="<?php echo get_bloginfo('url')?>/wp-admin/admin.php?page=videoads&orderby=publish&order=<?php echo $reverse_direction; ?>" ><span>Publish</span>
+                            <a  href="<?php echo get_bloginfo('url')?>/wp-admin/admin.php?page=videoads&orderby=publish&order=<?php echo $reverse_direction; ?>" ><span><?php _e('Publish', 'video_gallery'); ?></span>
                                 <span class="sorting-indicator"></span>
                             </a>
                         </th>
@@ -175,29 +175,29 @@ License: GPL2
                 </th>
                 <th scope="col"  class="manage-column column-name sortable desc" style="">
                     <a  href="<?php echo get_bloginfo('url')?>/wp-admin/admin.php?page=videoads&orderby=id&order=<?php echo $reverse_direction; ?>">
-                        <span>Ad ID</span>
+                        <span><?php _e('Ad ID', 'video_gallery'); ?></span>
                         <span class="sorting-indicator"></span>
                     </a>
                 </th>
                 <th scope="col" class="manage-column column-description sortable desc" style="">
-                    <a href="<?php echo get_bloginfo('url')?>/wp-admin/admin.php?page=videoads&orderby=title&order=<?php echo $reverse_direction; ?>" ><span>Title</span>
+                    <a href="<?php echo get_bloginfo('url')?>/wp-admin/admin.php?page=videoads&orderby=title&order=<?php echo $reverse_direction; ?>" ><span><?php _e('Title', 'video_gallery'); ?></span>
                         <span class="sorting-indicator"></span>
                     </a>
                 </th>
                 <th scope="col"  class="manage-column column-name sortable desc" style="">
                     <a  href="<?php echo get_bloginfo('url')?>/wp-admin/admin.php?page=videoads&orderby=path&order=<?php echo $reverse_direction; ?>">
-                        <span>Path</span>
+                        <span><?php _e('Path', 'video_gallery'); ?></span>
                         <span class="sorting-indicator"></span>
                     </a>
                 </th>
                 <th scope="col" class="manage-column column-description sortable desc" style="">
-                            <span>Ad Type</span>
+                            <span><?php _e('Ad Type', 'video_gallery'); ?></span>
                         </th>
                 <th scope="col" class="manage-column column-description sortable desc" style="">
-                            <span>Ad Method</span>
+                            <span><?php _e('Ad Method', 'video_gallery'); ?></span>
                         </th>
                 <th scope="col" class="manage-column column-description sortable desc" style="">
-                    <a  href="<?php echo get_bloginfo('url')?>/wp-admin/admin.php?page=videoads&orderby=publish&order=<?php echo $reverse_direction; ?>" ><span>Publish</span>
+                    <a  href="<?php echo get_bloginfo('url')?>/wp-admin/admin.php?page=videoads&orderby=publish&order=<?php echo $reverse_direction; ?>" ><span><?php _e('Publish', 'video_gallery'); ?></span>
                         <span class="sorting-indicator"></span>
                     </a>
                 </th>
@@ -208,13 +208,13 @@ License: GPL2
         <div class="alignleft actions" style="margin-top:10px;">
             <select name="videoadactiondown" id="videoadactiondown">
                 <option value="-1" selected="selected">
-                    Bulk Actions
+                    <?php _e('Bulk Actions', 'video_gallery'); ?>
                 </option>
                 <option value="videoaddelete">
-                    Delete
+                    <?php _e('Delete', 'video_gallery'); ?>
                 </option>
             </select>
-            <input type="submit" name="videoadapply"  class="button-secondary action" value="Apply">
+            <input type="submit" name="videoadapply"  class="button-secondary action" value="<?php _e('Apply', 'video_gallery'); ?>">
         </div>
             <?php
             if ($page_links) {

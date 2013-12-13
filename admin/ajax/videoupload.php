@@ -3,7 +3,7 @@
 Name: Wordpress Video Gallery
 Plugin URI: http://www.apptha.com/category/extension/Wordpress/Video-Gallery
 Description: Ajax Video Upload.
-Version: 2.3.1.0.1
+Version: 2.5
 Author: Apptha
 Author URI: http://www.apptha.com
 License: GPL2
@@ -41,10 +41,13 @@ if (isset($_POST['mode']))
     {
 
         $exttype = $_POST['mode'];
-        if ($exttype == 'video')
+        if ($exttype == 'video'){
         $allowedExtensions = array("flv", "FLV", "mp4", "MP4" , "m4v", "M4V", "M4A", "m4a", "MOV", "mov", "mp4v", "Mp4v", "F4V", "f4v" ,"mp3" , "MP3");
-        else
+        }else if ($exttype == 'image'){
         $allowedExtensions = array("jpg", "JPG","jpeg", "JPEG", "png", "PNG");
+        }else if ($exttype == 'srt'){
+	$allowedExtensions = array("srt", "SRT");
+        }
     }
 
 //check if upload cancelled

@@ -3,7 +3,7 @@
   Name: Wordpress Video Gallery
   Plugin URI: http://www.apptha.com/category/extension/Wordpress/Video-Gallery
   Description: Wordpress video gallery Related videos widget.
-  Version: 2.3.1.0.1
+  Version: 2.5
   Author: Apptha
   Author URI: http://www.apptha.com
   License: GPL2
@@ -58,8 +58,6 @@ class widget_ContusRelatedVideos_init extends WP_Widget {
         $countF = $div = '';
         ?>
 <!-- Recent videos -->
-<script type="text/javascript" src="<?php echo $site_url; ?>/wp-content/plugins/<?php echo dirname(plugin_basename(__FILE__)) ?>/js/script.js"></script>
-
 <script type="text/javascript">
     var baseurl;
     baseurl = '<?php echo $site_url; ?>';
@@ -76,7 +74,7 @@ class widget_ContusRelatedVideos_init extends WP_Widget {
             $videoID            = $wpdb->get_var("SELECT vid FROM " . $wpdb->prefix . "hdflvvideoshare WHERE slug='$videoID'");
             if (!empty($videoID)) {
             $video_playlist_id  = $wpdb->get_var("SELECT playlist_id FROM " . $wpdb->prefix . "hdflvvideoshare_med2play WHERE media_id='$videoID'");
-            $ratingscontrol     = $wpdb->get_var("SELECT ratingscontrol FROM " . $wpdb->prefix . "hdflvvideoshare_settings WHERE settings_id='1'");
+            $settings_result    = $wpdb->get_row("SELECT ratingscontrol,view_visible FROM " . $wpdb->prefix . "hdflvvideoshare_settings WHERE settings_id='1'");
             $site_url           = get_bloginfo('url');
             $ratearray = array("nopos1", "onepos1", "twopos1", "threepos1", "fourpos1", "fivepos1");
 
@@ -85,7 +83,7 @@ class widget_ContusRelatedVideos_init extends WP_Widget {
 
             $show               = $instance['show'];
 
-            $sql                = "SELECT distinct a.*,s.guid,b.playlist_id,p.playlist_name
+            $sql                = "SELECT distinct a.*,s.guid,b.playlist_id,p.playlist_name,p.playlist_slugname
                                 FROM " . $wpdb->prefix . "hdflvvideoshare a
                                 INNER JOIN " . $wpdb->prefix . "hdflvvideoshare_med2play b ON a.vid=b.media_id
                                 INNER JOIN " . $wpdb->prefix . "hdflvvideoshare_playlist p ON p.pid=b.playlist_id
@@ -95,6 +93,7 @@ class widget_ContusRelatedVideos_init extends WP_Widget {
             $relatedVideos      = $wpdb->get_results($sql);
             if (!empty($relatedVideos)) {
                 $playlistID     = $relatedVideos[0]->playlist_id;
+                $playlist_slugname     = $relatedVideos[0]->playlist_slugname;
                 $fetched        = $relatedVideos[0]->playlist_name;
                 $moreF          = $wpdb->get_results("select count(a.vid) as relatedcontus from " . $wpdb->prefix . "hdflvvideoshare a INNER JOIN " . $wpdb->prefix . "hdflvvideoshare_med2play b ON a.vid=b.media_id WHERE b.playlist_id=" . $playlistID . " ORDER BY a.vid DESC");
                 $countF         = $moreF[0]->relatedcontus;
@@ -118,7 +117,7 @@ class widget_ContusRelatedVideos_init extends WP_Widget {
                 foreach ($relatedVideos as $feature) {
                     $file_type  = $feature->file_type; ## Video Type
                     $imageFea   = $feature->image;
-                    $guid       = $feature->guid; ##guid
+                    $guid       = get_video_permalink($feature->slug); ##guid
                     if ($imageFea == '') {  ##If there is no thumb image for video
                         $imageFea = $_imagePath . 'nothumbimage.jpg';
                     } else {
@@ -142,14 +141,17 @@ class widget_ContusRelatedVideos_init extends WP_Widget {
                         $div    .= $feature->name;
                     }
                     $div        .= '</a><div class="clear"></div>';
-                    if ($feature->hitcount > 1)
-                        $viewlanguage = $viewslang;
-                    else
-                        $viewlanguage = $viewlang;
-                    $div        .= '<span class="views">' . $feature->hitcount . ' ' . $viewlanguage;
-                    $div        .= '</span>';
+                    if ($settings_result->view_visible == 1) {
+                        if ($feature->hitcount > 1){
+                            $viewlanguage = $viewslang;
+                        } else {
+                            $viewlanguage = $viewlang;
+                        }
+                        $div        .= '<span class="views">' . $feature->hitcount . ' ' . $viewlanguage;
+                        $div        .= '</span>';
+                    }
                     ## Rating starts here
-                    if ($ratingscontrol == 1) {
+                    if ($settings_result->ratingscontrol == 1) {
                             if (isset($feature->ratecount) && $feature->ratecount != 0) {
                                 $ratestar    = round($feature->rate / $feature->ratecount);
                             } else {
@@ -174,7 +176,8 @@ class widget_ContusRelatedVideos_init extends WP_Widget {
         }
 
         if (($show < $countF) || ($show == $countF)) {
-            $div                .= '<li><div class="right video-more"><a href="' . $site_url . '/?page_id=' . $moreName . '&amp;playid=' . $playlistID . '">' . __('More Videos', 'video_gallery') . ' &#187;</a></div>';
+            $playlist_url = get_playlist_permalink($moreName,$playlistID,$playlist_slugname);
+            $div                .= '<li><div class="right video-more"><a href="' . $playlist_url . '">' . __('More&nbsp;Videos', 'video_gallery') . '&nbsp;&#187;</a></div>';
             $div                .= '<div class="clear"></div></li>';
         }
         $div                    .= '</ul></div><div class="clear"></div>';

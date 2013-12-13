@@ -3,7 +3,7 @@
 Name: Wordpress Video Gallery
 Plugin URI: http://www.apptha.com/category/extension/Wordpress/Video-Gallery
 Description: Video home page controller file.
-Version: 2.3.1.0.1
+Version: 2.5
 Author: Apptha
 Author URI: http://www.apptha.com
 License: GPL2
@@ -40,9 +40,17 @@ if(class_exists('ContusVideoController') != true)
             return $this->get_tag_name($vid);
         } //getting tag detail function ends
 
+         function home_catthumbdata($thumImageorder,$dataLimit)
+         {// HOME PAGE FEATURED VIDEOS STARTS
+            return $this->get_home_catthumbdata($thumImageorder,$dataLimit);
+         }
          function home_thumbdata($thumImageorder,$where,$dataLimit)
          {// HOME PAGE FEATURED VIDEOS STARTS
             return $this->get_thumdata($thumImageorder,$where,$dataLimit);
+         }
+         function countof_home_thumbdata($thumImageorder,$where)
+         {// HOME PAGE FEATURED VIDEOS STARTS
+            return $this->get_countof_thumdata($thumImageorder,$where);
          }
          function home_playxmldata($getVid,$thumImageorder,$where,$dataLimit)
          {// HOME PAGE FEATURED VIDEOS STARTS

@@ -3,12 +3,37 @@
 Name: Wordpress Video Gallery
 Plugin URI: http://www.apptha.com/category/extension/Wordpress/Video-Gallery
 Description: playlist model file.
-Version: 2.3.1.0.1
+Version: 2.5
 Author: Apptha
 Author URI: http://www.apptha.com
 License: GPL2
 */
 ?>
+<?php
+$page = '';
+if (isset($_GET['pagenum'])){
+        $page = '&pagenum=' . $_GET['pagenum'];}
+?>
+<script type="text/javascript">
+    // When the document is ready set up our sortable with it's inherant function(s)
+    var dragdr = jQuery.noConflict();
+    var videoid = new Array();
+    dragdr(document).ready(function() {
+        dragdr("#test-list").sortable({
+            handle : '.handle',
+            update : function () {
+                var order = dragdr('#test-list').sortable('serialize');
+                orderid= order.split("listItem[]=");
+                for(i=1;i<orderid.length;i++)
+                {
+                    videoid[i]=orderid[i].replace('&',"");
+                    oid= "ordertd_"+videoid[i];
+                }
+                dragdr.post("<?php echo get_bloginfo('url'); ?>/wp-admin/admin-ajax.php?action=playlistsortorder<?php echo $page; ?>",order);
+            }
+        });
+    });
+</script>
 <div class="apptha_gallery">
 
     <!--   MENU OPTIONS STARTS  --->
@@ -22,14 +47,73 @@ License: GPL2
     <div class="wrap">
         <h2 class="option_title">
             <?php echo "<img src='" . APPTHA_VGALLERY_BASEURL . "/images/manage_list.png' alt='move' width='30'/>"; ?>
-            <?php _e('Manage Categories', 'video_gallery'); ?>
-            <a class="button-primary" href="<?php echo get_bloginfo('url') ?>/wp-admin/admin.php?page=newplaylist" ><?php _e('Add Category', 'video_gallery'); ?></a>
+            <?php _e('Categories', 'video_gallery'); ?>
         </h2>
+        <div class="floatleft category_addpages">
+        <?php 
+$dir                    = dirname(plugin_basename(__FILE__));
+$dirExp                 = explode('/', $dir);
+$dirPage                = $dirExp[0];
+?>
+<script type="text/javascript">
+    folder  = '<?php echo $dirPage; ?>'
+</script>
+<div class="apptha_gallery">
+<?php       if(isset($playListId)){ ?>
+    <h3><?php _e('Update Category','video_gallery'); ?></h3>
+ <?php } else { ?> <h3><?php _e('Add a New Category','video_gallery'); ?></h3> <?php } ?>
+    <?php if ($displayMsg && $displayMsg[1] == 'addcategory'): ?>
+    <div class="updated below-h2">
+        <p>
+            <?php  echo $displayMsg[0];
+            ?>
+        </p>
+    </div>
+    <?php endif; ?>
+    <div id="post-body" class="has-sidebar">
+        <div id="post-body-content" class="has-sidebar-content">
+            <div class="stuffbox">
+                <h3 class="hndle"><span><?php _e('Enter Title / Name', 'video_gallery'); ?></span></h3>
+                <div class="inside" style="margin:15px;">
+                    <form name="adsform" method="post" enctype="multipart/form-data" >
+                        <table class="form-table">
+                            <tr>
+                            <th scope="row"><?php _e('Title / Name', 'video_gallery') ?></th>
+                            <td>
+                                <input type="text" size="50" maxlength="200" id="playlistname" name="playlistname" value="<?php echo (isset($playlistEdit->playlist_name))? $playlistEdit->playlist_name:""; ?>"  />
+                                <span id="playlistnameerrormessage" style="display: block;color:red; "></span>
+                            </td>
+                            </tr>
 
-<?php if ($displayMsg): ?>
+                            <tr>
+                                <th scope="row"><?php _e('Publish', 'video_gallery') ?></th>
+                                <td>
+                                    <input type="radio" name="ispublish" id="publish_yes" <?php if (isset($playlistEdit->is_publish) && $playlistEdit->is_publish == 1) {  echo "checked"; } ?> value="1"> <label><?php _e('Yes', 'video_gallery'); ?></label>
+                                    <input type="radio" name="ispublish" id="ispublish_no" <?php if (isset($playlistEdit->is_publish) && $playlistEdit->is_publish == 0) { echo "checked"; } ?> value="0"><label> <?php _e('No', 'video_gallery'); ?></label>
+                                </td>
+                            </tr>
+                        </table>
+                    <?php       if(isset($playListId)){ ?>
+                    <input type="submit" name="playlistadd" onclick="return validateplyalistInput();" class="button-primary"  value="<?php _e('Update Category', 'video_gallery'); ?>" class="button" /> 
+                        <input type="button" onclick="window.location.href='admin.php?page=playlist'" class="button-secondary" name="cancel" value="<?php _e('Cancel'); ?>" class="button" />
+                        <?php }  else{?>
+                    <input type="submit" name="playlistadd" onclick="return validateplyalistInput();" class="button-primary"  value="<?php _e('Add Category', 'video_gallery'); ?>" class="button" /> <?php }  ?>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <p>
+    </div>
+</div>
+ <script type="text/javascript">
+document.getElementById("publish_yes").checked = true;
+ </script>
+    </div>
+<div class="floatleft category_addpages">
+<?php if ($displayMsg && $displayMsg[1] == 'category'): ?>
             <div class="updated below-h2">
                 <p>
-<?php echo $displayMsg; ?>
+<?php echo $displayMsg[0]; ?>
                     </p>
                 </div>
 <?php
@@ -44,9 +128,9 @@ License: GPL2
                     $url = get_bloginfo('url') . '/wp-admin/admin.php?page=playlist';
                     $searchmsg = filter_input(INPUT_POST, 'PlaylistssearchQuery');
                     if (count($gridPlaylist)) {
-                        echo count($gridPlaylist) . "   "._e('Search Result(s) for', 'video_gallery')." '" . $searchMsg . "'.&nbsp&nbsp&nbsp<a href='$url' >"._e('Back to Category List', 'video_gallery')."</a>";
+                        echo _e('Search Results for', 'video_gallery').' "' . $searchMsg.'"' ;
                     } else {
-                        echo " "._e('No Search Result(s) for', 'video_gallery')." '" . $searchMsg . "'.&nbsp&nbsp&nbsp<a href='$url' >"._e('Back to Category List', 'video_gallery')."</a>";
+                        echo _e('No Search Results for', 'video_gallery').' "' . $searchMsg.'"' ;
                     }
             ?> </div> <?php } ?>
             <form name="Playlists" action="" method="post" onsubmit="return Playlistsearch();">
@@ -95,15 +179,12 @@ License: GPL2
                             <th scope="col"  class="manage-column column-cb check-column" style="">
                                 <input type="checkbox" name="" >
                             </th>
-<!--                            <th scope="col"  class="manage-column column-name sortable desc" style="">
-                                <a href="<?php echo get_bloginfo('url') ?>/wp-admin/admin.php?page=playlist&orderby=id&order=<?php echo $reverse_direction; ?>">
-                                    <span><?php _e('Drag to Sort', 'video_gallery'); ?></span>
-                                    <span class="sorting-indicator"></span>
-                                </a>
-                            </th>-->
+                            <th scope="col"  style="">
+                                   <span>
+                                    <?php _e('', 'video_gallery'); ?> </span><span class="sorting-indicator"></span></th>
                             <th scope="col"  class="manage-column column-name sortable desc" style="">
                                 <a href="<?php echo get_bloginfo('url') ?>/wp-admin/admin.php?page=playlist&orderby=id&order=<?php echo $reverse_direction; ?>">
-                                    <span><?php _e('Category ID', 'video_gallery'); ?></span>
+                                    <span><?php _e('ID', 'video_gallery'); ?></span>
                                     <span class="sorting-indicator"></span>
                                 </a>
                             </th>
@@ -113,22 +194,16 @@ License: GPL2
                                     <span class="sorting-indicator"></span>
                                 </a>
                             </th>
-<!--                            <th scope="col"  class="manage-column column-name sortable desc" style="">
-                                <a href="<?php echo get_bloginfo('url') ?>/wp-admin/admin.php?page=playlist&orderby=desc&order=<?php echo $reverse_direction; ?>">
-                                    <span>Description</span>
-                                    <span class="sorting-indicator"></span>
-                                </a>
-                            </th>-->
                             <th scope="col" class="manage-column column-Expiry sortable desc" style="">
                                 <a href="<?php echo get_bloginfo('url') ?>/wp-admin/admin.php?page=playlist&orderby=publish&order=<?php echo $reverse_direction; ?>"><span><?php _e('Publish', 'video_gallery'); ?></span>
                                     <span class="sorting-indicator"></span>
                                 </a>
                             </th>
-<!--                            <th scope="col" class="manage-column column-description sortable desc" style="">
-                                <a href="<?php echo get_bloginfo('url') ?>/wp-admin/admin.php?page=playlist&orderby=sorder&order=<?php echo $reverse_direction; ?>"><span>Sort Order</span>
+                            <th scope="col" class="manage-column column-sortorder sortable desc" style="">
+                                <a href="<?php echo get_bloginfo('url') ?>/wp-admin/admin.php?page=playlist&orderby=sorder&order=<?php echo $reverse_direction; ?>"><span><?php _e('Order', 'video_gallery'); ?></span>
                                     <span class="sorting-indicator"></span>
                                 </a>
-                            </th>-->
+                            </th>
                         </tr>
                     </thead>
                     <tbody id="test-list" class="list:post"> <input type=hidden id=playlistid2 name=playlistid2 value="1"  >
@@ -138,20 +213,22 @@ License: GPL2
                 foreach ($gridPlaylist as $playlistView) {
                     $class = ( $class == 'class="alternate"' ) ? '' : 'class="alternate"';
 ?>
-                <tr <?php echo $class; ?> >
+                <tr id="listItem_<?php echo $playlistView->pid; ?>" <?php echo $class; ?> >
                     <th scope="row" class="check-column">
                         <input type="checkbox" name="pid[]" value="<?php echo $playlistView->pid ?>">
                     </th>
-<?php //echo " <td id=\"playItem=$playlistView->pid\"  class='drag-column ' > <img src='" . APPTHA_VGALLERY_BASEURL . "/images/arrow.png' alt='move' width='16' height='16' class='handle' /></td></th>\n"; ?>
+                    <td>
+                        <span class="hasTip content" title="<?php _e('Click and Drag', 'video_gallery'); ?>" style="padding: 6px;">
+                            <img src="<?php echo APPTHA_VGALLERY_BASEURL . 'images/arrow.png'; ?>" alt="move"
+                                 width="16" height="16" class="handle" />
+                        </span>
+                    </td>
                     <td class="id-column">
                         <a title="Edit <?php echo $playlistView->playlist_name; ?>" href="<?php echo $_SERVER["PHP_SELF"]; ?>?page=newplaylist&playlistId=<?php echo $playlistView->pid; ?>" ><?php echo $playlistView->pid; ?></a><div class="row-actions">
                     </td>
                     <td class="title-column">
                         <a title="Edit <?php echo $playlistView->playlist_name; ?>" class="row-title" href="<?php echo $_SERVER["PHP_SELF"]; ?>?page=newplaylist&playlistId=<?php echo $playlistView->pid; ?>" ><?php echo $playlistView->playlist_name; ?></a>
                     </td>
-<!--                    <td class="desc-column Expiry column-Expiry">
-                        <?php echo $playlistView->playlist_desc; ?>
-                    </td>-->
                     <td class="pub-column Expiry column-Expiry">
                         <?php
                         $status = 1;
@@ -165,9 +242,9 @@ License: GPL2
                         ?>
                                 <a href="<?php echo get_bloginfo('url') ?>/wp-admin/admin.php?page=playlist<?php if(isset($_GET['pagenum'])) echo '&pagenum='.$_GET['pagenum']; ?>&playlistId=<?php echo $playlistView->pid; ?>&status=<?php echo $status; ?>">   <img src="<?php echo APPTHA_VGALLERY_BASEURL . 'images/' . $image ?>" title="<?php echo $publish; ?>"   /> </a>
                             </td>
-<!--                            <td class="order-column Expiry column-Expiry">
-                <?php echo $playlistView->ordering; ?>
-                            </td>-->
+                            <td class="order-column Expiry column-Expiry">
+                <?php echo $playlistView->playlist_order; ?>
+                            </td>
                         </tr>
                 <?php
                     }
@@ -184,15 +261,12 @@ License: GPL2
                             <th scope="col"  class="manage-column column-cb check-column" style="">
                                 <input type="checkbox" name="" >
                             </th>
-<!--                            <th scope="col"  class="manage-column column-name sortable desc" style="">
-                                <a href="<?php echo get_bloginfo('url') ?>/wp-admin/admin.php?page=playlist&orderby=id&order=<?php echo $reverse_direction; ?>">
-                                    <span><?php _e('Drag to Sort', 'hdflvvideoshare'); ?></span>
-                                    <span class="sorting-indicator"></span>
-                                </a>
-                            </th>-->
+                            <th width="3%" scope="col"  style="">
+                                   <span>
+                                    <?php _e('', 'video_gallery'); ?> </span><span class="sorting-indicator"></span></th>
                             <th scope="col"  class="manage-column column-name sortable desc" style="">
                                 <a href="<?php echo get_bloginfo('url') ?>/wp-admin/admin.php?page=playlist&orderby=id&order=<?php echo $reverse_direction; ?>">
-                                    <span><?php _e('Category ID', 'video_gallery'); ?></span>
+                                    <span><?php _e('ID', 'video_gallery'); ?></span>
                                     <span class="sorting-indicator"></span>
                                 </a>
                             </th>
@@ -202,22 +276,16 @@ License: GPL2
                                     <span class="sorting-indicator"></span>
                                 </a>
                             </th>
-<!--                            <th scope="col"  class="manage-column column-name sortable desc" style="">
-                                <a href="<?php echo get_bloginfo('url') ?>/wp-admin/admin.php?page=playlist&orderby=desc&order=<?php echo $reverse_direction; ?>">
-                                    <span>Description</span>
-                                    <span class="sorting-indicator"></span>
-                                </a>
-                            </th>-->
                             <th scope="col" class="manage-column column-Expiry sortable desc" style="">
                                 <a href="<?php echo get_bloginfo('url') ?>/wp-admin/admin.php?page=playlist&orderby=publish&order=<?php echo $reverse_direction; ?>"><span><?php _e('Publish', 'video_gallery'); ?></span>
                                     <span class="sorting-indicator"></span>
                                 </a>
                             </th>
-<!--                            <th scope="col" class="manage-column column-description sortable desc" style="">
-                                <a href="<?php echo get_bloginfo('url') ?>/wp-admin/admin.php?page=playlist&orderby=id&sorder=<?php echo $reverse_direction; ?>"><span>Sort Order</span>
+                             <th scope="col" class="manage-column column-sortorder sortable desc" style="">
+                                <a href="<?php echo get_bloginfo('url') ?>/wp-admin/admin.php?page=playlist&orderby=sorder&order=<?php echo $reverse_direction; ?>"><span><?php _e('Order', 'video_gallery'); ?></span>
                                     <span class="sorting-indicator"></span>
                                 </a>
-                            </th>-->
+                            </th>
                         </tr>
                     </tfoot>
                 </table>
@@ -239,5 +307,6 @@ License: GPL2
                     }
             ?>
         </form>
+</div>
     </div>
 </div>

@@ -3,7 +3,7 @@
 Name: Wordpress Video Gallery
 Plugin URI: http://www.apptha.com/category/extension/Wordpress/Video-Gallery
 Description: Video Settings Controller.
-Version: 2.3.1.0.1
+Version: 2.5
 Author: Apptha
 Author URI: http://www.apptha.com
 License: GPL2
@@ -34,7 +34,10 @@ if (class_exists('SettingsController') != true) {//checks if the SettingsControl
                 $keyApps = filter_input(INPUT_POST, 'keyApps');
                 $keydisqusApps = filter_input(INPUT_POST, 'keydisqusApps');
                 $embedVisible = filter_input(INPUT_POST, 'embed_visible');
+                $view_visible = filter_input(INPUT_POST, 'view_visible');
                 $ratingscontrol = filter_input(INPUT_POST, 'ratingscontrol');
+                $tagdisplay = filter_input(INPUT_POST, 'tagdisplay');
+                $categorydisplay = filter_input(INPUT_POST, 'categorydisplay');
                 $downLoad = filter_input(INPUT_POST, 'download');
                 $playerTimer = filter_input(INPUT_POST, 'timer');
                 $playerZoom = filter_input(INPUT_POST, 'zoom');
@@ -74,8 +77,16 @@ if (class_exists('SettingsController') != true) {//checks if the SettingsControl
                 $colMore = filter_input(INPUT_POST, 'colMore');
                 $playList = filter_input(INPUT_POST, 'playlist');
                 $fullScreen = filter_input(INPUT_POST, 'fullscreen');
-//                $default_player = filter_input(INPUT_POST, 'default_player');
                 $default_player = 0;
+                
+                $skinVisible = filter_input(INPUT_POST, 'skinVisible');
+                $skin_opacity = filter_input(INPUT_POST, 'skin_opacity');
+                
+                $subTitleColor = filter_input(INPUT_POST, 'subTitleColor');
+                $subTitleBgColor = filter_input(INPUT_POST, 'subTitleBgColor');
+                $subTitleFontFamily = filter_input(INPUT_POST, 'subTitleFontFamily');
+                $subTitleFontSize = filter_input(INPUT_POST, 'subTitleFontSize');
+                
                 $sharepanel_up_BgColor = filter_input(INPUT_POST, 'sharepanel_up_BgColor');
                 $sharepanel_down_BgColor = filter_input(INPUT_POST, 'sharepanel_down_BgColor');
                 $sharepaneltextColor = filter_input(INPUT_POST, 'sharepaneltextColor');
@@ -126,7 +137,13 @@ if (class_exists('SettingsController') != true) {//checks if the SettingsControl
                     'playerButtonBgColor' => $playerButtonBgColor,
                     'relatedVideoBgColor' => $relatedVideoBgColor,
                     'scroll_barColor' => $scroll_barColor,
-                    'scroll_BgColor' => $scroll_BgColor
+                    'scroll_BgColor' => $scroll_BgColor,
+                    'skinVisible' => $skinVisible,
+                    'skin_opacity' => $skin_opacity,
+                    'subTitleColor' => $subTitleColor,
+                    'subTitleBgColor' => $subTitleBgColor,
+                    'subTitleFontFamily' => $subTitleFontFamily,
+                    'subTitleFontSize' => $subTitleFontSize
                     );
                 
                 $settingsData = array(
@@ -138,7 +155,10 @@ if (class_exists('SettingsController') != true) {//checks if the SettingsControl
                     'keyApps' => $keyApps,
                     'keydisqusApps' => $keydisqusApps,
                     'embed_visible' => $embedVisible,
+                    'view_visible' => $view_visible,
                     'ratingscontrol' => $ratingscontrol,
+                    'tagdisplay' => $tagdisplay,
+                    'categorydisplay' => $categorydisplay,
                     'download' => $downLoad,
                     'timer' => $playerTimer,
                     'zoom' => $playerZoom,
@@ -209,13 +229,13 @@ $image_path = str_replace('plugins/'.$dirPage.'/admin/controllers', 'uploads/vid
                                 }else{
                                     $settingsData['logopath'] = $logopath;
                                 }
-                $settingsDataformat = array('%d','%d','%d', '%d', '%d', '%s', '%s', '%d', '%d', '%d',
-                    '%d', '%d', '%d','%d', '%d', '%d', '%d', '%d', '%d', '%d',
-                    '%s', '%s', '%s','%s', '%s', '%s', '%s', '%s', '%s', '%s',
-                    '%d', '%d', '%d','%s', '%d', '%d', '%d', '%d', '%d', '%d',
-                    '%d', '%d', '%d','%d', '%d', '%d', '%s', '%d', '%d', '%d',
-                    '%s', '%s', '%s', '%s', '%d','%d', '%d', '%d', '%d', '%d',
-                    '%s', '%s');
+                $settingsDataformat = array('%d','%d','%d', '%d', '%d', '%s', '%s', '%d', '%d', '%d', 
+                    '%d','%d','%d','%d', '%d', '%d','%d', '%d', '%d', '%d',
+                    '%d', '%d', '%d','%s', '%s', '%s','%s', '%s', '%s', '%s',
+                    '%s', '%s', '%s','%d', '%d', '%d','%s', '%d', '%d', '%d',
+                    '%d', '%d', '%d','%d', '%d', '%d','%d', '%d', '%d', '%s',
+                    '%d', '%d', '%d','%s', '%s', '%s', '%s', '%d','%d', '%d',
+                    '%d', '%d', '%d','%s', '%s');
                 $updateflag = $this->update_settings($settingsData, $settingsDataformat);
                 if ($updateflag) {
                     $this->admin_redirect("admin.php?page=hdflvvideosharesettings&update=1");

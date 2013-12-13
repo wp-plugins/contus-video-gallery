@@ -3,7 +3,7 @@
   Name: Wordpress Video Gallery
   Plugin URI: http://www.apptha.com/category/extension/Wordpress/Video-Gallery
   Description: Add video ads view file.
-  Version: 2.3.1.0.1
+  Version: 2.5
   Author: Apptha
   Author URI: http://www.apptha.com
   License: GPL2
@@ -22,7 +22,7 @@ $image_path = str_replace('plugins/'.$dirPage.'/', 'uploads/videogallery/', APPT
     <?php if (isset($videoadId)) {
  ?>
         <h2 class="option_title"><?php _e('Update Video Ad', 'video_gallery'); ?></h2> <?php } else {
- ?> <h2  class="option_title"><?php echo "<img src='" . APPTHA_VGALLERY_BASEURL . "images/vid_ad.png' alt='move' width='30'/>"; ?><?php _e('Add a New Video Ad', 'video_gallery'); ?></h2> <?php } ?>
+ ?> <h2  class="option_title"><?php echo "<img src='" . APPTHA_VGALLERY_BASEURL . "images/vid_ad.png' alt='move' width='30'/>"; ?><?php _e('Add New Video Ad', 'video_gallery'); ?></h2> <?php } ?>
 <?php if (isset($msg)): ?>
         <div class="updated below-h2">
             <p>
@@ -54,14 +54,14 @@ $image_path = str_replace('plugins/'.$dirPage.'/', 'uploads/videogallery/', APPT
                                                if (isset($videoadEdit) && $videoadEdit->admethod == 'prepost') {
                                                    echo 'checked="checked" ';
                                                }
-                                               ?> onClick="Videoadtype('prepostroll')"/> Preroll/Postroll Ad
+                                               ?> onClick="Videoadtype('prepostroll')"/> Pre-roll/Post-roll Ad
                             </span>
                             <span>
                                 <input type="radio" name="videoadtype" id="midroll" value="2" <?php
                                                if (isset($videoadEdit) && $videoadEdit->admethod == 'midroll') {
                                                    echo 'checked="checked" ';
                                                }
-                                               ?> onClick="Videoadtype('midroll')" />  Midroll Ad
+                                               ?> onClick="Videoadtype('midroll')" />  Mid-roll Ad
                             </span>
                             <span>
                                 <input type="radio" name="videoadtype" id="imaad" value="3" <?php
@@ -73,7 +73,7 @@ $image_path = str_replace('plugins/'.$dirPage.'/', 'uploads/videogallery/', APPT
                         </h3>
                         <table class="form-table">
                         <tr id="videoadmethod" name="videoadmethod">
-                                <td  width="150"><?php _e('Select File Path', 'video_gallery') ?></td>
+                                <td  width="150"><?php _e('Select file type', 'video_gallery') ?></td>
                                 <td>
                                 <input type="radio" name="videoad" id="filebtn" value="1" onClick="Videoadtypemethod('fileuplo');" /> File
                                 <input type="radio" name="videoad" id="urlbtn" value="2" onClick="Videoadtypemethod('urlad');" />  URL
@@ -116,7 +116,19 @@ $image_path = str_replace('plugins/'.$dirPage.'/', 'uploads/videogallery/', APPT
                     </table>
                 </div>
                 <form action="" name="videoadsform" class="videoform" method="post" enctype="multipart/form-data"  >
-                    
+                     <div id="videoadurl" style="display: none;" >
+                        <table class="form-table">
+                            <tr>
+                                <td scope="row"  width="150"><?php _e('Video Ad URL', 'video_gallery') ?></td>
+                                <td>
+                                    <input type="text" size="50" onchange="clear_upload();" onkeyup="validateerrormsg();" name="videoadfilepath" id="videoadfilepath"  value="<?php echo (isset($videoadEdit->file_path)) ? $videoadEdit->file_path : ""; ?>"  />&nbsp;&nbsp
+                                    <br /><?php _e('Here you need to enter the video ad URL', 'video_gallery') ?>
+                                    <br /><?php _e('It accept also a Youtube link : http://www.youtube.com/watch?v=tTGHCRUdlBs', 'video_gallery') ?>
+                                <span id="filepatherrormessage" style="display: block;color:red; "></span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
                     <table id="videoimaaddetails" style="display: none;" class="form-table">
                         <tr>
 				<td scope="row"  width="150"><?php _e('IMA Ad Type', 'video_gallery') ?></td>
@@ -137,7 +149,7 @@ $image_path = str_replace('plugins/'.$dirPage.'/', 'uploads/videogallery/', APPT
                         <tr id="adimapath" style="display: none;">
 				<td scope="row"  width="150"><?php _e('IMA Ad Path', 'video_gallery') ?></td>
 				<td>
-                                <input type="text" size="50" name="imaadpath" id="imaadpath" value="<?php if(isset($videoadEdit->imaadpath)){ echo $videoadEdit->imaadpath; }else{ echo '';} ?>" />
+                                <input type="text" size="50" onkeyup="validateerrormsg();" name="imaadpath" id="imaadpath" value="<?php if(isset($videoadEdit->imaadpath)){ echo $videoadEdit->imaadpath; }else{ echo '';} ?>" />
                                 <span id="imaadpatherrormessage" style="display: block;color:red; "></span>
 				</td>
 			</tr>
@@ -155,20 +167,20 @@ $image_path = str_replace('plugins/'.$dirPage.'/', 'uploads/videogallery/', APPT
                         </tr>
 			<tr id="adimapublisher" style="display: none;">
 				<td scope="row"  width="150"><?php _e('Publisher ID', 'video_gallery') ?></td>
-				<td><input type="text" size="50" name="publisherId" id="publisherId" value="<?php echo (isset($videoadEdit->publisherId)) ? $videoadEdit->publisherId : ''; ?>" />
+				<td><input type="text" size="50" onkeyup="validateerrormsg();" name="publisherId" id="publisherId" value="<?php echo (isset($videoadEdit->publisherId)) ? $videoadEdit->publisherId : ''; ?>" />
                                 <span id="imapublisherIderrormessage" style="display: block;color:red; "></span>
                                 </td>
 			</tr>
 			<tr id="adimacontentid" style="display: none;">
 				<td scope="row"  width="150"><?php _e('Content ID', 'video_gallery') ?></td>
-				<td><input type="text" size="50" name="contentId" id="contentId" value="<?php echo (isset($videoadEdit->contentId)) ? $videoadEdit->contentId : ''; ?>" />
+				<td><input type="text" size="50" name="contentId" onkeyup="validateerrormsg();" id="contentId" value="<?php echo (isset($videoadEdit->contentId)) ? $videoadEdit->contentId : ''; ?>" />
                                 <span id="imacontentIderrormessage" style="display: block;color:red; "></span>
                                 </td>
 			</tr>
 			
 			<tr id="adimachannels" style="display: none;">
 				<td scope="row"  width="150"><?php _e('Channels', 'video_gallery') ?></td>
-				<td><input type="text" size="50" name="channels" id="channels" value="<?php echo (isset($videoadEdit->channels)) ? $videoadEdit->channels : ''; ?>" />
+				<td><input type="text" size="50" onkeyup="validateerrormsg();" name="channels" id="channels" value="<?php echo (isset($videoadEdit->channels)) ? $videoadEdit->channels : ''; ?>" />
                                 <span id="imachannelserrormessage" style="display: block;color:red; "></span>
                                 </td>
 			</tr>
@@ -177,7 +189,7 @@ $image_path = str_replace('plugins/'.$dirPage.'/', 'uploads/videogallery/', APPT
                         <tr id="adtitle"  style="display: none;">
                             <td scope="row"  width="150"><?php _e('Title / Name', 'video_gallery') ?></td>
                             <td>
-                                <input type="text" size="50" maxlength="200" name="videoadname" id="name" value="<?php echo (isset($videoadEdit->title)) ? $videoadEdit->title : ""; ?>"  />
+                                <input type="text" size="50" onkeyup="validateerrormsg();" maxlength="200" name="videoadname" id="name" value="<?php echo (isset($videoadEdit->title)) ? $videoadEdit->title : ""; ?>"  />
                             <span id="nameerrormessage" style="display: block;color:red; "></span>
                             </td>
                         </tr>
@@ -207,19 +219,7 @@ $image_path = str_replace('plugins/'.$dirPage.'/', 'uploads/videogallery/', APPT
                                 </td>
 			</tr>
                     </table>
-                    <div id="videoadurl" style="display: none;" >
-                        <table class="form-table">
-                            <tr>
-                                <td scope="row"  width="150"><?php _e('Video Ad URL', 'video_gallery') ?></td>
-                                <td>
-                                    <input type="text" size="50" onchange="clear_upload();" name="videoadfilepath" id="videoadfilepath"  value="<?php echo (isset($videoadEdit->file_path)) ? $videoadEdit->file_path : ""; ?>"  />&nbsp;&nbsp
-                                    <br /><?php _e('Here you need to enter the video ad URL', 'video_gallery') ?>
-                                    <br /><?php _e('It accept also a Youtube link : http://www.youtube.com/watch?v=tTGHCRUdlBs', 'video_gallery') ?>
-                                <span id="filepatherrormessage" style="display: block;color:red; "></span>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
+                   
 
 
                     <table class="form-table add_video_publish">

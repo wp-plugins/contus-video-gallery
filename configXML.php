@@ -3,7 +3,7 @@
   Name: Wordpress Video Gallery
   Plugin URI: http://www.apptha.com/category/extension/Wordpress/Video-Gallery
   Description: ConfigXML file for player.
-  Version: 2.3.1.0.1
+  Version: 2.5
   Author: Apptha
   Author URI: http://www.apptha.com
   License: GPL2
@@ -16,28 +16,30 @@ header("Content-type: application/xml");
 header("content-type:text/xml;charset=utf-8");
 
 require_once( dirname(__FILE__) . '/hdflv-config.php');
-global $wpdb;
 global $site_url;
 
+$site_url               = get_bloginfo('url');
 $dir                    = dirname(plugin_basename(__FILE__));
 $dirExp                 = explode('/', $dir);
 $dirPage                = $dirExp[0];
 
 $contusOBJ              = new ContusVideoView();
 $settingsData           = $contusOBJ->_settingsData;
-$mId                    = filter_input(INPUT_GET, 'mid');
 $logoPath               = str_replace('plugins/'.$dirPage.'/', 'uploads/videogallery/', APPTHA_VGALLERY_BASEURL);
 
-$playXml                = APPTHA_VGALLERY_BASEURL . 'myextractXML.php';
-$midrollXml             = APPTHA_VGALLERY_BASEURL . 'mymidrollXML.php';
-$imaAdsXML              = APPTHA_VGALLERY_BASEURL . 'myimaadsXML.php';
+## Generate XML Paths
+$playXml                = $site_url . '/wp-admin/admin-ajax.php?action=myextractXML';
+$midrollXml             = $site_url . '/wp-admin/admin-ajax.php?action=mymidrollXML';
+$imaAdsXML              = $site_url . '/wp-admin/admin-ajax.php?action=myimaadsXML';
+$langXML                = $site_url . '/wp-admin/admin-ajax.php?action=languageXML';
+$emailPath              = $site_url . '/wp-admin/admin-ajax.php?action=email';
+$downloadPath           = $site_url . '/wp-admin/admin-ajax.php?action=download';
+$adsXml                 = $site_url . '/wp-admin/admin-ajax.php?action=myadsXML';
 
-
-$langXML                = APPTHA_VGALLERY_BASEURL . 'languageXML.php';
-$emailPath              = APPTHA_VGALLERY_BASEURL . 'email.php';
-$downloadPath           = APPTHA_VGALLERY_BASEURL . 'download.php';
-$adsXml                 = APPTHA_VGALLERY_BASEURL . 'myadsXML.php';
+## Generated Skin path
 $skinPath               = APPTHA_VGALLERY_BASEURL . 'hdflvplayer' . DS . 'skin/skin_hdflv_white.swf';
+
+## Generate Config XML values
 $playerTimer            = $settingsData->timer == 1 ? 'true' : 'false';
 $adsSkip                = $settingsData->adsSkip == 0 ? 'true' : 'false';
 $showTag                = $settingsData->showTag == 1 ? 'true' : 'false';
@@ -63,13 +65,23 @@ $postrollAds            = ($settingsData->postroll == 0) ? 'true' : 'false';
 $midroll_ads            = ($settingsData->midroll_ads == 0) ? 'true' : 'false';
 $trackCode              = ($settingsData->trackCode == 0) ? '' : $settingsData->trackCode;
 $player_colors          = unserialize($settingsData->player_colors);
-
+$skinVisible            = ($player_colors['skinVisible'] == 1) ? 'true' : 'false';
+$skin_opacity           = $player_colors['skin_opacity'];
+$subTitleColor          = ($player_colors['subTitleColor'] == 0) ? '' : $player_colors['subTitleColor'];
+$subTitleBgColor        = ($player_colors['subTitleBgColor'] == 0) ? '' : $player_colors['subTitleBgColor'];
+if(isset($player_colors['subTitleFontFamily'])) { 
+    $subTitleFontFamily = $player_colors['subTitleFontFamily']; 
+} else { 
+    $subTitleFontFamily = ''; 
+}
+$subTitleFontSize       = ($player_colors['subTitleFontSize'] == 0) ? '' : $player_colors['subTitleFontSize'];
+## Add http in URL if not exist
 $logotarget             = $settingsData->logo_target;
 if (!preg_match("~^(?:f|ht)tps?://~i", $logotarget)) {
         $logotarget = "http://" . $logotarget;
     }
     
-/* Configuration Start */
+## Configuration Start
 echo '<?xml version="1.0" encoding="utf-8"?>';
 echo '<config>
         <stagecolor>' . $settingsData->stagecolor . '</stagecolor>
@@ -133,6 +145,12 @@ echo '<config>
         <playlist_auto>' . $playlistAuto . '</playlist_auto>
         <progressControl>' . $progressControl . '</progressControl>
         <imageDefault>' . $imageDefault . '</imageDefault>
+        <skinVisible>'.$skinVisible.'</skinVisible>
+        <skin_opacity>'.$skin_opacity.'</skin_opacity>
+        <subTitleColor>'.$subTitleColor.'</subTitleColor>
+        <subTitleBgColor>'.$subTitleBgColor.'</subTitleBgColor>
+        <subTitleFontFamily>'.$subTitleFontFamily.'</subTitleFontFamily>
+        <subTitleFontSize>'.$subTitleFontSize.'</subTitleFontSize>
     </config>';
-// Configuration ends 
+## Configuration ends 
 ?>

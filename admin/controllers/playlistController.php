@@ -3,7 +3,7 @@
 Name: Wordpress Video Gallery
 Plugin URI: http://www.apptha.com/category/extension/Wordpress/Video-Gallery
 Description: Playlist Controller.
-Version: 2.3.1.0.1
+Version: 2.5
 Author: Apptha
 Author URI: http://www.apptha.com
 License: GPL2
@@ -44,6 +44,7 @@ if(class_exists('PlaylistController') != true)
         public function add_playlist() 
         {//function for adding playlist starts
 
+            global $wpdb;
             if(isset($this->_status))
             {//updating status of video ad starts
             $this->status_update($this->_playListId,$this->_status);
@@ -52,23 +53,18 @@ if(class_exists('PlaylistController') != true)
              if(isset($this->_addnewPlaylist))
             {   
                 $playlistName = filter_input(INPUT_POST, 'playlistname');
-//                $playlistDescription = filter_input(INPUT_POST, 'playlistdescription');
+                $playlist_slugname = sanitize_title($playlistName);
                 $playlistPublish = filter_input(INPUT_POST, 'ispublish');
-                $playlistOrder = filter_input(INPUT_POST, 'playlist_order');
-                $playlistordering = filter_input(INPUT_POST, 'ordering');
                 
                 $playlsitData = array(
                 'playlist_name' => $playlistName,
-//                'playlist_desc' => $playlistDescription,
+                'playlist_slugname' => $playlist_slugname,
                 'is_publish' => $playlistPublish,
-                'playlist_order' => $playlistordering,
                 );
-
-                $playlistDataformat = array('%s', '%s', '%d', '%d','%d');
 
                 if (isset($this->_playListId)) 
                 {//update for playlist if starts
-                    $updateflag = $this->playlist_update($playlsitData, $playlistDataformat, $this->_playListId);
+                    $updateflag = $this->playlist_update($playlsitData, $this->_playListId);
 
                     if ($updateflag)
                     {
@@ -81,7 +77,9 @@ if(class_exists('PlaylistController') != true)
                 }//update for playlist if ends
                 else 
                 {//adding playlist else starts
-                    $addflag = $this->insert_playlist($playlsitData, $playlistDataformat);
+                    $ordering    = $wpdb->get_var("SELECT count(pid) FROM ".$wpdb->prefix . "hdflvvideoshare_playlist");
+                    $playlsitData['playlist_order'] = $ordering+1;
+                    $addflag = $this->insert_playlist($playlsitData);
                     
                     if (!$addflag)
                     {
@@ -124,7 +122,7 @@ if(class_exists('PlaylistController') != true)
                 break;
 
                 case 'sorder':
-                    $order ='ordering';
+                    $order ='playlist_order';
                 break;
 
                 default:
@@ -135,34 +133,41 @@ if(class_exists('PlaylistController') != true)
 
          public function get_message()
          {//displaying database message function starts
+             $message_div = '';
             if (isset($this->_update) && $this->_update == '1')
             {
                 $this->_msg = 'Category Updated Successfully ...';
+                $message_div = "addcategory";
             }
             else if($this->_update == '0')
             {
                 $this->_msg = 'Category Not Updated  Successfully ...';
+                $message_div = "addcategory";
             }
 
             if (isset($this->_add) && $this->_add == '1')
             {
                 $this->_msg ='Category Added Successfully ...';
+                $message_div = "addcategory";
             }
 
               if (isset($this->_del) && $this->_del == '1')
             {
                 $this->_msg ='Category Deleted Successfully ...';
+                $message_div = "category";
             }
                if (isset($this->_status) && $this->_status == '1')
             {
                 $this->_msg ='Category Published Successfully ...';
+                $message_div = "category";
             }
             else if($this->_status == '0')
             {
                 $this->_msg = 'Category UnPublished Successfully ...';
+                $message_div = "category";
             }
-
-            return $this->_msg;
+            $return_values = array(0=>$this->_msg,1=>$message_div);
+            return $return_values;
          }//displaying database message function ends
 
         public function get_delete()
@@ -208,12 +213,5 @@ $playlistEdit = $playlistOBJ->playlist_edit($playListId);
 $displayMsg = $playlistOBJ->get_message();
 $adminPage = filter_input(INPUT_GET, 'page');
 $adminPage = filter_input(INPUT_GET, 'page');
-if ($adminPage == 'playlist')
-{//including playlist form if starts
     require_once(APPTHA_VGALLERY_BASEDIR . DS . 'admin/views/playlist/playlist.php');
-}//including playlist form if starts
-else if ($adminPage == 'newplaylist')
-{//including newplaylist ad form if starts
-    require_once(APPTHA_VGALLERY_BASEDIR . DS . 'admin/views/playlist/addplaylist.php');
-}//including newplaylist ad form if ends
 ?>
