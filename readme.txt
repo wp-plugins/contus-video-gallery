@@ -16,7 +16,7 @@ Video Gallery Home Page - http://www.apptha.com/category/extension/Wordpress/Vid
 
 FLV & H.264 encoded video including MP4, M4V, M4A, MOV, Mp4v, F4V, social networking comments from the gallery page (like for Facebook), provision to alter width, height, skin, theme, aspect ratio, volume, downloads etc. from the backend are few if the best features with this plugin. It also covers other regular and utile features which we could see in popular video sharing sites such as social media bookmark option (diggit, myspace, facebook, del.icio.us, spurl, furl, google), managing multiple playlists, views count for video and so forth.
 
-* Option to modify the colors of player’s skin icons, icons, text, etc.
+* Option to modify the colors of player's skin icons, icons, text, etc.
 * Supports HTML5 to play videos in iOS devices
 * Facility to share your videos using social networking
 * Option to monetize via IMA, pre-, mid-, post-roll video ads
