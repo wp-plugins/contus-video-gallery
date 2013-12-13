@@ -84,11 +84,13 @@ FLV & H.264 encoded video including MP4, M4V, M4A, MOV, Mp4v, F4V, social networ
 
 6. **Upload RTMP Video** - You can add RTMP Streaming video
 
-7. **Gallery settings** - You can control Player and Plugin here.
+7. **Upload Embed Video** - You can add video using Embed code
 
-8. **Manage video widgets** - We are providing 5 widgets. They are : Popular, Recent, Featured, Related videos, Video Search and Video Categories. You can assign the above mentioned widgets in any position of your template.
+8. **Gallery settings** - You can control Player and Plugin here.
 
-9. **Videos(recent,popular,feature, Video Categories)** - We are also displaying Popular, Recent, Featured, Related videos and Video Categories in content page under player.
+9. **Manage video widgets** - We are providing 5 widgets. They are : Popular, Recent, Featured, Related videos, Video Search and Video Categories. You can assign the above mentioned widgets in any position of your template.
+
+10. **Videos(recent,popular,feature, Video Categories)** - We are also displaying Popular, Recent, Featured, Related videos and Video Categories in content page under player.
 
 == Other Notes ==
 
