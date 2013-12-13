@@ -189,12 +189,12 @@ if (class_exists('ContusMoreView') != true) {
                         if (!empty($this->_playid)) {
                             $fetched[$j] = $video->playlist_name;
                             $fetched_pslug[$j] = $video->playlist_slugname;
-                            $playlist_id = $this->_playid;
+                            $playlist_id[$j] = $this->_playid;
                         } else {
                             $getPlaylist     = $this->_wpdb->get_row("SELECT playlist_id FROM " . $this->_wpdb->prefix . "hdflvvideoshare_med2play WHERE media_id='".intval($vidF[$j])."'");
                             if (isset($getPlaylist->playlist_id)) {
-                                $playlist_id = $getPlaylist->playlist_id;       ## VIDEO CATEGORY ID
-                                $fetPlay[$j] = $this->_wpdb->get_row("SELECT playlist_name,playlist_slugname FROM " . $this->_wpdb->prefix . "hdflvvideoshare_playlist WHERE pid='".intval($playlist_id)."'");
+                                $playlist_id[$j] = $getPlaylist->playlist_id;       ## VIDEO CATEGORY ID
+                                $fetPlay[$j] = $this->_wpdb->get_row("SELECT playlist_name,playlist_slugname FROM " . $this->_wpdb->prefix . "hdflvvideoshare_playlist WHERE pid='".intval($playlist_id[$j])."'");
                                 $fetched[$j] = $fetPlay[$j]->playlist_name;     ## CATEOGORY NAME
                                 $fetched_pslug[$j] = $fetPlay[$j]->playlist_slugname;     ## CATEOGORY NAME
                             }
@@ -223,7 +223,7 @@ if (class_exists('ContusMoreView') != true) {
                             $div            .= $videoname;
                             $div            .= '</span></a>';
                             if (!empty($fetched[$j])) {
-                                $playlist_url = get_playlist_permalink($this->_mPageid,$playlist_id,$fetched_pslug[$j]);
+                                $playlist_url = get_playlist_permalink($this->_mPageid,$playlist_id[$j],$fetched_pslug[$j]);
                                 $div        .= '<a  class="playlistName" href="' . $playlist_url . '"><span>' . $fetched[$j] . '</span></a>';
                             }
                             ## Rating starts here
