@@ -374,7 +374,8 @@ if (class_exists('ContusVideoShortcodeView') != true) {
                 }
                 $output                 .= '<div class="clear"></div>';
                 ## Rating starts here
-                if ($this->_post_type === 'videogallery' || ($this->_page_post_type === 'videogallery' && $this->_page_post_type == '')) {
+//                if ($this->_post_type === 'videogallery' || ($this->_page_post_type === 'videogallery' && $this->_page_post_type == '')) {
+                if ($this->_post_type === 'videogallery' || ($this->_page_post_type === 'videogallery')) {
                     if($configXML->ratingscontrol == 1){
                     $ratingscontrol = true;
                     } else {
