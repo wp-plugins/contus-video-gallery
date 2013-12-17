@@ -67,7 +67,7 @@ function get_playlist_permalink($morepageid, $playlist_id, $slug_name) {
     
     $link = $wp_rewrite->get_page_permastruct();            ## check whether permalink enabled or not
     if (!empty($link)) {        ## Return SEO playlist URL if permalink enabled
-        return get_site_url() . "/category/" . $slug_name . "/";
+        return get_site_url() . "/categoryvideos/" . $slug_name . "/";
     } else {                    ## Return Non SEO playlist URL if permalink disabled
         return get_site_url() . '/?page_id=' . $morepageid . '&amp;playid=' . $playlist_id;
     }
@@ -97,16 +97,16 @@ function get_morepage_permalink($morepageid, $morePage) {
             $type = $morePage;
             switch ($type) {
                 case 'popular':
-                    $location = get_site_url() . "/popular-videos/";
+                    $location = get_site_url() . "/popular_videos/";
                     break;
                 case 'recent':
-                    $location = get_site_url() . "/recent-videos/";
+                    $location = get_site_url() . "/recent_videos/";
                     break;
                 case 'featured':
-                    $location = get_site_url() . "/featured-videos/";
+                    $location = get_site_url() . "/featured_videos/";
                     break;
                 case 'categories':
-                    $location = get_site_url() . "/all-category-videos/";
+                    $location = get_site_url() . "/all-category_videos/";
                     break;
             }
         }

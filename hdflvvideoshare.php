@@ -83,10 +83,10 @@ function add_my_rule() {
     $morepage_id = $wpdb->get_var("select ID from " . $wpdb->prefix . "posts WHERE post_content='[videomore]' and post_status='publish' and post_type='page' limit 1");
 
     $wp->add_query_var('more');
-    add_rewrite_rule('(.*)-videos', 'index.php?page_id=' . $morepage_id . '&more=$matches[1]', 'top');
+    add_rewrite_rule('(.*)_videos', 'index.php?page_id=' . $morepage_id . '&more=$matches[1]', 'top');
 
     $wp->add_query_var('playlist_name');
-    add_rewrite_rule('category\/(.*)', 'index.php?page_id=' . $morepage_id . '&playlist_name=$matches[1]', 'top');
+    add_rewrite_rule('categoryvideos\/(.*)', 'index.php?page_id=' . $morepage_id . '&playlist_name=$matches[1]', 'top');
 
     $wp->add_query_var('user_name');
     add_rewrite_rule('user\/(.*)', 'index.php?page_id=' . $morepage_id . '&user_name=$matches[1]', 'top');
