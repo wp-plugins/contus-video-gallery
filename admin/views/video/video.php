@@ -241,7 +241,7 @@ if (isset($_GET['pagenum'])){
                                                 </td>
                                                 
                                                 <td class="image column-image">
-                                                    <a title="Edit <?php echo $videoView->name; ?>"  href="<?php echo get_bloginfo('url'); ?>?page=newvideo&videoId=<?php echo $videoView->vid; ?>" ><?php echo $videoView->vid; ?></a>
+                                                    <a title="Edit <?php echo $videoView->name; ?>"  href="<?php echo get_bloginfo('url'); ?>/wp-admin/admin.php?page=newvideo&videoId=<?php echo $videoView->vid; ?>" ><?php echo $videoView->vid; ?></a>
                                                 </td>
                                                 <td class="image column-image">
                                                     <?php 
@@ -256,11 +256,11 @@ if (isset($_GET['pagenum'])){
                                                             $thumb_image            = $image_path . $thumb_image;
                                                         }
                                                     }  ?>
-                                                    <a title="Edit <?php echo $videoView->name; ?>"  href="<?php echo get_bloginfo('url'); ?>?page=newvideo&videoId=<?php echo $videoView->vid; ?>" >
+                                                    <a title="Edit <?php echo $videoView->name; ?>"  href="<?php echo get_bloginfo('url'); ?>/wp-admin/admin.php?page=newvideo&videoId=<?php echo $videoView->vid; ?>" >
                                                         <img width="60" height="60" src="<?php echo $thumb_image; ?>" class="attachment-80x60" alt="Hydrangeas"></a>
                                                 </td>
                                                 <td>
-                                                    <a title="Edit <?php echo $videoView->name; ?>" class="row-title" href="<?php echo get_bloginfo('url'); ?>?page=newvideo&videoId=<?php echo $videoView->vid; ?>" ><?php echo $videoView->name; ?></a>
+                                                    <a title="Edit <?php echo $videoView->name; ?>" class="row-title" href="<?php echo get_bloginfo('url'); ?>/wp-admin/admin.php?page=newvideo&videoId=<?php echo $videoView->vid; ?>" ><?php echo $videoView->name; ?></a>
                                                 </td>
                                                 <td class="description column-description"><?php echo $videoView->display_name; ?></td>
                                                 <td class="description column-description"><?php 
