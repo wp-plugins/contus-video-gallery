@@ -224,10 +224,10 @@ document.getElementById("publish_yes").checked = true;
                         </span>
                     </td>
                     <td class="id-column">
-                        <a title="Edit <?php echo $playlistView->playlist_name; ?>" href="<?php echo get_bloginfo('url'); ?>?page=newplaylist&playlistId=<?php echo $playlistView->pid; ?>" ><?php echo $playlistView->pid; ?></a><div class="row-actions">
+                        <a title="Edit <?php echo $playlistView->playlist_name; ?>" href="<?php echo get_bloginfo('url'); ?>/wp-admin/admin.php?page=newplaylist&playlistId=<?php echo $playlistView->pid; ?>" ><?php echo $playlistView->pid; ?></a><div class="row-actions">
                     </td>
                     <td class="title-column">
-                        <a title="Edit <?php echo $playlistView->playlist_name; ?>" class="row-title" href="<?php echo get_bloginfo('url'); ?>?page=newplaylist&playlistId=<?php echo $playlistView->pid; ?>" ><?php echo $playlistView->playlist_name; ?></a>
+                        <a title="Edit <?php echo $playlistView->playlist_name; ?>" class="row-title" href="<?php echo get_bloginfo('url'); ?>/wp-admin/admin.php?page=newplaylist&playlistId=<?php echo $playlistView->pid; ?>" ><?php echo $playlistView->playlist_name; ?></a>
                     </td>
                     <td class="pub-column Expiry column-Expiry">
                         <?php
