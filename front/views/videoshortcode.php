@@ -254,6 +254,7 @@ if (class_exists('ContusVideoShortcodeView') != true) {
                             }
                             $output                 .= '<script> current_video('.$fetched[0]->vid.',"'.$fetched[0]->name.'"); </script>';
                         } else if($mobile === true){
+                            $output                 .= '<script> current_video('.$fetched[0]->vid.',"'.$fetched[0]->name.'"); </script>';
                             ## Get video detail for HTML5 player
                             foreach ($fetched as $media) {          ## Load video details
                                 $videourl            = $media->file;
