@@ -500,9 +500,9 @@ function setStatus(form_handle, status)
             if(divmsg !== ''){
                 document.getElementById(divmsg).innerHTML = '';
             }
-            if(divmsg1 !== ''){
-                document.getElementById(divmsg1).innerHTML = '';
-            }
+//            if(divmsg1 !== ''){
+//                document.getElementById(divmsg1).innerHTML = '';
+//            }
             document.getElementById(divprefix + "-upload-cancel").innerHTML = '';
             break;
 
