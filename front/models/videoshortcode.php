@@ -36,7 +36,7 @@ if(class_exists('ContusShortcode') != true)
                 . " ON t3.pid = t2.playlist_id"
                 . " LEFT JOIN " . $wpdb->prefix . "hdflvvideoshare_tags AS t4"
                 . " ON t1.vid = t4.media_id"
-                . " LEFT JOIN " . $wpdb->prefix . "users AS t5"
+                . " LEFT JOIN $wpdb->users AS t5"
                 . " ON t1.member_id = t5.ID"
                 . " WHERE t1.publish='1' AND t3.is_publish='1' AND t1.vid='" . intval($vid) . "' LIMIT 1");
            return $video_count;

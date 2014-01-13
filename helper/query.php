@@ -32,7 +32,7 @@ function get_user_id($user_name) {
     
     global $wpdb;
     
-    $user_id = $wpdb->get_var("SELECT ID FROM " . $wpdb->prefix . "users WHERE display_name='" . $user_name . "' LIMIT 1");
+    $user_id = $wpdb->get_var("SELECT ID FROM $wpdb->users WHERE display_name='" . $user_name . "' LIMIT 1");
     return $user_id;
 }
 
@@ -41,7 +41,7 @@ function get_user_name($user_id) {
     
     global $wpdb;
     
-    $user_name = $wpdb->get_var("SELECT display_name FROM " . $wpdb->prefix . "users WHERE ID='" . $user_id . "' LIMIT 1");
+    $user_name = $wpdb->get_var("SELECT display_name FROM $wpdb->users WHERE ID='" . $user_id . "' LIMIT 1");
     return $user_name;
 }
 

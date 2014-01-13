@@ -91,7 +91,7 @@ if(class_exists('ContusMore') != true)
               $query = "SELECT count(*) FROM " . $wpdb->prefix . "hdflvvideoshare as w INNER JOIN " . $wpdb->prefix . "hdflvvideoshare_med2play as m ON m.media_id = w.vid INNER JOIN " . $wpdb->prefix . "hdflvvideoshare_playlist as p on m.playlist_id = p.pid WHERE w.publish='1' and p.is_publish='1' and m.playlist_id=" . intval($thumImageorder);
              $result = $this->_wpdb->get_var($query);
             } else if(!empty($userid)){
-              $query = "SELECT count(*) FROM " . $wpdb->prefix . "hdflvvideoshare as w INNER JOIN " . $wpdb->prefix . "hdflvvideoshare_med2play as m ON m.media_id = w.vid INNER JOIN " . $wpdb->prefix . "hdflvvideoshare_playlist as p on m.playlist_id = p.pid INNER JOIN " . $wpdb->prefix . "users u ON u.ID=w.member_id WHERE w.publish='1' and p.is_publish='1' and u.ID=" . intval($thumImageorder);
+              $query = "SELECT count(*) FROM " . $wpdb->prefix . "hdflvvideoshare as w INNER JOIN " . $wpdb->prefix . "hdflvvideoshare_med2play as m ON m.media_id = w.vid INNER JOIN " . $wpdb->prefix . "hdflvvideoshare_playlist as p on m.playlist_id = p.pid INNER JOIN $wpdb->users u ON u.ID=w.member_id WHERE w.publish='1' and p.is_publish='1' and u.ID=" . intval($thumImageorder);
              $result = $this->_wpdb->get_var($query);
             } else{
              $query = "SELECT count(w.vid) FROM " . $this->_videoinfotable. " w
@@ -134,7 +134,7 @@ if(class_exists('ContusMore') != true)
                     INNER JOIN " . $wpdb->prefix . "hdflvvideoshare_med2play as m ON m.media_id = w.vid
                     INNER JOIN " . $wpdb->prefix . "hdflvvideoshare_playlist as p on m.playlist_id = p.pid
                     INNER JOIN " . $wpdb->prefix . "posts s ON s.ID=w.slug
-                    INNER JOIN " . $wpdb->prefix . "users u ON u.ID=w.member_id
+                    INNER JOIN $wpdb->users u ON u.ID=w.member_id
                     WHERE w.publish='1' AND p.is_publish='1' AND u.ID=" . intval($thumImageorder) . "
                     GROUP BY w.vid ORDER BY w.ordering asc LIMIT ".$offset.','.$dataLimit;
             return $this->_wpdb->get_results($query);
