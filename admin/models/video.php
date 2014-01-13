@@ -139,6 +139,7 @@ if(class_exists('VideoModel') != true)
     
         public function get_videodata($searchValue,$searchBtn,$order,$orderDirection)
         {//function for getting search videos starts
+        global $wpdb;
             $where='';
             $user_role = $this->get_current_user_role();
             $current_user = wp_get_current_user();
@@ -160,14 +161,14 @@ if(class_exists('VideoModel') != true)
             {
                 $orderDirection = 'DESC';
             }
-           $query = "SELECT DISTINCT (a.vid) FROM ".$this->_videotable .' a 
-                    LEFT JOIN '. $this->_wpdb->prefix .'users u 
+           $query = "SELECT DISTINCT (a.vid) FROM ".$this->_videotable ." a 
+                    LEFT JOIN $wpdb->users u 
                     ON u.ID=a.member_id 
-                    LEFT JOIN '. $this->_wpdb->prefix .'hdflvvideoshare_med2play p 
+                    LEFT JOIN ". $this->_wpdb->prefix ."hdflvvideoshare_med2play p 
                     ON p.media_id=a.vid 
-                    LEFT JOIN '. $this->_wpdb->prefix .'hdflvvideoshare_playlist pl 
+                    LEFT JOIN ". $this->_wpdb->prefix ."hdflvvideoshare_playlist pl 
                     ON pl.pid=p.playlist_id 
-                    '.$where ." 
+                    ".$where ." 
                     ORDER BY ". $order . ' '.$orderDirection;
             $total = count($this->_wpdb->get_results($query));
             if(!empty($orderFilterlimit) && $orderFilterlimit !== 'all'){
@@ -178,14 +179,14 @@ if(class_exists('VideoModel') != true)
                 $limit = 20;
             }
             $offset = ( $pagenum - 1 ) * $limit;
-           $query = "SELECT DISTINCT (a.vid),a.*,u.display_name FROM ".$this->_videotable .' a 
-                    LEFT JOIN '. $this->_wpdb->prefix .'users u 
+           $query = "SELECT DISTINCT (a.vid),a.*,u.display_name FROM ".$this->_videotable ." a 
+                    LEFT JOIN $wpdb->users u 
                     ON u.ID=a.member_id 
-                    LEFT JOIN '. $this->_wpdb->prefix .'hdflvvideoshare_med2play p 
+                    LEFT JOIN ". $this->_wpdb->prefix ."hdflvvideoshare_med2play p 
                     ON p.media_id=a.vid 
-                    LEFT JOIN '. $this->_wpdb->prefix .'hdflvvideoshare_playlist pl 
+                    LEFT JOIN ". $this->_wpdb->prefix ."hdflvvideoshare_playlist pl 
                     ON pl.pid=p.playlist_id 
-                    '.$where ." 
+                    ".$where ." 
                     ORDER BY ". $order . ' '.$orderDirection." 
                     LIMIT $offset, $limit";
             return $this->_wpdb->get_results($query);

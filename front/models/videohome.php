@@ -136,7 +136,7 @@ if(class_exists('ContusVideo') != true)
         $select        .= " INNER JOIN " . $wpdb->prefix . "hdflvvideoshare_med2play m";
         $select        .= " INNER JOIN " . $wpdb->prefix . "hdflvvideoshare_playlist p";
         $select        .= " INNER JOIN " . $wpdb->prefix . "posts s ON s.ID=w.slug";
-        $select        .= " LEFT JOIN " . $wpdb->prefix . "users u ON u.ID=w.member_id";
+        $select        .= " LEFT JOIN $wpdb->users u ON u.ID=w.member_id";
         $select        .= " WHERE (m.playlist_id = '".intval($pid)."'";
         if($type === 'playxml'){
             $where = "AND w.file_type!=5";
