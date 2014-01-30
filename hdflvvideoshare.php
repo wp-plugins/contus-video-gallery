@@ -95,7 +95,7 @@ function add_my_rule() {
     add_rewrite_rule('search/(.*)', 'index.php?page_id=' . $morepage_id . '&video_search=$matches[1]', 'top');
 
     /* global $wp_rewrite; */
-    flush_rewrite_rules();
+//    flush_rewrite_rules();
 }
 add_action('init', 'add_my_rule');
 $video_search = filter_var(filter_input(INPUT_GET, 'video_search'), FILTER_SANITIZE_STRING);
@@ -687,6 +687,7 @@ function video_morereplace() {
 
     $userid = filter_input(INPUT_GET, 'userid'); 
     $user_name = &$wp_query->query_vars["user_name"];
+    $user_name = str_replace('%20', ' ', $user_name);
     if (!empty($user_name)) {
         $userid = get_user_id($user_name);
     }
