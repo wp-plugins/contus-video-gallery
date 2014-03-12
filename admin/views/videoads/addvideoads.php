@@ -28,7 +28,7 @@ $image_path = str_replace('plugins/'.$dirPage.'/', 'uploads/videogallery/', APPT
             <p>
             <?php
             echo $msg;
-            $url = get_bloginfo('url') . '/wp-admin/admin.php?page=videoads';
+            $url = get_site_url() . '/wp-admin/admin.php?page=videoads';
             echo "<a href='$url' >Back to VideoAds</a>";
             ?>
                 </p>

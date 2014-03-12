@@ -50,7 +50,7 @@ class widget_ContusRecentVideos_init extends WP_Widget {
         $show                   = $instance['show'];  ## # of Posts we are showing
         $excerpt                = $options['excerpt'];  ## Showing the excerpt or not
         $exclude                = $options['exclude'];  ## Categories to exclude
-        $site_url               = get_bloginfo('url');
+        $site_url               = get_site_url();
         $dir                    = dirname(plugin_basename(__FILE__));
         $dirExp                 = explode('/', $dir);
         $dirPage                = $dirExp[0];

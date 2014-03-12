@@ -63,7 +63,7 @@ if(class_exists('VideoModel') != true)
                     'comment_count' => '0',
                 );
                 $this->_wpdb->insert( $this->_posttable, $postsData);
-                $guid=get_bloginfo('url')."/?post_type=videogallery&#038;p=".$this->_wpdb->insert_id;
+                $guid=get_site_url()."/?post_type=videogallery&#038;p=".$this->_wpdb->insert_id;
                 $this->_wpdb->update($this->_posttable, array('guid' =>$guid), array( 'ID' => $this->_wpdb->insert_id ));
                 $this->_wpdb->update($this->_videotable, array('slug' =>$this->_wpdb->insert_id), array( 'vid' => $last_insert_video_id ));
 
@@ -118,7 +118,7 @@ if(class_exists('VideoModel') != true)
                     'comment_count' => '0',
                 );
                 $this->_wpdb->insert( $this->_posttable, $postsData);
-                $guid=get_bloginfo('url')."/?post_type=videogallery&#038;p=".$this->_wpdb->insert_id;
+                $guid=get_site_url()."/?post_type=videogallery&#038;p=".$this->_wpdb->insert_id;
                 $this->_wpdb->update($this->_posttable, array('guid' =>$guid), array( 'ID' => $this->_wpdb->insert_id ));
                $this->_wpdb->update($this->_videotable, array('slug' =>$this->_wpdb->insert_id), array( 'vid' => $videoId ));
             }else{

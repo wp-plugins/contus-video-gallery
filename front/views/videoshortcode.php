@@ -32,7 +32,7 @@ if (class_exists('ContusVideoShortcodeView') != true) {
             $dir                    = dirname(plugin_basename(__FILE__));
             $dirExp                 = explode('/', $dir);
             $this->_plugin_name     = $dirExp[0];                                           ## Get plugin folder name
-            $this->_site_url        = get_bloginfo('url');                                  ## Get base url
+            $this->_site_url        = get_site_url();                                  ## Get base url
             $this->_swfPath         = APPTHA_VGALLERY_BASEURL . 'hdflvplayer' . DS . 'hdplayer.swf';    ## Declare swf path
             $this->_imagePath       = APPTHA_VGALLERY_BASEURL . 'images' . DS;                          ## Declare image path
         }                                                                                   ## contructor ends

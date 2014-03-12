@@ -85,7 +85,7 @@ function upgrade_videos() {
         $contus_videoposts = $wpdb->query("INSERT INTO " . $posttable . " (`post_author`,`post_date`, `post_date_gmt`, `post_content`, `post_title`, `post_excerpt`, `post_status`, `comment_status`, `ping_status`, `post_password`, `post_name`, `to_ping`, `pinged`, `post_modified`, `post_modified_gmt`, `post_content_filtered`, `post_parent`, `guid`, `menu_order`, `post_type`, `post_mime_type`, `comment_count`) VALUES
                                     ('1','2011-11-15 07:22:39', '2011-11-15 07:22:39', '$post_content', '$name', '', 'publish', 'open', 'closed', '', '$slug', '', '', '2011-11-15 07:22:39', '2011-11-15 07:22:39', '', '0', '', '0','videogallery', '', '0')");
         $post_id            = $wpdb->insert_id;
-        $guid               = get_bloginfo('url') . "/?post_type=videogallery&#038;p=" . $post_id;
+        $guid               = get_site_url() . "/?post_type=videogallery&#038;p=" . $post_id;
         $wpdb->query("UPDATE " . $wpdb->prefix . "hdflvvideoshare SET slug = $post_id WHERE vid = $vid");       ## Update slug id in plugin's video table
         $wpdb->query("UPDATE " . $posttable . " SET guid = '$guid' WHERE ID = $post_id");                       ## Update guid id in post table
     }
@@ -429,7 +429,7 @@ function videogallery_install() {
             $slug               = sanitize_title($videoName[$j]);
             $post_content       = "[hdvideo id=" . $i . "]";
             $postID             = $postid[$j];
-            $guid               = get_bloginfo('url') . "/?post_type=videogallery&#038;p=" . $postID;
+            $guid               = get_site_url() . "/?post_type=videogallery&#038;p=" . $postID;
             $contus_videoposts  = $wpdb->query("INSERT INTO " . $posttable . " (`post_author`,`post_date`, `post_date_gmt`, `post_content`, `post_title`, `post_excerpt`, `post_status`, `comment_status`, `ping_status`, `post_password`, `post_name`, `to_ping`, `pinged`, `post_modified`, `post_modified_gmt`, `post_content_filtered`, `post_parent`, `guid`, `menu_order`, `post_type`, `post_mime_type`, `comment_count`) VALUES
                                 ('1','2011-11-15 07:22:39', '2011-11-15 07:22:39', '$post_content', '$videoName[$j]', '', 'publish', 'open', 'closed', '', '$slug', '', '', '2011-11-15 07:22:39', '2011-11-15 07:22:39', '', 0, '$guid', '0','videogallery', '', '0')
                                 ");
