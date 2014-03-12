@@ -13,7 +13,7 @@ $dir = dirname(plugin_basename(__FILE__));
 $dirExp = explode('/', $dir);
 $dirPage = $dirExp[0];
 $page = $ordervalue = '';
-$url = get_bloginfo('url') . '/wp-admin/admin.php?page=video';
+$url = get_site_url() . '/wp-admin/admin.php?page=video';
 if (isset($_GET['pagenum'])){
         $page = '&pagenum=' . $_GET['pagenum'];
 }
@@ -33,7 +33,7 @@ if (isset($_GET['pagenum'])){
                     videoid[i]=orderid[i].replace('&',"");
                     oid= "ordertd_"+videoid[i];
                 }
-                dragdr.post("<?php echo get_bloginfo('url'); ?>/wp-admin/admin-ajax.php?action=videosortorder<?php echo $page; ?>",order);
+                dragdr.post("<?php echo get_site_url(); ?>/wp-admin/admin-ajax.php?action=videosortorder<?php echo $page; ?>",order);
             }
         });
     });
@@ -49,11 +49,11 @@ if (isset($_GET['pagenum'])){
     <!--  MENU OPTIONS ENDS --->
     <?php
     
-    $selfurl = get_bloginfo('url') . "/wp-admin/admin.php?page=video" . $page;
+    $selfurl = get_site_url() . "/wp-admin/admin.php?page=video" . $page;
     ?>    <div class="wrap">
         <h2 class="option_title">
             <?php echo "<img src='" . APPTHA_VGALLERY_BASEURL . "/images/manage_video.png' alt='move' width='30'/>"; ?>
-            <?php _e('Manage Videos', 'video_gallery'); ?><a class="button-primary" href="<?php echo get_bloginfo('url') ?>/wp-admin/admin.php?page=newvideo" style="margin-left: 10px;"><?php _e('Add Video', 'video_gallery'); ?></a></h2>
+            <?php _e('Manage Videos', 'video_gallery'); ?><a class="button-primary" href="<?php echo get_site_url() ?>/wp-admin/admin.php?page=newvideo" style="margin-left: 10px;"><?php _e('Add Video', 'video_gallery'); ?></a></h2>
         <?php
         function get_current_user_role() {
         global $current_user;
@@ -191,29 +191,29 @@ if (isset($_GET['pagenum'])){
                                    <span>
                                     <?php _e('', 'video_gallery'); ?> </span><span class="sorting-indicator"></span></th>
                             <th width="4%" scope="col"  class="manage-column column-description sortable desc" style="">
-                                <a href="<?php echo get_bloginfo('url') ?>/wp-admin/admin.php?page=video&orderby=id&order=<?php echo $reverse_direction; ?>"><span>
+                                <a href="<?php echo get_site_url() ?>/wp-admin/admin.php?page=video&orderby=id&order=<?php echo $reverse_direction; ?>"><span>
                                         <?php _e('ID', 'video_gallery'); ?> </span><span class="sorting-indicator"></span></a></th>
                             <th width="6%" scope="col"  style="">
                                 <span class="sorting-indicator"></span></th>
                             <th width="30%" scope="col"  class="manage-column column-name sortable desc" style="">
-                                <a href="<?php echo get_bloginfo('url') ?>/wp-admin/admin.php?page=video&orderby=title&order=<?php echo $reverse_direction; ?>"><span>
+                                <a href="<?php echo get_site_url() ?>/wp-admin/admin.php?page=video&orderby=title&order=<?php echo $reverse_direction; ?>"><span>
                                         <?php _e('Title', 'video_gallery'); ?> </span><span class="sorting-indicator"></span></a></th>
                             <th width="14%" scope="col"  class="manage-column column-description sortable desc" style="">
-                                <a href="<?php echo get_bloginfo('url') ?>/wp-admin/admin.php?page=video&orderby=author&order=<?php echo $reverse_direction; ?>"><span>
+                                <a href="<?php echo get_site_url() ?>/wp-admin/admin.php?page=video&orderby=author&order=<?php echo $reverse_direction; ?>"><span>
                                         <?php _e('Author', 'video_gallery'); ?></span><span class="sorting-indicator"></span></a></th>
                             <th width="14%" scope="col"  class="manage-column column-description sortable desc" style="">
-                                <a href="<?php echo get_bloginfo('url') ?>/wp-admin/admin.php?page=video&orderby=category&order=<?php echo $reverse_direction; ?>"><span>
+                                <a href="<?php echo get_site_url() ?>/wp-admin/admin.php?page=video&orderby=category&order=<?php echo $reverse_direction; ?>"><span>
                                         <?php _e('Categories', 'video_gallery'); ?></span><span class="sorting-indicator"></span></a></th>
                             <th width="8%" scope="col" class="manage-column column-description sortable desc text_center"  style="">
-                                <a href="<?php echo get_bloginfo('url') ?>/wp-admin/admin.php?page=video&orderby=fea&order=<?php echo $reverse_direction; ?>"><span>
+                                <a href="<?php echo get_site_url() ?>/wp-admin/admin.php?page=video&orderby=fea&order=<?php echo $reverse_direction; ?>"><span>
                                         <?php _e('Featured', 'video_gallery'); ?></span><span class="sorting-indicator"></span></a></th>
                             <th  width="4%" scope="col"  class="manage-column column-slug sortable desc" style="width:10%">
-                                <a href="<?php echo get_bloginfo('url') ?>/wp-admin/admin.php?page=video&orderby=date&order=<?php echo $reverse_direction; ?>"><span><?php _e('Date', 'digi'); ?></span><span class="sorting-indicator"></span></a></th>
+                                <a href="<?php echo get_site_url() ?>/wp-admin/admin.php?page=video&orderby=date&order=<?php echo $reverse_direction; ?>"><span><?php _e('Date', 'digi'); ?></span><span class="sorting-indicator"></span></a></th>
                             <th width="7%" scope="col" class="text_center manage-column column-name sortable desc" style="">
-                                <a href="<?php echo get_bloginfo('url') ?>/wp-admin/admin.php?page=video&orderby=publish&order=<?php echo $reverse_direction; ?>"><span>
+                                <a href="<?php echo get_site_url() ?>/wp-admin/admin.php?page=video&orderby=publish&order=<?php echo $reverse_direction; ?>"><span>
                                         <?php _e('Publish', 'video_gallery'); ?></span><span class="sorting-indicator"></span></a></th>
                             <th width="7%" scope="col" class="manage-column column-description sortable desc" style="">
-                                <a href="<?php echo get_bloginfo('url') ?>/wp-admin/admin.php?page=video&orderby=ordering&order=<?php echo $reverse_direction; ?>">
+                                <a href="<?php echo get_site_url() ?>/wp-admin/admin.php?page=video&orderby=ordering&order=<?php echo $reverse_direction; ?>">
                                     <span><?php _e('Order', 'video_gallery'); ?></span><span class="sorting-indicator"></span>                                 
                                 </a>
                             </th>
@@ -241,7 +241,7 @@ if (isset($_GET['pagenum'])){
                                                 </td>
                                                 
                                                 <td class="image column-image">
-                                                    <a title="Edit <?php echo $videoView->name; ?>"  href="<?php echo get_bloginfo('url'); ?>/wp-admin/admin.php?page=newvideo&videoId=<?php echo $videoView->vid; ?>" ><?php echo $videoView->vid; ?></a>
+                                                    <a title="Edit <?php echo $videoView->name; ?>"  href="<?php echo get_site_url(); ?>/wp-admin/admin.php?page=newvideo&videoId=<?php echo $videoView->vid; ?>" ><?php echo $videoView->vid; ?></a>
                                                 </td>
                                                 <td class="image column-image">
                                                     <?php 
@@ -256,11 +256,11 @@ if (isset($_GET['pagenum'])){
                                                             $thumb_image            = $image_path . $thumb_image;
                                                         }
                                                     }  ?>
-                                                    <a title="Edit <?php echo $videoView->name; ?>"  href="<?php echo get_bloginfo('url'); ?>/wp-admin/admin.php?page=newvideo&videoId=<?php echo $videoView->vid; ?>" >
+                                                    <a title="Edit <?php echo $videoView->name; ?>"  href="<?php echo get_site_url(); ?>/wp-admin/admin.php?page=newvideo&videoId=<?php echo $videoView->vid; ?>" >
                                                         <img width="60" height="60" src="<?php echo $thumb_image; ?>" class="attachment-80x60" alt="Hydrangeas"></a>
                                                 </td>
                                                 <td>
-                                                    <a title="Edit <?php echo $videoView->name; ?>" class="row-title" href="<?php echo get_bloginfo('url'); ?>/wp-admin/admin.php?page=newvideo&videoId=<?php echo $videoView->vid; ?>" ><?php echo $videoView->name; ?></a>
+                                                    <a title="Edit <?php echo $videoView->name; ?>" class="row-title" href="<?php echo get_site_url(); ?>/wp-admin/admin.php?page=newvideo&videoId=<?php echo $videoView->vid; ?>" ><?php echo $videoView->name; ?></a>
                                                 </td>
                                                 <td class="description column-description"><?php echo $videoView->display_name; ?></td>
                                                 <td class="description column-description"><?php 
@@ -328,30 +328,30 @@ if (isset($_GET['pagenum'])){
                                                 <span>
                                     <?php _e('', 'video_gallery'); ?> </span><span class="sorting-indicator"></span></th>
                                 <th scope="col"  class="manage-column column-name sortable desc" style="">
-                                    <a href="<?php echo get_bloginfo('url') ?>/wp-admin/admin.php?page=video&orderby=id&order=<?php echo $reverse_direction; ?>"><span>
+                                    <a href="<?php echo get_site_url() ?>/wp-admin/admin.php?page=video&orderby=id&order=<?php echo $reverse_direction; ?>"><span>
                                         <?php _e('ID', 'video_gallery'); ?> </span><span class="sorting-indicator"></span></a></th>
                             <th width="4%" scope="col"  style="">
                                 <span class="sorting-indicator"></span></th>
                                 <th scope="col"  class="manage-column column-name sortable desc" style="">
-                                <a href="<?php echo get_bloginfo('url') ?>/wp-admin/admin.php?page=video&orderby=title&order=<?php echo $reverse_direction; ?>"><span>
+                                <a href="<?php echo get_site_url() ?>/wp-admin/admin.php?page=video&orderby=title&order=<?php echo $reverse_direction; ?>"><span>
                                         <?php _e('Title', 'video_gallery'); ?> </span><span class="sorting-indicator"></span></a></th>
                             <th scope="col"  class="manage-column column-description sortable desc" style="">
-                                <a href="<?php echo get_bloginfo('url') ?>/wp-admin/admin.php?page=video&orderby=author&order=<?php echo $reverse_direction; ?>"><span>
+                                <a href="<?php echo get_site_url() ?>/wp-admin/admin.php?page=video&orderby=author&order=<?php echo $reverse_direction; ?>"><span>
                                         <?php _e('Author', 'video_gallery'); ?></span><span class="sorting-indicator"></span></a></th>
                             <th scope="col"  class="manage-column column-description sortable desc" style="">
-                                <a href="<?php echo get_bloginfo('url') ?>/wp-admin/admin.php?page=video&orderby=category&order=<?php echo $reverse_direction; ?>"><span>
+                                <a href="<?php echo get_site_url() ?>/wp-admin/admin.php?page=video&orderby=category&order=<?php echo $reverse_direction; ?>"><span>
                                         <?php _e('Categories', 'video_gallery'); ?></span><span class="sorting-indicator"></span></a></th>
                             <th scope="col"  class="manage-column column-slug sortable desc" style="">
-                                <a href="<?php echo get_bloginfo('url') ?>/wp-admin/admin.php?page=video&orderby=fea&order=<?php echo $reverse_direction; ?>"><span>
+                                <a href="<?php echo get_site_url() ?>/wp-admin/admin.php?page=video&orderby=fea&order=<?php echo $reverse_direction; ?>"><span>
                                         <?php _e('Featured', 'video_gallery'); ?></span><span class="sorting-indicator"></span></a></th>
                             <th scope="col"  class="manage-column column-slug sortable desc" style="width:10%">
-                                <a href="<?php echo get_bloginfo('url') ?>/wp-admin/admin.php?page=video&orderby=date&order=<?php echo $reverse_direction; ?>"><span><?php _e('Date', 'digi'); ?></span><span class="sorting-indicator"></span></a></th>
+                                <a href="<?php echo get_site_url() ?>/wp-admin/admin.php?page=video&orderby=date&order=<?php echo $reverse_direction; ?>"><span><?php _e('Date', 'digi'); ?></span><span class="sorting-indicator"></span></a></th>
                             <th scope="col" class="manage-column column-name sortable desc" style="">
-                                <a href="<?php echo get_bloginfo('url') ?>/wp-admin/admin.php?page=video&orderby=publish&order=<?php echo $reverse_direction; ?>"><span>
+                                <a href="<?php echo get_site_url() ?>/wp-admin/admin.php?page=video&orderby=publish&order=<?php echo $reverse_direction; ?>"><span>
                                         <?php _e('Publish', 'video_gallery'); ?></span><span class="sorting-indicator"></span></a></th>
 
                             <th scope="col" class="manage-column column-description sortable desc" style="">
-                                <a href="<?php echo get_bloginfo('url') ?>/wp-admin/admin.php?page=video&orderby=ordering&order=<?php echo $reverse_direction; ?>">
+                                <a href="<?php echo get_site_url() ?>/wp-admin/admin.php?page=video&orderby=ordering&order=<?php echo $reverse_direction; ?>">
                                     <span><?php _e('Order', 'video_gallery'); ?></span><span class="sorting-indicator"></span>
                                 </a>
                             </th>

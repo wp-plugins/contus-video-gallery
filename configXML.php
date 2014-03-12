@@ -18,7 +18,7 @@ header("content-type:text/xml;charset=utf-8");
 require_once( dirname(__FILE__) . '/hdflv-config.php');
 global $site_url;
 
-$site_url               = get_bloginfo('url');
+$site_url               = get_site_url();
 $dir                    = dirname(plugin_basename(__FILE__));
 $dirExp                 = explode('/', $dir);
 $dirPage                = $dirExp[0];

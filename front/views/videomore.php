@@ -48,7 +48,7 @@ if (class_exists('ContusMoreView') != true) {
             $dir                    = dirname(plugin_basename(__FILE__));
             $dirExp                 = explode('/', $dir);
             $this->_folder          = $dirExp[0];                                   ## Get plugin folder name
-            $this->_site_url        = get_bloginfo('url');                          ## Get base url
+            $this->_site_url        = get_site_url();                          ## Get base url
             $this->_imagePath       = APPTHA_VGALLERY_BASEURL . 'images' . DS;      ## Declare image path
         } //contructor ends
 

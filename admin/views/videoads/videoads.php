@@ -24,7 +24,7 @@ License: GPL2
     <h2 class="option_title">
        <?php echo "<img src='" . APPTHA_VGALLERY_BASEURL . "/images/vid_ad.png' alt='move' width='30'/>"; ?>
        <?php _e('Manage Video Ads','video_gallery'); ?>
-       <a class="button-primary" href="<?php echo get_bloginfo('url')?>/wp-admin/admin.php?page=newvideoad" >Add Video Ad</a>
+       <a class="button-primary" href="<?php echo get_site_url()?>/wp-admin/admin.php?page=newvideoad" >Add Video Ad</a>
     </h2>
 
         <?php if ($displayMsg): ?>
@@ -40,7 +40,7 @@ License: GPL2
    if (isset($searchBtn)) {  ?>
     <div  class="updated below-h2">
     <?php
-       $url = get_bloginfo('url').'/wp-admin/admin.php?page=videoads';
+       $url = get_site_url().'/wp-admin/admin.php?page=videoads';
        if(count($gridVideoad)){
     echo count($gridVideoad)."    Search Result(s) for '".$searchMsg."'.&nbsp&nbsp&nbsp<a href='$url' >Back to Video Ads List</a>";
        }else { echo "No Search Result(s) for '".$searchMsg."'.&nbsp&nbsp&nbsp<a href='$url' >Back to Video Ads List</a>"; } ?> </div> <?php } ?>
@@ -91,18 +91,18 @@ License: GPL2
                             <input type="checkbox" name="" >
                         </th>
                         <th scope="col"  class="manage-column column-name sortable desc" style="">
-                            <a  href="<?php echo get_bloginfo('url')?>/wp-admin/admin.php?page=videoads&orderby=id&order=<?php echo $reverse_direction; ?>">
+                            <a  href="<?php echo get_site_url()?>/wp-admin/admin.php?page=videoads&orderby=id&order=<?php echo $reverse_direction; ?>">
                                 <span><?php _e('Ad ID', 'video_gallery'); ?></span>
                                 <span class="sorting-indicator"></span>
                             </a>
                         </th>
                         <th scope="col" class="manage-column column-description sortable desc" style="">
-                            <a href="<?php echo get_bloginfo('url')?>/wp-admin/admin.php?page=videoads&orderby=title&order=<?php echo $reverse_direction; ?>" ><span><?php _e('Title', 'video_gallery'); ?></span>
+                            <a href="<?php echo get_site_url()?>/wp-admin/admin.php?page=videoads&orderby=title&order=<?php echo $reverse_direction; ?>" ><span><?php _e('Title', 'video_gallery'); ?></span>
                                 <span class="sorting-indicator"></span>
                             </a>
                         </th>
                           <th scope="col"  class="manage-column column-name sortable desc" style="">
-                            <a  href="<?php echo get_bloginfo('url')?>/wp-admin/admin.php?page=videoads&orderby=path&order=<?php echo $reverse_direction; ?>">
+                            <a  href="<?php echo get_site_url()?>/wp-admin/admin.php?page=videoads&orderby=path&order=<?php echo $reverse_direction; ?>">
                                 <span><?php _e('Path', 'video_gallery'); ?></span>
                                 <span class="sorting-indicator"></span>
                             </a>
@@ -115,7 +115,7 @@ License: GPL2
                             <span><?php _e('Ad Method', 'video_gallery'); ?></span>
                         </th>
                         <th scope="col" class="manage-column column-description sortable desc" style="">
-                            <a  href="<?php echo get_bloginfo('url')?>/wp-admin/admin.php?page=videoads&orderby=publish&order=<?php echo $reverse_direction; ?>" ><span><?php _e('Publish', 'video_gallery'); ?></span>
+                            <a  href="<?php echo get_site_url()?>/wp-admin/admin.php?page=videoads&orderby=publish&order=<?php echo $reverse_direction; ?>" ><span><?php _e('Publish', 'video_gallery'); ?></span>
                                 <span class="sorting-indicator"></span>
                             </a>
                         </th>
@@ -131,10 +131,10 @@ License: GPL2
                         <input type="checkbox" name="videoad_id[]" value="<?php echo $videoAdview->ads_id; ?>">
                     </th>
                     <td>
-                        <a title="Edit <?php echo $videoAdview->title; ?>" href="<?php echo get_bloginfo('url')?>/wp-admin/admin.php?page=newvideoad&videoadId=<?php echo $videoAdview->ads_id;  ?>" ><?php echo $videoAdview->ads_id;?></a><div class="row-actions">
+                        <a title="Edit <?php echo $videoAdview->title; ?>" href="<?php echo get_site_url()?>/wp-admin/admin.php?page=newvideoad&videoadId=<?php echo $videoAdview->ads_id;  ?>" ><?php echo $videoAdview->ads_id;?></a><div class="row-actions">
                     </td>
                     <td>
-                        <a title="Edit <?php echo $videoAdview->title; ?>" class="row-title" href="<?php echo get_bloginfo('url')?>/wp-admin/admin.php?page=newvideoad&videoadId=<?php echo $videoAdview->ads_id;  ?>" ><?php echo  $videoAdview->title; ?></a>
+                        <a title="Edit <?php echo $videoAdview->title; ?>" class="row-title" href="<?php echo get_site_url()?>/wp-admin/admin.php?page=newvideoad&videoadId=<?php echo $videoAdview->ads_id;  ?>" ><?php echo  $videoAdview->title; ?></a>
                     </td>
                     <td class="description column-description">
                         <?php if($videoAdview->admethod != "midroll") echo $videoAdview->file_path; ?>
@@ -157,7 +157,7 @@ License: GPL2
                         <?php if($videoAdview->admethod != "midroll") echo  $videoAdview->adtype; ?>
                     </td>
                     <td class="description column-description">
-                        <a href="<?php echo get_bloginfo('url')?>/wp-admin/admin.php?page=videoads&videoadId=<?php echo $videoAdview->ads_id;?>&status=<?php echo $status;?>">   <img  src="<?php  echo APPTHA_VGALLERY_BASEURL.'images/'.$image ?>" title="<?php echo $publish;?>" title="<?php echo $publish;?>"  /></a>
+                        <a href="<?php echo get_site_url()?>/wp-admin/admin.php?page=videoads&videoadId=<?php echo $videoAdview->ads_id;?>&status=<?php echo $status;?>">   <img  src="<?php  echo APPTHA_VGALLERY_BASEURL.'images/'.$image ?>" title="<?php echo $publish;?>" title="<?php echo $publish;?>"  /></a>
                     </td>
                 </tr>
              <?php
@@ -174,18 +174,18 @@ License: GPL2
                     <input type="checkbox" name="" >
                 </th>
                 <th scope="col"  class="manage-column column-name sortable desc" style="">
-                    <a  href="<?php echo get_bloginfo('url')?>/wp-admin/admin.php?page=videoads&orderby=id&order=<?php echo $reverse_direction; ?>">
+                    <a  href="<?php echo get_site_url()?>/wp-admin/admin.php?page=videoads&orderby=id&order=<?php echo $reverse_direction; ?>">
                         <span><?php _e('Ad ID', 'video_gallery'); ?></span>
                         <span class="sorting-indicator"></span>
                     </a>
                 </th>
                 <th scope="col" class="manage-column column-description sortable desc" style="">
-                    <a href="<?php echo get_bloginfo('url')?>/wp-admin/admin.php?page=videoads&orderby=title&order=<?php echo $reverse_direction; ?>" ><span><?php _e('Title', 'video_gallery'); ?></span>
+                    <a href="<?php echo get_site_url()?>/wp-admin/admin.php?page=videoads&orderby=title&order=<?php echo $reverse_direction; ?>" ><span><?php _e('Title', 'video_gallery'); ?></span>
                         <span class="sorting-indicator"></span>
                     </a>
                 </th>
                 <th scope="col"  class="manage-column column-name sortable desc" style="">
-                    <a  href="<?php echo get_bloginfo('url')?>/wp-admin/admin.php?page=videoads&orderby=path&order=<?php echo $reverse_direction; ?>">
+                    <a  href="<?php echo get_site_url()?>/wp-admin/admin.php?page=videoads&orderby=path&order=<?php echo $reverse_direction; ?>">
                         <span><?php _e('Path', 'video_gallery'); ?></span>
                         <span class="sorting-indicator"></span>
                     </a>
@@ -197,7 +197,7 @@ License: GPL2
                             <span><?php _e('Ad Method', 'video_gallery'); ?></span>
                         </th>
                 <th scope="col" class="manage-column column-description sortable desc" style="">
-                    <a  href="<?php echo get_bloginfo('url')?>/wp-admin/admin.php?page=videoads&orderby=publish&order=<?php echo $reverse_direction; ?>" ><span><?php _e('Publish', 'video_gallery'); ?></span>
+                    <a  href="<?php echo get_site_url()?>/wp-admin/admin.php?page=videoads&orderby=publish&order=<?php echo $reverse_direction; ?>" ><span><?php _e('Publish', 'video_gallery'); ?></span>
                         <span class="sorting-indicator"></span>
                     </a>
                 </th>

@@ -50,7 +50,7 @@ class widget_ContusVideoCategory_init extends WP_Widget {
         $show                   = $instance['show']; ## # of Posts we are showing
         $excerpt                = $options['excerpt'];  ## Showing the excerpt or not
         $exclude                = $options['exclude'];  ## Categories to exclude
-        $site_url               = get_bloginfo('url');
+        $site_url               = get_site_url();
         $dir                    = dirname(plugin_basename(__FILE__));
         $dirExp                 = explode('/', $dir);
         $dirPage                = $dirExp[0];
@@ -60,7 +60,7 @@ For Getting The Page Id More and Video-->
 <?php
         $moreName               = $wpdb->get_var("select ID from " . $wpdb->prefix . "posts WHERE post_content='[videomore]' and post_status='publish' and post_type='page' limit 1");
         $styleSheet             = $wpdb->get_var("select stylesheet from " . $wpdb->prefix . "hdflvvideoshare_settings WHERE settings_id='1'");
-        $site_url               = get_bloginfo('url');
+        $site_url               = get_site_url();
 
         ## For Featured Videos
 

@@ -12,7 +12,7 @@
 require_once( dirname(__FILE__) . '/hdflv-config.php');
 global $site_url;
 
-$site_url               = get_bloginfo('url');
+$site_url               = get_site_url();
 $dir                    = dirname(plugin_basename(__FILE__));
 $dirExp                 = explode('/', $dir);
 $dirPage                = $dirExp[0];
@@ -55,7 +55,7 @@ $contusOBJ              = new ContusVideoController();
         echo '<?xml version="1.0" encoding="utf-8"?>';
         echo '<rss xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0">';
         echo '<title>'.$siteName.'</title>';
-        echo '<link>'.get_bloginfo('url').'</link>';
+        echo '<link>'.get_site_url().'</link>';
         if (count($TypeOFvideos) > 0) {
             foreach ($TypeOFvideos as $media) {
                 

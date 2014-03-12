@@ -29,7 +29,7 @@ if (isset($_GET['pagenum'])){
                     videoid[i]=orderid[i].replace('&',"");
                     oid= "ordertd_"+videoid[i];
                 }
-                dragdr.post("<?php echo get_bloginfo('url'); ?>/wp-admin/admin-ajax.php?action=playlistsortorder<?php echo $page; ?>",order);
+                dragdr.post("<?php echo get_site_url(); ?>/wp-admin/admin-ajax.php?action=playlistsortorder<?php echo $page; ?>",order);
             }
         });
     });
@@ -125,7 +125,7 @@ document.getElementById("publish_yes").checked = true;
  ?>
                     <div  class="updated below-h2">
             <?php
-                    $url = get_bloginfo('url') . '/wp-admin/admin.php?page=playlist';
+                    $url = get_site_url() . '/wp-admin/admin.php?page=playlist';
                     $searchmsg = filter_input(INPUT_POST, 'PlaylistssearchQuery');
                     if (count($gridPlaylist)) {
                         echo _e('Search Results for', 'video_gallery').' "' . $searchMsg.'"' ;
@@ -183,24 +183,24 @@ document.getElementById("publish_yes").checked = true;
                                    <span>
                                     <?php _e('', 'video_gallery'); ?> </span><span class="sorting-indicator"></span></th>
                             <th scope="col"  class="manage-column column-name sortable desc" style="">
-                                <a href="<?php echo get_bloginfo('url'); ?>/wp-admin/admin.php?page=playlist&orderby=id&order=<?php echo $reverse_direction; ?>">
+                                <a href="<?php echo get_site_url(); ?>/wp-admin/admin.php?page=playlist&orderby=id&order=<?php echo $reverse_direction; ?>">
                                     <span><?php _e('ID', 'video_gallery'); ?></span>
                                     <span class="sorting-indicator"></span>
                                 </a>
                             </th>
                             <th scope="col"  class="manage-column column-name sortable desc" style="">
-                                <a href="<?php echo get_bloginfo('url'); ?>/wp-admin/admin.php?page=playlist&orderby=title&order=<?php echo $reverse_direction; ?>">
+                                <a href="<?php echo get_site_url(); ?>/wp-admin/admin.php?page=playlist&orderby=title&order=<?php echo $reverse_direction; ?>">
                                     <span><?php _e('Title', 'video_gallery'); ?></span>
                                     <span class="sorting-indicator"></span>
                                 </a>
                             </th>
                             <th scope="col" class="manage-column column-Expiry sortable desc" style="">
-                                <a href="<?php echo get_bloginfo('url'); ?>/wp-admin/admin.php?page=playlist&orderby=publish&order=<?php echo $reverse_direction; ?>"><span><?php _e('Publish', 'video_gallery'); ?></span>
+                                <a href="<?php echo get_site_url(); ?>/wp-admin/admin.php?page=playlist&orderby=publish&order=<?php echo $reverse_direction; ?>"><span><?php _e('Publish', 'video_gallery'); ?></span>
                                     <span class="sorting-indicator"></span>
                                 </a>
                             </th>
                             <th scope="col" class="manage-column column-sortorder sortable desc" style="">
-                                <a href="<?php echo get_bloginfo('url'); ?>/wp-admin/admin.php?page=playlist&orderby=sorder&order=<?php echo $reverse_direction; ?>"><span><?php _e('Order', 'video_gallery'); ?></span>
+                                <a href="<?php echo get_site_url(); ?>/wp-admin/admin.php?page=playlist&orderby=sorder&order=<?php echo $reverse_direction; ?>"><span><?php _e('Order', 'video_gallery'); ?></span>
                                     <span class="sorting-indicator"></span>
                                 </a>
                             </th>
@@ -224,10 +224,10 @@ document.getElementById("publish_yes").checked = true;
                         </span>
                     </td>
                     <td class="id-column">
-                        <a title="Edit <?php echo $playlistView->playlist_name; ?>" href="<?php echo get_bloginfo('url'); ?>/wp-admin/admin.php?page=newplaylist&playlistId=<?php echo $playlistView->pid; ?>" ><?php echo $playlistView->pid; ?></a><div class="row-actions">
+                        <a title="Edit <?php echo $playlistView->playlist_name; ?>" href="<?php echo get_site_url(); ?>/wp-admin/admin.php?page=newplaylist&playlistId=<?php echo $playlistView->pid; ?>" ><?php echo $playlistView->pid; ?></a><div class="row-actions">
                     </td>
                     <td class="title-column">
-                        <a title="Edit <?php echo $playlistView->playlist_name; ?>" class="row-title" href="<?php echo get_bloginfo('url'); ?>/wp-admin/admin.php?page=newplaylist&playlistId=<?php echo $playlistView->pid; ?>" ><?php echo $playlistView->playlist_name; ?></a>
+                        <a title="Edit <?php echo $playlistView->playlist_name; ?>" class="row-title" href="<?php echo get_site_url(); ?>/wp-admin/admin.php?page=newplaylist&playlistId=<?php echo $playlistView->pid; ?>" ><?php echo $playlistView->playlist_name; ?></a>
                     </td>
                     <td class="pub-column Expiry column-Expiry">
                         <?php
@@ -240,7 +240,7 @@ document.getElementById("publish_yes").checked = true;
                             $publish = __('Click here to Deactivate', 'video_gallery');
                         }
                         ?>
-                                <a href="<?php echo get_bloginfo('url'); ?>/wp-admin/admin.php?page=playlist<?php if(isset($_GET['pagenum'])) echo '&pagenum='.$_GET['pagenum']; ?>&playlistId=<?php echo $playlistView->pid; ?>&status=<?php echo $status; ?>">   <img src="<?php echo APPTHA_VGALLERY_BASEURL . 'images/' . $image ?>" title="<?php echo $publish; ?>"   /> </a>
+                                <a href="<?php echo get_site_url(); ?>/wp-admin/admin.php?page=playlist<?php if(isset($_GET['pagenum'])) echo '&pagenum='.$_GET['pagenum']; ?>&playlistId=<?php echo $playlistView->pid; ?>&status=<?php echo $status; ?>">   <img src="<?php echo APPTHA_VGALLERY_BASEURL . 'images/' . $image ?>" title="<?php echo $publish; ?>"   /> </a>
                             </td>
                             <td class="order-column Expiry column-Expiry">
                 <?php echo $playlistView->playlist_order; ?>
@@ -265,24 +265,24 @@ document.getElementById("publish_yes").checked = true;
                                    <span>
                                     <?php _e('', 'video_gallery'); ?> </span><span class="sorting-indicator"></span></th>
                             <th scope="col"  class="manage-column column-name sortable desc" style="">
-                                <a href="<?php echo get_bloginfo('url'); ?>/wp-admin/admin.php?page=playlist&orderby=id&order=<?php echo $reverse_direction; ?>">
+                                <a href="<?php echo get_site_url(); ?>/wp-admin/admin.php?page=playlist&orderby=id&order=<?php echo $reverse_direction; ?>">
                                     <span><?php _e('ID', 'video_gallery'); ?></span>
                                     <span class="sorting-indicator"></span>
                                 </a>
                             </th>
                             <th scope="col"  class="manage-column column-name sortable desc" style="">
-                                <a href="<?php echo get_bloginfo('url'); ?>/wp-admin/admin.php?page=playlist&orderby=title&order=<?php echo $reverse_direction; ?>">
+                                <a href="<?php echo get_site_url(); ?>/wp-admin/admin.php?page=playlist&orderby=title&order=<?php echo $reverse_direction; ?>">
                                     <span><?php _e('Title', 'video_gallery'); ?></span>
                                     <span class="sorting-indicator"></span>
                                 </a>
                             </th>
                             <th scope="col" class="manage-column column-Expiry sortable desc" style="">
-                                <a href="<?php echo get_bloginfo('url'); ?>/wp-admin/admin.php?page=playlist&orderby=publish&order=<?php echo $reverse_direction; ?>"><span><?php _e('Publish', 'video_gallery'); ?></span>
+                                <a href="<?php echo get_site_url(); ?>/wp-admin/admin.php?page=playlist&orderby=publish&order=<?php echo $reverse_direction; ?>"><span><?php _e('Publish', 'video_gallery'); ?></span>
                                     <span class="sorting-indicator"></span>
                                 </a>
                             </th>
                              <th scope="col" class="manage-column column-sortorder sortable desc" style="">
-                                <a href="<?php echo get_bloginfo('url'); ?>/wp-admin/admin.php?page=playlist&orderby=sorder&order=<?php echo $reverse_direction; ?>"><span><?php _e('Order', 'video_gallery'); ?></span>
+                                <a href="<?php echo get_site_url(); ?>/wp-admin/admin.php?page=playlist&orderby=sorder&order=<?php echo $reverse_direction; ?>"><span><?php _e('Order', 'video_gallery'); ?></span>
                                     <span class="sorting-indicator"></span>
                                 </a>
                             </th>
