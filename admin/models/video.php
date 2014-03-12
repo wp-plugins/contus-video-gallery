@@ -239,7 +239,11 @@ if(class_exists('VideoModel') != true)
         
         public function video_delete($videoId)
         {//function for deleting video starts
+            $slug = $this->_wpdb->get_col("SELECT slug FROM ".$this->_videotable."  WHERE vid IN ("."$videoId".")");
+			$slugid = implode(",", $slug);
             $query = "DELETE FROM ".$this->_videotable."  WHERE vid IN ("."$videoId".")";
+            $this->_wpdb->query($query);
+            $query = "DELETE FROM ".$this->_posttable."  WHERE ID IN ("."$slugid".")";
             return $this->_wpdb->query($query);
         }//function for deleting video ends
 
