@@ -47,7 +47,7 @@ FLV & H.264 encoded video including MP4, M4V, M4A, MOV, Mp4v, F4V, social networ
 * Option to include a well-suited meta information
 * Option to add RTMP based videos
 * Option to add Viddler and Dailymotion videos
-* Option to add Embed code based videos
+* Option to add Embed code based videos (Limited to Premium version only)
 * Rating option for the videos
 * Language pack can be set on any preferred language
 * Provides FFMPEG path in backend and generates timer for upload video.
