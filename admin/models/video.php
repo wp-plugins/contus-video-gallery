@@ -23,7 +23,7 @@ if(class_exists('VideoModel') != true)
             $this->_videotable = $this->_wpdb->prefix.'hdflvvideoshare';
             $this->_posttable = $this->_wpdb->prefix.'posts';
             $this->_videosettingstable = $this->_wpdb->prefix.'hdflvvideoshare_settings';
-            $this->_videoId = filter_input(INPUT_GET, 'videoId');
+            $this->_videoId = intval(filter_input(INPUT_GET, 'videoId'));
             $current_user = wp_get_current_user();
             $this->member_id = $current_user->ID;
         }//contructor ends

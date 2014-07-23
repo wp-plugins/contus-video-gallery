@@ -23,7 +23,7 @@ if (class_exists('ContusVideoShortcodeView') != true) {
         public function __construct() {                                                     ##contructor starts
             parent::__construct();
 
-            $this->_vId             = filter_input(INPUT_GET, 'vid');                       ## Get vid from URL
+            $this->_vId             = intval(filter_input(INPUT_GET, 'vid'));                       ## Get vid from URL
             $this->_post_type       = filter_input(INPUT_GET, 'post_type');                 ## Get post type from URL
             $this->_page_post_type  = $this->url_to_custompostid(get_permalink());
             $this->_showF           = 5;
@@ -570,7 +570,7 @@ if (class_exists('ContusVideoShortcodeView') != true) {
                                            <input type="hidden" name="flagembed" id="flagembed" />';
                 }
 
-                $output                 .= '<div style="clear: both;"></div><div class="video-page-desc">' . $description . '</div></div>';
+                $output                 .= '<div style="clear: both;"></div><div class="video-page-desc">' . apply_filters('the_content', $description) . '</div></div>';
                 $output                 .= '</div>';
             } 
             $output             .='</div></div>';

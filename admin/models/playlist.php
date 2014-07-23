@@ -19,7 +19,7 @@ if (class_exists('PlaylistModel') != true) {//checks the VideoadModel class has 
             global $wpdb;
             $this->_wpdb = $wpdb;
             $this->_playlisttable = $this->_wpdb->prefix . 'hdflvvideoshare_playlist';
-            $this->_playListId = filter_input(INPUT_GET, 'playlistId');
+            $this->_playListId = intval(filter_input(INPUT_GET, 'playlistId'));
         }
 
 //contructor ends

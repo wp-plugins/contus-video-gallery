@@ -25,8 +25,8 @@ if (class_exists('ContusMoreView') != true) {
             $this->_settingsData    = $this->settings_data();                       ## Get player settings
             $this->_mPageid         = $this->More_pageid();                         ## Get more page id
             $this->_feaMore         = $this->Video_count();                         ## Get featured videos count
-            $this->_vId             = filter_input(INPUT_GET, 'vid');               ## Get vid from URL
-            $this->_pagenum         = filter_input(INPUT_GET, 'pagenum');           ## Get current page number
+            $this->_vId             = intval(filter_input(INPUT_GET, 'vid'));               ## Get vid from URL
+            $this->_pagenum         = intval(filter_input(INPUT_GET, 'pagenum'));           ## Get current page number
             $this->_playid          = &$wp_query->query_vars["playid"];   
             $this->_userid          = &$wp_query->query_vars["userid"];   
             

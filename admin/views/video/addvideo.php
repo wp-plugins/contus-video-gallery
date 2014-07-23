@@ -127,8 +127,8 @@ if (isset($_GET['videoId'])){
         }
     </script>
     <?php
-    $adminPage = filter_input(INPUT_GET, 'page');
-    $videoId = filter_input(INPUT_GET, 'videoId');
+    $adminPage = intval(filter_input(INPUT_GET, 'page'));
+    $videoId = intval(filter_input(INPUT_GET, 'videoId'));
     if ($adminPage == 'newvideo' && !empty($videoId)) {
         $editbutton = 'Update video';
         $page_title = 'Edit video';

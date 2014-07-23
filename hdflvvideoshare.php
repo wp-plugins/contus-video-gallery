@@ -569,7 +569,10 @@ function videogallery_pagereplace($pageContent) {
 }
 
 ## function declaration to replace content with shortcode
-add_filter('the_content', 'videogallery_pagereplace');
+//add_filter('the_content', 'videogallery_pagereplace');
+add_shortcode ( 'videohome', 'video_homereplace' );
+add_shortcode ( 'videomore', 'video_morereplace' );
+add_shortcode ( 'hdvideo', 'video_shortcodereplace' );
 
 function url_to_custompostid($url) {
     global $wp_rewrite, $wpdb;
@@ -677,7 +680,7 @@ add_shortcode('hdvideo', 'video_shortcodeplace');
 
 function video_morereplace() {
     global $frontControllerPath, $frontModelPath, $frontViewPath, $wp_query;
-    $playid = filter_input(INPUT_GET, 'playid'); 
+    $playid = intval(filter_input(INPUT_GET, 'playid')); 
     $more = &$wp_query->query_vars["more"];
     $playlist_name = &$wp_query->query_vars["playlist_name"];
     if (!empty($playlist_name)) {
@@ -685,7 +688,7 @@ function video_morereplace() {
     }
     $wp_query->query_vars["playid"] = $playid;
 
-    $userid = filter_input(INPUT_GET, 'userid'); 
+    $userid = intval(filter_input(INPUT_GET, 'userid')); 
     $user_name = &$wp_query->query_vars["user_name"];
     $user_name = str_replace('%20', ' ', $user_name);
     if (!empty($user_name)) {
