@@ -43,7 +43,7 @@ $contusOBJ              = new ContusVideoController();
                 $TypeOFvideos   = $contusOBJ->home_thumbdata($thumImageorder, $where, $dataLimit);
                 break;
             case 'category':
-                $thumImageorder = intval(filter_input(INPUT_GET, 'playid'));
+                $thumImageorder = intval(intval(filter_input(INPUT_GET, 'playid')));
                 $TypeOFvideos   = $contusOBJ->home_catthumbdata($thumImageorder, $dataLimit);
                 break;
         }

@@ -20,7 +20,7 @@ if(class_exists('VideoadModel') != true)
             global $wpdb;
             $this->_wpdb = $wpdb;
             $this->_videoadtable = $this->_wpdb->prefix.'hdflvvideoshare_vgads';
-            $this->_videoadId = filter_input(INPUT_GET, 'videoadId');
+            $this->_videoadId = intval(filter_input(INPUT_GET, 'videoadId'));
         }//contructor ends
 
         public function insert_videoad($videoadData, $videoadDataformat)
