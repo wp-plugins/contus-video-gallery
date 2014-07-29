@@ -92,6 +92,54 @@ FLV & H.264 encoded video including MP4, M4V, M4A, MOV, Mp4v, F4V, social networ
 
 10. **Videos(recent,popular,feature, Video Categories)** - We are also displaying Popular, Recent, Featured, Related videos and Video Categories in content page under player.
 
+== Changelog ==
+
+= 2.5 =
+* Updated WordPress Method to load ajax files
+* UI modification in Admin pages
+* Fix "Embed" method video is not working when using shortcode
+* Fix Facebook player not supported in "Embed" Videos method
+* Filter option on the video gallery pages
+* Text widget support
+* Options to control Views,Tags,Category
+* Fix adding vimeo videos through embed code option not playing in mobile
+* RSS Feature
+* Fix Short codes not working with other Custom post types
+* Fix SQL Injection
+* Fix Description not displaying in entered format. 
+
+= 2.3.1 =
+* Viddler, Dailymotion support
+* Subtitle Feature
+* Member video upload option
+* Sort option for categories
+
+= 2.3 =
+* Embed Code method for video upload
+* Video rating option
+* IMA Ad support
+* Fix changing the package name cause license key not working
+* Fix view count not updating for "Embed" method videos.
+
+= 2.2 =
+* New player and a skin with customize option
+* Removed Hide YouTube Logo option
+* WordPress Default comment and Disqus comment support
+* Fix playlistid sortcode not working in IOS device
+
+= 2.1 =
+* Updated to support WordPress 3.+
+* Fix Unexpected error during activation
+* Fix Unpublished video is displaying while search and playlist in category section of add video page
+
+= 2.0 =
+* Changed folder strcuture
+* Provided separate language file
+* HTML5 Support with Responsive
+* Provided 10 Skins
+* Permalink support
+* Custom post support
+
 == Other Notes ==
 
 = To Add video =
