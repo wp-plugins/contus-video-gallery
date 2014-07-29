@@ -246,13 +246,13 @@ if (class_exists('VideoController') != true) {//checks if the VideoController cl
                     'publish' => $videoPublish
                 );
 
-                if (!isset($this->_videoId)) {
+                if (empty($this->_videoId)) {
                     $videoData['post_date'] = $videoDate;
                     $videoData['ordering'] = $ordering;
                     $videoData['slug'] = '';
                 }
                 
-                if (isset($this->_videoId)) {   //update for video if starts
+                if (!empty($this->_videoId)) {   //update for video if starts
                     $slug_id=$this->_wpdb->get_var("SELECT slug FROM ".$wpdb->prefix . "hdflvvideoshare WHERE vid =$this->_videoId");
                     $videoData['slug'] = $slug_id;
                    $updateflag = $this->video_update($videoData, $this->_videoId,$slug);

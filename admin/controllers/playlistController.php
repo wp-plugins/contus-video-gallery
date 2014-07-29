@@ -62,7 +62,7 @@ if(class_exists('PlaylistController') != true)
                 'is_publish' => $playlistPublish,
                 );
 
-                if (isset($this->_playListId)) 
+                if (!empty($this->_playListId)) 
                 {//update for playlist if starts
                     $updateflag = $this->playlist_update($playlsitData, $this->_playListId);
 
