@@ -568,7 +568,7 @@ if (isset($_GET['videoId'])){
                                                                                $tables = $wpdb->get_results("SELECT * FROM " . $wpdb->prefix . "hdflvvideoshare_vgads WHERE admethod='prepost' AND publish='1'");
 
                                                                                $settings = $wpdb->get_results("SELECT * FROM " . $wpdb->prefix . "hdflvvideoshare_settings");
-                                                                               if ($settings[0]->preroll == 0 || $settings[0]->postroll == 0 || $settings[0]->midroll_ads == 0 || $settings[0]->imaAds == 1) {
+                                                                               if ($settings[0]->preroll == 0 || $settings[0]->postroll == 0 || $settings[0]->midroll_ads == 0 || $settings[0]->imaAds == 0) {
                     ?>
 
                                                                            <div class="stuffbox" id="adstypebox">

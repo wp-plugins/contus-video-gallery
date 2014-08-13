@@ -100,7 +100,7 @@ if(class_exists('VideoadController') != true)
 
                     $videoadDataformat = array('%s', '%s' , '%s', '%s', '%s', '%s', '%s', '%s', '%d', '%d', '%s', '%s', '%s', '%d', '%s', '%d');
 
-                    if(isset($this->_videoadId))
+                    if(!empty($this->_videoadId))
                     {//update for video ad if starts
                         $updateflag =  $this->videoad_update($videoadData, $videoadDataformat,$this->_videoadId);
 
