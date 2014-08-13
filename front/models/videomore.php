@@ -40,7 +40,7 @@ if(class_exists('ContusMore') != true)
 
         public function get_thumdata($thumImageorder,$where,$pagenum,$dataLimit)
         {//function for getting settings data starts
-            $pagenum = isset($pagenum ) ? absint($pagenum ) : 1;
+            $pagenum = !empty($pagenum ) ? absint($pagenum ) : 1;
             $offset = ( $pagenum - 1 ) * $dataLimit;
             $query = "SELECT distinct w.*,s.guid,p.playlist_slugname FROM " . $this->_videoinfotable. " w
                       INNER JOIN " . $this->_wpdb->prefix . "hdflvvideoshare_med2play m ON m.media_id = w.vid
@@ -52,7 +52,7 @@ if(class_exists('ContusMore') != true)
 
         public function get_categoriesthumdata($pagenum,$dataLimit)
         {//function for getting settings data starts
-            $pagenum = isset($pagenum ) ? absint($pagenum ) : 1;
+            $pagenum = !empty($pagenum ) ? absint($pagenum ) : 1;
             $offset = ( $pagenum - 1 ) * $dataLimit;
             $query = "SELECT * FROM " . $this->_wpdb->prefix . "hdflvvideoshare_playlist WHERE is_publish='1' ORDER BY playlist_order ASC LIMIT " . $offset . "," . $dataLimit ;
             return $this->_wpdb->get_results($query);
@@ -60,7 +60,7 @@ if(class_exists('ContusMore') != true)
 
         public function get_searchthumbdata($thumImageorder,$pagenum,$dataLimit)
         {//function for getting settings data starts
-            $pagenum = isset($pagenum ) ? absint($pagenum ) : 1;
+            $pagenum = !empty($pagenum ) ? absint($pagenum ) : 1;
             $offset = ( $pagenum - 1 ) * $dataLimit;
             $query = "SELECT t1.vid,t1.slug,t1.name,t1.ratecount,t1.rate,t1.description,s.guid,t3.pid,t3.playlist_name,t1.image,t1.file,t1.file_type,t1.duration,t1.hitcount,t2.playlist_id,t3.playlist_name,t3.playlist_slugname FROM " . $this->_wpdb->prefix . "hdflvvideoshare AS t1
                         LEFT JOIN " . $this->_wpdb->prefix . "hdflvvideoshare_med2play AS t2 ON t2.media_id = t1.vid
@@ -114,7 +114,7 @@ if(class_exists('ContusMore') != true)
          public function home_catthumbdata($thumImageorder,$pagenum,$dataLimit)
         {//function for getting settings data starts
               global $wpdb;
-              $pagenum = isset($pagenum ) ? absint($pagenum ) : 1;
+              $pagenum = !empty($pagenum ) ? absint($pagenum ) : 1;
               $offset = ( $pagenum - 1 ) * $dataLimit;
            $query = "SELECT s.guid,w.*,p.playlist_name,p.playlist_slugname FROM " . $wpdb->prefix . "hdflvvideoshare as w
                     INNER JOIN " . $wpdb->prefix . "hdflvvideoshare_med2play as m ON m.media_id = w.vid
@@ -128,7 +128,7 @@ if(class_exists('ContusMore') != true)
          public function home_userthumbdata($thumImageorder,$pagenum,$dataLimit)
         {//function for gettimg user data starts
               global $wpdb;
-              $pagenum = isset($pagenum ) ? absint($pagenum ) : 1;
+              $pagenum = !empty($pagenum ) ? absint($pagenum ) : 1;
               $offset = ( $pagenum - 1 ) * $dataLimit;
            $query = "SELECT s.guid,w.*,p.playlist_name,p.playlist_slugname FROM " . $wpdb->prefix . "hdflvvideoshare as w
                     INNER JOIN " . $wpdb->prefix . "hdflvvideoshare_med2play as m ON m.media_id = w.vid

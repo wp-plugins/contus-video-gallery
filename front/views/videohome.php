@@ -317,7 +317,7 @@ if (class_exists('ContusVideoView') != true) {
             global $wpdb;
             $div                = '';
             $ratearray = array("nopos1", "onepos1", "twopos1", "threepos1", "fourpos1", "fivepos1");
-            $pagenum            = isset($pagenum) ? absint($pagenum) : 1;               ## Calculating page number
+            $pagenum            = !empty($pagenum) ? absint($pagenum) : 1;               ## Calculating page number
             $div                .= '<style scoped> .video-block { margin-left:' . $this->_settingsData->gutterspace . 'px !important;float:left;} </style>';
             foreach ($TypeOFvideos as $catList) {
             ## Fetch videos for every category

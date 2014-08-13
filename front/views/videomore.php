@@ -152,7 +152,7 @@ if (class_exists('ContusMoreView') != true) {
 ?>
 
 <?php
-                $pagenum            = isset($this->_pagenum) ? absint($this->_pagenum) : 1;
+                $pagenum            = !empty($this->_pagenum) ? absint($this->_pagenum) : 1;
                 $div                = '<div class="video_wrapper" id="'. $type_name.'_video">';
                 $div               .= '<style type="text/css"> .video-block {  margin-left:' . $this->_settingsData->gutterspace . 'px !important; } </style>';
                     if($typename=='Category'){
@@ -287,7 +287,7 @@ if (class_exists('ContusMoreView') != true) {
 
             global $wpdb;
             $div        = '';
-            $pagenum    = isset($pagenum) ? absint($pagenum) : 1;       ## Calculating page number
+            $pagenum    = !empty($pagenum) ? absint($pagenum) : 1;       ## Calculating page number
             $start      = ( $pagenum - 1 ) * $dataLimit;                ## Video starting from
             $ratearray = array("nopos1", "onepos1", "twopos1", "threepos1", "fourpos1", "fivepos1");
 ?>
@@ -403,7 +403,7 @@ if (class_exists('ContusMoreView') != true) {
 
             global $wpdb;
             $div        = '';
-            $pagenum    = isset($pagenum) ? absint($pagenum) : 1;   ## Calculating page number
+            $pagenum    = !empty($pagenum) ? absint($pagenum) : 1;   ## Calculating page number
             $start      = ( $pagenum - 1 ) * $dataLimit;            ## Video starting from
             $limit      = $dataLimit;                               ## Video Limit
             $ratearray = array("nopos1", "onepos1", "twopos1", "threepos1", "fourpos1", "fivepos1");

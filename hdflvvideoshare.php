@@ -163,12 +163,17 @@ add_action('wp_ajax_nopriv_videohitCount', 'videohitCount_function');
 
 function videohitCount_function() {
     global $wpdb;
-    $vid = $_GET['vid'];             ## Get video id from url
-    $hitList = $wpdb->get_row("SELECT * FROM " . $wpdb->prefix . "hdflvvideoshare WHERE vid='" . intval($vid) . "'");
-    $hitCount = $hitList->hitcount;       ## Get view count for particular video and increase it
-    $hitInc = ++$hitCount;
-## Update Hit count here
-    $wpdb->update($wpdb->prefix . "hdflvvideoshare", array('hitcount' => intval($hitInc)), array('vid' => intval($vid)));
+    $vid = intval($_GET['vid']);             ## Get video id from url
+
+    if(!empty($vid)) {
+	    $hitList = $wpdb->get_row("SELECT * FROM " . $wpdb->prefix . "hdflvvideoshare WHERE vid='" . $vid . "'");
+	    $hitCount = $hitList->hitcount;       ## Get view count for particular video and increase it
+	    $hitInc = ++$hitCount;
+
+	    ## Update Hit count here
+	    $wpdb->update($wpdb->prefix . "hdflvvideoshare", array('hitcount' => intval($hitInc)), array('vid' => $vid));
+    }
+
     die();
 }
 
@@ -178,12 +183,12 @@ add_action('wp_ajax_nopriv_rateCount', 'rateCount_function');
 
 function rateCount_function() {
     global $wpdb;
-    $vid = $_GET['vid'];             ## Get video id from url
-    $get_rate = $_GET['rate'];            ## Get Rate count from url
-    if ($get_rate) {
+    $vid = intval($_GET['vid']);             ## Get video id from url
+    $get_rate = intval($_GET['rate']);            ## Get Rate count from url
+    if (!empty($get_rate) && !empty($vid)) {
 ## Update rate count count here
-        mysql_query("UPDATE " . $wpdb->prefix . "hdflvvideoshare SET rate=" . intval($get_rate) . "+rate,ratecount=1+ratecount WHERE vid = '" . intval($vid) . "'");
-        $ratecount = mysql_query("SELECT * FROM " . $wpdb->prefix . "hdflvvideoshare WHERE vid='" . intval($vid) . "'");
+        mysql_query("UPDATE " . $wpdb->prefix . "hdflvvideoshare SET rate=" . $get_rate . "+rate,ratecount=1+ratecount WHERE vid = '" . $vid . "'");
+        $ratecount = mysql_query("SELECT * FROM " . $wpdb->prefix . "hdflvvideoshare WHERE vid='" . $vid . "'");
         $rateList = mysql_fetch_object($ratecount);
         $rateCount = $rateList->ratecount;       ## Get rate count for particular video and display it
         echo $rateCount;
@@ -570,10 +575,9 @@ function videogallery_pagereplace($pageContent) {
 
 ## function declaration to replace content with shortcode
 //add_filter('the_content', 'videogallery_pagereplace');
-
 add_shortcode ( 'videohome', 'video_homereplace' );
 add_shortcode ( 'videomore', 'video_morereplace' );
-add_shortcode ( 'hdvideo', 'video_shortcodereplace' );
+add_shortcode ( 'hdvideo', 'video_shortcodeplace' );
 
 function url_to_custompostid($url) {
     global $wp_rewrite, $wpdb;
@@ -684,17 +688,20 @@ function video_morereplace() {
     $playid = intval(filter_input(INPUT_GET, 'playid')); 
     $more = &$wp_query->query_vars["more"];
     $playlist_name = &$wp_query->query_vars["playlist_name"];
+
     if (!empty($playlist_name)) {
         $playid = get_playlist_id($playlist_name);
     }
-    $wp_query->query_vars["playid"] = $playid;
 
+    $wp_query->query_vars["playid"] = $playid;
     $userid = intval(filter_input(INPUT_GET, 'userid')); 
     $user_name = &$wp_query->query_vars["user_name"];
     $user_name = str_replace('%20', ' ', $user_name);
+
     if (!empty($user_name)) {
         $userid = get_user_id($user_name);
     }
+
     $wp_query->query_vars["userid"] = $userid;
 
     include_once ($frontControllerPath . 'videomoreController.php');
@@ -703,13 +710,17 @@ function video_morereplace() {
     if (!empty($playid)){
         $more = 'cat';
     }    
+
     if (!empty($userid)){
         $more = 'user';
     }    
+
     $video_search = &$wp_query->query_vars["video_search"];
+
     if (!empty($video_search)){
         $more = 'search';
     }
+
     $contentvideoPlayer = $videoOBJ->video_more_pages($more);
     return $contentvideoPlayer;
 }
