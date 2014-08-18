@@ -584,14 +584,13 @@ if (class_exists('ContusVideoShortcodeView') != true) {
                                         WHERE b.playlist_id=" . intval($video_playlist_id) . " AND a.vid != " . intval($videoId) . " and a.publish='1' AND p.is_publish='1'
                                         ORDER BY a.vid DESC";
             $output                     .= '<div class="player_related_video"><h2 class="related-videos">' . __("Related Videos", "video_gallery") . '</h2><div style="clear: both;"></div>';
-            $related                     = mysql_query($select);
-            if (!empty($related))
-                $result                  = mysql_num_rows($related);
-            if ($result != '') {
+            global $wpdb;
+				$related = $wpdb->get_results ( $select );
+			if (! empty ( $related )) {
             ## Slide Display Here
             $output                     .= '<ul id="mycarousel" class="jcarousel-skin-tango" style="margin:0 !important;">';
                 $image_path              = str_replace('plugins/'.$this->_plugin_name.'/', 'uploads/videogallery/', APPTHA_VGALLERY_BASEURL);
-                while ($relFet = mysql_fetch_object($related)) {
+                foreach ( $related as $relFet ) {
                     $file_type           = $relFet->file_type; ## Video Type
                     $imageFea            = $relFet->image; ##VIDEO IMAGE
                     $reafile             = $relFet->file; ##VIDEO IMAGE
