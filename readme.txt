@@ -2,55 +2,45 @@
 Contributors: hdflvplayer
 Tags: Video Player plugin, video, flash player, flv player, WORDPRESS VIDEO GALLERY, flv player wordpress, hd flv player, youtube plugin, youtube Video Player, high definition Video Player, flash, play flv wordpress, player, Video Plugin, wp flv player, wp flv plugin, flv player 2009,  WORDPRESS VIDEO GALLERY, wp flv, wordpress flv plugin, wp hd flv player, flv player plugin, wordpress flv player
 Requires at least: 2.8
-Tested up to: 3.8
-Stable tag: 2.5
+Tested up to: 3.9
+Stable tag: 2.7
 Get the most exciting FLV player in the internet, designed and modified to suit your Wordpress websites.  Installing this Video Plugin is real easy and if you have any difficulty in installation, contact our Video Player support team and quickly resolve your issue.  You can either download this Video Plugin directly from our website or through Wordpress plugins page itself.  This WORDPRESS VIDEO GALLERY Version  has many advanced features that you cannot find elsewhere, such as that you can play youtube videos directly through this player, and it can also aptly be called as a youtube player.
 
 == Description ==
 
 Contus' Best WordPress Video Gallery Plugin has a whole set of utile features and options that make the product a versatile one. In addition to the quickly visible options such as recent Videos, popular Videos and featured Videos, the plugin also has the ability to control the number and order of these videos from back end.
 
-Video Gallery Demo - http://www.apptha.com/demo/video-gallery
+Video Gallery Demo - http://www.apptha-demo.com/template/videostream/
 
 Video Gallery Home Page - http://www.apptha.com/category/extension/Wordpress/Video-Gallery
 
 FLV & H.264 encoded video including MP4, M4V, M4A, MOV, Mp4v, F4V, social networking comments from the gallery page (like for Facebook), provision to alter width, height, skin, theme, aspect ratio, volume, downloads etc. from the backend are few if the best features with this plugin. It also covers other regular and utile features which we could see in popular video sharing sites such as social media bookmark option (diggit, myspace, facebook, del.icio.us, spurl, furl, google), managing multiple playlists, views count for video and so forth.
 
-* Option to modify the colors of player's skin icons, icons, text, etc.
+* Supports Lighttpd, RTMP, Live telecast and Amazon S3 Streaming
+* Facility to add YouTube, Vimeo, Viddler, Daily Motion videos and embed code videos from other sites
+* Supports ffmpeg which generates duration of the video uploaded from PC
+* Facility to monetize by displaying preroll, postroll, midroll, google adsense and IMA ads in the player
+* Simple to customize/manage widgets
+* Option to choose WordPress/Facebook/Disqus commenting system from backend
+* Option to Enable/disable the following options on the player from backend: Download, Share, Volume, Full screen, High definition, Timer, Zoom, Playlist
+* Option to hide the entire skin from the player
+* Option to set logo target from the backend
+* Simple drag and drop option to sort videos/categories from backend
+* Facility to "set your own logo/copyright/edit logo position" on purchasing premium license
+* Offers complete control over number of columns and rows of thumb images
+* Facility to customize the color of player from backend
+* Facility to display Captions in player by adding upto 2 SRT files from backend
+* Option to store media files in Amazon s3 bucket
+* Facility to set the native language for tool tips of player buttons
+* Admin can limit the number of related videos to be displayed inside the player
+* Admin can enable/disable RSS feed icon along with Social Icons in video detail page
+* Option to enable/disable Video title in video home page
+* Option to restrict upload methods for users
+* Packed with seven different video widgets such as Featured, Recent etc… (Refer document for more info)
+* SEO friendly video URL
 * Supports HTML5 to play videos in iOS devices
-* Facility to share your videos using social networking
-* Option to monetize via IMA, pre-, mid-, post-roll video ads
-* Easy to install the WordPress Video Gallery plugin
 * Enthralls with responsive designing to help your visitors view your website on mobile
-* Provides complete control on player through admin panel with a fantastic support
-* This FLV Video plugin is capable to play FLV video & H.264 encoded video including MP3, MP4, M4V, M4A, MOV, Mp4v and F4V formats
 * Supports RTL feature
-* Supports Subtitle feature
-* Supports Member video upload option
-* Admin option to enable/disable Recent Videos, Popular Videos and Featured Videos
-* Admin option to enable/disable Rating
-* Easy to manage widgets like popular, featured, recent, related, video search, video categories.
-* Flexible player size
-* Ability to turn on/off and share volume functions
-* Option to set playlist to be open/close by default
-* Option to view videos on Full screen and also on 1X, 2X and 3X zoom capabilities
-* Facility to design your own logo, right click copyright and edit logo position in admin once you purchase our package.
-* Admin option to set the Logo (opacity control)
-* Facility to enable/disable playlist, HD Default, playlist autoplay, autoplay.
-* Option to combine player to play particular video or playlist using shortcodes in pages or posts.
-* Offers complete control on number of columns and rows for the video thumb images.
-* Individual sort order for each videos in the FLV player
-* Multi- Language options for Tool tips on Player
-* Facebook, Disqus, and default WP Commenting System for front-end users
-* Facility to display the related videos on the side and center of the player. 
-* Option to set up SEO friendly URL using two permalink options: default and postname
-* Option to include a well-suited meta information
-* Option to add RTMP based videos
-* Option to add Viddler and Dailymotion videos
-* Option to add Embed code based videos (Limited to Premium version only)
-* Rating option for the videos
-* Language pack can be set on any preferred language
-* Provides FFMPEG path in backend and generates timer for upload video.
 
 == Installation ==
 
@@ -84,15 +74,28 @@ FLV & H.264 encoded video including MP4, M4V, M4A, MOV, Mp4v, F4V, social networ
 
 6. **Upload RTMP Video** - You can add RTMP Streaming video
 
-7. **Upload Embed Video** - You can add video using Embed code
+7. **Gallery settings** - You can control Player and Plugin here.
 
-8. **Gallery settings** - You can control Player and Plugin here.
+8. **Manage video widgets** - We are providing 7 widgets. They are : Popular, Recent, Featured, Related, Random videos, Video Search and Video Categories. You can assign the above mentioned widgets in any position of your template.
 
-9. **Manage video widgets** - We are providing 5 widgets. They are : Popular, Recent, Featured, Related videos, Video Search and Video Categories. You can assign the above mentioned widgets in any position of your template.
-
-10. **Videos(recent,popular,feature, Video Categories)** - We are also displaying Popular, Recent, Featured, Related videos and Video Categories in content page under player.
+9. **Videos(recent,popular,feature, Video Categories)** - We are also displaying Popular, Recent, Featured, Related videos and Video Categories in content page under player.
 
 == Changelog ==
+
+= 2.7 =
+
+* Provided extra widget called "Random Videos"
+* Option to store videos in Amazon S3 bucket
+* Option to restrict member upload feature
+* Option to limit upload methods for users
+* Option to hide/show "Social Icon", "RSS Icon", "Posted By", "Added On", "Category", "Description", "Ratings", "Views", "Report", "Embed code" and "iframe code" in video detail page.
+* Provided iframe code like embed code of the video (available only outside the player)
+* Google Adsense feature
+* Option to hide video title in video home page
+* Video report option for users
+* Option to limit related videos count in slider and inside the player
+* Option to change the order of "Featured", "Recent" and "Popular" section in video home page.
+* Extra shortcodes for separate category, popular, featured and recent videos sections.
 
 = 2.5 =
 * Updated WordPress Method to load ajax files
@@ -153,6 +156,8 @@ FLV & H.264 encoded video including MP4, M4V, M4A, MOV, Mp4v, F4V, social networ
 2. Click Video Gallery from left column >> Settings
 3. Change the Plugin / Player settings as you wish.
 4. You have options for Home page Recent,Popular,and Featured Videos enable,disable options with limit of rows and columns.
+5. You can allow/disallow the member upload option by changing "Video Upload Option to Members" in settings
+6. You limit the video upload method to member by selecting "Select upload method(s) for users" option.
 
 = To Display Side Widgets of the Player Like Recent,Popular,and Featured Videos
 1. Go to your WordPress Admin panel.
@@ -177,7 +182,7 @@ Our FLV player supports FLV & H.264 encoded video including MP3, MP4, M4V, M4A, 
 You can contact us through,
 Live Chat at http://www.apptha.com
 Email: assist@apptha.com
-Forums at http://www.apptha.com/forum
+Forums at http://www.apptha.com/forum/viewforum.php?f=27
 
 = Can I get the WORDPRESS VIDEO GALLERY plugin player customized to my needs? =
 Yes, but there will be additional charges based on the request for customization has to be made by the requester.

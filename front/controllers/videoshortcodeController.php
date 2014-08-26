@@ -1,41 +1,59 @@
 <?php
-/*
-Name: Wordpress Video Gallery
-Plugin URI: http://www.apptha.com/category/extension/Wordpress/Video-Gallery
-Description: Video detail and short tags controller file.
-Version: 2.5
-Author: Apptha
-Author URI: http://www.apptha.com
-License: GPL2
-*/
-include_once($frontModelPath . 'videoshortcode.php');//including ContusVideo model file for get database information.
-if(class_exists('ContusVideoShortcodeController') != true)
-    {
-    class ContusVideoShortcodeController extends  ContusShortcode
-    {
-        public function __construct()
-        {//contructor starts
-            parent::__construct();
-        }//contructor ends
-        function More_pageid()
-        { //getting more page ID function starts
-            return $this->get_more_pageid();
-        } //getting more page ID function ends
+/**  
+ * Video detail and short tags controller file.
+ *
+ * @category   Apptha
+ * @package    Contus video Gallery
+ * @version    2.7
+ * @author     Apptha Team <developers@contus.in>
+ * @copyright  Copyright (C) 2014 Apptha. All rights reserved.
+ * @license    GNU General Public License http://www.gnu.org/copyleft/gpl.html 
+ */
 
-         function video_detail($vid)
-        { //getting video detail function starts
-            return $this->get_video_detail($vid);
-        } //getting video detail function ends
+include_once( $frontModelPath . 'videoshortcode.php' );									
+if ( class_exists( 'ContusVideoShortcodeController' ) != true ) {
 
-         function playlist_detail($vid)
-        { //getting video detail function starts
-            return $this->get_playlist_detail($vid);
-        } //getting video detail function ends
-    }//class over
-  }
-  else
-  {
-    echo 'class contusVideo already exists';
-  }
- include_once($frontViewPath . 'videoshortcode.php');//including ContusVideo model file for get database information.
+	class ContusVideoShortcodeController extends ContusShortcode {
+
+		public function __construct() {													
+			parent::__construct();
+		}																				
+
+		function more_pageid() {														
+			return $this->get_more_pageid();
+		}																				
+        /**
+         * function get the  video detail.
+         * @param unknown $vid
+         * @return type mixed
+         */
+		function video_detail( $vid ) {													
+			return $this->get_video_detail( $vid );
+		}																				
+        /**
+         * get videos playlist details.
+         * @param unknown $vid
+         */
+		function playlist_detail( $vid ,$related_video_count ) {												
+			return $this->get_playlist_detail( $vid , $related_video_count );
+		}	
+		/**
+		 * Function  google adsense detail for  video.
+		 */
+		public function get_video_google_adsense_details($vid){
+			return $this->get_googleads_detail($vid);
+		}
+		/**
+		 * function current user detail
+		 */
+		public function get_current_user_email() {
+			global $current_user;
+			$user_email = $current_user->user_email;
+			return $user_email;
+		}
+	}																					
+} else {
+	echo 'class contusVideo already exists';
+}
+include_once( $frontViewPath . 'videoshortcode.php' );									// including ContusVideo shortcode view file.
 ?>

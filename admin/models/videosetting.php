@@ -1,36 +1,38 @@
 <?php
-/*
-Name: Wordpress Video Gallery
-Plugin URI: http://www.apptha.com/category/extension/Wordpress/Video-Gallery
-Description: video setting model file.
-Version: 2.5
-Author: Apptha
-Author URI: http://www.apptha.com
-License: GPL2
-*/
-if(class_exists('SettingsModel') != true)
-{//checks the SettingsModel class has been defined if starts
-    class SettingsModel
-    {//SettingsModel class starts
-        
-        public function __construct()
-        {//contructor starts
-            global $wpdb;
-            $this->_wpdb = $wpdb;
-            $this->_settingstable = $this->_wpdb->prefix.'hdflvvideoshare_settings';
-        }//contructor ends
-        
-        public function  update_settings($settingsdata, $settingsdataformat)
-        {//function for updating settings starts
-            return $this->_wpdb->update($this->_settingstable, $settingsdata, array( 'settings_id' => 1 ),$settingsdataformat);
-        }//function for updating settings ends
-        
-        public function get_settingsdata()
-        {//function for getting settings starts
-            $query = "SELECT * FROM ".$this->_settingstable." WHERE settings_id = 1";
-            return $this->_wpdb->get_row($query);
-        }//function for getting settings ends
-        
-    }//SettingsModel class ends
-}//checks the SettingsModel class has been defined if ends
+/**
+ * video setting model file to update the  setting for  video gallery.
+ *  
+ * @category Apptha
+ * @package Contus video Gallery 
+ * @version 2.7 
+ * @author Apptha Team <developers@contus.in> 
+ * @copyright Copyright (C) 2014 Apptha. All rights reserved. @license GNU General Public License http://www.gnu.org/copyleft/gpl.html
+ */
+if (class_exists ( 'SettingsModel' ) != true) {
+	class SettingsModel {
+		public function __construct() {
+			global $wpdb;
+			$this->_wpdb = $wpdb;
+			$this->_settingstable = $this->_wpdb->prefix . 'hdflvvideoshare_settings';
+		}
+		/**
+		 * function for store setting data into database
+		 *
+		 * @param type $settingsdata        	
+		 * @param type $settingsdataformat        	
+		 */
+		public function update_settings($settingsdata, $settingsdataformat) {
+			return $this->_wpdb->update ( $this->_settingstable, $settingsdata, array (
+					'settings_id' => 1 
+			), $settingsdataformat );
+		}
+		/**
+		 * function for get setting value for settings page
+		 */
+		public function get_settingsdata() {
+			$query = 'SELECT * FROM ' . $this->_settingstable . ' WHERE settings_id = 1';
+			return $this->_wpdb->get_row ( $query );
+		}
+	}
+}
 ?>

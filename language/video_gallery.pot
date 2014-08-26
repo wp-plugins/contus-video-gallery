@@ -900,8 +900,12 @@ msgid "Here you need to enter the URL to the Preview image file"
 msgstr "Here you need to enter the URL to the Preview image file"
 
 #: addvideo.php:184
-msgid "<b>Supported video formats:</b>( MP4, M4V, M4A, MOV, Mp4v or F4V)"
-msgstr "<b>Supported video formats:</b>( MP4, M4V, M4A, MOV, Mp4v or F4V)"
+msgid "Supported video formats:"
+msgstr "Supported video formats:"
+
+#: addvideo.php:184
+msgid "( MP4, M4V, M4A, MOV, Mp4v or F4V)"
+msgstr "( MP4, M4V, M4A, MOV, Mp4v or F4V)"
 
 #: addvideo.php:186 addvideo.php:191
 msgid "Upload Video"

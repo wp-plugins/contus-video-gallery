@@ -1,8 +1,8 @@
-/*
+/**
 Name: Wordpress Video Gallery
 Plugin URI: http://www.apptha.com/category/extension/Wordpress/Video-Gallery
 Description: Plugin css file.
-Version: 2.5
+Version: 2.7
 Author: Apptha
 Author URI: http://www.apptha.com
 License: GPL2
@@ -18,7 +18,6 @@ h1 .videoHname a, h2 .videoHname a, h3 .videoHname a, h4 .videoHname a, h5 .vide
 .video-block h5 a{width: 100%;}
 .video-block h5 { margin-top: 5px !important;}
 .video-block .vid_info .video_views { font-size: 11px !important; float: right;opacity:0.8;filter:alpha(opacity=80); }
-
 .home-category h1 a, .home-category h2 a, .home-category h3 a, .home-category h4 a, .home-category h5 a, .home-category h6 a{margin: 0 !important; padding: 0 !important; text-decoration: none !important;}
 .video-cat-thumb h5 a, .video-cat-thumb h6 a{margin: 0 !important; padding: 0 !important; text-decoration: none !important;}
 .mediaspace  {margin-bottom: 10px; margin-top: 10px; clear: both;}
@@ -31,6 +30,7 @@ width: 43%;
 max-width: 120px;
 margin-right: 4%;
 position: relative;
+max-height: 80px;
 }
 .imgSidethumb{
 display: inline-block;
@@ -48,10 +48,11 @@ width: 94%;
     height:72px !important;
     cursor: pointer;
  }
+ label.reportvideotype{height:25px; clear:both; width:25px; clear:both;background:url('../images/help-icon.png') no-repeat;float:none;vertical-align: bottom;line-height:20px; background-postion:center 20px; }
+ label .help { display: inline-block;}
 .paddBotm{margin-bottom:10px;}
 .side_video_info{float: left;width: 50%;}
 .side_video_info h6{line-height: 15px;}
-
 .sideThumb
 {
 padding:5px 0;
@@ -65,6 +66,7 @@ display: inline-block;
 font-size: 16px;
 position: relative;width: 140px;
 float: left;
+height:90px;
 }
 .catmain .video-block:first-child, .feature-video-list .video-block:first-child{padding-left:0;}
 .videoName
@@ -79,7 +81,7 @@ float:left;
 .clearfix {display:block;}
 * html .clearfix {height:1%;}
 
-.more_title{  margin: 0px 0; }
+.more_title{  margin: 15px 0; }
 .videoHname {clear: both;}
 #mycarousel .videoHname {float: none;}
 .tags
@@ -88,7 +90,10 @@ float:left;
 padding: 1px 0px 1px 0px;
 text-align: left;
 }
-.video-more {float:right;clear:both; width: auto;text-decoration: none;font-size: 12px;font-weight: bold;}
+.video-more {float:right;clear:both; width: auto;text-decoration: none;font-size: 12px;font-weight: bold; color:#9f9f9f;}
+.video-more:hover{
+	color:#9f9f9f;
+}
 .sidebar-wrap .video-more {font-size: 11px;}
 /*.fb_iframe_widget iframe, .fb_iframe_widget{width:100% !important;}*/
 /*.fb_iframe_widget span:first-child{width:100% !important;}*/
@@ -106,7 +111,7 @@ h4.playlistName {float:left; }
 .video-block a img,
 .video-block img {padding: 0 !important; margin: 0 !important; width: 140px !important; max-width: none;height: 90px !important; border:none}
 .videoHname, .playlistName{display: block;clear: both;text-decoration: none}
-.videoHname {font-size: 12px;font-weight: bold;border-width: 0px !important;}
+.videoHname {font-size: 12px;font-weight: bold;border-width: 0px !important; color:#9f9f9f;}
 .side_video_info .videoHname {line-height: 15px;}
 .video-block a{border-width: 0px !important;}
 #videos-category.sidebar-wrap .videoHname {height: auto;}
@@ -117,7 +122,8 @@ h4.playlistName {float:left; }
 .sidebar-wrap li{list-style: none; background:  transparent !important;}
 .sidebar-wrap .widget-title a{text-decoration: none;}
 .playlistName {font-size: 11px;border-width: 0px !important;}
-.ulwidget .imgBorder img{width:100%;max-height: 100px;}
+.video-block a.playlistName:visited,.video-block a.playlistName:active,.video-block a.playlistName{color:#21759b; text-decoration:none;}
+.ulwidget .imgBorder img{width:100%;max-height: 80px;margin: 0;}
 .jcarousel-skin-tango{}
 
 .entry-content #mediaspace object{margin-bottom: 0;}
@@ -151,6 +157,17 @@ h3.related-videos{margin: 0 !important; padding: 0 !important; text-align: left;
 .embed .embed_arrow{ width: 0px; height: 0px; border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 5px solid #666;  margin-top: 7px; display: block; float: left; margin-left: 5px;}
 .video-page-desc{ width: 100%; overflow: hidden; text-align: justify; padding-top: 10px; clear: both;border-top: 1px solid #CCC;margin-top: 10px;}
 #embedcode{ padding: 2%; width: 95.5%; font-size: 13px; float: left; height: 90px; margin-top: 5px; }
+
+#reportform{ width:80%; font-size: 13px; float: left; background-color: #ffffff; box-shadow: 0 1px 0 #ffffff, inset 0 1px 1px rgba(0, 0, 0, 0.2);box-sizing: border-box;border: 1px solid #aaaaaa;border-bottom-color: #cccccc;border-radius: 2px; min-height:150px; margin:1% 0%; padding:0% 5%;clear: both;}
+#reportform input[type="button"]{ margin:2% 0%;}
+#reportform_ajax_loader{ position: absolute;clear: both;display: none;margin-top:25px; box-shadow:none;border:none;}
+.report-video-title{font-size:16px;font-weight:bold; padding:1px 0; margin:5px 0px;	clear:both;}
+#report_video_response{clear:both; color:#f00; padding:5px 0px; font-size:13px;}
+#reportform img{
+	position:absolute;
+	clear:both;
+}
+#iframe-content{ padding: 2%; width: 95.5%; font-size: 13px; float: left; height: 90px; margin-top: 5px;}
 .video_wrapper h3,
 .video_wrapper h5{overflow: hidden;clear: both;}
 .video_wrapper h3{margin: 5px 0 !important; }
@@ -159,22 +176,13 @@ h3.related-videos{margin: 0 !important; padding: 0 !important; text-align: left;
 .video-block:first-child{ padding-left: 0px !important; margin-left: 0px !important; width: 140px; }
 .video-block i{display: none !important}
 .video-block .vid_info{}
-.video-block
-{   line-height: 17px;
-    float: none;
-    padding-bottom: 25px;
-    width:140px;
-    min-height: 145px;
-    display: inline-block !important;
-    vertical-align: top;
-    list-style-type: none;
-    /*margin: 0 !important;*/
-}
+ input.reportbutton{width: 85px!important; padding:10px 0px 10px!important;}
+.video-block{line-height: 17px;    float: none;    padding-bottom: 25px;    width:140px;    min-height: 145px;    display: inline-block !important;vertical-align: top;list-style-type: none;padding-top: 10px;}
 .video_thumb_content{display: table;}
-.video_duration{ position: absolute; right: 0; bottom: 10px; font-size: 10px; background: #000; padding: 0 3px; color: #fff; line-height: 11px; -webkit-border-radius: 2px; -moz-border-radius: 2px; border-radius: 2px;}
-.tablenav-pages{float: right; margin: 1em 0;}
-.tablenav-pages a, 
-.tablenav-pages span{padding: 0 2px}
+.video_duration{ position: absolute; right: 0; bottom: 0px; font-size: 10px; background: #000; padding: 0 3px; color: #fff; line-height: 11px; -webkit-border-radius: 2px; -moz-border-radius: 2px; border-radius: 2px;}
+.contus_tablenav-pages{float: right; margin: 1em 0;}
+.contus_tablenav-pages a, 
+.contus_tablenav-pages span{padding: 0 2px;color:#9f9f9f;}
 
 h2.related-videos{ text-align: left !important; margin: 20px 0 0 !important;  }
 #disqus_thread{ margin-top: 20px;}
@@ -182,7 +190,7 @@ h2.related-videos{ text-align: left !important; margin: 20px 0 0 !important;  }
 #featured-videos .sidebar-wrap li{background: transparent;padding: 0;}
 .widget .video_duration {clear: both; float: none; display: block; float: right; position: absolute;
 right: 0px;
-bottom: 10px;}
+bottom:0px;}
 .widget .side_video_info h6{ padding-bottom: 5px; margin: 0;}
 .widget .side_video_info h6 a{ text-decoration: none;}
 .widget .side_video_info .views{ float: left;   font-size: 11px;}
@@ -196,10 +204,10 @@ bottom: 10px;}
 .widget #recent-videos ul li,
 .widget #related-videos ul li,
 .widget #videos-category ul,
-.widget #popular-videos ul li {background: transparent;padding: 0;}
+.widget #popular-videos ul li {background: transparent;padding: 1;}
 
 .flike{width: 85px;}
-.ttweet{width: 85px;}
+.ttweet{width: 60px;}
 .video-socialshare .gplusshare{margin-left: 3px;}
 .fbshare {
 background: url(../images/fb_share_button.png) no-repeat;
@@ -249,15 +257,20 @@ font-size: 12px;
 width: 99px;
 }
 
-@media screen and (max-width: 800px){
-    .player embed{width: 100% !important; height: auto;}
-    .player object{width: 100% !important; height: auto;}
-    #player, .player{width: 100% !important; height: auto;}
-    .player iframe{width: 100% !important;  height: auto;}
-    #player iframe{width: 100% !important;  height: auto;}
-    #player #video{width: 100% !important;  height: auto;}
-    #htmlplayer #video{width: 100% !important; height: auto; }
+.videoplayer {
+    position: relative;
+    padding-bottom: 56.25%;
+    padding-top: 30px; height: 0; overflow: hidden;
 }
+ 
+.videoplayer iframe,
+.videoplayer object,
+.videoplayer embed {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
 @media screen and (max-width: 600px){
 /*    .videogallery,
     .type-videogallery{width: 100% !important;}*/
@@ -323,3 +336,22 @@ ul.ratethis1 li {cursor: pointer;float:left;}
 #videos-category .videoHname {
 min-height: initial;
 }
+
+#videosearchform #video_search { padding: 6px 0px }
+/* Google Adsense css */
+#lightm{width:468px;position:absolute;display:none;}
+.googlead_img{float:right;cursor: pointer;}
+
+/** Category title alignment issue in custom themes **/
+.titleouter{
+	float: left;
+	width: 100%;
+}
+/** report  button  issue  for custom theme **/
+
+@media screen and (max-width: 600px){	
+.video-cat-thumb{width: 100%;float: left;margin-top:8px;}
+}
+
+.tablenav-pages{float: right;}
+

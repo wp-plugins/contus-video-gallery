@@ -1,14 +1,65 @@
 /*
 Name: Wordpress Video Gallery
 Plugin URI: http://www.apptha.com/category/extension/Wordpress/Video-Gallery
-Description: Admin Settings css file
-Version: 2.5
+Description: Add Video Gallery to your website to showcase demos, Portfolio And Movie Trailers.
+Version: 2.7
 Author: Apptha
 Author URI: http://www.apptha.com
-License: GPL2
+License: GNU General Public License version 2 or later
 */
 .column { width: 50%; float: left; padding-bottom: 100px; }
-.apptha_gallery .portlet { margin: 0 ; -webkit-border-radius: 4px;-moz-border-radius: 4px;border-radius: 4px; border: 1px solid #AAA;}
+#wpbody-content{width:99%;}
+#manage-column-video-1 {margin-left: 6.1px;}
+#manage-column-category-1 {
+	margin-left:5.7px;
+}
+table.info_videoshartcode {
+	border:1px solid gray;
+	border-left:none;
+	width:98%;
+	align:center;
+}
+table.info_videoshartcode tr, table.info_videoshartcode  td {
+	border :  1px solid gray;
+	padding: 0 20px;
+}
+table.info_videoshartcode th {
+	border:none;
+	border-left:1px solid gray;
+	padding:0 20px;
+	width:auto;
+}
+table.info_videoshartcode td {
+	border-bottom: none;
+	border-right:none;
+}
+table.info_videoshartcode td p {
+	word-break: break-word;
+}
+table.info-videoshartcode th{
+	font-weight:bold;
+	font-size :15px;
+}
+#loading_image{
+	position:absolute;
+	width:38%;
+	float:right;
+}
+.button.cancelplaylist{ float:right;}
+#playlistcreate1 .button {margin-top: 10px;}
+.show-hide-intro-shortcode .portlet{
+	cursor:default;
+}
+#videoad-publish-icon{float:left;margin:15px;}
+#videoad-publish-icon a{float:left;	text-align:left;align-content:center;}
+#videoad-publish-icon a img{vertical-align: middle;}
+.apptha_gallery table td.videoaddurl{vertical-align: top;}
+.buynow-btn img{
+	margin:5px 0px;
+}
+.portlet-content.admin_short_video_info { cursor: inherit; }
+.portlet-content.admin_short_video_info strong{ cursor: initial;}
+.apptha_gallery .portlet { margin: 0 ; -webkit-border-radius: 4px;margin:0 0 1em 0 ;-moz-border-radius: 4px;border-radius: 4px; border: 1px solid #AAA;}
 .apptha_gallery .admin_settings .column .portlet{ margin: 0 0em 1em 0; }
 .apptha_gallery .admin_settings .column:first-child .portlet{ margin: 0 1em 1em 0; }
 .portlet-header { margin: 0.3em; padding-bottom: 4px; padding-left: 10px;padding-top: 4px;font-size:12px;
@@ -55,7 +106,11 @@ html[xmlns] .clearfix {display: block;}
 .apptha_gallery .id-column{}
 .apptha_gallery .title-column{}
 .apptha_gallery .desc-column{}
-.apptha_gallery .pub-column{}
+.column-featured {width: 90%;text-align: center;}
+.column-publish {text-align:center;}
+.videoad_url_info_content {line-height: 20px;padding-top: 10px;}
+.form-table.form-videoad-table td{margin:0px; padding:0 10px;}
+.apptha_gallery .pub-column{width: 50%;float: left;}
 .apptha_gallery .order-column{}
 .apptha_gallery table td{vertical-align: middle;}
 .apptha_gallery table tr#ffmpeg_disable_new1 td{vertical-align: top;}
@@ -89,16 +144,16 @@ text-align: left; color: #333; text-shadow: 0 1px #f4f4f4;font-size: 13px;
 -moz-box-shadow: inset 0 1px 10px #add7ea;
 -webkit-box-shadow: inset 0 1px 10px #add7ea;
 box-shadow: inset 0 1px 10px #add7ea;
+cursor:pointer;
 }
-
 .wp-list-table #test-list tr{width: 100% !important;}
 .apptha_gallery h2 .nav-tab {
-padding: 5px 25px;
+padding: 5px 15px;
 font-weight: 200;
 font-size: 18px;
 line-height: 24px;
 }
-.apptha_gallery div.updated {background-color: #FFFFE0;border-color: #E6DB55; padding: 10px; margin: 5px 15px 2px 0;}
+.apptha_gallery div.updated {background-color: #FFFFE0;border-color: #E6DB55; padding: 10px; margin: 5px 15px 10px 0;}
 .apptha_gallery tr.gallery_separator td, 
 .apptha_gallery tr.gallery_separator th{padding: 25px 0 0 10px;}
 .apptha_gallery tr.gallery_separator_row td,
@@ -122,3 +177,144 @@ overflow-y: scroll;}
 #playlistchecklist label{color:#333;font-size:12px;}
 .category_addpages{width:50%;}
 .apptha_gallery h3{font-size:1.1em;}
+#googleadsense_code{margin: 2px;
+width: 100%;
+height: 150px;
+}
+.recent_video_order_setting{
+	width:205px;
+	
+}
+/************************  Admin  responsive  design **************************/
+@media (min-width: 640px) and (max-width: 782px) {
+		input.youtubelinkinput {width: 68% !important;}
+	
+	.floatleft.category_addpages{
+	    width:100%;	    
+	}
+	.wrap {margin: 10px 20px 0 2px;width: 100%;}
+	.apptha_gallery .admin_video_search .search-box { width:100%; clear:both;}
+	.admin_video_action{
+	top:0px;}
+	show-hide-intro-shortcode{
+		width:100%;	clear:both;
+	}
+	.admin_video_search.alignright{float:left;}
+	.floatleft.category_addpages #post-body-content{min-width: 200px;}
+	.admin_video_search.alignleft.actions{ float:left;  width:40%;  margin: 0  0  0  2%; z-index:9999px;}
+	.column-order , .column-id , .column-image , .column-createddate ,.column-ordering ,.column-path ,.column-admethod , .column-playlistname , .column-sortorder{ display:none;}
+}
+@media screen and (min-width : 840px)  {
+	   .admin_video_action{
+	      top:-32px;
+	   }
+	   .floatleft.category_addpages{
+	      width:50%;
+	    }
+	    .floatleft.category_addpages #post-body-content{min-width: 260px;}
+}
+@media only screen and (max-width: 850px) {
+	   #poststuff #post-body.columns-2 #side-sortables {min-height: 0;width: 100%;margin: 0 auto; }
+}
+@media screen and (max-width: 782px) {
+	show-hide-intro-shortcode{
+		width:100%;	clear:both;
+	}
+	.admin_video_search.alignleft.actions{ float:left;  width:100%;  margin: 0  0  0  2%; z-index:9999px;}
+	.admin_video_search.alignleft.actions.responsive{ float:right; width:50%;}
+	.admin_video_search.alignright{float:left;}
+	.apptha_gallery .admin_video_search .search-box{position:relative;height:30px; float: left;width: 100%;clear: both; }
+	.column-order ,.column-image , .column-id , .column-createddate ,.column-ordering ,.column-path ,.column-admethod , .column-playlistname,.column-sortorder{ display:none;}
+	
+}
+@media screen and(min-width:720px) and (max-width:782px){
+		input.youtubelinkinput {width: 68% !important;}
+	    .column-order ,.column-image , .column-id , .column-createddate ,.column-ordering ,.column-path ,.column-admethod , .column-playlistname , .column-sortorder{ display:none;}
+}
+@media screen and (max-width: 782px) {
+    .videoadmethod  ,#videoaddetails, .form-table.add_video_publish{ width:98%; margin: 0 2% 20px; }
+}
+@media screen and (max-width : 700px) {
+	 input.youtubelinkinput {width: 68% !important;}	
+	.apptha_gallery h2 .nav-tab {
+			padding: 5px 1px;
+			font-weight: 200;
+			font-size: 12px;
+			line-height: 24px;
+	}
+	.apptha_gallery .wp-list-table th{
+	width:20%;
+	align:left;
+	}
+	.category_addpages{
+	width:100%;
+	clear:both;
+	}
+	#PlaylistssearchQuery , p.search-box .button {
+		width:120px;
+		font-size:12px;
+	}
+	div.alignleft.actions{
+	width:300px;
+	clear:both;
+	}
+	th.manage-column.column-feature , th.manage-column.column-publish{
+		width:18%;
+	}
+	
+	th.manage-column.column-image{
+		width:15%;
+	}
+	form{clear:both; width:100%;}
+	.admin_video_search.alignright{
+		
+	}
+	div.alignleft.actions{width:95%; clear:none; z-index:9999;}
+	.button-secondary.action{ padding: 8px;line-height: 19px;height: 35px;}
+	.admin_video_action{top:0px;}
+	.admin_video_search.alignleft.actions{ float:left;  width:40%;  margin: 0  0  0  2%; z-index:9999px;}
+	.admin_video_search.alignleft.actions.responsive{ float:right; width:50%;}
+	.apptha_gallery .admin_video_search .search-box{position:relative;height:30px; float: left;width: 100%;clear: both; }
+	.apptha_gallery .top .alignleft.actions{clear:both;	margin: 20px  0  0  0;	position:relative; width:45%;  float:left; margin:20% 0  0% 0; top:0px; }
+	.apptha_gallery .top .alignleft.actions.responsive{ float:right; width:45%; margin: 0 0  0  2%;}
+	.apptha_gallery .admin_video_search .search-box input {float:left;width:50%; margin:0 3% 0 0;}
+	.apptha_gallery .admin_video_search .search-box .button {float:none;width:auto;padding:8px; }
+	.column-order , .column-id ,.column-image , .column-createddate ,.column-ordering ,.column-path ,.column-admethod , .column-playlistname , .column-sortorder{ display:none;}
+	.gallery_separator input[type='text']{width:80%!important;}
+	.category_container {float: left !important;width: 98% !important;}
+} 
+@media screen and (device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2){
+	
+	.column {width: 100% !important;float: left;padding-bottom: 100px;}
+	.category_container {float: left !important;width: 98% !important;}
+	input.youtubelinkinput {width: 68% !important;}
+	
+}
+
+@media only screen and (min-device-width : 320px)and (max-device-width : 568px) and (orientation : landscape) {
+	div.youtubelinkinfo p{ width:70%; float:left; overflow:hidden;word-wrap: break-word; } 
+	.column {width: 100% !important;float: left;padding-bottom: 100px;}
+	.category_container {float: left !important;width: 98% !important;}
+		input.youtubelinkinput {width: 68% !important;}
+	
+}
+@media only screen and  (max-width:320px) {
+		div.youtubelinkinfo p{ width:60%; float:left; overflow:hidden;word-wrap: break-word;} 
+}
+@media only screen and  (max-width:240px) {
+		div.youtubelinkinfo p{ width:60%; float:left; overflow:hidden;word-wrap: break-word;} 
+}
+@media only screen and (max-width : 480px) {
+	div.youtubelinkinfo p{ width:70%; float:left; overflow:hidden;word-wrap: break-word; } 
+	.videoadmethod  ,#videoaddetails, .form-table.add_video_publish, .form-table.form-videoad-table{ margin: 0 0px 20px 10px; }
+	.form-table  input#videoadfilepath { width : 92% ;}
+	#side-sortables { width :100%; float:left ; }
+	#poststuff #post-body.columns-2 #side-sortables {min-height: 0;width: 98%;margin: 0 auto; }
+	.videoadmethod inptut ,#videoaddetails input , #videoaddetails input , .form-table.form-videoad-table input{width:95%; }
+	.column {width: 100% !important;float: left;padding-bottom: 100px;}
+	.category_container {float: left !important;width: 98% !important;}
+	#postbox-container-1 #side-sortables{float:left;width: 100%; position:relative;}
+	.form-table.form-videoad-table td {margin: 0px;padding: 0 1px;}
+	input.youtubelinkinput {width: 68% !important;}
+}
+.videoadurl{bottom: 16px;position: relative;}

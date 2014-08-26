@@ -1,13 +1,3 @@
-/*
-Name: Wordpress Video Gallery
-Plugin URI: http://www.apptha.com/category/extension/Wordpress/Video-Gallery
-Description: jcarousel file.
-Version: 2.5
-Author: Apptha
-Author URI: http://www.apptha.com
-License: GPL2
-*/
-
 /**
  * jCarousel - Riding carousels with jQuery
  *   http://sorgalla.com/jcarousel/

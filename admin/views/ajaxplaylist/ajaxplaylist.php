@@ -1,11 +1,12 @@
 <?php
-/*
-Name: Wordpress Video Gallery
-Plugin URI: http://www.apptha.com/category/extension/Wordpress/Video-Gallery
-Description: Ajax playlist view file.
-Version: 2.5
-Author: Apptha
-Author URI: http://www.apptha.com
-License: GPL2
-*/
+/** 
+ * Ajax Playlist Model.
+ * 
+ * @category   Apptha
+ * @package    Contus video Gallery
+ * @version    2.7
+ * @author     Apptha Team <developers@contus.in>
+ * @copyright  Copyright (C) 2014 Apptha. All rights reserved.
+ * @license    GNU General Public License http://www.gnu.org/copyleft/gpl.html 
+ */
 ?>

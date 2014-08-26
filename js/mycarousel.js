@@ -1,12 +1,13 @@
-/*
-Name: Wordpress Video Gallery
-Plugin URI: http://www.apptha.com/category/extension/Wordpress/Video-Gallery
-Description: VIdeo Gallery plugin script file.
-Version: 2.5
-Author: Apptha
-Author URI: http://www.apptha.com
-License: GPL2
-*/
+/**
+ *  VIdeo Gallery plugin script for related video scroll file.
+ * 
+ * @category   Apptha
+ * @package    Contus video Gallery
+ * @version    2.7
+ * @author     Apptha Team <developers@contus.in>
+ * @copyright  Copyright (C) 2014 Apptha. All rights reserved.
+ * @license    GNU General Public License http://www.gnu.org/copyleft/gpl.html 
+ */
 function mycarousel_initCallback(carousel){
                                             // Disable autoscrolling if the user clicks the prev or next button.
                                             carousel.buttonNext.bind("click", function() {
@@ -26,11 +27,14 @@ function mycarousel_initCallback(carousel){
                                             carousel.startAuto(0);
                                             });
                                             };
-                                            jQuery(document).ready(function() {
-                                            jQuery(".jcarousel-skin-tango").jcarousel({
-                                            auto: 0,
-                                            wrap: "last",
-                                            scroll:1,
-                                            initCallback: mycarousel_initCallback
-                                            });
-                                            });
+jQuery(document).ready(function() {
+			jQuery(".jcarousel-skin-tango").jcarousel({
+			auto: 0,
+			wrap: "last",
+			scroll:1,
+			initCallback: mycarousel_initCallback
+			});
+});
+jQuery( function (){	
+ jQuery('.reportvideotype').tooltip();
+});
