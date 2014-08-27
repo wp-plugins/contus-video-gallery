@@ -289,8 +289,6 @@ if (class_exists ( 'ContusVideo' ) != true) { // checks the ContusVideo class ha
 		 */
 		public function get_playxmldata($getVid, $thumImageorder, $where, $numberofvideos) { // function for getting data for playxml starts
 			$videoid = $getVid;
-			echo  $numberofvideos;
-			exit;
 			$query = 'SELECT distinct w.*,s.guid,p.playlist_name,p.pid FROM ' . $this->_videoinfotable . ' w
 					INNER JOIN ' . $this->_wpdb->prefix . 'hdflvvideoshare_med2play m ON m.media_id = w.vid
 					INNER JOIN ' . $this->_wpdb->prefix . 'hdflvvideoshare_playlist p ON p.pid=m.playlist_id

@@ -140,15 +140,7 @@ foreach ( $singleVideodata as $media ) {
 		} else if ( ! empty( $subtitle2 ) ) {
 			$subtitle = $image_path . $subtitle2;
 		}
-        // Get  the  google Adsense
-         if($media->google_adsense == 1){
-         	$google_adsense    = 'allow_google_adsense="true"';
-         	$google_adsense_id = 'google_adsense="'.$media->google_adsense_value.'"';          	
-         }
-         else{
-         	$google_adsense    = 'allow_google_adsense="false"';
-         	$google_adsense_id = 'google_adsense="0"';
-         }
+
 		// Get preroll ad detail
 		if ( $settingsContent->preroll == 1 ) {
 			$preroll    = ' allow_preroll = "false"';
