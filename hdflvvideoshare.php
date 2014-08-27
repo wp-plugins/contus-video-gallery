@@ -683,7 +683,7 @@ if ( isset( $_GET['action']) && $_GET['action'] == 'activate-plugin' && $_GET['p
 		$playlist_auto        = add_column_if_not_exists( $errorMsg, "$table_settings", 'playlist_auto', 'INT( 3 ) NOT NULL' );
 		$progressControl      = add_column_if_not_exists( $errorMsg, "$table_settings", 'progressControl', 'INT( 3 ) NOT NULL DEFAULT 1' );
 		$imageDefault         = add_column_if_not_exists( $errorMsg, "$table_settings", 'imageDefault', 'INT( 3 ) NOT NULL' );
-		$memeber_upload_enable =  add_column_if_not_exist( $errorMsg , "$table_setting" , 'memeber_upload_enable' , 'INT( 3 ) NOT NULL ');
+		$memeber_upload_enable =  add_column_if_not_exists( $errorMsg , "$table_setting" , 'memeber_upload_enable' , 'INT( 3 ) NOT NULL ');
 		
 		/**
 		 * Add google adsense  table.
