@@ -196,7 +196,7 @@ if (class_exists ( 'ContusVideoShortcodeView' ) != true) {
 				$post_date = $homeplayerData->post_date;
 			}
 			// get Playlist detail
-			$playlistData = $this->playlist_detail ($vid , $number_related_video );
+			$playlistData = $this->playlist_detail ($vid );
 			$incre = 0;
 			$playlistname = $windo = $htmlvideo = '';
 			
@@ -711,12 +711,17 @@ if (class_exists ( 'ContusVideoShortcodeView' ) != true) {
 			// Enable/disable Related videos starts here
 			if ( ( ( $this->_post_type === 'videogallery' && $configXML->playlist == 1|| $this->_page_post_type === 'videogallery' && $configXML->playlist == 1) ) || (((isset ( $arguments ['playlistid'] ) && isset ( $arguments ['id'] )) || $player_color['show_related_video']== 1|| (isset ( $arguments ['playlistid'] ))) && (isset ( $arguments ['relatedvideos'] ) && $arguments ['relatedvideos'] == 'on'))) {
 					$Limit  = $player_color['related_video_count'];
-					
+
+					if(empty($Limit))
+					{
+						$Limit=100;
+					}
+
 					$select = 'SELECT distinct( a.vid ),b.playlist_id,name,guid,description,file,hdfile,file_type,duration,embedcode,image,opimage,download,link,featured,hitcount,slug,
 						a.post_date,postrollads,prerollads FROM ' . $wpdb->prefix . 'hdflvvideoshare a
-						INNER JOIN ' . $wpdb->prefix . 'hdflvvideoshare_med2play b ON a.vid=b.media_id
-						INNER JOIN ' . $wpdb->prefix . 'hdflvvideoshare_playlist p ON p.pid=b.playlist_id
-						INNER JOIN ' . $wpdb->prefix . 'posts s ON s.ID=a.slug
+						LEFT JOIN ' . $wpdb->prefix . 'hdflvvideoshare_med2play b ON a.vid=b.media_id
+						LEFT JOIN ' . $wpdb->prefix . 'hdflvvideoshare_playlist p ON p.pid=b.playlist_id
+						LEFT JOIN ' . $wpdb->prefix . 'posts s ON s.ID=a.slug
 						WHERE b.playlist_id=' . intval ( $video_playlist_id ) . ' AND a.publish=1 AND p.is_publish=1
 						ORDER BY a.vid DESC LIMIT '.$Limit;
 					$output .= '<div class="player_related_video"><h2 class="related-videos">' . __ ( 'Related Videos', 'video_gallery' ) . '</h2><div style="clear: both;"></div>';
@@ -818,11 +823,11 @@ if (class_exists ( 'ContusVideoShortcodeView' ) != true) {
 			if ($this->_post_type === 'videogallery' || $this->_page_post_type === 'videogallery') {
 				// Default Comments
 				if ($configXML->comment_option == 0) {
-					$output .= '<style type="text/css">#comments #respond,#comments.comments-area, #disqus_thread, .comments-link{ display: none!important; } </style>';
+					$output .= '<style type="text/css">#respond,#comments #respond,#comments.comments-area, #disqus_thread, .comments-link{ display: none!important; } </style>';
 				}
 				// Facebook Comments
 				if ($configXML->comment_option == 2) {
-					$output .= '<style type="text/css">#comments #respond,#comments.comments-area, #disqus_thread, .comments-link{ display: none!important; } </style>';
+					$output .= '<style type="text/css">#respond,#comments #respond,#comments.comments-area, #disqus_thread, .comments-link{ display: none!important; } </style>';
 					$output .= '<div class="clear"></div>
 							<h2 class="related-videos">' . __ ( 'Post Your Comments', 'video_gallery' ) . '</h2>
 							<div id="fb-root"></div>

@@ -16,10 +16,15 @@ $contOBJ = new ContusVideoController();							// include class from Videohome co
 $getVid  = $pageOBJ->_vId;										// Get video ID from video home view
 $getPid  = $pageOBJ->_pId;									// Get playlist ID from video home view
 $numberofvideos = filter_input( INPUT_GET, 'numberofvideos' );	// Get number of videos from URL
+
+if ( empty( $numberofvideos ) ) {
+	$numberofvideos = $contOBJ->related_video_count();
+}
+
 if ( empty( $numberofvideos ) ) {
 	$numberofvideos = 4;
 }
-$numberofvideos = $contOBJ->related_video_count();
+
 $banner = 0;
 $type   = filter_input( INPUT_GET, 'type' );
 if ( ! empty( $numberofvideos ) && ! empty( $type ) ) {
