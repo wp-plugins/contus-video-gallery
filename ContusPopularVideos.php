@@ -89,17 +89,17 @@ class Widget_ContusPopularVideos_init extends WP_Widget {
 		}
 		
 		$sql = 'SELECT DISTINCT a.*,s.guid,b.playlist_id,p.playlist_name FROM ' . $wpdb->prefix . 'hdflvvideoshare a
-					INNER JOIN ' . $wpdb->prefix . 'hdflvvideoshare_med2play b ON a.vid=b.media_id
-					INNER JOIN ' . $wpdb->prefix . 'hdflvvideoshare_playlist p ON p.pid=b.playlist_id
-					INNER JOIN ' . $wpdb->prefix . 'posts s ON s.ID=a.slug
+					LEFT JOIN ' . $wpdb->prefix . 'hdflvvideoshare_med2play b ON a.vid=b.media_id
+					LEFT JOIN ' . $wpdb->prefix . 'hdflvvideoshare_playlist p ON p.pid=b.playlist_id
+					LEFT JOIN ' . $wpdb->prefix . 'posts s ON s.ID=a.slug
 					WHERE a.publish=1 AND p.is_publish=1 GROUP BY a.vid ORDER BY a.hitcount DESC LIMIT ' . $show;
 		$populars = $wpdb->get_results ( $sql );
 		if (! empty ( $populars )) {
 			$fetched = $populars [0]->playlist_name;
 		}
 		$moreCount = $wpdb->get_results ( 'SELECT COUNT(a.vid) AS contus FROM ' . $wpdb->prefix . 'hdflvvideoshare a
-					INNER JOIN ' . $wpdb->prefix . 'hdflvvideoshare_med2play b ON a.vid=b.media_id
-					INNER JOIN ' . $wpdb->prefix . 'hdflvvideoshare_playlist p ON p.pid=b.playlist_id
+					LEFT JOIN ' . $wpdb->prefix . 'hdflvvideoshare_med2play b ON a.vid=b.media_id
+					LEFT JOIN ' . $wpdb->prefix . 'hdflvvideoshare_playlist p ON p.pid=b.playlist_id
 					WHERE a.publish=1 AND p.is_publish=1' );
 		$countP = $moreCount [0]->contus;
 		$div .= '<ul class="ulwidget">';

@@ -79,16 +79,16 @@ class Widget_ContusRelatedVideos_init extends WP_Widget {
 
 				$sql = 'SELECT distinct a.*,s.guid,b.playlist_id,p.playlist_name,p.playlist_slugname
 						FROM ' . $wpdb->prefix . 'hdflvvideoshare a
-						INNER JOIN ' . $wpdb->prefix . 'hdflvvideoshare_med2play b ON a.vid=b.media_id
-						INNER JOIN ' . $wpdb->prefix . 'hdflvvideoshare_playlist p ON p.pid=b.playlist_id
-						INNER JOIN ' . $wpdb->prefix . 'posts s ON s.ID=a.slug
+						LEFT JOIN ' . $wpdb->prefix . 'hdflvvideoshare_med2play b ON a.vid=b.media_id
+						LEFT JOIN ' . $wpdb->prefix . 'hdflvvideoshare_playlist p ON p.pid=b.playlist_id
+						LEFT JOIN ' . $wpdb->prefix . 'posts s ON s.ID=a.slug
 						WHERE b.playlist_id=' . $video_playlist_id . ' AND a.vid != ' . $videoID . ' and a.publish=1 AND p.is_publish=1 GROUP BY a.vid ORDER BY a.vid DESC LIMIT ' . $show;
 
 				$relatedVideos = $wpdb->get_results( $sql );
 				if ( ! empty( $relatedVideos ) ) {
 					$playlistID = $relatedVideos[0]->playlist_id;
 					$playlist_slugname = $relatedVideos[0]->playlist_slugname;
-					$moreF = $wpdb->get_results( 'SELECT COUNT(a.vid) as relatedcontus from ' . $wpdb->prefix . 'hdflvvideoshare a INNER JOIN ' . $wpdb->prefix . 'hdflvvideoshare_med2play b ON a.vid=b.media_id WHERE b.playlist_id=' . $playlistID . ' ORDER BY a.vid DESC' );
+					$moreF = $wpdb->get_results( 'SELECT COUNT(a.vid) as relatedcontus from ' . $wpdb->prefix . 'hdflvvideoshare a LEFT JOIN ' . $wpdb->prefix . 'hdflvvideoshare_med2play b ON a.vid=b.media_id WHERE b.playlist_id=' . $playlistID . ' ORDER BY a.vid DESC' );
 					$countF = $moreF[0]->relatedcontus;
 				}
 			}
