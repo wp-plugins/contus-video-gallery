@@ -98,7 +98,7 @@ if (class_exists ( 'ContusVideo' ) != true) { // checks the ContusVideo class ha
 			}  
 			$select = 'SELECT distinct w.vid,w.*,s.guid FROM ' . $wpdb->prefix . 'hdflvvideoshare w
 					LEFT JOIN ' . $wpdb->prefix . 'hdflvvideoshare_med2play m ON m.media_id = w.vid
-					LEFT JOIN ' . $wpdb->prefix . 'hdflvvideoshare_playlist p ON p.pid=m.playlist_id ON p.pid=m.playlist_id
+					LEFT JOIN ' . $wpdb->prefix . 'hdflvvideoshare_playlist p ON p.pid=m.playlist_id
 					LEFT JOIN ' . $wpdb->prefix . 'posts s ON s.ID=w.slug
 					WHERE w.vid="' . $vid . '" AND w.publish=1 AND p.is_publish=1 GROUP BY w.vid';
 			

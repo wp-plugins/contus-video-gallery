@@ -697,17 +697,12 @@ if (class_exists ( 'ContusVideoShortcodeView' ) != true) {
 					  $output .='<textarea row="7" col="60" id="iframe-content" name="iframe-content" style="display:none;" onclick="this.select();">'.$iframe_code.'</textarea><input type="hidden" value="" id="iframeflag" name="iframeflag" />';
 				// Show /hide video description.
 				if ($configXML->showTag) {
-					$output .= '<div style="clear: both;"></div><div class="video-page-desc">' . apply_filters('the_content', $description ) . '</div></div>';
+					$output .= '<div style="clear: both;"></div><div class="video-page-desc">' . apply_filters('the_content', $description ) . '</div>';
 				}
 				
-				$output .= '</div>';			 	
-			} else {
-				// show / hide video description
-				if ($configXML->showTag) {
-					$output .= '<div style="clear:both;"></div><div class="video-page-desc">' . apply_filters('the_content', $fetched [0]->description ). '</div>';
-				}
+				$output .= '</div></div>';			 	
 			}
-			$output .= '</div></div>';
+
 			// Enable/disable Related videos starts here
 			if ( ( ( $this->_post_type === 'videogallery' && $configXML->playlist == 1|| $this->_page_post_type === 'videogallery' && $configXML->playlist == 1) ) || (((isset ( $arguments ['playlistid'] ) && isset ( $arguments ['id'] )) || $player_color['show_related_video']== 1|| (isset ( $arguments ['playlistid'] ))) && (isset ( $arguments ['relatedvideos'] ) && $arguments ['relatedvideos'] == 'on'))) {
 					$Limit  = $player_color['related_video_count'];
