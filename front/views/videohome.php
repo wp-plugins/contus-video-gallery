@@ -386,15 +386,15 @@ if ( class_exists( 'ContusVideoView' ) != true ) {
 			$div      .= '<style scoped> .video-block { margin-left:' . $this->_settingsData->gutterspace . 'px !important;float:left;} </style>';
 			foreach ( $TypeOFvideos as $catList ) {
 				$sql = 'SELECT s.guid,w.* FROM ' . $wpdb->prefix . 'hdflvvideoshare as w
-					INNER JOIN ' . $wpdb->prefix . 'hdflvvideoshare_med2play as m ON m.media_id = w.vid
-					INNER JOIN ' . $wpdb->prefix . 'hdflvvideoshare_playlist as p on m.playlist_id = p.pid
-					INNER JOIN ' . $this->_wpdb->prefix . 'posts s ON s.ID=w.slug
+					LEFT JOIN ' . $wpdb->prefix . 'hdflvvideoshare_med2play as m ON m.media_id = w.vid
+					LEFT JOIN ' . $wpdb->prefix . 'hdflvvideoshare_playlist as p on m.playlist_id = p.pid
+					LEFT JOIN ' . $this->_wpdb->prefix . 'posts s ON s.ID=w.slug
 					WHERE w.publish=1 and p.is_publish=1 and m.playlist_id=' . intval( $catList->pid ) . ' GROUP BY w.vid LIMIT ' . $dataLimit;
 				$playLists     = $wpdb->get_results( $sql );
 				$playlistCount = count( $playLists );
                                 //Get count video assign this category. 
                 $category_video = $wpdb->get_results('SELECT * FROM ' . $wpdb->prefix . 'hdflvvideoshare_med2play as m 
-					INNER JOIN ' . $wpdb->prefix . 'hdflvvideoshare_playlist as p on m.playlist_id = p.pid WHERE m.playlist_id='.intval($catList->pid).' AND p.is_publish=1');
+					LEFT JOIN ' . $wpdb->prefix . 'hdflvvideoshare_playlist as p on m.playlist_id = p.pid WHERE m.playlist_id='.intval($catList->pid).' AND p.is_publish=1');
                 $video_count = count($category_video);
                                 // end of  get count
                                 
