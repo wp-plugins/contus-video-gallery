@@ -66,6 +66,7 @@ class Widget_ContusRandomVideos_init extends WP_Widget {
 		// and after_title are the array keys." - These are set up by the theme
 		extract ( $args, EXTR_SKIP );
 		$title = empty ( $instance ['title'] ) ? ' ' : apply_filters ( 'widget_title', $instance ['title'] );
+		$show = 3;
 		global $wpdb;
 		// These are our own options
 		$site_url = get_site_url ();
@@ -98,21 +99,20 @@ class Widget_ContusRandomVideos_init extends WP_Widget {
 		if($instance['show']){
 			if( absint( $instance['show'] ) ){
 		    	$show = $instance ['show'];
-			}else{
-			    $show = 3;
 			}
-		}else{
-				$show = 3;
 		}
+
 		$sql = 'SELECT DISTINCT a.*,s.guid,b.playlist_id,p.playlist_name FROM ' . $wpdb->prefix . 'hdflvvideoshare a
 				LEFT JOIN ' . $wpdb->prefix . 'hdflvvideoshare_med2play b ON a.vid=b.media_id
 				LEFT JOIN ' . $wpdb->prefix . 'hdflvvideoshare_playlist p ON p.pid=b.playlist_id
 				LEFT JOIN ' . $wpdb->prefix . 'posts s ON s.ID=a.slug
 				WHERE a.publish=1 AND p.is_publish=1 GROUP BY a.vid ORDER BY RAND() LIMIT ' . $show;
 		$posts = $wpdb->get_results ( $sql );
+
 		if (! empty ( $posts )) {
 			$fetched = $posts [0]->playlist_name;
 		}
+
 		$moreR = $wpdb->get_results ( 'SELECT count(a.vid) as contus from ' . $wpdb->prefix . 'hdflvvideoshare a
 				LEFT JOIN ' . $wpdb->prefix . 'hdflvvideoshare_med2play b ON a.vid=b.media_id
 				LEFT JOIN ' . $wpdb->prefix . 'hdflvvideoshare_playlist p ON p.pid=b.playlist_id

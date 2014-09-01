@@ -39,17 +39,15 @@ class Widget_ContusRelatedVideos_init extends WP_Widget {
 		// and after_title are the array keys." - These are set up by the theme
 		extract( $args, EXTR_SKIP );
 		$title = empty( $instance['title'] ) ? ' ' : apply_filters( 'widget_title', $instance['title'] );
+		$show = 3;
 		global $wpdb;
 		// These are our own options
 		if($instance['show']){
            if( absint( $instance['show'] ) ){
 				$show = $instance['show']; 
-			}else{
-				$show=3;
 			}
-		}else{
-	    	$show = 3;		
 		}
+
 		$site_url = get_site_url();
 		$dir      = dirname( plugin_basename( __FILE__ ) );
 		$dirExp   = explode( '/', $dir );

@@ -52,6 +52,7 @@ class widget_ContusFeaturedVideos_init extends WP_Widget {
 		// and after_title are the array keys." - These are set up by the theme
 		extract ( $args, EXTR_SKIP );
 		$title = empty ( $instance ['title'] ) ? ' ' : apply_filters ( 'widget_title', $instance ['title'] );
+		$show =3;
 		if (! empty ( $title ))
 			// WIDGET CODE GOES HERE
 			$tt = 1;
@@ -63,11 +64,7 @@ class widget_ContusFeaturedVideos_init extends WP_Widget {
 		if ($instance ['show']) {
 			if( absint( $instance['show'] ) ){
 				$show = $instance ['show'];
-			}else{
-				$show =3;	
 			}
-		} else {
-			$show = 3;
 		}
 			
 		$excerpt = $options ['excerpt']; // Showing the excerpt or not
