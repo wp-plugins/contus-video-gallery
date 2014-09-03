@@ -343,7 +343,7 @@ if (class_exists ( 'ContusVideoShortcodeView' ) != true) {
 				$output .= '<div id="flashplayer"><embed src="' . $this->_swfPath . '" flashvars="' . $flashvars . '" width="' . $width . '" height="' . $height . '" allowfullscreen="true" allowscriptaccess="always" type="application/x-shockwave-flash" wmode="transparent"></div>';
 				// Google adsense code Start
 				
-							if( ( $player_color['googleadsense_visible'] == 1) && ( !$mobile ) && ( $this->_post_type === 'video' || $this->_page_post_type === 'video' ) ) {
+							if( ( $player_color['googleadsense_visible'] == 1) && ( !$mobile ) && ( $this->_post_type === 'videogallery' || $this->_page_post_type === 'videogallery' ) ) {
 							    if($homeplayerData->google_adsense && $homeplayerData->google_adsense_value) { 
 								$output .= '<div>';
 								
@@ -702,7 +702,7 @@ if (class_exists ( 'ContusVideoShortcodeView' ) != true) {
 				
 				$output .= '</div></div>';			 	
 			}
-
+			$output .= '</div></div>';
 			// Enable/disable Related videos starts here
 			if ( ( ( $this->_post_type === 'videogallery' && $configXML->playlist == 1|| $this->_page_post_type === 'videogallery' && $configXML->playlist == 1) ) || (((isset ( $arguments ['playlistid'] ) && isset ( $arguments ['id'] )) || $player_color['show_related_video']== 1|| (isset ( $arguments ['playlistid'] ))) && (isset ( $arguments ['relatedvideos'] ) && $arguments ['relatedvideos'] == 'on'))) {
 					$Limit  = $player_color['related_video_count'];

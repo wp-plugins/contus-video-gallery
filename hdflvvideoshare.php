@@ -875,7 +875,7 @@ function add_meta_details() {
 				<div itemprop="video" itemscope itemtype="http://schema.org/VideoObject">
 					<meta itemprop="name" content="'.$videoname.'" />
 					<meta itemprop="thumbnail" content="'.$imageFea.'" />
-					<meta itemprop="description" content="'.$description.'" />
+					<meta itemprop="description" content="'.strip_tags($description).'" />
 				</div>
 				<meta itemprop="image" content="'.$imageFea.'" />
 				<meta itemprop="thumbnailUrl" content="'.$imageFea.'" />
