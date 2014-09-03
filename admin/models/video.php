@@ -62,9 +62,9 @@ if ( class_exists( 'VideoModel' ) != true ) {							## checks the VideoModel cla
 				if(empty($this->_videoId)) {
 					$post_ID = wp_insert_post( $postsData );
 				}
-				$guid = get_site_url() . '/?post_type=videogallery&#038;p=' . $this->_wpdb->insert_id;
+				$guid = get_site_url() . '/?post_type=videogallery&#038;p=' . $post_ID;
 				$this->_wpdb->update( $this->_posttable, array( 'guid' => $guid ), array( 'ID' => $post_ID ) );
-				$this->_wpdb->update( $this->_videotable, array( 'slug' => $this->_wpdb->insert_id ), array( 'vid' => $last_insert_video_id ) );
+				$this->_wpdb->update( $this->_videotable, array( 'slug' => $post_ID ), array( 'vid' => $last_insert_video_id ) );
 				return $last_insert_video_id;
 			}
 		}																			## function for inserting video ends
