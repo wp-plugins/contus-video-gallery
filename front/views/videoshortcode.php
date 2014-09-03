@@ -624,7 +624,7 @@ if (class_exists ( 'ContusVideoShortcodeView' ) != true) {
 					$sd = '%5Bvideo%5D%5Bheight%5D=360&amp;p%5Bvideo%5D%5Bsrc%5D=' . urlencode ( $this->_swfPath ) . '%3Ffile%3D' . urlencode ( $videoUrl ) . '%26baserefW%3D' . urlencode ( APPTHA_VGALLERY_BASEURL ) . '%2F%26vid%3D' . $vid . '%26embedplayer%3Dtrue%26HD_default%3Dtrue%26share%3Dfalse%26skin_autohide%3Dtrue%26showPlaylist%3Dfalse&amp;p';
 				}
 				if ($show_social_icon) {
-                    $url_fb = "http://api.addthis.com/oexchange/0.8/forward/facebook/offer?url=" .urlencode($current_url). "&amp;title=" . urlencode($video_title) . "&amp;screenshot=" . urlencode($video_thumb) ."&amp;description=" . strip_tags($videodescription) ."";					
+					$url_fb                 = "http://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Btitle%5D=" . urlencode($video_title) . "&amp;p%5Bsummary%5D=" . urlencode($videodescription) . "&amp;p%5Bmedium%5D=103&amp;p%5Bvideo%5D%5Bwidth%5D=640&amp;p" . $sd . "%5Burl%5D=" . urlencode($current_url) . "&amp;p%5Bimages%5D%5B0%5D=" . urlencode($video_thumb);
                     $rs_url = get_site_url () . '/wp-admin/admin-ajax.php?action=rss&type=video&vid='.$vid;
 					$rss_image = plugins_url ( $this->_plugin_name.'/images/rss_icon.png' );
 					$output .= '
