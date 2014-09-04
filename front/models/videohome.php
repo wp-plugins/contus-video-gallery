@@ -204,7 +204,7 @@ if (class_exists ( 'ContusVideo' ) != true) { // checks the ContusVideo class ha
 					LEFT JOIN ' . $this->_wpdb->prefix . 'hdflvvideoshare_med2play m ON m.media_id = w.vid
 					LEFT JOIN ' . $this->_wpdb->prefix . 'hdflvvideoshare_playlist p ON p.pid=m.playlist_id
 					LEFT JOIN ' . $this->_wpdb->prefix . 'posts s ON s.ID=w.slug
-					LEFT JOIN ' . $this->_wpdb->prefix . 'users u ON u.ID = w.member_id		
+					LEFT JOIN '.$wpdb->users.' u ON u.ID = w.member_id		
 					WHERE featured=1 AND publish=1 AND p.is_publish=1 GROUP BY w.vid ORDER BY ordering ASC LIMIT '.$related_video_count;
 			$feature = $this->_wpdb->get_results($query);
 			if(!$feature){
@@ -212,7 +212,7 @@ if (class_exists ( 'ContusVideo' ) != true) { // checks the ContusVideo class ha
 					LEFT JOIN ' . $this->_wpdb->prefix . 'hdflvvideoshare_med2play m ON m.media_id = w.vid
 					LEFT JOIN ' . $this->_wpdb->prefix . 'hdflvvideoshare_playlist p ON p.pid=m.playlist_id
 					LEFT JOIN ' . $this->_wpdb->prefix . 'posts s ON s.ID=w.slug
-					LEFT JOIN ' . $this->_wpdb->prefix . 'users u ON u.ID = w.member_id
+					LEFT JOIN '.$wpdb->users.' u ON u.ID = w.member_id
 					WHERE publish=1 AND p.is_publish=1 GROUP BY w.vid ORDER BY ordering ASC LIMIT '.$related_video_count;
 				$feature = $this->_wpdb->get_results($query);
 				

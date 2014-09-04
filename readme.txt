@@ -2,17 +2,17 @@
 Contributors: hdflvplayer
 Tags: Video Player plugin, video, flash player, flv player, WORDPRESS VIDEO GALLERY, flv player wordpress, hd flv player, youtube plugin, youtube Video Player, high definition Video Player, flash, play flv wordpress, player, Video Plugin, wp flv player, wp flv plugin, flv player 2009,  WORDPRESS VIDEO GALLERY, wp flv, wordpress flv plugin, wp hd flv player, flv player plugin, wordpress flv player
 Requires at least: 2.8
-Tested up to: 3.9
+Tested up to: 4.0
 Stable tag: 2.7
-Get the most exciting FLV player in the internet, designed and modified to suit your Wordpress websites.  Installing this Video Plugin is real easy and if you have any difficulty in installation, contact our Video Player support team and quickly resolve your issue.  You can either download this Video Plugin directly from our website or through Wordpress plugins page itself.  This WORDPRESS VIDEO GALLERY Version  has many advanced features that you cannot find elsewhere, such as that you can play youtube videos directly through this player, and it can also aptly be called as a youtube player.
+Get the most exciting Video Gallery for your Wordpress site. Advanced features, Easy Installation and friendly support which makes this product irresistible.
 
 == Description ==
 
 Contus' Best WordPress Video Gallery Plugin has a whole set of utile features and options that make the product a versatile one. In addition to the quickly visible options such as recent Videos, popular Videos and featured Videos, the plugin also has the ability to control the number and order of these videos from back end.
 
-Video Gallery Demo - http://www.apptha-demo.com/template/videostream/
+Video Gallery Demo - https://www.apptha-demo.com/template/videostream/
 
-Video Gallery Home Page - http://www.apptha.com/category/extension/Wordpress/Video-Gallery
+Video Gallery Home Page - https://www.apptha.com/category/extension/Wordpress/Video-Gallery
 
 FLV & H.264 encoded video including MP4, M4V, M4A, MOV, Mp4v, F4V, social networking comments from the gallery page (like for Facebook), provision to alter width, height, skin, theme, aspect ratio, volume, downloads etc. from the backend are few if the best features with this plugin. It also covers other regular and utile features which we could see in popular video sharing sites such as social media bookmark option (diggit, myspace, facebook, del.icio.us, spurl, furl, google), managing multiple playlists, views count for video and so forth.
 
@@ -30,13 +30,13 @@ FLV & H.264 encoded video including MP4, M4V, M4A, MOV, Mp4v, F4V, social networ
 * Offers complete control over number of columns and rows of thumb images
 * Facility to customize the color of player from backend
 * Facility to display Captions in player by adding upto 2 SRT files from backend
-* Option to store media files in Amazon s3 bucket
+* Option to store media files in Amazon S3 bucket
 * Facility to set the native language for tool tips of player buttons
 * Admin can limit the number of related videos to be displayed inside the player
 * Admin can enable/disable RSS feed icon along with Social Icons in video detail page
 * Option to enable/disable Video title in video home page
 * Option to restrict upload methods for users
-* Packed with seven different video widgets such as Featured, Recent etc… (Refer document for more info)
+* Packed with seven different video widgets such as Featured, Recent etc.,(Refer document for more info)
 * SEO friendly video URL
 * Supports HTML5 to play videos in iOS devices
 * Enthralls with responsive designing to help your visitors view your website on mobile
@@ -173,22 +173,22 @@ FLV & H.264 encoded video including MP4, M4V, M4A, MOV, Mp4v, F4V, social networ
 Download the zip file, install it and then activate the plugin.
 
 = Where can I see the working demo of this Video Player or Video Plugin? =
-You can see the demo of our WORDPRESS VIDEO GALLERY Version or Video Plugin in this link - http://www.apptha-demo.com/template/videostream/
+You can see the demo of our WORDPRESS VIDEO GALLERY Version or Video Plugin in this link - https://www.apptha-demo.com/template/videostream/
 
 = What are all the file formats HD FLV PLAYER can play? =
 Our FLV player supports FLV & H.264 encoded video including MP3, MP4, M4V, M4A, MOV, Mp4v, F4V formats.
 
 = How to contact the support / development team of our Video Player? =
 You can contact us through,
-Live Chat at http://www.apptha.com
+Live Chat at https://www.apptha.com
 Email: assist@apptha.com
-Forums at http://www.apptha.com/forum/viewforum.php?f=27
+Forums at https://www.apptha.com/forum/viewforum.php?f=27
 
 = Can I get the WORDPRESS VIDEO GALLERY plugin player customized to my needs? =
 Yes, but there will be additional charges based on the request for customization has to be made by the requester.
 
 = What is the advantage of using this Wordpress Video Gallery Plugin? =
-To know more features and advantages of our player and this video plugin, visit this link - http://www.apptha.com/category/extension/Wordpress/Video-Gallery
+To know more features and advantages of our player and this video plugin, visit this link - https://www.apptha.com/category/extension/Wordpress/Video-Gallery
 
 = How to replace or remove the HD FLV Player demo logo from this WORDPRESS VIDEO GALLERY? =
-For replacing or removing the demo logo from this FLV player, you need to purchase our commercial version of the player. You can find the Flash FLV player product over here at http://www.apptha.com/category/extension/Wordpress/Video-Gallery
+For replacing or removing the demo logo from this FLV player, you need to purchase our commercial version of the player. You can find the Flash FLV player product over here at https://www.apptha.com/category/extension/Wordpress/Video-Gallery
