@@ -4,7 +4,7 @@ Tags: Video Player plugin, video, flash player, flv player, WORDPRESS VIDEO GALL
 Requires at least: 2.8
 Tested up to: 4.0
 Stable tag: 2.7
-Get the most exciting Video Gallery for your Wordpress site. Advanced features, Easy Installation and friendly support which makes this product irresistible.
+Get the most exciting Video Gallery for your WordPress site. Advanced features, Easy Install and timely support which makes this product irresistible
 
 == Description ==
 
