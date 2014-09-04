@@ -137,7 +137,7 @@ if ( class_exists( 'ContusVideoView' ) != true ) {
 					    $split = explode ( "/", $video );
 						$split_id = explode ( "_", $split [4] );
 						$video = $previewurl = $video_url = 'http://www.dailymotion.com/embed/video/' . $split_id [0]; 												
-						$output .= '<iframe src="' . $video . '" width="'.$width.'" height="'.$height.'"  class="iframe_frameborder" ></iframe>';						
+						$output .= '<iframe src="' . $video . '" width="100%" class="iframe_frameborder" ></iframe>';						
 					}  else {																		// IF VIDEO IS UPLOAD OR DIRECT PATH
 						if ( $file_type == 2 ) {														// For uploaded image
 							if( $file_type == 2 && strpos($videoUrl , '/' ) ) {

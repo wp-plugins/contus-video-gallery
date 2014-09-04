@@ -250,7 +250,7 @@ if (class_exists ( 'ContusVideoShortcodeView' ) != true) {
 				$pluginflashvars .= $flashvars .= '&amp;videodata=current_video_' . $videodivId;
 			}
 			// Player starts here
-			$output .= '<div id="mediaspace' . $videodivId . '" class="videoplayer" >';
+			$output .= '<div id="mediaspace' . $videodivId . '" class="videoplayer">';
 			$mobile = vgallery_detect_mobile ();
 			// Embed player code
 			if (! empty ( $fetched ) && $fetched [0]->file_type == 5 && ! empty ( $fetched [0]->embedcode )) {
