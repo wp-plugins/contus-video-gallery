@@ -106,7 +106,7 @@ html[xmlns] .clearfix {display: block;}
 .apptha_gallery .id-column{}
 .apptha_gallery .title-column{}
 .apptha_gallery .desc-column{}
-.column-featured {width: 90%;text-align: center;}
+.column-featured {text-align: center;}
 .column-publish {text-align:center;}
 .videoad_url_info_content {line-height: 20px;padding-top: 10px;}
 .form-table.form-videoad-table td{margin:0px; padding:0 10px;}
