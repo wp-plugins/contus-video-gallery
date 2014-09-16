@@ -31,6 +31,87 @@ function checkingarray(checkname)						//for giving the coma seprerated  selcted
 	}
 }
 
+function t1( t2 )
+{    
+	if ( t2.value == "y" || t2 == "y" )
+	{
+		document.getElementById( 'upload2' ).style.display = "block";
+		document.getElementById( 'supportformats' ).style.display = "";
+		document.getElementById( 'ffmpeg_disable_new4' ).style.display = "";
+		document.getElementById( 'ffmpeg_disable_new2' ).style.display = "";
+		document.getElementById( 'ffmpeg_disable_new3' ).style.display = "";
+		document.getElementById( 'ffmpeg_disable_new1' ).style.display = "";
+		document.getElementById( 'ffmpeg_disable_new5' ).style.display = "";
+		document.getElementById( 'ffmpeg_disable_new6' ).style.display = "";
+		document.getElementById( 'filetypevalue' ).value = 2;
+		document.getElementById( 'youtube' ).style.display = "none";
+		document.getElementById( 'embedvideo' ).style.display = "none";
+		document.getElementById( 'customurl' ).style.display = "none";
+	} else if ( t2.value == "c" || t2 == "c" ) {
+		document.getElementById( 'youtube' ).style.display = "block";
+		document.getElementById( 'upload2' ).style.display = "block";
+		document.getElementById( 'supportformats' ).style.display = "none";
+		document.getElementById( 'ffmpeg_disable_new4' ).style.display = "none";
+		document.getElementById( 'ffmpeg_disable_new2' ).style.display = "none";
+		document.getElementById( 'ffmpeg_disable_new3' ).style.display = "none";
+		document.getElementById( 'ffmpeg_disable_new1' ).style.display = "none";
+		document.getElementById( 'ffmpeg_disable_new5' ).style.display = "";
+		document.getElementById( 'ffmpeg_disable_new6' ).style.display = "";
+		document.getElementById( 'embedvideo' ).style.display = "none";
+		document.getElementById( 'customurl' ).style.display = "none";
+		document.getElementById( 'filetypevalue' ).value = 1;
+	} else if ( t2.value == "url" || t2 == "url" ) {
+		document.getElementById( 'customurl' ).style.display = "block";
+		document.getElementById( 'embedvideo' ).style.display = "none";
+		document.getElementById( 'islive_visible' ).style.display = "none";
+		document.getElementById( 'upload2' ).style.display = "block";
+		document.getElementById( 'supportformats' ).style.display = "none";
+		document.getElementById( 'ffmpeg_disable_new4' ).style.display = "none";
+		document.getElementById( 'ffmpeg_disable_new2' ).style.display = "none";
+		document.getElementById( 'ffmpeg_disable_new3' ).style.display = "none";
+		document.getElementById( 'ffmpeg_disable_new1' ).style.display = "none";
+		document.getElementById( 'ffmpeg_disable_new5' ).style.display = "";
+		document.getElementById( 'ffmpeg_disable_new6' ).style.display = "";
+		document.getElementById( 'stream1' ).style.display = "none";
+		document.getElementById( 'hdvideourl' ).style.display = "";
+		document.getElementById( 'youtube' ).style.display = "none";
+		document.getElementById( 'filetypevalue' ).value = 3;
+	} else if ( t2.value == "rtmp" || t2 == "rtmp" ) {
+		document.getElementById( 'customurl' ).style.display = "block";
+		document.getElementById( 'islive_visible' ).style.display = "";
+		document.getElementById( 'stream1' ).style.display = "";
+		document.getElementById( 'upload2' ).style.display = "block";
+		document.getElementById( 'supportformats' ).style.display = "none";
+		document.getElementById( 'ffmpeg_disable_new4' ).style.display = "none";
+		document.getElementById( 'ffmpeg_disable_new2' ).style.display = "none";
+		document.getElementById( 'ffmpeg_disable_new3' ).style.display = "none";
+		document.getElementById( 'ffmpeg_disable_new1' ).style.display = "none";
+		document.getElementById( 'ffmpeg_disable_new5' ).style.display = "";
+		document.getElementById( 'ffmpeg_disable_new6' ).style.display = "";
+		document.getElementById( 'embedvideo' ).style.display = "none";
+		document.getElementById( 'hdvideourl' ).style.display = "none";
+		document.getElementById( 'youtube' ).style.display = "none";
+		document.getElementById( 'filetypevalue' ).value = 4;
+	} else if ( t2.value == "embed" || t2 == "embed" ) {
+		document.getElementById( 'embedvideo' ).style.display = "block";
+		document.getElementById( 'islive_visible' ).style.display = "";
+		document.getElementById( 'stream1' ).style.display = "";
+		document.getElementById( 'customurl' ).style.display = "none";
+		document.getElementById( 'hdvideourl' ).style.display = "none";
+		document.getElementById( 'youtube' ).style.display = "none";
+		document.getElementById( 'adstypebox' ).style.display = "none";
+		document.getElementById( 'upload2' ).style.display = "block"
+		document.getElementById( 'ffmpeg_disable_new3' ).style.display = ""
+		document.getElementById( 'supportformats' ).style.display = "none";
+		document.getElementById( 'ffmpeg_disable_new4' ).style.display = "none";
+		document.getElementById( 'ffmpeg_disable_new2' ).style.display = "none";
+		document.getElementById( 'ffmpeg_disable_new1' ).style.display = "none";
+		document.getElementById( 'ffmpeg_disable_new5' ).style.display = "none";
+		document.getElementById( 'ffmpeg_disable_new6' ).style.display = "none";
+		document.getElementById( 'filetypevalue' ).value = 5;
+	}
+}
+
 function VideogoogleaddeleteIds(){
 	var googleadactiondown      = document.getElementById("videogoogleadactiondown").value;
 	var googleadactionup        = document.getElementById("videogoogleadactionup").value;

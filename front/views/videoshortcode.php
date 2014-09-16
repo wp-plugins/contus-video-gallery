@@ -361,29 +361,35 @@ if (class_exists ( 'ContusVideoShortcodeView' ) != true) {
 								 		<span id="divimgm" ><img alt="close" id="closeimgm" src="' . APPTHA_VGALLERY_BASEURL . '/images/close.png" style="z-index: 10000000;width:48px;height:12px;cursor:pointer;top:-12px;" onclick="googleclose();"  /> </span>
 								 				<iframe  height="60" width="' . ($width - 100) . '" scrolling="no" align="middle" id="IFrameName" src="" name="IFrameName" marginheight="0" marginwidth="0" class="iframe_frameborder" ></iframe>
 								 						</div>
-							</div>
-							<script type="text/javascript">
+							</div>';
+								 $details = $this->get_video_google_adsense_details($vid);
+								 $details1 = unserialize($details->googleadsense_details);
+								 
+								 if (isset($details1['adsense_option']) && $details1['adsense_option'] == 'always_show')
+								 {
+								 	$closeadd = 0;
+								 }
+								 else {
+								 	$closeadd = $details1['adsenseshow_time'];
+								 }
+								 if (isset($details1['adsense_reopen']) && $details1['adsense_reopen'] == '1')
+								 {
+								 	$ropen = $details1['adsense_reopen_time'];
+								 }
+								 else {
+								 	$ropen = 0;
+								 }
+								 $output .= '<script type="text/javascript">
 								var pagepath  = "' . get_site_url() . '/wp-admin/admin-ajax.php?action=googleadsense&vid=' . $homeplayerData->vid .'";
-							    var closeadd = 10005;
-							</script> 
+							    var closeadd = ' . $closeadd * 1000 . ';
+							    var ropen = ' . $ropen * 1000 . ';
+							</script>
 							<script src="' . APPTHA_VGALLERY_BASEURL.'js/googlead.js" type="text/javascript"></script>';
 				           }
 				}
 			}
 			
 			$output .= '</div>';	
-
-					if( isset($homeplayerData->google_adsense ) &&  $homeplayerData->google_adsense ) {
-                        $details = $this->get_video_google_adsense_details($vid);
-                        $details1 = unserialize($details->googleadsense_details);
-						if (isset($details1['closeadd']))
-						{
-							$closeadd = $details1['adsenseshow_time'];
-							$ropen = $details1['adsense_reopen_time'];
-						$output .= '<script type="text/javascript"> var closeadd = ' . $closeadd * 1000 . ';
-							var ropen = ' . $ropen * 1000 . ';</script>';
-						}
-					}
 					// End Google adsense End.
 			$useragent = $_SERVER ['HTTP_USER_AGENT'];
 			if (strpos ( $useragent, 'Windows Phone' ) > 0) { // check for windows phone

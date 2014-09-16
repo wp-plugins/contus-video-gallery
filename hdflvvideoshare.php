@@ -207,19 +207,10 @@ function hd_getsingleyoutubevideo( $youtube_media ) {
  * youtube function
  */
 function youtubeurl() {
-	$act_filepath = addslashes( trim( $_POST['filepath'] ) );
-	if ( ! empty( $act_filepath ) ) {
-		if ( strpos( $act_filepath, 'youtube' ) > 0 || strpos( $act_filepath, 'youtu.be' ) > 0 ) {
-			if ( strpos( $act_filepath, 'youtube' ) > 0 ) {
-				$imgstr = explode( 'v=', $act_filepath );
-				$imgval = explode( '&', $imgstr[1] );
-				$match  = $imgval[0];
-			} else if ( strpos( $act_filepath, 'youtu.be' ) > 0 ) {
-				$imgstr = explode( '/', $act_filepath );
-				$match  = $imgstr[3];
-				$act_filepath = 'http://www.youtube.com/watch?v=' . $imgstr[3];
-			}
-			$youtube_data = hd_getsingleyoutubevideo( $match );
+	$video_id = addslashes( trim( $_GET['filepath'] ) );
+	if ( ! empty( $video_id ) ) {
+			$act_filepath = 'http://www.youtube.com/watch?v=' . $video_id;
+			$youtube_data = hd_getsingleyoutubevideo( $video_id );
 			if ( $youtube_data ) {
 				$act[0] = addslashes( $youtube_data['title'] );
 				if ( isset( $youtube_data['thumbnail_url'] ) ) {
@@ -236,10 +227,6 @@ function youtubeurl() {
 			else {
 				$this->render_error( __( 'Could not retrieve Youtube video information', 'hdflvvideoshare' ) );
 			}
-		}else {
-			$act[4] = $act_filepath;
-			$this->render_error( __( 'URL entered is not a valid Youtube Url', 'hdflvvideoshare' ) );
-		}
 		return $act;
 	}
 }
