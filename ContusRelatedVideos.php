@@ -42,7 +42,6 @@ class Widget_ContusRelatedVideos_init extends WP_Widget {
 		$show = 3;
 		global $wpdb;
 		// These are our own options
-
 		if($instance['show']){
            if( absint( $instance['show'] ) ){
 				$show = $instance['show']; 

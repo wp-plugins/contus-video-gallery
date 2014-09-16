@@ -35,7 +35,7 @@ if ( class_exists( 'ContusVideoShortcodeController' ) != true ) {
          * @param unknown $vid
          */
 		function playlist_detail( $vid ) {												
-			return $this->get_playlist_detail( $vid );
+			return $this->get_playlist_detail( $vid);
 		}	
 		/**
 		 * Function  google adsense detail for  video.

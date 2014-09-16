@@ -66,6 +66,7 @@ class Widget_ContusRandomVideos_init extends WP_Widget {
 		// and after_title are the array keys." - These are set up by the theme
 		extract ( $args, EXTR_SKIP );
 		$title = empty ( $instance ['title'] ) ? ' ' : apply_filters ( 'widget_title', $instance ['title'] );
+		$show = 3;
 		global $wpdb;
 		// These are our own options
 		$site_url = get_site_url ();
@@ -92,7 +93,6 @@ class Widget_ContusRandomVideos_init extends WP_Widget {
 		);
 		$viewslang = __ ( 'Views', 'video_gallery' );
 		$viewlang = __ ( 'View', 'video_gallery' );
-		$show = 3;
 		echo $before_widget;
 		$div = '<div id="random-videos" class="sidebar-wrap "><h3 class="widget-title"><a href="' . $more_videos_link . '">' . $title . '</a></h3>';
 		//show no of  video  show

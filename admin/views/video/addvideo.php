@@ -39,87 +39,6 @@ if ( isset( $_GET['videoId'] ) ) {
 <div class="apptha_gallery">
 	<div class="wrap">
 		<script type="text/javascript">
-		   function t1( t2 )
-			{    
-				if ( t2.value == "y" || t2 == "y" )
-				{
-					document.getElementById( 'upload2' ).style.display = "block";
-					document.getElementById( 'supportformats' ).style.display = "";
-					document.getElementById( 'ffmpeg_disable_new4' ).style.display = "";
-					document.getElementById( 'ffmpeg_disable_new2' ).style.display = "";
-					document.getElementById( 'ffmpeg_disable_new3' ).style.display = "";
-					document.getElementById( 'ffmpeg_disable_new1' ).style.display = "";
-					document.getElementById( 'ffmpeg_disable_new5' ).style.display = "";
-					document.getElementById( 'ffmpeg_disable_new6' ).style.display = "";
-					document.getElementById( 'filetypevalue' ).value = 2;
-					document.getElementById( 'youtube' ).style.display = "none";
-					document.getElementById( 'embedvideo' ).style.display = "none";
-					document.getElementById( 'customurl' ).style.display = "none";
-				} else if ( t2.value == "c" || t2 == "c" ) {
-					document.getElementById( 'youtube' ).style.display = "block";
-					document.getElementById( 'upload2' ).style.display = "block";
-					document.getElementById( 'supportformats' ).style.display = "none";
-					document.getElementById( 'ffmpeg_disable_new4' ).style.display = "none";
-					document.getElementById( 'ffmpeg_disable_new2' ).style.display = "none";
-					document.getElementById( 'ffmpeg_disable_new3' ).style.display = "none";
-					document.getElementById( 'ffmpeg_disable_new1' ).style.display = "none";
-					document.getElementById( 'ffmpeg_disable_new5' ).style.display = "";
-					document.getElementById( 'ffmpeg_disable_new6' ).style.display = "";
-					document.getElementById( 'embedvideo' ).style.display = "none";
-					document.getElementById( 'customurl' ).style.display = "none";
-					document.getElementById( 'filetypevalue' ).value = 1;
-				} else if ( t2.value == "url" || t2 == "url" ) {
-					document.getElementById( 'customurl' ).style.display = "block";
-					document.getElementById( 'embedvideo' ).style.display = "none";
-					document.getElementById( 'islive_visible' ).style.display = "none";
-					document.getElementById( 'upload2' ).style.display = "block";
-					document.getElementById( 'supportformats' ).style.display = "none";
-					document.getElementById( 'ffmpeg_disable_new4' ).style.display = "none";
-					document.getElementById( 'ffmpeg_disable_new2' ).style.display = "none";
-					document.getElementById( 'ffmpeg_disable_new3' ).style.display = "none";
-					document.getElementById( 'ffmpeg_disable_new1' ).style.display = "none";
-					document.getElementById( 'ffmpeg_disable_new5' ).style.display = "";
-					document.getElementById( 'ffmpeg_disable_new6' ).style.display = "";
-					document.getElementById( 'stream1' ).style.display = "none";
-					document.getElementById( 'hdvideourl' ).style.display = "";
-					document.getElementById( 'youtube' ).style.display = "none";
-					document.getElementById( 'filetypevalue' ).value = 3;
-				} else if ( t2.value == "rtmp" || t2 == "rtmp" ) {
-					document.getElementById( 'customurl' ).style.display = "block";
-					document.getElementById( 'islive_visible' ).style.display = "";
-					document.getElementById( 'stream1' ).style.display = "";
-					document.getElementById( 'upload2' ).style.display = "block";
-					document.getElementById( 'supportformats' ).style.display = "none";
-					document.getElementById( 'ffmpeg_disable_new4' ).style.display = "none";
-					document.getElementById( 'ffmpeg_disable_new2' ).style.display = "none";
-					document.getElementById( 'ffmpeg_disable_new3' ).style.display = "none";
-					document.getElementById( 'ffmpeg_disable_new1' ).style.display = "none";
-					document.getElementById( 'ffmpeg_disable_new5' ).style.display = "";
-					document.getElementById( 'ffmpeg_disable_new6' ).style.display = "";
-					document.getElementById( 'embedvideo' ).style.display = "none";
-					document.getElementById( 'hdvideourl' ).style.display = "none";
-					document.getElementById( 'youtube' ).style.display = "none";
-					document.getElementById( 'filetypevalue' ).value = 4;
-				} else if ( t2.value == "embed" || t2 == "embed" ) {
-					document.getElementById( 'embedvideo' ).style.display = "block";
-					document.getElementById( 'islive_visible' ).style.display = "";
-					document.getElementById( 'stream1' ).style.display = "";
-					document.getElementById( 'customurl' ).style.display = "none";
-					document.getElementById( 'hdvideourl' ).style.display = "none";
-					document.getElementById( 'youtube' ).style.display = "none";
-					document.getElementById( 'adstypebox' ).style.display = "none";
-					document.getElementById( 'upload2' ).style.display = "block"
-					document.getElementById( 'ffmpeg_disable_new3' ).style.display = ""
-					document.getElementById( 'supportformats' ).style.display = "none";
-					document.getElementById( 'ffmpeg_disable_new4' ).style.display = "none";
-					document.getElementById( 'ffmpeg_disable_new2' ).style.display = "none";
-					document.getElementById( 'ffmpeg_disable_new1' ).style.display = "none";
-					document.getElementById( 'ffmpeg_disable_new5' ).style.display = "none";
-					document.getElementById( 'ffmpeg_disable_new6' ).style.display = "none";
-					document.getElementById( 'filetypevalue' ).value = 5;
-				}
-			}
-
 			function savePlaylist( playlistName, mediaId ) {
 				var name = playlistName.value;
 				name = name.trim();
@@ -141,6 +60,15 @@ if ( isset( $_GET['videoId'] ) ) {
 			}
 			function getyoutube_details(){
 	               var youtube_url =  document.getElementById("filepath1").value;
+	               if(youtube_url.indexOf('youtube') != -1) {
+		               var video_id = youtube_url.split('v=')[1];
+		               var ampersandPosition = video_id.indexOf('&');
+		               if(ampersandPosition != -1) {
+		                 video_id = video_id.substring(0, ampersandPosition);
+		               }
+	               } else if(youtube_url.indexOf('youtu.be') != -1) {
+		               var video_id = youtube_url.split('/')[3];
+	               }
 	               var urlmatch = /(http:\/\/|https:\/\/)[A-Za-z0-9\.-]{3,}\.[A-Za-z]{3}|(http:\/\/|https:\/\/)/;
 	               var errormsg = "<p>Enter Valid Video URL</p>";
 	               if( !urlmatch.test(youtube_url) ){
@@ -153,21 +81,25 @@ if ( isset( $_GET['videoId'] ) ) {
 		           var requesturl = '<?php echo admin_url('admin-ajax.php?action=getyoutubedetails'); ?>'; 
 		           playlistajax.ajax({
 	                       url:requesturl,
-	                       type:"POST",
-	                       data:"filepath="+ youtube_url,
+	                       type:"GET",
+	                       data:"filepath="+ video_id,
 	                       success : function( msg ){
-                               var resultdata =  playlistajax.parseJSON(msg);
-                               document.getElementById( 'name' ).value = resultdata[0];
-                           	   document.getElementById( 'filepath1' ).value = resultdata[4];
-                           	   document.getElementById( 'description' ).value = resultdata[5];
-                               var tag_name = resultdata[6];
-                           	   if( tag_name == 'undefined' ) {	   
-                           	   	 document.getElementById( 'tags_name' ).value = resultdata[6];
-                           	   }	                      
+                         var resultdata =  playlistajax.parseJSON(msg);
+                         document.getElementById( 'name' ).value = resultdata[0];
+                     	   document.getElementById( 'filepath1' ).value = resultdata[4];
+                     		var tag_name = resultdata[6];
+
+                     	   if(resultdata[5] !== undefined){
+                     		tinymce.activeEditor.setContent(resultdata[5]);
+                     		tinymce.execCommand('mceAddControl',true,'description');
+                     	   }
+
+                     	   if( tag_name !== undefined ) {	   
+                     	   	 document.getElementById( 'tags_name' ).value = resultdata[6];
+                     	   }	                      
 	                    	   document.getElementById( 'embedvideo').style.display = "none";
-                               document.getElementById('loading_image').style.display ='none';
-                               tinymce.execCommand('mceAddControl',true,'description');
-                            }  
+                         document.getElementById('loading_image').style.display ='none';
+                      }  
 	               } ); 
 	           }
 			
@@ -198,8 +130,6 @@ if ( isset( $_GET['videoId'] ) ) {
 		$user_allowed_method = explode(',',$player_colors['user_allowed_method']);
       ?>
 		<h2 class="option_title"> <?php echo '<img src="' . APPTHA_VGALLERY_BASEURL . 'images/manage_video.png" alt="move" width="30"/>'; ?><?php echo esc_attr_e( $page_title, 'video_gallery' ); ?> </h2>
-
-
 		<div id="poststuff" class="has-right-sidebar">
 			<?php if ( isset( $get_key ) && $get_title != $get_key ) {
 				?>
@@ -721,11 +651,15 @@ if ( $settings[0]->preroll == 0 || $settings[0]->postroll == 0 || $settings[0]->
 									<div id="submitpost" class="submitbox">
 
 										<div class="misc-pub-section">
+										<?php
+										if ($user_role != 'subscriber') {
+										?>
 											<h4><span>
 													<a style="cursor:pointer"  onclick="playlistdisplay()"><?php esc_attr_e( 'Create New', 'video_gallery' ) ?></a></span></h4>
 											<div id="playlistcreate1"><?php esc_attr_e( 'Name', 'video_gallery' ); ?><input type="text" style="width:100%;" name="p_name" id="p_name" value="" />
 												<input type="button" class="button-primary button button-highlighted" name="add_pl1" value="<?php esc_attr_e( 'Add' ); ?>" onclick="return savePlaylist( document.getElementById( 'p_name' ), <?php echo balanceTags( $act_vid ); ?> );"  />
 												<a  class="button cancelplaylist"  onclick="playlistclose()"><b>Close</b></a></div>
+											<?php } ?>
 											<div id="jaxcat"></div>
 											<div id="playlistchecklist"><?php $ajaxplaylistOBJ->get_playlist(); ?></div>
 											 <input type="hidden" name="filetypevalue" id="filetypevalue" value="1"  />
@@ -781,11 +715,24 @@ if ( isset( $videoEdit->file_type ) && $videoEdit->file_type == 1 ) {
 		t1( "embed" );
 		document.getElementById( "btn5" ).checked = true;
 	<?php
-} else {
-	?>
-		t1( "c" );
-		document.getElementById( "btn2" ).checked = true;
-	<?php
-}
-?>
+}  else if( in_array('c', $user_allowed_method) || $user_role == 'administrator') { ?>
+	t1( "c" );
+	document.getElementById( "btn2" ).checked = true;
+<?php } else if( in_array('y', $user_allowed_method)) { ?>
+	t1( "y" );
+	document.getElementById( "btn1" ).checked = true;
+<?php } else if( in_array('url', $user_allowed_method)) { ?>
+	t1( "url" );
+	document.getElementById( "btn3" ).checked = true;
+<?php } else if( in_array('rmtp', $user_allowed_method)) { ?>
+
+	t1( "rtmp" );
+	document.getElementById( "btn4" ).checked = true;
+<?php } else if( in_array('embed', $user_allowed_method)) { ?>
+	t1( "embed" );
+	document.getElementById( "btn5" ).checked = true;
+<?php } else { ?>
+	t1( "c" );
+	document.getElementById( "btn2" ).checked = true;
+<?php } ?>
 </script>

@@ -189,12 +189,20 @@ function doupload( $file ) {
 	$row1      = $row[0] + 1;
 	$extension = explode( '.', $file['name'] );
 	$extension = end( $extension );	
-	if($extension == 'srt' || $extension == 'SRT'){
-		$file_name = 'video'.rand().'.'.$extension;
-	}else{
-		$file_name = $row1 . '_video' .rand().$file['name'];	
+
+	if($extension == 'jpeg' || $extension == 'JPEG'){
+		$extension = 'jpg';
 	}
 	
+	if($extension == 'srt' || $extension == 'SRT'){
+		$file_name = 'video'.rand().'.'.$extension;
+	}else if($extension == 'jpg' || extension == 'png' || $extension =='gif' || $extension == 'JPG' || extension == 'PNG' || $extension =='GIF'){
+		$file_name = $row1 . '_thumb.'.$extension;
+	}
+	else{
+		$file_name = $row1 . '_video' .rand().'.'.$extension;	
+	}
+
 	if( $extension =='SRT' || $extension =='srt' ) {
 		$target_path = $destination_path . '' . $file_name;
 		if( @move_uploaded_file( $file['tmp_name'], $target_path ) ) {
@@ -204,27 +212,27 @@ function doupload( $file ) {
 		}
 		
 	} else {
-	$amazon_s3_bucket_setting = $wpdb->get_var("SELECT player_colors FROM ".$wpdb->prefix."hdflvvideoshare_settings");
-	$player_colors = unserialize($amazon_s3_bucket_setting);
-	if( $player_colors['amazonbuckets_enable'] && $player_colors['amazonbuckets_name'] ){ 
-		$s3buckets_videourl = $s3bucket_thumburl =$s3bucket_previewurl = $file_temp_name = '';		
-		$s3bucket_name  =  $player_colors['amazonbuckets_name'];
-                include_once(APPTHA_VGALLERY_BASEDIR.'/helper/s3_config.php');
-		if($s3->putObjectFile($file['tmp_name'],$s3bucket_name,$file_name,S3::ACL_PUBLIC_READ)){
-	    	$file_name = 'http://'.$s3bucket_name.'.s3.amazonaws.com/'.$file_name;
-	    	$errorcode = 0;
-		}else{
-			$errorcode = 4;
-		}
-		// End Amazon S3 bucket  storage data
-	  } else {	  
-		$target_path = $destination_path . '' . $file_name;
-		if( @move_uploaded_file( $file['tmp_name'], $target_path ) ) {
-			$errorcode = 0;
-		} else {
-			$errorcode = 4;
-		}
-	 }
+		$amazon_s3_bucket_setting = $wpdb->get_var("SELECT player_colors FROM ".$wpdb->prefix."hdflvvideoshare_settings");
+		$player_colors = unserialize($amazon_s3_bucket_setting);
+			if( $player_colors['amazonbuckets_enable'] && $player_colors['amazonbuckets_name'] ){
+				$s3buckets_videourl = $s3bucket_thumburl =$s3bucket_previewurl = $file_temp_name = '';		
+				$s3bucket_name  =  $player_colors['amazonbuckets_name'];
+		                include_once(APPTHA_VGALLERY_BASEDIR.'/helper/s3_config.php');
+				if($s3->putObjectFile($file['tmp_name'],$s3bucket_name,$file_name,S3::ACL_PUBLIC_READ)){
+			    	$file_name = 'http://'.$s3bucket_name.'.s3.amazonaws.com/'.$file_name;
+			    	$errorcode = 0;
+				}else{
+					$errorcode = 4;
+				}
+				// End Amazon S3 bucket  storage data
+			  } else {	  
+				$target_path = $destination_path . '' . $file_name;
+				if( @move_uploaded_file( $file['tmp_name'], $target_path ) ) {
+					$errorcode = 0;
+				} else {
+					$errorcode = 4;
+				}
+			 }
 	}
 	sleep( 1 );
 }

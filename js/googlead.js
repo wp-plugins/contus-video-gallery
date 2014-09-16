@@ -83,7 +83,7 @@ function closediv()
 
  document.getElementById('lightm').style.display="none";
  clearTimeout();
- if( ropen!=''){setTimeout('bindpage(0)', ropen); }
+ if( ropen!='' || ropen != 0){setTimeout('bindpage(0)', ropen); }
 }
 
 function bindpage(pageno)
@@ -98,5 +98,5 @@ function bindpage(pageno)
     }
     document.getElementById('closeimgm').style.display="block";
     document.getElementById('lightm').style.display="block";
-    if(closeadd !='') setTimeout('closediv()', closeadd);
+    if(closeadd !='' || closeadd !=0) setTimeout('closediv()', closeadd);
 }

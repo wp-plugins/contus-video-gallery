@@ -120,7 +120,7 @@ class Widget_ContusPopularVideos_init extends WP_Widget {
 							$imagePop = $imagePop;
 					
 						}else{
-							$imagePop = $image_path . $imagePea;
+							$imagePop = $image_path . $imagePop;
 						}
 					}
 					if( $file_type == 3 ){
