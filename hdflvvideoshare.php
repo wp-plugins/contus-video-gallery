@@ -622,7 +622,7 @@ if ( isset( $_GET['action']) && $_GET['action'] == 'activate-plugin' && $_GET['p
 		$updatemember_id      = add_column_if_not_exists( $errorMsg, "$table_name", 'member_id', 'INT( 3 ) NOT NULL' );
 		$updategoogle_adsense = add_column_if_not_exists( $errorMsg, "$table_name", 'google_adsense', 'INT( 3 ) NOT NULL' );
 		$updategoogle_adsense_value = add_column_if_not_exists( $errorMsg, "$table_name", 'google_adsense_value', 'INT( 11 ) NOT NULL' );
-		$update_amazon_bucket = add_column_if_not_exists($errorMsg,"$table_name",'amazon_buckets','INT ( 1 ) NOT NULL');
+		$update_amazon_bucket = add_column_if_not_exists($errorMsg,"$table_name",'amazon_buckets','INT ( 1 ) NOT NULL DEFAULT 0');
 		
 
 		// AD table Alter
@@ -881,7 +881,7 @@ include_once $frontControllerPath . 'videohomeController.php';
  */
 add_shortcode('videohome','video_homereplace');
 add_shortcode('videomore','video_morereplace');
-add_shortcode('hdvideo','video_shortcodereplace');
+add_shortcode('hdvideo','video_shortcodeplace');
 add_shortcode('categoryvideothumb', 'video_moreidreplace');
 add_shortcode('popularvideo','video_popular_video_shortcode');
 add_shortcode('recentvideo','video_recent_video_shortcode');
@@ -985,7 +985,6 @@ function video_shortcodeplace( $arguments = array() ) {
 		return $contentPlayer;
 }
 
-add_shortcode( 'hdvideo', 'video_shortcodeplace' );
 /**
  * Function display content for  category shortcode
  */
