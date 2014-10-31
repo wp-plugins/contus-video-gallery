@@ -1,6 +1,6 @@
 === WORDPRESS VIDEO GALLERY ===
 Contributors: hdflvplayer
-Tags: Video Player plugin, video, flash player, flv player, WORDPRESS VIDEO GALLERY, flv player wordpress, hd flv player, youtube plugin, youtube Video Player, high definition Video Player, flash, play flv wordpress, player, Video Plugin, wp flv player, wp flv plugin, flv player 2009,  WORDPRESS VIDEO GALLERY, wp flv, wordpress flv plugin, wp hd flv player, flv player plugin, wordpress flv player
+Tags: WordPress video gallery, Wordpress video gallery Plugin, wordPress video sharing script, Youtube video gallery, Vimeo video gallery, WordPress HTML5 video gallery, WP video gallery, Wordpress video sharing website
 Requires at least: 2.8
 Tested up to: 4.0
 Stable tag: 2.7
@@ -8,7 +8,11 @@ Get the most exciting Video Gallery for your WordPress site. Advanced features, 
 
 == Description ==
 
-Contus' Best WordPress Video Gallery Plugin has a whole set of utile features and options that make the product a versatile one. In addition to the quickly visible options such as recent Videos, popular Videos and featured Videos, the plugin also has the ability to control the number and order of these videos from back end.
+WordPress Video Gallery is a sturdy tool from Contus, that helps in erecting a video sharing website in WordPress quite effortlessly. Using this script managing a video sharing website becomes easy.
+
+This plugin has an inbuilt HD FLV Player which delivers video contents in crystal clear quality and support FLV & H.264 encoded video formats like MP4, M4V, M4A, MOV, Mp4v etc. HTML 5 support enables uninterrupted video viewing in mobile devices. Sharing of videos can be done from popular third-party websites like YouTube, Vimeo etc.
+
+Live events can be aired using RTMP, Live Telecast, Amazon S3 Live Streaming video support. Moreover, website owners can make additional revenue by monetizing through video ads. For creating an online reputation and improve brand awareness the player offers a space to promote the website’s logo.
 
 Video Gallery Demo - http://www.apptha-demo.com/template/videostream/
 
