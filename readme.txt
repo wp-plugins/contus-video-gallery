@@ -10,17 +10,15 @@ Get the most exciting Video Gallery for your WordPress site. Advanced features, 
 
 WordPress Video Gallery is a sturdy tool from Contus, that helps in erecting a video sharing website in WordPress quite effortlessly. Using this script managing a video sharing website becomes easy.
 
-This plugin has an inbuilt HD FLV Player which delivers video contents in crystal clear quality and support FLV & H.264 encoded video formats like MP4, M4V, M4A, MOV, Mp4v etc. HTML 5 support enables uninterrupted video viewing in mobile devices. Sharing of videos can be done from popular third-party websites like YouTube, Vimeo etc.
-
-Live events can be aired using RTMP, Live Telecast, Amazon S3 Live Streaming video support. Moreover, website owners can make additional revenue by monetizing through video ads. For creating an online reputation and improve brand awareness the player offers a space to promote the website’s logo.
-
 Video Gallery Demo - http://www.apptha-demo.com/template/videostream/
 
 Video Gallery Home Page - https://www.apptha.com/category/extension/Wordpress/Video-Gallery
 
 GitHub Repository - https://github.com/Apptha/contus-video-gallery
 
-FLV & H.264 encoded video including MP4, M4V, M4A, MOV, Mp4v, F4V, social networking comments from the gallery page (like for Facebook), provision to alter width, height, skin, theme, aspect ratio, volume, downloads etc. from the backend are few if the best features with this plugin. It also covers other regular and utile features which we could see in popular video sharing sites such as social media bookmark option (diggit, myspace, facebook, del.icio.us, spurl, furl, google), managing multiple playlists, views count for video and so forth.
+This plugin has an inbuilt HD FLV Player which delivers video contents in crystal clear quality and support FLV & H.264 encoded video formats like MP4, M4V, M4A, MOV, Mp4v etc. HTML 5 support enables uninterrupted video viewing in mobile devices. Sharing of videos can be done from popular third-party websites like YouTube, Vimeo etc.
+
+Live events can be aired using RTMP, Live Telecast, Amazon S3 Live Streaming video support. Moreover, website owners can make additional revenue by monetizing through video ads. For creating an online reputation and improve brand awareness the player offers a space to promote the website's logo.
 
 * Supports Lighttpd, RTMP, Live telecast and Amazon S3 Streaming
 * Facility to add YouTube, Vimeo, Viddler, Daily Motion videos and embed code videos from other sites
