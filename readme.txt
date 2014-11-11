@@ -14,7 +14,9 @@ Video Gallery Demo - http://www.apptha-demo.com/template/videostream/
 
 Video Gallery Home Page - https://www.apptha.com/category/extension/Wordpress/Video-Gallery
 
-GitHub Repository - https://github.com/Apptha/contus-video-gallery
+We're on GitHub! Engage now & fork us!
+
+https://github.com/Apptha/contus-video-gallery
 
 This plugin has an inbuilt HD FLV Player which delivers video contents in crystal clear quality and support FLV & H.264 encoded video formats like MP4, M4V, M4A, MOV, Mp4v etc. HTML 5 support enables uninterrupted video viewing in mobile devices. Sharing of videos can be done from popular third-party websites like YouTube, Vimeo etc.
 
