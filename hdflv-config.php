@@ -3,7 +3,7 @@
   Name: Wordpress Video Gallery
   Plugin URI: http://www.apptha.com/category/extension/Wordpress/Video-Gallery
   Description: Wordpress Video Gallery plugin config file.
-  Version: 2.7
+  Version: 2.8
   Author: Apptha
   Author URI: http://www.apptha.com
   License: GPL2

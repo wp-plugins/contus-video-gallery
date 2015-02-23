@@ -3,7 +3,7 @@ Contributors: hdflvplayer
 Tags: WordPress video gallery, Wordpress video gallery Plugin, wordPress video sharing script, Youtube video gallery, Vimeo video gallery, WordPress HTML5 video gallery, WP video gallery, Wordpress video sharing website
 Requires at least: 2.8
 Tested up to: 4.0
-Stable tag: 2.7
+Stable tag: 2.8
 Get the most exciting Video Gallery for your WordPress site. Advanced features, Easy Install and timely support which makes this product irresistible
 
 == Description ==
@@ -86,6 +86,10 @@ Live events can be aired using RTMP, Live Telecast, Amazon S3 Live Streaming vid
 9. **Videos(recent,popular,feature, Video Categories)** - We are also displaying Popular, Recent, Featured, Related videos and Video Categories in content page under player.
 
 == Changelog ==
+
+= 2.8 =
+
+* Fixed vulnerability issue in videogalleryrss.php file
 
 = 2.7 =
 

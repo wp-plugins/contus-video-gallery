@@ -5,7 +5,7 @@
  * Add video with multiple method 
  * @category   Apptha
  * @package    Contus video Gallery
- * @version    2.7
+ * @version    2.8
  * @author     Apptha Team <developers@contus.in>
  * @copyright  Copyright (C) 2014 Apptha. All rights reserved.
  * @license    GNU General Public License http://www.gnu.org/copyleft/gpl.html 
@@ -84,22 +84,22 @@ if ( isset( $_GET['videoId'] ) ) {
 	                       type:"GET",
 	                       data:"filepath="+ video_id,
 	                       success : function( msg ){
-                            var resultdata =  playlistajax.parseJSON(msg);
-                            document.getElementById( 'name' ).value = resultdata[0];
-                        	   document.getElementById( 'filepath1' ).value = resultdata[4];
-                        		var tag_name = resultdata[6];
+                         var resultdata =  playlistajax.parseJSON(msg);
+                         document.getElementById( 'name' ).value = resultdata[0];
+                     	   document.getElementById( 'filepath1' ).value = resultdata[4];
+                     		var tag_name = resultdata[6];
 
-                        	   if(resultdata[5] !== undefined){
-                        		tinymce.activeEditor.setContent(resultdata[5]);
-                        		tinymce.execCommand('mceAddControl',true,'description');
-                        	   }
+                     	   if(resultdata[5] !== undefined){
+                     		tinymce.activeEditor.setContent(resultdata[5]);
+                     		tinymce.execCommand('mceAddControl',true,'description');
+                     	   }
 
-                        	   if( tag_name !== undefined ) {	   
-                        	   	 document.getElementById( 'tags_name' ).value = resultdata[6];
-                        	   }	                      
+                     	   if( tag_name !== undefined ) {	   
+                     	   	 document.getElementById( 'tags_name' ).value = resultdata[6];
+                     	   }	                      
 	                    	   document.getElementById( 'embedvideo').style.display = "none";
-                            document.getElementById('loading_image').style.display ='none';
-                         }  
+                         document.getElementById('loading_image').style.display ='none';
+                      }  
 	               } ); 
 	           }
 			
