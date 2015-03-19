@@ -47,6 +47,8 @@ Live events can be aired using RTMP, Live Telecast, Amazon S3 Live Streaming vid
 * Enthralls with responsive designing to help your visitors view your website on mobile
 * Supports RTL feature
 
+Tags: wordpress video gallery, reponsive video gallery, wp video plugin, video sharing script, html5 video gallery, youtube video gallery, vimeo video gallery, free wp video gallery, video sharing script, video sharing site, video gallery plugin, amazon S3 streaming video, live streaming video, hd video gallery, hd flv player
+
 == Installation ==
 
 = Minimal Requirements =
