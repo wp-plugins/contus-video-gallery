@@ -92,6 +92,7 @@ Tags: wordpress video gallery, reponsive video gallery, wp video plugin, video s
 = 2.8 =
 
 * Fixed vulnerability issue in videogalleryrss.php file
+* Fixed deleted video from admin not deleting from folder issue
 
 = 2.7 =
 
