@@ -90,6 +90,7 @@ Live events can be aired using RTMP, Live Telecast, Amazon S3 Live Streaming vid
 = 2.8 =
 
 * Fixed vulnerability issue in videogalleryrss.php file
+* Fixed deleted video from admin not deleting from folder issue
 
 = 2.7 =
 

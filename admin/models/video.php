@@ -304,7 +304,7 @@ if ( class_exists( 'VideoModel' ) != true ) {							## checks the VideoModel cla
         {
 			$slug = $this->_wpdb->get_col("SELECT slug FROM ".$this->_videotable."  WHERE vid IN ("."$videoId".")");
 			$slugid = implode(",", $slug);
-			$query = "SELECT file,file_type,image,opimage,strfile1,strfile2 FROM " . $this->_videotable ." WHERE vid IN ("."$videoId".")";
+			$query = "SELECT file,file_type,image,opimage,srtfile1,srtfile2 FROM " . $this->_videotable ." WHERE vid IN ("."$videoId".")";
             $file_details = $this->_wpdb->get_results($query);
 			foreach($file_details as $file_detail){
 				if($file_detail->file_type == 2){
