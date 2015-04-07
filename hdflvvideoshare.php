@@ -336,7 +336,7 @@ add_action( 'wp_ajax_nopriv_videohitcount', 'videohitcount_function' );
 
 function videohitcount_function() {
 		global $wpdb;
-		$vid      = $_GET['vid'];						 
+		$vid      = intval($_GET['vid']);						 
 		$hitList  = $wpdb->get_row( 'SELECT * FROM ' . $wpdb->prefix . 'hdflvvideoshare WHERE vid="' . intval( $vid ) . '"' );
 		$hitCount = $hitList->hitcount;			 
 		$hitInc   = ++$hitCount;
@@ -352,8 +352,8 @@ add_action( 'wp_ajax_nopriv_ratecount', 'ratecount_function' );
 
 function ratecount_function() {
 	global $wpdb;
-	$vid      = $_GET['vid'];	
-	$get_rate = $_GET['rate'];   
+	$vid      = intval($_GET['vid']);	
+	$get_rate = intval($_GET['rate']);   
 	if ( ! empty( $get_rate ) ) {
 
 		$ratecount = $wpdb->get_row( 'SELECT * FROM ' . $wpdb->prefix . 'hdflvvideoshare WHERE vid="' . intval( $vid ) . '"' );
@@ -377,7 +377,7 @@ add_action('wp_ajax_googleadsense' ,'google_adsense');
 add_action('wp_ajax_nonpriv_googleadsense' ,'google_adsense');
 function google_adsense(){
 	global $wpdb;
-	$vid = $_GET['vid'];	
+	$vid = intval($_GET['vid']);	
 	$google_adsense_id =  $wpdb->get_var('SELECT google_adsense_value FROM '.$wpdb->prefix.'hdflvvideoshare WHERE vid ='.$vid);
 	$query = $wpdb->get_var('SELECT googleadsense_details FROM '.$wpdb->prefix.'hdflvvideoshare_vgoogleadsense WHERE id='.$google_adsense_id);
 	$google_adsense = unserialize($query);
