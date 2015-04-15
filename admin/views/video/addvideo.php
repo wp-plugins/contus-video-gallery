@@ -20,6 +20,7 @@ $dirPage = $dirExp[0];
 <script type="text/javascript">
 	folder = '<?php echo balanceTags( $dirPage ); ?>';
     var	videogallery_plugin_folder =  '<?php echo plugins_url().'/'.$dirPage ; ?>' ;
+    var upload_nonce = '<?php  echo wp_create_nonce( 'upload-video');?>';
 </script>
 <?php
 $act_vid = 0;

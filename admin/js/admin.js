@@ -550,7 +550,7 @@ function updateQueue(statuscode, statusmessage, outfile)
 function submitUploadForm(form_handle)
 {
 	document.forms[form_handle].target = "uploadvideo_target";
-	document.forms[form_handle].action = "admin-ajax.php?action=uploadvideo";
+	document.forms[form_handle].action = "admin-ajax.php?action=uploadvideo&_wpnonce=" + upload_nonce;
 	document.forms[form_handle].submit();
 }
 function setStatus(form_handle, status)
