@@ -54,23 +54,7 @@ if ( ! wp_verify_nonce( $nonce, 'upload-video' ) ) {
 			$allowedExtensions = array( 'srt', 'SRT' );
 		}
 	}
-	
-	if ( ! iserror(  ) ) {
-	
-		if ( ( $pro == 1 ) && ( empty( $_FILES['myfile'] ) ) ) {
-			$errorcode = 13;
-		} else {
-			$file = $_FILES['myfile'];
-			if ( no_file_upload_error( $file ) ) {
-	
-				if ( is_allowed_extension( $file ) ) {
-					if ( ! filesizeexceeds( $file ) ) {
-						doupload( $file );
-					}
-				}
-			}
-		}
-	}
+
 	/**
 	 * Check the  error  occur  in the upload  the  files or  not
 	 * @return boolean
@@ -240,6 +224,23 @@ if ( ! wp_verify_nonce( $nonce, 'upload-video' ) ) {
 				 }
 		}
 		sleep( 1 );
+	}
+
+	if ( ! iserror(  ) ) {
+	
+		if ( ( $pro == 1 ) && ( empty( $_FILES['myfile'] ) ) ) {
+			$errorcode = 13;
+		} else {
+			$file = $_FILES['myfile'];
+			if ( no_file_upload_error( $file ) ) {
+	
+				if ( is_allowed_extension( $file ) ) {
+					if ( ! filesizeexceeds( $file ) ) {
+						doupload( $file );
+					}
+				}
+			}
+		}
 	}
 	?>
 	<script language='javascript' type='text/javascript'>
