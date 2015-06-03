@@ -7,7 +7,7 @@ Author: Apptha
 Author URI: http://www.apptha.com
 License: GNU General Public License version 2 or later
 */
-.apptha_gallery .column { width: 50%; float: left; padding-bottom: 100px; }
+.column { width: 50%; float: left; padding-bottom: 100px; }
 #wpbody-content{width:99%;}
 #manage-column-video-1 {margin-left: 6.1px;}
 #manage-column-category-1 {
@@ -106,7 +106,7 @@ html[xmlns] .clearfix {display: block;}
 .apptha_gallery .id-column{}
 .apptha_gallery .title-column{}
 .apptha_gallery .desc-column{}
-.column-featured {text-align: center;}
+.column-featured {width: 90%;text-align: center;}
 .column-publish {text-align:center;}
 .videoad_url_info_content {line-height: 20px;padding-top: 10px;}
 .form-table.form-videoad-table td{margin:0px; padding:0 10px;}

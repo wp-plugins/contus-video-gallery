@@ -80,27 +80,28 @@ class Widget_ContusRecentVideos_init extends WP_Widget {
 		);
 		$viewslang = __ ( 'Views', 'video_gallery' );
 		$viewlang = __ ( 'View', 'video_gallery' );
-		$show = 3;
 		echo $before_widget;
 		$div = '<div id="recent-videos" class="sidebar-wrap "><h3 class="widget-title"><a href="' .$more_videos_link .'">' . $title . '</a></h3>';
 		if ($instance ['show']) {
 			if( absint( $instance['show'] ) ) {
 				$show = $instance['show'];
 			}
+			$show = 3;
+		} else {
+			$show = 3;
 		}
-
 		$sql = 'SELECT DISTINCT a.*,s.guid,b.playlist_id,p.playlist_name FROM ' . $wpdb->prefix . 'hdflvvideoshare a
-				LEFT JOIN ' . $wpdb->prefix . 'hdflvvideoshare_med2play b ON a.vid=b.media_id
-				LEFT JOIN ' . $wpdb->prefix . 'hdflvvideoshare_playlist p ON p.pid=b.playlist_id
-				LEFT JOIN ' . $wpdb->prefix . 'posts s ON s.ID=a.slug
+				INNER JOIN ' . $wpdb->prefix . 'hdflvvideoshare_med2play b ON a.vid=b.media_id
+				INNER JOIN ' . $wpdb->prefix . 'hdflvvideoshare_playlist p ON p.pid=b.playlist_id
+				INNER JOIN ' . $wpdb->prefix . 'posts s ON s.ID=a.slug
 				WHERE a.publish=1 AND p.is_publish=1 GROUP BY a.vid ORDER BY a.vid DESC LIMIT ' . $show;
 		$posts = $wpdb->get_results ( $sql );
 		if (! empty ( $posts )) {
 			$fetched = $posts [0]->playlist_name;
 		}
 		$moreR = $wpdb->get_results ( 'SELECT count(a.vid) as contus from ' . $wpdb->prefix . 'hdflvvideoshare a
-				LEFT JOIN ' . $wpdb->prefix . 'hdflvvideoshare_med2play b ON a.vid=b.media_id
-				LEFT JOIN ' . $wpdb->prefix . 'hdflvvideoshare_playlist p ON p.pid=b.playlist_id
+				INNER JOIN ' . $wpdb->prefix . 'hdflvvideoshare_med2play b ON a.vid=b.media_id
+				INNER JOIN ' . $wpdb->prefix . 'hdflvvideoshare_playlist p ON p.pid=b.playlist_id
 				WHERE a.publish=1 AND p.is_publish=1 ORDER BY a.vid DESC' );
 		$countR = $moreR [0]->contus;
 		$div .= '<ul class="ulwidget">';

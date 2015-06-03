@@ -44,7 +44,7 @@ switch ( $type ) {
 		break;
 	case 'video':
 		$thumbImageorder = 'w.vid ASC';
-		$vid             = intval(filter_input(INPUT_GET,'vid'));  
+		$vid             = intval( filter_input( INPUT_GET,'vid' ) );  
 		$where           = 'AND w.vid ='.$vid;
 		$TypeOFvideos    = $contusOBJ->home_thumbdata( $thumbImageorder , $where , $dataLimit );
 	break;		

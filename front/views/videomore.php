@@ -370,9 +370,9 @@ if (class_exists ( 'ContusMoreView' ) != true) {
 			foreach ( $TypeOFvideos as $catList ) {
 				// Fetch videos for every category
 				$sql = 'SELECT s.guid,w.* FROM ' . $wpdb->prefix . 'hdflvvideoshare AS w
-						LEFT JOIN ' . $wpdb->prefix . 'hdflvvideoshare_med2play AS m ON m.media_id = w.vid
-						LEFT JOIN ' . $wpdb->prefix . 'hdflvvideoshare_playlist AS p on m.playlist_id = p.pid
-						LEFT JOIN ' . $this->_wpdb->prefix . 'posts s ON s.ID=w.slug
+						INNER JOIN ' . $wpdb->prefix . 'hdflvvideoshare_med2play AS m ON m.media_id = w.vid
+						INNER JOIN ' . $wpdb->prefix . 'hdflvvideoshare_playlist AS p on m.playlist_id = p.pid
+						INNER JOIN ' . $this->_wpdb->prefix . 'posts s ON s.ID=w.slug
 						WHERE w.publish=1 AND p.is_publish=1 AND m.playlist_id=' . intval ( $catList->pid ) . ' GROUP BY w.vid';
 				$playLists = $wpdb->get_results ( $sql );
 				$moreName = $wpdb->get_var ( 'SELECT ID FROM ' . $wpdb->prefix . 'posts WHERE post_content LIKE "%[videomore]%" AND post_status="publish" AND post_type="page" LIMIT 1' );

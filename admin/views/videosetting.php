@@ -760,6 +760,10 @@ $player_colors = unserialize( $settingsGrid->player_colors );
 					<div class="portlet-header"><b><?php esc_attr_e( 'User Video Setting', 'video_gallery' ); ?></b></div>
 						<div class="portlet-content">
 						    <table class="form-table">	
+						     <tr class="gallery_separator">
+								 	<th><?php esc_attr_e( 'Enter Youtube API Key', 'video_gallery' ); ?></th>
+									<td><input type="text" name="youtube_key" id="youtube_key" size="20" value="<?php if(isset( $player_colors['youtube_key'])){ echo balanceTags( $player_colors['youtube_key'] );} ?>"></td>
+								</tr>
 						    <tr class="gallery_separator">
 						         <th><?php esc_attr_e( 'Video Upload Option to Members', 'video_gallery' ); ?></th>
 						         <td>

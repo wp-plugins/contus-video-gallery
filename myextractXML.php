@@ -16,15 +16,10 @@ $contOBJ = new ContusVideoController();							// include class from Videohome co
 $getVid  = $pageOBJ->_vId;										// Get video ID from video home view
 $getPid  = $pageOBJ->_pId;									// Get playlist ID from video home view
 $numberofvideos = filter_input( INPUT_GET, 'numberofvideos' );	// Get number of videos from URL
-
-if ( empty( $numberofvideos ) ) {
-	$numberofvideos = $contOBJ->related_video_count();
-}
-
 if ( empty( $numberofvideos ) ) {
 	$numberofvideos = 4;
 }
-
+$numberofvideos = $contOBJ->related_video_count();
 $banner = 0;
 $type   = filter_input( INPUT_GET, 'type' );
 if ( ! empty( $numberofvideos ) && ! empty( $type ) ) {
@@ -145,7 +140,15 @@ foreach ( $singleVideodata as $media ) {
 		} else if ( ! empty( $subtitle2 ) ) {
 			$subtitle = $image_path . $subtitle2;
 		}
-
+        // Get  the  google Adsense
+         if($media->google_adsense == 1){
+         	$google_adsense    = 'allow_google_adsense="true"';
+         	$google_adsense_id = 'google_adsense="'.$media->google_adsense_value.'"';          	
+         }
+         else{
+         	$google_adsense    = 'allow_google_adsense="false"';
+         	$google_adsense_id = 'google_adsense="0"';
+         }
 		// Get preroll ad detail
 		if ( $settingsContent->preroll == 1 ) {
 			$preroll    = ' allow_preroll = "false"';

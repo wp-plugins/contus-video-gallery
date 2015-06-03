@@ -173,6 +173,7 @@ if ( isset( $_GET['videoId'] ) ) {
 									<span id="Youtubeurlmessage" style="display: block; "></span>
 									<div class="youtubelinkinfo"><p><?php esc_attr_e( 'Here you need to enter the video URL', 'video_gallery' ) ?></p>
 									<p><?php esc_attr_e( 'It accepts YouTube links like : https://www.youtube.com/watch?v=-umZJqaBY8Y or http://youtu.be/0vrdgDdPApQ', 'video_gallery' ) ?></p>
+									<p><?php esc_attr_e( 'You need to enter YouTube API in settings tab for Youtube videos', 'video_gallery' ) ?></p>
 									<p><?php esc_attr_e( 'Viddler link like : http://www.viddler.com/v/67b33b8f', 'video_gallery' ) ?></p>
 									<p><?php esc_attr_e( 'Dailymotion link like : http://www.dailymotion.com/video/x16787y_nature-catskills_news', 'video_gallery' ) ?></p>
 								</div>

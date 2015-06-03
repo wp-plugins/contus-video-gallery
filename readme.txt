@@ -2,7 +2,7 @@
 Contributors: hdflvplayer
 Tags: WordPress video gallery, Wordpress video gallery Plugin, wordPress video sharing script, Youtube video gallery, Vimeo video gallery, WordPress HTML5 video gallery, WP video gallery, Wordpress video sharing website
 Requires at least: 2.8
-Tested up to: 4.0
+Tested up to: 4.2.2
 Stable tag: 2.8
 Get the most exciting Video Gallery for your WordPress site. Advanced features, Easy Install and timely support which makes this product irresistible
 
@@ -93,6 +93,7 @@ Tags: wordpress video gallery, reponsive video gallery, wp video plugin, video s
 
 * Fixed vulnerability issue in videogalleryrss.php file
 * Fixed deleted video from admin not deleting from folder issue
+* Updated to YouTube API version 3
 
 = 2.7 =
 

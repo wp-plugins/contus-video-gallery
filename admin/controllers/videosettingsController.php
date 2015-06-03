@@ -127,11 +127,7 @@ if (class_exists ( 'SettingsController' ) != true) { // checks if the SettingsCo
 				$amazon_bucket_access_key = filter_input ( INPUT_POST, 'amazon_bucket_access_key' );
 				$amazon_bucket_access_secretkey = filter_input ( INPUT_POST, 'amazon_bucket_access_secretkey' );
 				$user_allowed_method = filter_input ( INPUT_POST, 'user_allowed_method', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY );
-
-				if(!empty($user_allowed_method)){
-					$user_allowed_method = implode ( ',', $user_allowed_method );
-				}
-
+				$user_allowed_method = implode ( ',', $user_allowed_method );
 				$iframe_visible = filter_input ( INPUT_POST, 'iframe_visible' );
 				$googleadsense_visible = filter_input ( INPUT_POST, 'googleadsense_visible' );
 				$show_added_on = filter_input ( INPUT_POST,'show_added_on' );
@@ -139,6 +135,7 @@ if (class_exists ( 'SettingsController' ) != true) { // checks if the SettingsCo
 				$show_title = filter_input ( INPUT_POST,'showTitle' );
 				$show_related_video = filter_input ( INPUT_POST,'show_related_video' );
 				$show_rss_icon  =  filter_input ( INPUT_POST,'show_rss_icon' );
+				$youtube_key = filter_input ( INPUT_POST, 'youtube_key' );
 				$player_color = array (
 						'sharepanel_up_BgColor' => $sharepanel_up_BgColor,
 						'sharepanel_down_BgColor' => $sharepanel_down_BgColor,
@@ -182,6 +179,7 @@ if (class_exists ( 'SettingsController' ) != true) { // checks if the SettingsCo
 						'member_upload_enable' => $member_upload_enable,
 						'showTitle' =>$show_title,
 						'show_rss_icon' =>$show_rss_icon,
+						'youtube_key'=>$youtube_key,
 				);
 				$settingsData = array (
 						'default_player' => $default_player,

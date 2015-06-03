@@ -137,7 +137,7 @@ if ( class_exists( 'ContusVideoView' ) != true ) {
 					    $split = explode ( "/", $video );
 						$split_id = explode ( "_", $split [4] );
 						$video = $previewurl = $video_url = 'http://www.dailymotion.com/embed/video/' . $split_id [0]; 												
-						$output .= '<iframe src="' . $video . '" width="100%" class="iframe_frameborder" ></iframe>';						
+						$output .= '<iframe src="' . $video . '" width="'.$width.'" height="'.$height.'"  class="iframe_frameborder" ></iframe>';						
 					}  else {																		// IF VIDEO IS UPLOAD OR DIRECT PATH
 						if ( $file_type == 2 ) {														// For uploaded image
 							if( $file_type == 2 && strpos($videoUrl , '/' ) ) {
@@ -386,15 +386,15 @@ if ( class_exists( 'ContusVideoView' ) != true ) {
 			$div      .= '<style scoped> .video-block { margin-left:' . $this->_settingsData->gutterspace . 'px !important;float:left;} </style>';
 			foreach ( $TypeOFvideos as $catList ) {
 				$sql = 'SELECT s.guid,w.* FROM ' . $wpdb->prefix . 'hdflvvideoshare as w
-					LEFT JOIN ' . $wpdb->prefix . 'hdflvvideoshare_med2play as m ON m.media_id = w.vid
-					LEFT JOIN ' . $wpdb->prefix . 'hdflvvideoshare_playlist as p on m.playlist_id = p.pid
-					LEFT JOIN ' . $this->_wpdb->prefix . 'posts s ON s.ID=w.slug
+					INNER JOIN ' . $wpdb->prefix . 'hdflvvideoshare_med2play as m ON m.media_id = w.vid
+					INNER JOIN ' . $wpdb->prefix . 'hdflvvideoshare_playlist as p on m.playlist_id = p.pid
+					INNER JOIN ' . $this->_wpdb->prefix . 'posts s ON s.ID=w.slug
 					WHERE w.publish=1 and p.is_publish=1 and m.playlist_id=' . intval( $catList->pid ) . ' GROUP BY w.vid LIMIT ' . $dataLimit;
 				$playLists     = $wpdb->get_results( $sql );
 				$playlistCount = count( $playLists );
                                 //Get count video assign this category. 
                 $category_video = $wpdb->get_results('SELECT * FROM ' . $wpdb->prefix . 'hdflvvideoshare_med2play as m 
-					LEFT JOIN ' . $wpdb->prefix . 'hdflvvideoshare_playlist as p on m.playlist_id = p.pid WHERE m.playlist_id='.intval($catList->pid).' AND p.is_publish=1');
+					INNER JOIN ' . $wpdb->prefix . 'hdflvvideoshare_playlist as p on m.playlist_id = p.pid WHERE m.playlist_id='.intval($catList->pid).' AND p.is_publish=1');
                 $video_count = count($category_video);
                                 // end of  get count
                                 
