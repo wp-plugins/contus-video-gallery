@@ -64,15 +64,6 @@ if ($pagenum) {
 	</h2>
 	<!--  MENU OPTIONS ENDS --->
 	<?php
-	function get_current_user_role() {
-		global $current_user;
-		get_currentuserinfo ();
-		$user_roles = $current_user->roles;
-		$user_role = array_shift ( $user_roles );
-		return $user_role;
-	}
-
-	$user_role = get_current_user_role ();
 	$selfurl = get_site_url () . '/wp-admin/admin.php?page=video' . $page;
 	?>    <div class="wrap">
 		<h2 class="option_title">
@@ -81,9 +72,16 @@ if ($pagenum) {
 				class="button-primary"
 				href="<?php echo balanceTags( get_site_url() ); ?>/wp-admin/admin.php?page=newvideo"
 				style="margin-left: 10px;"><?php esc_attr_e( 'Add New', 'video_gallery' ); ?></a>
-				<?php if($user_role != 'administrator'){ ?>(This grid shows the videos based on add method selected by admin)<?php }?>
 		</h2>
 			<?php
+			function get_current_user_role() {
+				global $current_user;
+				get_currentuserinfo ();
+				$user_roles = $current_user->roles;
+				$user_role = array_shift ( $user_roles );
+				return $user_role;
+			}
+			$user_role = get_current_user_role ();
 			if ($user_role != 'subscriber') {
 				?>
 			<div class="show-hide-intro-shortcode">

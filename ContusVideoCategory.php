@@ -38,7 +38,6 @@ class Widget_ContusVideoCategory_init extends WP_Widget {
 		## and after_title are the array keys." - These are set up by the theme
 		extract( $args, EXTR_SKIP );
 		$title = empty( $instance['title']) ? ' ' : apply_filters( 'widget_title', $instance['title'] );
-		$show = 3;
 		## WIDGET CODE GOES HERE
 		global $wpdb;
 		## These are our own options
@@ -46,7 +45,11 @@ class Widget_ContusVideoCategory_init extends WP_Widget {
 		if($instance['show']){
 			if( absint( $instance['show'] ) ) {
 				$show = $instance['show'];
-			}
+			}else{
+				$show = 3;
+			} 
+		}else{
+	    	$show = 3;		
 		}
 		?>
 		<!-- Recent videos For Getting The Page Id More and Video-->

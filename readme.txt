@@ -2,7 +2,7 @@
 Contributors: hdflvplayer
 Tags: WordPress video gallery, Wordpress video gallery Plugin, wordPress video sharing script, Youtube video gallery, Vimeo video gallery, WordPress HTML5 video gallery, WP video gallery, Wordpress video sharing website
 Requires at least: 2.8
-Tested up to: 4.0
+Tested up to: 4.2.2
 Stable tag: 2.8
 Get the most exciting Video Gallery for your WordPress site. Advanced features, Easy Install and timely support which makes this product irresistible
 
@@ -46,6 +46,8 @@ Live events can be aired using RTMP, Live Telecast, Amazon S3 Live Streaming vid
 * Supports HTML5 to play videos in iOS devices
 * Enthralls with responsive designing to help your visitors view your website on mobile
 * Supports RTL feature
+
+Tags: wordpress video gallery, reponsive video gallery, wp video plugin, video sharing script, html5 video gallery, youtube video gallery, vimeo video gallery, free wp video gallery, video sharing script, video sharing site, video gallery plugin, amazon S3 streaming video, live streaming video, hd video gallery, hd flv player
 
 == Installation ==
 
@@ -91,6 +93,7 @@ Live events can be aired using RTMP, Live Telecast, Amazon S3 Live Streaming vid
 
 * Fixed vulnerability issue in videogalleryrss.php file
 * Fixed deleted video from admin not deleting from folder issue
+* Updated to YouTube API version 3
 
 = 2.7 =
 

@@ -91,15 +91,15 @@ if (class_exists ( 'ContusVideo' ) != true) { // checks the ContusVideo class ha
 			
 			$sql = $wpdb->get_var( "SELECT player_colors FROM ".$this->_videosettingstable );
 			$player_colors = unserialize($sql);
-			if( !empty ($player_colors['related_video_count'] )){
+			if( isset ($player_colors['related_video_count'] )){
 				$related_video_count = $player_colors['related_video_count'];
 			}else{
 				$related_video_count = 100; 
 			}  
 			$select = 'SELECT distinct w.vid,w.*,s.guid FROM ' . $wpdb->prefix . 'hdflvvideoshare w
-					LEFT JOIN ' . $wpdb->prefix . 'hdflvvideoshare_med2play m ON m.media_id = w.vid
-					LEFT JOIN ' . $wpdb->prefix . 'hdflvvideoshare_playlist p ON p.pid=m.playlist_id
-					LEFT JOIN ' . $wpdb->prefix . 'posts s ON s.ID=w.slug
+					INNER JOIN ' . $wpdb->prefix . 'hdflvvideoshare_med2play m ON m.media_id = w.vid
+					INNER JOIN ' . $wpdb->prefix . 'hdflvvideoshare_playlist p ON p.pid=m.playlist_id
+					INNER JOIN ' . $wpdb->prefix . 'posts s ON s.ID=w.slug
 					WHERE w.vid="' . $vid . '" AND w.publish=1 AND p.is_publish=1 GROUP BY w.vid';
 			
 			$themediafiles = $wpdb->get_results ( $select );
@@ -111,8 +111,8 @@ if (class_exists ( 'ContusVideo' ) != true) { // checks the ContusVideo class ha
 					echo 'No videos is  here';
 				}
 				$fetch_video = 'SELECT distinct w.vid FROM ' . $wpdb->prefix . 'hdflvvideoshare w
-							LEFT JOIN ' . $wpdb->prefix . 'hdflvvideoshare_med2play m ON m.media_id = w.vid
-							LEFT JOIN ' . $wpdb->prefix . 'hdflvvideoshare_playlist p ON p.pid=m.playlist_id
+							INNER JOIN ' . $wpdb->prefix . 'hdflvvideoshare_med2play m
+							INNER JOIN ' . $wpdb->prefix . 'hdflvvideoshare_playlist p
 							WHERE ( m.playlist_id = "' . $playlist_id . '"
 							AND m.media_id = w.vid AND w.file_type!=5 AND p.pid=m.playlist_id AND m.media_id != "' . intval ( $vid ) . '" AND w.publish=1 AND p.is_publish=1  ) GROUP BY w.vid LIMIT '.$related_video_count;
 				$fetched = $wpdb->get_results ( $fetch_video );
@@ -123,24 +123,25 @@ if (class_exists ( 'ContusVideo' ) != true) { // checks the ContusVideo class ha
 					foreach ( $fetched as $r ) :
 						if ($r->vid > $themediafiles [0]->vid) { // Storing greater values in an array
 							$query = 'SELECT distinct w.vid,w.*,s.guid FROM ' . $wpdb->prefix . 'hdflvvideoshare w
-								LEFT JOIN ' . $wpdb->prefix . 'hdflvvideoshare_med2play m ON m.media_id = w.vid
-								LEFT JOIN ' . $wpdb->prefix . 'hdflvvideoshare_playlist p ON p.pid=m.playlist_id
-								LEFT JOIN ' . $wpdb->prefix . 'posts s ON s.ID=w.slug
+								INNER JOIN ' . $wpdb->prefix . 'hdflvvideoshare_med2play m
+								INNER JOIN ' . $wpdb->prefix . 'hdflvvideoshare_playlist p
+								INNER JOIN ' . $wpdb->prefix . 'posts s ON s.ID=w.slug
 								WHERE ( w.vid=' . $r->vid . ' AND m.media_id != "' . intval ( $vid ) . '" AND w.file_type!=5 AND w.publish=1 AND p.is_publish=1  ) GROUP BY w.vid';
 							
 							$arrGreat = $wpdb->get_row ( $query );
 							$arr1 [] = $arrGreat;
 						} else { // Storing lesser values in an array
 							$query = 'SELECT distinct w.vid,w.*,s.guid FROM ' . $wpdb->prefix . 'hdflvvideoshare w
-								LEFT JOIN ' . $wpdb->prefix . 'hdflvvideoshare_med2play m ON m.media_id = w.vid
-								LEFT JOIN ' . $wpdb->prefix . 'hdflvvideoshare_playlist p ON p.pid=m.playlist_id
-								LEFT JOIN ' . $wpdb->prefix . 'posts s ON s.ID=w.slug
+								INNER JOIN ' . $wpdb->prefix . 'hdflvvideoshare_med2play m
+								INNER JOIN ' . $wpdb->prefix . 'hdflvvideoshare_playlist p
+								INNER JOIN ' . $wpdb->prefix . 'posts s ON s.ID=w.slug
 								WHERE ( w.vid=' . $r->vid . ' AND m.media_id != "' . intval ( $vid ) . '" AND w.file_type!=5 AND w.publish=1 AND p.is_publish=1  ) GROUP BY w.vid';
 							
 							$arrLess = $wpdb->get_row ( $query );
 							$arr2 [] = $arrLess;
 						}
-					endforeach;
+					endforeach
+					;
 				}
 				
 				$themediafiles = array_merge ( $themediafiles, $arr1, $arr2 );
@@ -159,9 +160,9 @@ if (class_exists ( 'ContusVideo' ) != true) { // checks the ContusVideo class ha
 		public function video_pid_detail($pid, $type,$number_related_video) {
 			global $wpdb;		
 			$select = ' SELECT w.*,s.guid,m.playlist_id,u.display_name,u.ID FROM ' . $wpdb->prefix . 'hdflvvideoshare w';
-			$select .= ' LEFT JOIN ' . $wpdb->prefix . 'hdflvvideoshare_med2play m ON m.media_id = w.vid';
-			$select .= ' LEFT JOIN ' . $wpdb->prefix . 'hdflvvideoshare_playlist p ON p.pid=m.playlist_id';
-			$select .= ' LEFT JOIN ' . $wpdb->prefix . 'posts s ON s.ID=w.slug';
+			$select .= ' INNER JOIN ' . $wpdb->prefix . 'hdflvvideoshare_med2play m';
+			$select .= ' INNER JOIN ' . $wpdb->prefix . 'hdflvvideoshare_playlist p';
+			$select .= ' INNER JOIN ' . $wpdb->prefix . 'posts s ON s.ID=w.slug';
 			$select .= ' LEFT JOIN ' . $wpdb->users . ' u ON u.ID=w.member_id';
 			$select .= ' WHERE ( m.playlist_id = "' . intval ( $pid ) . '"';
 			if ($type === 'playxml') {
@@ -195,24 +196,24 @@ if (class_exists ( 'ContusVideo' ) != true) { // checks the ContusVideo class ha
 			global $wpdb;
 			$related_video_count =  $wpdb->get_var(" SELECT player_colors FROM ".$this->_videosettingstable);
 			$player_colors = unserialize($related_video_count);
-			if( !empty( $player_colors['related_video_count']) ){
+			if( isset( $player_colors['related_video_count']) ){
 				$related_video_count = $player_colors['related_video_count'];
 			} else{
 				$related_video_count = 10;
 			}
 			$query = 'SELECT distinct w.*,s.guid,p.playlist_name,u.display_name FROM ' . $this->_videoinfotable . ' w
-					LEFT JOIN ' . $this->_wpdb->prefix . 'hdflvvideoshare_med2play m ON m.media_id = w.vid
-					LEFT JOIN ' . $this->_wpdb->prefix . 'hdflvvideoshare_playlist p ON p.pid=m.playlist_id
-					LEFT JOIN ' . $this->_wpdb->prefix . 'posts s ON s.ID=w.slug
-					LEFT JOIN '.$wpdb->users.' u ON u.ID = w.member_id		
+					INNER JOIN ' . $this->_wpdb->prefix . 'hdflvvideoshare_med2play m ON m.media_id = w.vid
+					INNER JOIN ' . $this->_wpdb->prefix . 'hdflvvideoshare_playlist p ON p.pid=m.playlist_id
+					INNER JOIN ' . $this->_wpdb->prefix . 'posts s ON s.ID=w.slug
+					INNER JOIN ' . $this->_wpdb->prefix . 'users u ON u.ID = w.member_id		
 					WHERE featured=1 AND publish=1 AND p.is_publish=1 GROUP BY w.vid ORDER BY ordering ASC LIMIT '.$related_video_count;
 			$feature = $this->_wpdb->get_results($query);
 			if(!$feature){
 				$query = 'SELECT distinct w.*,s.guid,p.playlist_name,u.display_name FROM ' . $this->_videoinfotable . ' w
-					LEFT JOIN ' . $this->_wpdb->prefix . 'hdflvvideoshare_med2play m ON m.media_id = w.vid
-					LEFT JOIN ' . $this->_wpdb->prefix . 'hdflvvideoshare_playlist p ON p.pid=m.playlist_id
-					LEFT JOIN ' . $this->_wpdb->prefix . 'posts s ON s.ID=w.slug
-					LEFT JOIN '.$wpdb->users.' u ON u.ID = w.member_id
+					INNER JOIN ' . $this->_wpdb->prefix . 'hdflvvideoshare_med2play m ON m.media_id = w.vid
+					INNER JOIN ' . $this->_wpdb->prefix . 'hdflvvideoshare_playlist p ON p.pid=m.playlist_id
+					INNER JOIN ' . $this->_wpdb->prefix . 'posts s ON s.ID=w.slug
+					INNER JOIN ' . $this->_wpdb->prefix . 'users u ON u.ID = w.member_id
 					WHERE publish=1 AND p.is_publish=1 GROUP BY w.vid ORDER BY ordering ASC LIMIT '.$related_video_count;
 				$feature = $this->_wpdb->get_results($query);
 				
@@ -226,9 +227,9 @@ if (class_exists ( 'ContusVideo' ) != true) { // checks the ContusVideo class ha
 		 */
 		public function get_featuredvideodata_banner() {
 			$query = 'SELECT distinct w.*,s.guid FROM ' . $this->_videoinfotable . ' w
-					LEFT JOIN ' . $this->_wpdb->prefix . 'hdflvvideoshare_med2play m ON m.media_id = w.vid
-					LEFT JOIN ' . $this->_wpdb->prefix . 'hdflvvideoshare_playlist p ON p.pid=m.playlist_id
-					LEFT JOIN ' . $this->_wpdb->prefix . 'posts s ON s.ID=w.slug
+					INNER JOIN ' . $this->_wpdb->prefix . 'hdflvvideoshare_med2play m ON m.media_id = w.vid
+					INNER JOIN ' . $this->_wpdb->prefix . 'hdflvvideoshare_playlist p ON p.pid=m.playlist_id
+					INNER JOIN ' . $this->_wpdb->prefix . 'posts s ON s.ID=w.slug
 					WHERE featured=1 and publish=1 AND p.is_publish=1 GROUP BY w.vid ORDER BY vid ASC LIMIT 0,4';
 			return $this->_wpdb->get_results ( $query );
 		}
@@ -242,9 +243,9 @@ if (class_exists ( 'ContusVideo' ) != true) { // checks the ContusVideo class ha
 		public function get_home_catthumbdata($thumImageorder, $dataLimit) {
 			global $wpdb;
 			$query = 'SELECT s.guid,w.*,p.playlist_name FROM ' . $wpdb->prefix . 'hdflvvideoshare as w
-					LEFT JOIN ' . $wpdb->prefix . 'hdflvvideoshare_med2play as m ON m.media_id = w.vid
-					LEFT JOIN ' . $wpdb->prefix . 'hdflvvideoshare_playlist as p on m.playlist_id = p.pid
-					LEFT JOIN ' . $wpdb->prefix . 'posts s ON s.ID=w.slug
+					INNER JOIN ' . $wpdb->prefix . 'hdflvvideoshare_med2play as m ON m.media_id = w.vid
+					INNER JOIN ' . $wpdb->prefix . 'hdflvvideoshare_playlist as p on m.playlist_id = p.pid
+					INNER JOIN ' . $wpdb->prefix . 'posts s ON s.ID=w.slug
 					WHERE w.publish=1 AND p.is_publish=1 AND m.playlist_id=' . intval ( $thumImageorder ) . '
 					GROUP BY w.vid ORDER BY w.ordering asc LIMIT ' . $dataLimit;
 			return $this->_wpdb->get_results ( $query );
@@ -258,9 +259,9 @@ if (class_exists ( 'ContusVideo' ) != true) { // checks the ContusVideo class ha
 		 */
 		public function get_thumdata($thumImageorder, $where, $dataLimit) {
 			$query = 'SELECT distinct w.*,s.guid,s.ID,p.playlist_name,p.pid,p.playlist_slugname FROM ' . $this->_videoinfotable . ' w
-					LEFT JOIN ' . $this->_wpdb->prefix . 'hdflvvideoshare_med2play m ON m.media_id = w.vid
-					LEFT JOIN ' . $this->_wpdb->prefix . 'hdflvvideoshare_playlist p ON p.pid=m.playlist_id
-					LEFT JOIN ' . $this->_wpdb->prefix . 'posts s ON s.ID=w.slug
+					INNER JOIN ' . $this->_wpdb->prefix . 'hdflvvideoshare_med2play m ON m.media_id = w.vid
+					INNER JOIN ' . $this->_wpdb->prefix . 'hdflvvideoshare_playlist p ON p.pid=m.playlist_id
+					INNER JOIN ' . $this->_wpdb->prefix . 'posts s ON s.ID=w.slug
 					WHERE w.publish=1 AND p.is_publish=1 ' . $where . ' GROUP BY w.vid ORDER BY ' . $thumImageorder . ' LIMIT ' . $dataLimit;
 			return $this->_wpdb->get_results ( $query );
 		}
@@ -272,9 +273,9 @@ if (class_exists ( 'ContusVideo' ) != true) { // checks the ContusVideo class ha
 		 */
 		public function get_countof_thumdata($thumImageorder, $where) {
 			$query = 'SELECT w.vid FROM ' . $this->_videoinfotable . ' w
-					LEFT JOIN ' . $this->_wpdb->prefix . 'hdflvvideoshare_med2play m ON m.media_id = w.vid
-					LEFT JOIN ' . $this->_wpdb->prefix . 'hdflvvideoshare_playlist p ON p.pid=m.playlist_id
-					LEFT JOIN ' . $this->_wpdb->prefix . 'posts s ON s.ID=w.slug
+					INNER JOIN ' . $this->_wpdb->prefix . 'hdflvvideoshare_med2play m ON m.media_id = w.vid
+					INNER JOIN ' . $this->_wpdb->prefix . 'hdflvvideoshare_playlist p ON p.pid=m.playlist_id
+					INNER JOIN ' . $this->_wpdb->prefix . 'posts s ON s.ID=w.slug
 					WHERE w.publish=1 AND p.is_publish=1 ' . $where . ' GROUP BY w.vid ORDER BY ' . $thumImageorder;
 			return count ( $this->_wpdb->get_results ( $query ) );
 		}
@@ -288,17 +289,19 @@ if (class_exists ( 'ContusVideo' ) != true) { // checks the ContusVideo class ha
 		 */
 		public function get_playxmldata($getVid, $thumImageorder, $where, $numberofvideos) { // function for getting data for playxml starts
 			$videoid = $getVid;
+			echo  $numberofvideos;
+			exit;
 			$query = 'SELECT distinct w.*,s.guid,p.playlist_name,p.pid FROM ' . $this->_videoinfotable . ' w
-					LEFT JOIN ' . $this->_wpdb->prefix . 'hdflvvideoshare_med2play m ON m.media_id = w.vid
-					LEFT JOIN ' . $this->_wpdb->prefix . 'hdflvvideoshare_playlist p ON p.pid=m.playlist_id
-					LEFT JOIN ' . $this->_wpdb->prefix . 'posts s ON s.ID=w.slug
+					INNER JOIN ' . $this->_wpdb->prefix . 'hdflvvideoshare_med2play m ON m.media_id = w.vid
+					INNER JOIN ' . $this->_wpdb->prefix . 'hdflvvideoshare_playlist p ON p.pid=m.playlist_id
+					INNER JOIN ' . $this->_wpdb->prefix . 'posts s ON s.ID=w.slug
 					WHERE w.publish=1 AND p.is_publish=1 AND w.vid=' . $videoid . ' GROUP BY w.vid';
 			$rows = $this->_wpdb->get_results ( $query );
 			if (count ( $rows ) > 0) {
 				$query = 'SELECT distinct w.*,s.guid,p.playlist_name,p.pid FROM ' . $this->_videoinfotable . ' w
-						LEFT JOIN ' . $this->_wpdb->prefix . 'hdflvvideoshare_med2play m ON m.media_id = w.vid
-						LEFT JOIN ' . $this->_wpdb->prefix . 'hdflvvideoshare_playlist p ON p.pid=m.playlist_id
-						LEFT JOIN ' . $this->_wpdb->prefix . 'posts s ON s.ID=w.slug
+						INNER JOIN ' . $this->_wpdb->prefix . 'hdflvvideoshare_med2play m ON m.media_id = w.vid
+						INNER JOIN ' . $this->_wpdb->prefix . 'hdflvvideoshare_playlist p ON p.pid=m.playlist_id
+						INNER JOIN ' . $this->_wpdb->prefix . 'posts s ON s.ID=w.slug
 						WHERE w.publish=1 AND p.is_publish=1 ' . $where . ' AND w.vid != ' . $videoid . '
 						GROUP BY w.vid ORDER BY ' . $thumImageorder . ' LIMIT ' . ($numberofvideos - 1);
 				$playlist = $this->_wpdb->get_results ( $query );
@@ -308,17 +311,17 @@ if (class_exists ( 'ContusVideo' ) != true) { // checks the ContusVideo class ha
 					foreach ( $playlist as $r ) :
 						if ($r->vid > $rows [0]->vid) { // Storing greater values in an array
 							$query = 'SELECT distinct w.*,s.guid,p.playlist_name,p.pid FROM ' . $this->_videoinfotable . ' w
-								LEFT JOIN ' . $this->_wpdb->prefix . 'hdflvvideoshare_med2play m ON m.media_id = w.vid
-								LEFT JOIN ' . $this->_wpdb->prefix . 'hdflvvideoshare_playlist p ON p.pid=m.playlist_id
-								LEFT JOIN ' . $this->_wpdb->prefix . 'posts s ON s.ID=w.slug
+								INNER JOIN ' . $this->_wpdb->prefix . 'hdflvvideoshare_med2play m ON m.media_id = w.vid
+								INNER JOIN ' . $this->_wpdb->prefix . 'hdflvvideoshare_playlist p ON p.pid=m.playlist_id
+								INNER JOIN ' . $this->_wpdb->prefix . 'posts s ON s.ID=w.slug
 								WHERE w.publish=1 AND p.is_publish=1 AND w.vid=' . $r->vid;
 							$arrGreat = $this->_wpdb->get_row ( $query );
 							$arr1 [] = $arrGreat;
 						} else { // Storing lesser values in an array
 							$query = 'SELECT distinct w.*,s.guid,p.playlist_name,p.pid FROM ' . $this->_videoinfotable . ' w
-								LEFT JOIN ' . $this->_wpdb->prefix . 'hdflvvideoshare_med2play m ON m.media_id = w.vid
-								LEFT JOIN ' . $this->_wpdb->prefix . 'hdflvvideoshare_playlist p ON p.pid=m.playlist_id
-								LEFT JOIN ' . $this->_wpdb->prefix . 'posts s ON s.ID=w.slug
+								INNER JOIN ' . $this->_wpdb->prefix . 'hdflvvideoshare_med2play m ON m.media_id = w.vid
+								INNER JOIN ' . $this->_wpdb->prefix . 'hdflvvideoshare_playlist p ON p.pid=m.playlist_id
+								INNER JOIN ' . $this->_wpdb->prefix . 'posts s ON s.ID=w.slug
 								WHERE w.publish=1 AND p.is_publish=1 AND w.vid=' . $r->vid;
 							$arrLess = $this->_wpdb->get_row ( $query );
 							$arr2 [] = $arrLess;

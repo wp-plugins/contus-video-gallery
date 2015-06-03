@@ -16,6 +16,8 @@
  * Define the server path to the file wp-config here, if you placed WP-CONTENT outside the classic file structure */
 $path = '';	   // It should be end with a trailing slash
 
+ error_reporting(E_ALL); 
+ ini_set("display_errors", 1); 
  if ( ! defined( 'WP_LOAD_PATH' ) ) {
 	// classic root path if wp-content and plugins is below wp-config.php
 	$classic_root = dirname( dirname( dirname( dirname( __FILE__ ) ) ) ) . '/';

@@ -177,51 +177,47 @@ function hd_parseyoutubedetails( $ytVideoXML ) {
 
 function hd_getyoutubepage( $url ) {
 
-	if ( function_exists( 'curl_init' ) ) {
-		$ch = curl_init();
-		curl_setopt( $ch, CURLOPT_URL, $url );
-		curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1 );
-		$xml = curl_exec( $ch );
-		curl_close( $ch );
-	}
-	//  If not found, try to use file_get_contents ( requires php > 4.3.0 and allow_url_fopen )
-	else {
-		$xml = @file_get_contents( $url );
-	}
-	return $xml;
+    $apidata = wp_remote_get($url);
+    $raw = wp_remote_retrieve_body($apidata);		
+	return $raw;
 }
 /** function for adding video ends
  *
  */
 function hd_getsingleyoutubevideo( $youtube_media ) {
-
+	global $wpdb;	
 	if ( $youtube_media == '' ) {
 		return;
 	}
-	$url = 'http://gdata.youtube.com/feeds/api/videos/' . $youtube_media;
-	$ytb = hd_parseyoutubedetails( hd_getyoutubepage( $url ) );
-	return $ytb[0];
+	$settings_result = $wpdb->get_var ( "SELECT player_colors FROM " . $wpdb->prefix . "hdflvvideoshare_settings WHERE settings_id='1'" );
+	$setting_youtube = unserialize( $settings_result );
+	$youtube_api_key = $setting_youtube['youtube_key'];	
+	$url = 'https://www.googleapis.com/youtube/v3/videos?id='.$youtube_media.'&part=contentDetails,snippet,statistics&key='.$youtube_api_key;
+	$video_details =  hd_getyoutubepage( $url );
+	return $video_details;
 }
 
 /**
  * youtube function
  */
-function youtubeurl() {
-	$video_id = addslashes( trim( $_GET['filepath'] ) );
+function youtubeurl() {	
+
+     $video_id = addslashes( trim( $_GET['filepath'] ) );
 	if ( ! empty( $video_id ) ) {
 			$act_filepath = 'http://www.youtube.com/watch?v=' . $video_id;
-			$youtube_data = hd_getsingleyoutubevideo( $video_id );
+			$youtube_data = hd_getsingleyoutubevideo( $video_id );		
+		    $decoded_data = json_decode($youtube_data);
+		    $ydetails = get_object_vars($decoded_data);
 			if ( $youtube_data ) {
-				$act[0] = addslashes( $youtube_data['title'] );
+				$act[0] = $ydetails['items'][0]->snippet->title;
+				
 				if ( isset( $youtube_data['thumbnail_url'] ) ) {
 					$act[3] = $youtube_data['thumbnail_url'];
 				}
+				
 				$act[4] = $act_filepath;
-				if ( isset( $youtube_data['description'] ) ) {
-					$act[5] = addslashes( $youtube_data['description'] );
-				}
-				if ( isset( $youtube_data['tags'] ) ) {
-					$act[6] = addslashes( $youtube_data['tags'] );
+				if ( isset( $ydetails['items'][0]->snippet->description ) ) {
+					$act[5] = $ydetails['items'][0]->snippet->description;
 				}
 			}
 			else {
@@ -238,6 +234,7 @@ function youtubeurl() {
 add_action( 'wp_ajax_getyoutubedetails', 'admin_youtube_deatils' );
 add_action( 'wp_ajax_nopriv_getyoutubedetails', 'admin_youtube_deatils' );
 function admin_youtube_deatils(){
+	
 	 $act1 = youtubeurl();	 
 	 echo json_encode($act1);
 	 die();
@@ -336,7 +333,7 @@ add_action( 'wp_ajax_nopriv_videohitcount', 'videohitcount_function' );
 
 function videohitcount_function() {
 		global $wpdb;
-		$vid      = intval($_GET['vid']);						 
+		$vid      = $_GET['vid'];						 
 		$hitList  = $wpdb->get_row( 'SELECT * FROM ' . $wpdb->prefix . 'hdflvvideoshare WHERE vid="' . intval( $vid ) . '"' );
 		$hitCount = $hitList->hitcount;			 
 		$hitInc   = ++$hitCount;
@@ -352,8 +349,8 @@ add_action( 'wp_ajax_nopriv_ratecount', 'ratecount_function' );
 
 function ratecount_function() {
 	global $wpdb;
-	$vid      = intval($_GET['vid']);	
-	$get_rate = intval($_GET['rate']);   
+	$vid      = $_GET['vid'];	
+	$get_rate = $_GET['rate'];   
 	if ( ! empty( $get_rate ) ) {
 
 		$ratecount = $wpdb->get_row( 'SELECT * FROM ' . $wpdb->prefix . 'hdflvvideoshare WHERE vid="' . intval( $vid ) . '"' );
@@ -377,7 +374,7 @@ add_action('wp_ajax_googleadsense' ,'google_adsense');
 add_action('wp_ajax_nonpriv_googleadsense' ,'google_adsense');
 function google_adsense(){
 	global $wpdb;
-	$vid = intval($_GET['vid']);	
+	$vid = $_GET['vid'];	
 	$google_adsense_id =  $wpdb->get_var('SELECT google_adsense_value FROM '.$wpdb->prefix.'hdflvvideoshare WHERE vid ='.$vid);
 	$query = $wpdb->get_var('SELECT googleadsense_details FROM '.$wpdb->prefix.'hdflvvideoshare_vgoogleadsense WHERE id='.$google_adsense_id);
 	$google_adsense = unserialize($query);
@@ -622,7 +619,7 @@ if ( isset( $_GET['action']) && $_GET['action'] == 'activate-plugin' && $_GET['p
 		$updatemember_id      = add_column_if_not_exists( $errorMsg, "$table_name", 'member_id', 'INT( 3 ) NOT NULL' );
 		$updategoogle_adsense = add_column_if_not_exists( $errorMsg, "$table_name", 'google_adsense', 'INT( 3 ) NOT NULL' );
 		$updategoogle_adsense_value = add_column_if_not_exists( $errorMsg, "$table_name", 'google_adsense_value', 'INT( 11 ) NOT NULL' );
-		$update_amazon_bucket = add_column_if_not_exists($errorMsg,"$table_name",'amazon_buckets','INT ( 1 ) NOT NULL DEFAULT 0');
+		$update_amazon_bucket = add_column_if_not_exists($errorMsg,"$table_name",'amazon_buckets','INT ( 1 ) NOT NULL');
 		
 
 		// AD table Alter
@@ -670,6 +667,7 @@ if ( isset( $_GET['action']) && $_GET['action'] == 'activate-plugin' && $_GET['p
 		$playlist_auto        = add_column_if_not_exists( $errorMsg, "$table_settings", 'playlist_auto', 'INT( 3 ) NOT NULL' );
 		$progressControl      = add_column_if_not_exists( $errorMsg, "$table_settings", 'progressControl', 'INT( 3 ) NOT NULL DEFAULT 1' );
 		$imageDefault         = add_column_if_not_exists( $errorMsg, "$table_settings", 'imageDefault', 'INT( 3 ) NOT NULL' );
+		$memeber_upload_enable =  add_column_if_not_exist( $errorMsg , "$table_setting" , 'memeber_upload_enable' , 'INT( 3 ) NOT NULL ');
 		
 		/**
 		 * Add google adsense  table.
@@ -862,7 +860,7 @@ function add_meta_details() {
 				<div itemprop="video" itemscope itemtype="http://schema.org/VideoObject">
 					<meta itemprop="name" content="'.$videoname.'" />
 					<meta itemprop="thumbnail" content="'.$imageFea.'" />
-					<meta itemprop="description" content="'.strip_tags($description).'" />
+					<meta itemprop="description" content="'.$description.'" />
 				</div>
 				<meta itemprop="image" content="'.$imageFea.'" />
 				<meta itemprop="thumbnailUrl" content="'.$imageFea.'" />
@@ -881,7 +879,7 @@ include_once $frontControllerPath . 'videohomeController.php';
  */
 add_shortcode('videohome','video_homereplace');
 add_shortcode('videomore','video_morereplace');
-add_shortcode('hdvideo','video_shortcodeplace');
+add_shortcode('hdvideo','video_shortcodereplace');
 add_shortcode('categoryvideothumb', 'video_moreidreplace');
 add_shortcode('popularvideo','video_popular_video_shortcode');
 add_shortcode('recentvideo','video_recent_video_shortcode');
@@ -985,6 +983,7 @@ function video_shortcodeplace( $arguments = array() ) {
 		return $contentPlayer;
 }
 
+add_shortcode( 'hdvideo', 'video_shortcodeplace' );
 /**
  * Function display content for  category shortcode
  */
