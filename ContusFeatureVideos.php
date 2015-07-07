@@ -52,6 +52,7 @@ class widget_ContusFeaturedVideos_init extends WP_Widget {
 		// and after_title are the array keys." - These are set up by the theme
 		extract ( $args, EXTR_SKIP );
 		$title = empty ( $instance ['title'] ) ? ' ' : apply_filters ( 'widget_title', $instance ['title'] );
+		$show =3;
 		if (! empty ( $title ))
 			// WIDGET CODE GOES HERE
 			$tt = 1;
@@ -63,11 +64,7 @@ class widget_ContusFeaturedVideos_init extends WP_Widget {
 		if ($instance ['show']) {
 			if( absint( $instance['show'] ) ){
 				$show = $instance ['show'];
-			}else{
-				$show =3;	
 			}
-		} else {
-			$show = 3;
 		}
 			
 		$excerpt = $options ['excerpt']; // Showing the excerpt or not
@@ -106,9 +103,9 @@ class widget_ContusFeaturedVideos_init extends WP_Widget {
 		$div = '<div id="featured-videos"  class="sidebar-wrap ">
                             <h3 class="widget-title"><a href="'.$more_videos_link.'">' . $title . '</a></h3>';		
 	  	$sql = "SELECT DISTINCT a.*,s.guid,b.playlist_id,p.playlist_name FROM " . $wpdb->prefix . "hdflvvideoshare a
-                            INNER JOIN " . $wpdb->prefix . "hdflvvideoshare_med2play b ON a.vid=b.media_id
-                            INNER JOIN " . $wpdb->prefix . "hdflvvideoshare_playlist p ON p.pid=b.playlist_id
-                            INNER JOIN " . $wpdb->prefix . "posts s ON s.ID=a.slug
+                            LEFT JOIN " . $wpdb->prefix . "hdflvvideoshare_med2play b ON a.vid=b.media_id
+                            LEFT JOIN " . $wpdb->prefix . "hdflvvideoshare_playlist p ON p.pid=b.playlist_id
+                            LEFT JOIN " . $wpdb->prefix . "posts s ON s.ID=a.slug
                             WHERE a.publish='1' AND p.is_publish='1' AND a.featured='1' GROUP BY a.vid ORDER BY a.ordering ASC  LIMIT " . $show;
 		$features = $wpdb->get_results ( $sql );
 		if (! empty ( $features )) {
@@ -116,7 +113,7 @@ class widget_ContusFeaturedVideos_init extends WP_Widget {
 			$fetched = $features [0]->playlist_name;
 		}
 		$moreF = $wpdb->get_results ( "SELECT COUNT(a.vid) AS contus FROM " . $wpdb->prefix . "hdflvvideoshare a
-                            INNER JOIN " . $wpdb->prefix . "hdflvvideoshare_med2play b ON a.vid=b.media_id INNER JOIN " . $wpdb->prefix . "hdflvvideoshare_playlist p ON p.pid=b.playlist_id WHERE a.publish='1' AND p.is_publish='1' AND a.featured='1'" );
+                            LEFT JOIN " . $wpdb->prefix . "hdflvvideoshare_med2play b ON a.vid=b.media_id LEFT JOIN " . $wpdb->prefix . "hdflvvideoshare_playlist p ON p.pid=b.playlist_id WHERE a.publish='1' AND p.is_publish='1' AND a.featured='1'" );
 		$countF = $moreF [0]->contus;
 		$div .= '<ul class="ulwidget">';
 		

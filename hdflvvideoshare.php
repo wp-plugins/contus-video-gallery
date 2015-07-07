@@ -175,9 +175,12 @@ function hd_parseyoutubedetails( $ytVideoXML ) {
 	return $yt_vidlist;
 }
 
+
+
+
 function hd_getyoutubepage( $url ) {
 
-    $apidata = wp_remote_get($url);
+	$apidata = wp_remote_get($url);
     $raw = wp_remote_retrieve_body($apidata);		
 	return $raw;
 }
@@ -185,7 +188,8 @@ function hd_getyoutubepage( $url ) {
  *
  */
 function hd_getsingleyoutubevideo( $youtube_media ) {
-	global $wpdb;	
+
+	global $wpdb;
 	if ( $youtube_media == '' ) {
 		return;
 	}
@@ -200,9 +204,8 @@ function hd_getsingleyoutubevideo( $youtube_media ) {
 /**
  * youtube function
  */
-function youtubeurl() {	
-
-     $video_id = addslashes( trim( $_GET['filepath'] ) );
+function youtubeurl() {
+$video_id = addslashes( trim( $_GET['filepath'] ) );
 	if ( ! empty( $video_id ) ) {
 			$act_filepath = 'http://www.youtube.com/watch?v=' . $video_id;
 			$youtube_data = hd_getsingleyoutubevideo( $video_id );		
@@ -225,7 +228,8 @@ function youtubeurl() {
 			}
 		return $act;
 	}
-}
+	}
+
 
 /**
  * Function  for  get youtube media details
@@ -234,7 +238,6 @@ function youtubeurl() {
 add_action( 'wp_ajax_getyoutubedetails', 'admin_youtube_deatils' );
 add_action( 'wp_ajax_nopriv_getyoutubedetails', 'admin_youtube_deatils' );
 function admin_youtube_deatils(){
-	
 	 $act1 = youtubeurl();	 
 	 echo json_encode($act1);
 	 die();
@@ -277,29 +280,56 @@ if ( ! empty( $video_search ) && ! empty( $link ) ) {
 				exit;
 }
 
+function isNumber($array_element) {
+	return is_numeric($array_element);
+}
+
 /** 
  * Video Sort order function
  */
 add_action( 'wp_ajax_videosortorder', 'videosort_function' );
 
+
 function videosort_function() {
+	/** Varaibale initialization for sortorder action */
 	global $wpdb;
-	$listitem = $_POST['listItem'];
-	$ids      = implode( ',', $listitem );
-	$sql      = 'UPDATE `' . $wpdb->prefix . 'hdflvvideoshare` SET `ordering` = CASE vid ';
-	if ( isset( $_GET['pagenum'] ) ) {
-		$page = ( 20 * ( $_GET['pagenum'] - 1 ) );
+	$listitemArray = array ();
+	$pageNum = $type = $page = NULL;
+	if(!current_user_can('manage_options')) {
+		return;
 	}
-	foreach ( $listitem as $key => $value ) {
-		$listitems[$key + $page] = $value;
+
+	/** Get sorting list */
+	$listitem         = $_POST ['listItem'];
+	$listitemArray    = array_filter($listitem, 'isNumber');
+	 
+	if(!empty ($listitemArray)) {
+		/** Implode list item array into string */
+		$ids      = implode ( ',', $listitemArray );
+		
+		/** Get page num and type */
+		$pageNum  = intval($_GET ['pagenum']);
+		$type     = intval($_GET ['type']);
+
+		$sql      = 'UPDATE `' . $wpdb->prefix . 'hdflvvideoshare` SET `ordering` = CASE vid ';
+		
+		/** Calculate page values */
+		if (!empty ( $pageNum )) {
+			$page   = (20 * ( $pageNum - 1));
+		}
+		foreach ( $listitem as $key => $value ) { 
+		$listitems [$key + $page] = $value;
+		}
+		foreach ( $listitems as $position => $item ) {
+			$sql    .= sprintf ( 'WHEN %d THEN %d ', $item, $position );
+		}
+		$sql .= ' END WHERE vid IN ( ' . $ids . ' )';
+		$wpdb->query ( $sql );		
+		
 	}
-	foreach ( $listitems as $position => $item ) {
-		$sql .= sprintf( 'WHEN %d THEN %d ', $item, $position );
-	}
-	$sql .= ' END WHERE vid IN ( ' . $ids . ' )';
-	$wpdb->query( $sql );
 	die();
 }
+
 
 /**
  *  Playlist Sort order function
@@ -308,20 +338,41 @@ add_action( 'wp_ajax_playlistsortorder', 'playlist_function' );
 
 function playlist_function() {
 	global $wpdb;
-	$listitem = $_POST['listItem'];
-	$ids      = implode( ',', $listitem );
-	$sql      = 'UPDATE `' . $wpdb->prefix . 'hdflvvideoshare_playlist` SET `playlist_order` = CASE pid ';
-	if ( isset( $_GET['pagenum'] ) ) {
-		$page = ( 20 * ( $_GET['pagenum'] - 1 ) );
+	
+	if (! current_user_can ( 'manage_options' )) {
+		return;
 	}
-	foreach ( $listitem as $key => $value ) {
-		$listitems[$key + $page] = $value;
+	
+	$listitem = $_POST ['listItem'];
+	$listitemArray = array_filter ( $listitem, 'isNumber' );
+	if (! empty ( $listitemArray )) {
+		
+		/**
+		 * Implode list item array into string
+		 */
+		$ids = implode ( ',', $listitemArray );
+		/**
+		 * Get page num and type
+		 */
+		$pageNum = intval ( $_GET ['pagenum'] );
+		
+		$type = intval ( $_GET ['type'] );
+		
+		$sql = 'UPDATE `' . $wpdb->prefix . 'hdflvvideoshare_playlist` SET `playlist_order` = CASE pid ';
+		if (isset ( $_GET ['pagenum'] )) {
+			$page = (20 * ($_GET ['pagenum'] - 1));
+		}
+		foreach ( $listitem as $key => $value ) {
+			$listitems [$key + $page] = $value;
+		}
+		foreach ( $listitems as $position => $item ) {
+			$sql .= sprintf ( 'WHEN %d THEN %d ', $item, $position );
+		}
+		$sql .= ' END WHERE pid IN ( ' . $ids . ' )';
+		$wpdb->query ( $sql );
+	
 	}
-	foreach ( $listitems as $position => $item ) {
-		$sql .= sprintf( 'WHEN %d THEN %d ', $item, $position );
-	}
-	$sql .= ' END WHERE pid IN ( ' . $ids . ' )';
-	$wpdb->query( $sql );
+
 	die();
 }
 
@@ -333,7 +384,7 @@ add_action( 'wp_ajax_nopriv_videohitcount', 'videohitcount_function' );
 
 function videohitcount_function() {
 		global $wpdb;
-		$vid      = $_GET['vid'];						 
+		$vid      = intval($_GET['vid']);						 
 		$hitList  = $wpdb->get_row( 'SELECT * FROM ' . $wpdb->prefix . 'hdflvvideoshare WHERE vid="' . intval( $vid ) . '"' );
 		$hitCount = $hitList->hitcount;			 
 		$hitInc   = ++$hitCount;
@@ -349,8 +400,8 @@ add_action( 'wp_ajax_nopriv_ratecount', 'ratecount_function' );
 
 function ratecount_function() {
 	global $wpdb;
-	$vid      = $_GET['vid'];	
-	$get_rate = $_GET['rate'];   
+	$vid      = intval($_GET['vid']);	
+	$get_rate = intval($_GET['rate']);   
 	if ( ! empty( $get_rate ) ) {
 
 		$ratecount = $wpdb->get_row( 'SELECT * FROM ' . $wpdb->prefix . 'hdflvvideoshare WHERE vid="' . intval( $vid ) . '"' );
@@ -371,10 +422,10 @@ function configxml_function() {
  * Google Adsense for player.
  */
 add_action('wp_ajax_googleadsense' ,'google_adsense');
-add_action('wp_ajax_nonpriv_googleadsense' ,'google_adsense');
+add_action('wp_ajax_nopriv_googleadsense' ,'google_adsense');
 function google_adsense(){
 	global $wpdb;
-	$vid = $_GET['vid'];	
+	$vid = intval($_GET['vid']);	
 	$google_adsense_id =  $wpdb->get_var('SELECT google_adsense_value FROM '.$wpdb->prefix.'hdflvvideoshare WHERE vid ='.$vid);
 	$query = $wpdb->get_var('SELECT googleadsense_details FROM '.$wpdb->prefix.'hdflvvideoshare_vgoogleadsense WHERE id='.$google_adsense_id);
 	$google_adsense = unserialize($query);
@@ -503,9 +554,10 @@ add_action('wp_ajax_nopriv_reportvideo','send_report');
 function send_report(){            		
             global $wpdb , $current_user;
             $emailTemplatePath   = APPTHA_VGALLERY_BASEURL . 'front/emailtemplate';
-			$redirect_url   = $_GET['redirect_url' ];
-			$admin_email    = $_GET['admin_email' ];
-			$reporter_email = $_GET['reporter_email'];
+			$slugId             = intval($_GET ['redirect_url']);
+            $redirect_url       = get_video_permalink ( $slugId );
+			$admin_email    = get_option ( 'admin_email' );
+			$reporter_email =  $current_user->user_email;
 			$reportvideotype= $_GET['reporttype'];
 			$video_title    = $_GET['video_title'];
 			$site_url       = get_bloginfo('site_url');
@@ -619,7 +671,7 @@ if ( isset( $_GET['action']) && $_GET['action'] == 'activate-plugin' && $_GET['p
 		$updatemember_id      = add_column_if_not_exists( $errorMsg, "$table_name", 'member_id', 'INT( 3 ) NOT NULL' );
 		$updategoogle_adsense = add_column_if_not_exists( $errorMsg, "$table_name", 'google_adsense', 'INT( 3 ) NOT NULL' );
 		$updategoogle_adsense_value = add_column_if_not_exists( $errorMsg, "$table_name", 'google_adsense_value', 'INT( 11 ) NOT NULL' );
-		$update_amazon_bucket = add_column_if_not_exists($errorMsg,"$table_name",'amazon_buckets','INT ( 1 ) NOT NULL');
+		$update_amazon_bucket = add_column_if_not_exists($errorMsg,"$table_name",'amazon_buckets','INT ( 1 ) NOT NULL DEFAULT 0');
 		
 
 		// AD table Alter
@@ -667,7 +719,6 @@ if ( isset( $_GET['action']) && $_GET['action'] == 'activate-plugin' && $_GET['p
 		$playlist_auto        = add_column_if_not_exists( $errorMsg, "$table_settings", 'playlist_auto', 'INT( 3 ) NOT NULL' );
 		$progressControl      = add_column_if_not_exists( $errorMsg, "$table_settings", 'progressControl', 'INT( 3 ) NOT NULL DEFAULT 1' );
 		$imageDefault         = add_column_if_not_exists( $errorMsg, "$table_settings", 'imageDefault', 'INT( 3 ) NOT NULL' );
-		$memeber_upload_enable =  add_column_if_not_exist( $errorMsg , "$table_setting" , 'memeber_upload_enable' , 'INT( 3 ) NOT NULL ');
 		
 		/**
 		 * Add google adsense  table.
@@ -860,7 +911,7 @@ function add_meta_details() {
 				<div itemprop="video" itemscope itemtype="http://schema.org/VideoObject">
 					<meta itemprop="name" content="'.$videoname.'" />
 					<meta itemprop="thumbnail" content="'.$imageFea.'" />
-					<meta itemprop="description" content="'.$description.'" />
+					<meta itemprop="description" content="'.strip_tags($description).'" />
 				</div>
 				<meta itemprop="image" content="'.$imageFea.'" />
 				<meta itemprop="thumbnailUrl" content="'.$imageFea.'" />
@@ -879,7 +930,7 @@ include_once $frontControllerPath . 'videohomeController.php';
  */
 add_shortcode('videohome','video_homereplace');
 add_shortcode('videomore','video_morereplace');
-add_shortcode('hdvideo','video_shortcodereplace');
+add_shortcode('hdvideo','video_shortcodeplace');
 add_shortcode('categoryvideothumb', 'video_moreidreplace');
 add_shortcode('popularvideo','video_popular_video_shortcode');
 add_shortcode('recentvideo','video_recent_video_shortcode');
@@ -965,7 +1016,6 @@ function video_homereplace($atts) {
 		$contentPlayer     = $pageOBJ->home_player();
 		$contentPopular    = $pageOBJ->home_thumb( 'popular' );
 		$contentRecent     = $pageOBJ->home_thumb( 'recent' );
-		$contentRandom     = $pageOBJ->home_thumb( 'recent' );
 		$contentFeatured   = $pageOBJ->home_thumb( 'featured' );
 		$contentCategories = $pageOBJ->home_thumb( 'cat' );
 		return $contentPlayer . $contentPopular . $contentRecent . $contentFeatured . $contentCategories;
@@ -983,7 +1033,6 @@ function video_shortcodeplace( $arguments = array() ) {
 		return $contentPlayer;
 }
 
-add_shortcode( 'hdvideo', 'video_shortcodeplace' );
 /**
  * Function display content for  category shortcode
  */

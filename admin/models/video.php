@@ -62,9 +62,9 @@ if ( class_exists( 'VideoModel' ) != true ) {							## checks the VideoModel cla
 				if(empty($this->_videoId)) {
 					$post_ID = wp_insert_post( $postsData );
 				}
-				$guid = get_site_url() . '/?post_type=videogallery&#038;p=' . $this->_wpdb->insert_id;
+				$guid = get_site_url() . '/?post_type=videogallery&#038;p=' . $post_ID;
 				$this->_wpdb->update( $this->_posttable, array( 'guid' => $guid ), array( 'ID' => $post_ID ) );
-				$this->_wpdb->update( $this->_videotable, array( 'slug' => $this->_wpdb->insert_id ), array( 'vid' => $last_insert_video_id ) );
+				$this->_wpdb->update( $this->_videotable, array( 'slug' => $post_ID ), array( 'vid' => $last_insert_video_id ) );
 				return $last_insert_video_id;
 			}
 		}																			## function for inserting video ends
@@ -96,6 +96,7 @@ if ( class_exists( 'VideoModel' ) != true ) {							## checks the VideoModel cla
 					'comment_status'		=> 'open',
 					'ping_status'			=> 'closed',
 					'post_password'			=> '',
+					'post_name'				=> sanitize_title($videoData['name']),
 					'to_ping'				=> '',
 					'pinged'				=> '',
 					'post_modified'			=> date( 'Y-m-d H:i:s' ),
@@ -128,12 +129,45 @@ if ( class_exists( 'VideoModel' ) != true ) {							## checks the VideoModel cla
 			global $wpdb;
 			$user_role    = $this->get_current_user_role();
 			$current_user = wp_get_current_user();
+			$gallerySettings	 = $this->get_settingsdata();
+			$player_colors 		 = unserialize($gallerySettings->player_colors);
+			$user_allowed_method = explode(',',$player_colors['user_allowed_method']);
+			$file_type = '';
+			if( in_array('c',$user_allowed_method )) {
+				$file_type = 1;
+			}
+			if( in_array('y',$user_allowed_method ) ) {
+				if( $file_type == '' ) {
+					$file_type =  2 ;
+				} else  {
+					$file_type = $file_type.',2';
+				}
+			}
+			if( in_array('embed',$user_allowed_method ) ) {
+				if( $file_type == '' ) {
+					$file_type =  5 ;
+				} else  {
+					$file_type = $file_type.',5';
+				}
+			}if( in_array('url',$user_allowed_method ) ) {
+				if( $file_type == '' ) {
+					$file_type =  3 ;
+				} else  {
+					$file_type = $file_type.',3';
+				}
+			}if( in_array('rmtp',$user_allowed_method ) ) {
+				if( $file_type == '' ) {
+					$file_type =  4 ;
+				} else  {
+					$file_type = $file_type.',4';
+				}
+			}
 			$pagenum = absint( filter_input(INPUT_GET , 'pagenum' ) );
 			if( empty ( $pagenum ) ) {
-				$pagenum =1; 
+				$pagenum =1;
 			}
 			$orderFilterlimit = filter_input( INPUT_GET, 'filter' );
-			
+				
 			$query = 'SELECT DISTINCT ( a.vid ) FROM ' . $this->_videotable . ' a
 					LEFT JOIN ' . $wpdb->users . ' u
 					ON u.ID=a.member_id
@@ -141,12 +175,12 @@ if ( class_exists( 'VideoModel' ) != true ) {							## checks the VideoModel cla
 					ON p.media_id=a.vid
 					LEFT JOIN ' . $this->_wpdb->prefix . 'hdflvvideoshare_playlist pl
 					ON pl.pid=p.playlist_id WHERE pl.is_publish=1';
-			
-			if ( isset( $searchBtn ) ) {				
+				
+			if ( isset( $searchBtn ) ) {
 				$query .= ' AND ( a.name LIKE %s OR a.description LIKE %s )';
 			}
 			if ( $user_role != 'administrator' ) {
-				$query .= ' AND a.member_id=%d';
+				$query .= ' AND a.member_id=%d AND a.file_type IN('.$file_type.')';
 			}
 			if ( ! isset( $orderDirection ) ) {
 				$query  .= ' ORDER BY '.$order.' DESC';
@@ -154,11 +188,11 @@ if ( class_exists( 'VideoModel' ) != true ) {							## checks the VideoModel cla
 			else{
 				$query  .= ' ORDER BY '.$order.' '.$orderDirection;
 			}
-			
+				
 			if( isset( $searchBtn ) && $user_role !='administrator' ) {
 				$query =  $this->_wpdb->prepare($query , '%'.$searchValue.'%' ,'%'.$searchValue.'%' ,$current_user->ID );
 			} else if ( $user_role !='administrator' && !isset( $searchBtn )  ) {
-				$query =  $this->_wpdb->prepare($query , $current_user->ID );
+				$query =  $this->_wpdb->prepare($query , $current_user->ID);
 			} else if ( isset ( $searchBtn ) ) {
 				$query =  $this->_wpdb->prepare($query , '%'.$searchValue.'%' ,'%'.$searchValue.'%' );
 			}else {
@@ -173,40 +207,40 @@ if ( class_exists( 'VideoModel' ) != true ) {							## checks the VideoModel cla
 				$limit = 20;
 			}
 			$offset = ( $pagenum - 1 ) * $limit;
-			$query  = 'SELECT DISTINCT ( a.vid ),a.*,u.display_name FROM ' . $this->_videotable . ' a 
-					LEFT JOIN ' . $wpdb->users . ' u 
-					ON u.ID=a.member_id 
-					LEFT JOIN ' . $this->_wpdb->prefix . 'hdflvvideoshare_med2play p 
-					ON p.media_id=a.vid 
-					LEFT JOIN ' . $this->_wpdb->prefix . 'hdflvvideoshare_playlist pl 
+			$query  = 'SELECT DISTINCT ( a.vid ),a.*,u.display_name FROM ' . $this->_videotable . ' a
+					LEFT JOIN ' . $wpdb->users . ' u
+					ON u.ID=a.member_id
+					LEFT JOIN ' . $this->_wpdb->prefix . 'hdflvvideoshare_med2play p
+					ON p.media_id=a.vid
+					LEFT JOIN ' . $this->_wpdb->prefix . 'hdflvvideoshare_playlist pl
 					ON pl.pid=p.playlist_id WHERE pl.is_publish=1 ';
-			
+				
 			if ( isset( $searchBtn ) ) {
 				$query .= ' AND ( a.name LIKE %s OR a.description LIKE %s )';
 			}
 			if( $user_role != 'administrator' ) {
-				$query .= ' AND a.member_id =%d';
-			} 
+				$query .= ' AND a.member_id =%d AND a.file_type IN('.$file_type.')';
+			}
 			if ( ! isset( $orderDirection ) ) {
 				$query  .= ' ORDER BY '. $order.' DESC';
 			}
 			else{
 				$query  .= ' ORDER BY '.$order.' '.$orderDirection;
-			}				
+			}
 			$query .=	' LIMIT '.$offset.', '.$limit;
-			
-		    if( isset( $searchBtn ) && $user_role !='administrator' ) {
+				
+			if( isset( $searchBtn ) && $user_role !='administrator' ) {
 				$query =  $this->_wpdb->prepare($query , '%'.$searchValue.'%' ,'%'.$searchValue.'%' ,$current_user->ID );
 			} else if ( $user_role !='administrator' && !isset( $searchBtn )  ) {
-				$query =  $this->_wpdb->prepare($query , $current_user->ID );
+				$query =  $this->_wpdb->prepare($query , $current_user->ID);
 			} else if ( isset ( $searchBtn ) ) {
 				$query =  $this->_wpdb->prepare($query , '%'.$searchValue.'%' ,'%'.$searchValue.'%' );
 			}else {
 				$query = $query;
 			}
 			return $this->_wpdb->get_results( $query );
-		}																## function for getting search videos ends
-		
+		}
+
 		public function get_playlist_detail( $vid ) {					## function for getting Tag name starts
 			global $wpdb;
 			$video_count = $this->_wpdb->get_results(
@@ -271,7 +305,7 @@ if ( class_exists( 'VideoModel' ) != true ) {							## checks the VideoModel cla
         {
 			$slug = $this->_wpdb->get_col("SELECT slug FROM ".$this->_videotable."  WHERE vid IN ("."$videoId".")");
 			$slugid = implode(",", $slug);
-			$query = "SELECT file,file_type,image,opimage,strfile1,strfile2 FROM " . $this->_videotable ." WHERE vid IN ("."$videoId".")";
+			$query = "SELECT file,file_type,image,opimage,srtfile1,srtfile2 FROM " . $this->_videotable ." WHERE vid IN ("."$videoId".")";
             $file_details = $this->_wpdb->get_results($query);
 			foreach($file_details as $file_detail){
 				if($file_detail->file_type == 2){

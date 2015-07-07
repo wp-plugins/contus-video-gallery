@@ -175,6 +175,7 @@ if (class_exists ( 'ContusVideoShortcodeView' ) != true) {
 			if (! empty ( $homeplayerData )) {
 				$videoUrl = $homeplayerData->file;
 				$videoId = $homeplayerData->vid;
+				$slugId = $homeplayerData->slug;
 				$video_title = $homeplayerData->name;
 				$video_file_type = $homeplayerData->file_type;
 				$video_thumb = $homeplayerData->image;
@@ -196,7 +197,7 @@ if (class_exists ( 'ContusVideoShortcodeView' ) != true) {
 				$post_date = $homeplayerData->post_date;
 			}
 			// get Playlist detail
-			$playlistData = $this->playlist_detail ($vid , $number_related_video );
+			$playlistData = $this->playlist_detail ($vid );
 			$incre = 0;
 			$playlistname = $windo = $htmlvideo = '';
 			
@@ -250,7 +251,7 @@ if (class_exists ( 'ContusVideoShortcodeView' ) != true) {
 				$pluginflashvars .= $flashvars .= '&amp;videodata=current_video_' . $videodivId;
 			}
 			// Player starts here
-			$output .= '<div id="mediaspace' . $videodivId . '" class="videoplayer" >';
+			$output .= '<div id="mediaspace' . $videodivId . '" class="videoplayer">';
 			$mobile = vgallery_detect_mobile ();
 			// Embed player code
 			if (! empty ( $fetched ) && $fetched [0]->file_type == 5 && ! empty ( $fetched [0]->embedcode )) {
@@ -343,7 +344,7 @@ if (class_exists ( 'ContusVideoShortcodeView' ) != true) {
 				$output .= '<div id="flashplayer"><embed src="' . $this->_swfPath . '" flashvars="' . $flashvars . '" width="' . $width . '" height="' . $height . '" allowfullscreen="true" allowscriptaccess="always" type="application/x-shockwave-flash" wmode="transparent"></div>';
 				// Google adsense code Start
 				
-							if( ( $player_color['googleadsense_visible'] == 1) && ( !$mobile ) && ( $this->_post_type === 'video' || $this->_page_post_type === 'video' ) ) {
+							if( ( $player_color['googleadsense_visible'] == 1) && ( !$mobile ) && ( $this->_post_type === 'videogallery' || $this->_page_post_type === 'videogallery' ) ) {
 							    if($homeplayerData->google_adsense && $homeplayerData->google_adsense_value) { 
 								$output .= '<div>';
 								
@@ -361,29 +362,35 @@ if (class_exists ( 'ContusVideoShortcodeView' ) != true) {
 								 		<span id="divimgm" ><img alt="close" id="closeimgm" src="' . APPTHA_VGALLERY_BASEURL . '/images/close.png" style="z-index: 10000000;width:48px;height:12px;cursor:pointer;top:-12px;" onclick="googleclose();"  /> </span>
 								 				<iframe  height="60" width="' . ($width - 100) . '" scrolling="no" align="middle" id="IFrameName" src="" name="IFrameName" marginheight="0" marginwidth="0" class="iframe_frameborder" ></iframe>
 								 						</div>
-							</div>
-							<script type="text/javascript">
+							</div>';
+								 $details = $this->get_video_google_adsense_details($vid);
+								 $details1 = unserialize($details->googleadsense_details);
+								 
+								 if (isset($details1['adsense_option']) && $details1['adsense_option'] == 'always_show')
+								 {
+								 	$closeadd = 0;
+								 }
+								 else {
+								 	$closeadd = $details1['adsenseshow_time'];
+								 }
+								 if (isset($details1['adsense_reopen']) && $details1['adsense_reopen'] == '1')
+								 {
+								 	$ropen = $details1['adsense_reopen_time'];
+								 }
+								 else {
+								 	$ropen = 0;
+								 }
+								 $output .= '<script type="text/javascript">
 								var pagepath  = "' . get_site_url() . '/wp-admin/admin-ajax.php?action=googleadsense&vid=' . $homeplayerData->vid .'";
-							    var closeadd = 10005;
-							</script> 
+							    var closeadd = ' . $closeadd * 1000 . ';
+							    var ropen = ' . $ropen * 1000 . ';
+							</script>
 							<script src="' . APPTHA_VGALLERY_BASEURL.'js/googlead.js" type="text/javascript"></script>';
 				           }
 				}
 			}
 			
 			$output .= '</div>';	
-
-					if( isset($homeplayerData->google_adsense ) &&  $homeplayerData->google_adsense ) {
-                        $details = $this->get_video_google_adsense_details($vid);
-                        $details1 = unserialize($details->googleadsense_details);
-						if (isset($details1['closeadd']))
-						{
-							$closeadd = $details1['adsenseshow_time'];
-							$ropen = $details1['adsense_reopen_time'];
-						$output .= '<script type="text/javascript"> var closeadd = ' . $closeadd * 1000 . ';
-							var ropen = ' . $ropen * 1000 . ';</script>';
-						}
-					}
 					// End Google adsense End.
 			$useragent = $_SERVER ['HTTP_USER_AGENT'];
 			if (strpos ( $useragent, 'Windows Phone' ) > 0) { // check for windows phone
@@ -624,7 +631,7 @@ if (class_exists ( 'ContusVideoShortcodeView' ) != true) {
 					$sd = '%5Bvideo%5D%5Bheight%5D=360&amp;p%5Bvideo%5D%5Bsrc%5D=' . urlencode ( $this->_swfPath ) . '%3Ffile%3D' . urlencode ( $videoUrl ) . '%26baserefW%3D' . urlencode ( APPTHA_VGALLERY_BASEURL ) . '%2F%26vid%3D' . $vid . '%26embedplayer%3Dtrue%26HD_default%3Dtrue%26share%3Dfalse%26skin_autohide%3Dtrue%26showPlaylist%3Dfalse&amp;p';
 				}
 				if ($show_social_icon) {
-                    $url_fb = "http://api.addthis.com/oexchange/0.8/forward/facebook/offer?url=" .urlencode($current_url). "&amp;title=" . urlencode($video_title) . "&amp;screenshot=" . urlencode($video_thumb) ."&amp;description=" . strip_tags($videodescription) ."";					
+					$url_fb                 = "http://www.facebook.com/sharer/sharer.php?s=100&amp;p%5Btitle%5D=" . urlencode($video_title) . "&amp;p%5Bsummary%5D=" . urlencode($videodescription) . "&amp;p%5Bmedium%5D=103&amp;p%5Bvideo%5D%5Bwidth%5D=640&amp;p" . $sd . "%5Burl%5D=" . urlencode($current_url) . "&amp;p%5Bimages%5D%5B0%5D=" . urlencode($video_thumb);
                     $rs_url = get_site_url () . '/wp-admin/admin-ajax.php?action=rss&type=video&vid='.$vid;
 					$rss_image = plugins_url ( $this->_plugin_name.'/images/rss_icon.png' );
 					$output .= '
@@ -643,8 +650,8 @@ if (class_exists ( 'ContusVideoShortcodeView' ) != true) {
 				    $output .='</div>';
 					
 					$output .= '<div class="clearfix">';
-					$output .= '<div class="video-cat-thumb">';
 				}
+				$output .= '<div class="video-cat-thumb">';
 				//  show rss icon enable / disable 
 				if($show_rss_icon && !$show_social_icon ) {
 					$rs_url = get_site_url () . '/wp-admin/admin-ajax.php?action=rss&type=video&vid='.$vid;
@@ -684,7 +691,7 @@ if (class_exists ( 'ContusVideoShortcodeView' ) != true) {
 					 $output .='<input type="hidden" id="admin_email" value="'.$admin_email.'" name="admin_email" />';
 					 $output .='<input type="hidden" id="reporter_email" value="'.$user_email.'" name="reporter_email" />';
 					 $output .='<input type="hidden" id="video_title" value="'.$video_title.'" name="video_title" />';
-					 $output .='<input type="hidden" id="redirect_url" value="'.get_video_permalink( $this->_vId ).'" name="redirect_url" />';
+					 $output .='<input type="hidden" id="redirect_url" value="'.$slugId.'" name="redirect_url" />';
 					 $output .='<input type="button" class="reportbutton" value="Send" onclick="return reportVideoSend();" name="reportsend" />';
 					 $output .='&nbsp;&nbsp;<input type="reset" onclick="return hideReportForm();" class="reportbutton" value="Cancel" id="ReportFormreset"  name="reportclear" />';
 					 $output .='</form>';
@@ -697,26 +704,26 @@ if (class_exists ( 'ContusVideoShortcodeView' ) != true) {
 					  $output .='<textarea row="7" col="60" id="iframe-content" name="iframe-content" style="display:none;" onclick="this.select();">'.$iframe_code.'</textarea><input type="hidden" value="" id="iframeflag" name="iframeflag" />';
 				// Show /hide video description.
 				if ($configXML->showTag) {
-					$output .= '<div style="clear: both;"></div><div class="video-page-desc">' . apply_filters('the_content', $description ) . '</div></div>';
+					$output .= '<div style="clear: both;"></div><div class="video-page-desc">' . apply_filters('the_content', $description ) . '</div>';
 				}
 				
-				$output .= '</div>';			 	
-			} else {
-				// show / hide video description
-				if ($configXML->showTag) {
-					$output .= '<div style="clear:both;"></div><div class="video-page-desc">' . apply_filters('the_content', $fetched [0]->description ). '</div>';
-				}
+				$output .= '</div></div>';			 	
 			}
 			$output .= '</div></div>';
 			// Enable/disable Related videos starts here
 			if ( ( ( $this->_post_type === 'videogallery' && $configXML->playlist == 1|| $this->_page_post_type === 'videogallery' && $configXML->playlist == 1) ) || (((isset ( $arguments ['playlistid'] ) && isset ( $arguments ['id'] )) || $player_color['show_related_video']== 1|| (isset ( $arguments ['playlistid'] ))) && (isset ( $arguments ['relatedvideos'] ) && $arguments ['relatedvideos'] == 'on'))) {
 					$Limit  = $player_color['related_video_count'];
-					
+
+					if(empty($Limit))
+					{
+						$Limit=100;
+					}
+
 					$select = 'SELECT distinct( a.vid ),b.playlist_id,name,guid,description,file,hdfile,file_type,duration,embedcode,image,opimage,download,link,featured,hitcount,slug,
 						a.post_date,postrollads,prerollads FROM ' . $wpdb->prefix . 'hdflvvideoshare a
-						INNER JOIN ' . $wpdb->prefix . 'hdflvvideoshare_med2play b ON a.vid=b.media_id
-						INNER JOIN ' . $wpdb->prefix . 'hdflvvideoshare_playlist p ON p.pid=b.playlist_id
-						INNER JOIN ' . $wpdb->prefix . 'posts s ON s.ID=a.slug
+						LEFT JOIN ' . $wpdb->prefix . 'hdflvvideoshare_med2play b ON a.vid=b.media_id
+						LEFT JOIN ' . $wpdb->prefix . 'hdflvvideoshare_playlist p ON p.pid=b.playlist_id
+						LEFT JOIN ' . $wpdb->prefix . 'posts s ON s.ID=a.slug
 						WHERE b.playlist_id=' . intval ( $video_playlist_id ) . ' AND a.publish=1 AND p.is_publish=1
 						ORDER BY a.vid DESC LIMIT '.$Limit;
 					$output .= '<div class="player_related_video"><h2 class="related-videos">' . __ ( 'Related Videos', 'video_gallery' ) . '</h2><div style="clear: both;"></div>';
@@ -818,11 +825,11 @@ if (class_exists ( 'ContusVideoShortcodeView' ) != true) {
 			if ($this->_post_type === 'videogallery' || $this->_page_post_type === 'videogallery') {
 				// Default Comments
 				if ($configXML->comment_option == 0) {
-					$output .= '<style type="text/css">#comments #respond,#comments.comments-area, #disqus_thread, .comments-link{ display: none!important; } </style>';
+					$output .= '<style type="text/css">#respond,#comments #respond,#comments.comments-area, #disqus_thread, .comments-link{ display: none!important; } </style>';
 				}
 				// Facebook Comments
 				if ($configXML->comment_option == 2) {
-					$output .= '<style type="text/css">#comments #respond,#comments.comments-area, #disqus_thread, .comments-link{ display: none!important; } </style>';
+					$output .= '<style type="text/css">#respond,#comments #respond,#comments.comments-area, #disqus_thread, .comments-link{ display: none!important; } </style>';
 					$output .= '<div class="clear"></div>
 							<h2 class="related-videos">' . __ ( 'Post Your Comments', 'video_gallery' ) . '</h2>
 							<div id="fb-root"></div>
