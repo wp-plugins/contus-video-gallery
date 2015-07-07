@@ -127,7 +127,11 @@ if (class_exists ( 'SettingsController' ) != true) { // checks if the SettingsCo
 				$amazon_bucket_access_key = filter_input ( INPUT_POST, 'amazon_bucket_access_key' );
 				$amazon_bucket_access_secretkey = filter_input ( INPUT_POST, 'amazon_bucket_access_secretkey' );
 				$user_allowed_method = filter_input ( INPUT_POST, 'user_allowed_method', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY );
-				$user_allowed_method = implode ( ',', $user_allowed_method );
+
+				if(!empty($user_allowed_method)){
+					$user_allowed_method = implode ( ',', $user_allowed_method );
+				}
+
 				$iframe_visible = filter_input ( INPUT_POST, 'iframe_visible' );
 				$googleadsense_visible = filter_input ( INPUT_POST, 'googleadsense_visible' );
 				$show_added_on = filter_input ( INPUT_POST,'show_added_on' );

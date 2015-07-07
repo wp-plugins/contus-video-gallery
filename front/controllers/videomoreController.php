@@ -46,8 +46,8 @@ if ( class_exists( 'ContusMoreController' ) != true ) {
          * @param unknown $dataLimit
          * @return type <mixed int>
          */
-		function home_thumbdata( $thumImageorder, $where, $pagenum, $dataLimit ) { 
-			return $this->get_thumdata( $thumImageorder, $where, $pagenum, $dataLimit );
+		function home_thumbdatamore( $thumImageorder, $where, $pagenum, $dataLimit ) { 
+			return $this->get_thumdatamore( $thumImageorder, $where, $pagenum, $dataLimit );
 		}
        /**
         * function get category read more thumb data

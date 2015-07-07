@@ -49,13 +49,15 @@ if ( class_exists( 'AjaxPlaylistController' ) != true ) {			## checks if the Pla
 			$p_playlistorder = $wpdb->get_var( 'SELECT MAX(playlist_order) FROM ' . $wpdb->prefix . 'hdflvvideoshare_playlist' );
 			$playlist_order  = $p_playlistorder+1;  
 			$playlistname1   = 'SELECT playlist_name FROM ' . $wpdb->prefix . 'hdflvvideoshare_playlist WHERE playlist_name="' . $p_name . '"';
-			$planame1 = mysql_query( $playlistname1 );
-			if ( mysql_fetch_array( $planame1, MYSQL_NUM ) ) {
+			$planame1 = $wpdb->get_row ( $playlistname1 );
+			if (count ( $planame1 ) > 0) {
 				$this->render_error( __( 'Failed, category name already exist', 'hdflvvideoshare' ) ) . $this->get_playlist_for_dbx( $media );
 				return;
 			}
 			if ( ! empty( $p_name ) ) {
-				$insert_plist = mysql_query( ' INSERT INTO ' . $wpdb->prefix . 'hdflvvideoshare_playlist ( playlist_name, playlist_desc,is_publish, playlist_order,playlist_slugname ) VALUES ( "'.$p_name.'", "'.$p_description.'", "1", "'.$playlist_order.'","'.$p_slugname.'" )' );
+				$videoData = array ( 'playlist_name' => $p_name, 'playlist_desc' => $p_description, 'is_publish' => 1,
+						'playlist_order'    => $playlist_order, 'playlist_slugname' => $p_slugname ) ;
+				$insert_plist = $wpdb->insert ( $wpdb->prefix . 'hdflvvideoshare_playlist', $videoData );  
 				if ( $insert_plist != 0 ) {
 					$this->render_message( __( 'Category', 'hdflvvideoshare' ) . ' ' . $name . __( ' added successfully', 'hdflvvideoshare' ) ) . $this->get_playlist_for_dbx( $media );
 				}

@@ -7,10 +7,10 @@ Author: Apptha
 Author URI: http://www.apptha.com
 License: GNU General Public License version 2 or later
 */
-.column { width: 50%; float: left; padding-bottom: 100px; }
+.apptha_gallery .column { width: 50%; float: left; padding-bottom: 100px; }
 #wpbody-content{width:99%;}
-#manage-column-video-1 {margin-left: 6.1px;}
-#manage-column-category-1 {
+.apptha_gallery#manage-column-video-1 {margin-left: 6.1px;}
+.apptha_gallery#manage-column-category-1 {
 	margin-left:5.7px;
 }
 table.info_videoshartcode {
@@ -40,7 +40,7 @@ table.info-videoshartcode th{
 	font-weight:bold;
 	font-size :15px;
 }
-#loading_image{
+.apptha_gallery #loading_image{
 	position:absolute;
 	width:38%;
 	float:right;
@@ -106,8 +106,8 @@ html[xmlns] .clearfix {display: block;}
 .apptha_gallery .id-column{}
 .apptha_gallery .title-column{}
 .apptha_gallery .desc-column{}
-.column-featured {width: 90%;text-align: center;}
-.column-publish {text-align:center;}
+.apptha_gallery .column-featured {text-align: center;}
+.apptha_gallery .column-publish {text-align:center;}
 .videoad_url_info_content {line-height: 20px;padding-top: 10px;}
 .form-table.form-videoad-table td{margin:0px; padding:0 10px;}
 .apptha_gallery .pub-column{width: 50%;float: left;}
@@ -202,7 +202,7 @@ height: 150px;
 	.admin_video_search.alignright{float:left;}
 	.floatleft.category_addpages #post-body-content{min-width: 200px;}
 	.admin_video_search.alignleft.actions{ float:left;  width:40%;  margin: 0  0  0  2%; z-index:9999px;}
-	.column-order , .column-id , .column-image , .column-createddate ,.column-ordering ,.column-path ,.column-admethod , .column-playlistname , .column-sortorder{ display:none;}
+	.apptha_gallery .column-order , .apptha_gallery .column-id , .apptha_gallery .column-image , .apptha_gallery .column-createddate ,.apptha_gallery .column-ordering ,.apptha_gallery .column-path ,.apptha_gallery .column-admethod , .apptha_gallery .column-playlistname , .apptha_gallery .column-sortorder{ display:none;}
 }
 @media screen and (min-width : 840px)  {
 	   .admin_video_action{
@@ -224,12 +224,12 @@ height: 150px;
 	.admin_video_search.alignleft.actions.responsive{ float:right; width:50%;}
 	.admin_video_search.alignright{float:left;}
 	.apptha_gallery .admin_video_search .search-box{position:relative;height:30px; float: left;width: 100%;clear: both; }
-	.column-order ,.column-image , .column-id , .column-createddate ,.column-ordering ,.column-path ,.column-admethod , .column-playlistname,.column-sortorder{ display:none;}
+	.apptha_gallery .column-order ,.apptha_gallery .column-image , .apptha_gallery .column-id , .apptha_gallery .column-createddate ,.apptha_gallery .column-ordering ,.apptha_gallery .column-path ,.apptha_gallery .column-admethod , .apptha_gallery .column-playlistname,.apptha_gallery .column-sortorder{ display:none;}
 	
 }
 @media screen and(min-width:720px) and (max-width:782px){
 		input.youtubelinkinput {width: 68% !important;}
-	    .column-order ,.column-image , .column-id , .column-createddate ,.column-ordering ,.column-path ,.column-admethod , .column-playlistname , .column-sortorder{ display:none;}
+	    .apptha_gallery .column-order ,.apptha_gallery .column-image , .apptha_gallery .column-id , .apptha_gallery .column-createddate ,.apptha_gallery .column-ordering ,.apptha_gallery .column-path ,.apptha_gallery .column-admethod , .apptha_gallery .column-playlistname , .apptha_gallery .column-sortorder{ display:none;}
 }
 @media screen and (max-width: 782px) {
     .videoadmethod  ,#videoaddetails, .form-table.add_video_publish{ width:98%; margin: 0 2% 20px; }
@@ -279,13 +279,13 @@ height: 150px;
 	.apptha_gallery .top .alignleft.actions.responsive{ float:right; width:45%; margin: 0 0  0  2%;}
 	.apptha_gallery .admin_video_search .search-box input {float:left;width:50%; margin:0 3% 0 0;}
 	.apptha_gallery .admin_video_search .search-box .button {float:none;width:auto;padding:8px; }
-	.column-order , .column-id ,.column-image , .column-createddate ,.column-ordering ,.column-path ,.column-admethod , .column-playlistname , .column-sortorder{ display:none;}
+	.apptha_gallery .column-order , .apptha_gallery .column-id ,.apptha_gallery .column-image , .apptha_gallery .column-createddate ,.apptha_gallery .column-ordering ,.apptha_gallery .column-path ,.apptha_gallery .column-admethod , .apptha_gallery .column-playlistname , .apptha_gallery .column-sortorder{ display:none;}
 	.gallery_separator input[type='text']{width:80%!important;}
 	.category_container {float: left !important;width: 98% !important;}
 } 
 @media screen and (device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2){
 	
-	.column {width: 100% !important;float: left;padding-bottom: 100px;}
+	.apptha_gallery .column {width: 100% !important;float: left;padding-bottom: 100px;}
 	.category_container {float: left !important;width: 98% !important;}
 	input.youtubelinkinput {width: 68% !important;}
 	
@@ -293,7 +293,7 @@ height: 150px;
 
 @media only screen and (min-device-width : 320px)and (max-device-width : 568px) and (orientation : landscape) {
 	div.youtubelinkinfo p{ width:70%; float:left; overflow:hidden;word-wrap: break-word; } 
-	.column {width: 100% !important;float: left;padding-bottom: 100px;}
+	.apptha_gallery .column {width: 100% !important;float: left;padding-bottom: 100px;}
 	.category_container {float: left !important;width: 98% !important;}
 		input.youtubelinkinput {width: 68% !important;}
 	
@@ -311,7 +311,7 @@ height: 150px;
 	#side-sortables { width :100%; float:left ; }
 	#poststuff #post-body.columns-2 #side-sortables {min-height: 0;width: 98%;margin: 0 auto; }
 	.videoadmethod inptut ,#videoaddetails input , #videoaddetails input , .form-table.form-videoad-table input{width:95%; }
-	.column {width: 100% !important;float: left;padding-bottom: 100px;}
+	.apptha_gallery .column {width: 100% !important;float: left;padding-bottom: 100px;}
 	.category_container {float: left !important;width: 98% !important;}
 	#postbox-container-1 #side-sortables{float:left;width: 100%; position:relative;}
 	.form-table.form-videoad-table td {margin: 0px;padding: 0 1px;}

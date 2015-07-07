@@ -36,7 +36,7 @@ if ( class_exists( 'ContusShortcode' ) != true ) {												## checks the Cont
 		public function get_video_detail( $vid ) {		   
 			global $wpdb;
 			$video_count = $this->_wpdb->get_row(
-					'SELECT t1.vid,t5.ID,t5.display_name,t1.amazon_buckets,t1.description,t4.tags_name,t1.name,t1.post_date,t1.publish,t1.google_adsense,t1.google_adsense_value,t1.image,t1.file,t1.hitcount,t1.ratecount,t1.file_type,t1.embedcode,t1.rate,t2.playlist_id,t3.playlist_name'
+					'SELECT t1.vid,t5.ID,t5.display_name,t1.amazon_buckets,t1.description,t1.slug,t4.tags_name,t1.name,t1.post_date,t1.publish,t1.google_adsense,t1.google_adsense_value,t1.image,t1.file,t1.hitcount,t1.ratecount,t1.file_type,t1.embedcode,t1.rate,t2.playlist_id,t3.playlist_name'
 					. ' FROM ' . $this->_videoinfotable . ' AS t1'
 					. ' LEFT JOIN ' . $wpdb->prefix . 'hdflvvideoshare_med2play AS t2'
 					. ' ON t2.media_id = t1.vid'
@@ -56,16 +56,14 @@ if ( class_exists( 'ContusShortcode' ) != true ) {												## checks the Cont
                  * @param type $vid
                  * @return type
                  */
-		public function get_playlist_detail( $vid , $related_video_count) {											
+		public function get_playlist_detail( $vid) {											
 			global $wpdb;
 			$video_count = $this->_wpdb->get_results(
 					'SELECT t3.playlist_name,t3.pid,t3.playlist_slugname'
 					. ' FROM ' . $wpdb->prefix . 'hdflvvideoshare_playlist AS t3'
 					. ' LEFT JOIN  ' . $wpdb->prefix . 'hdflvvideoshare_med2play AS t2'
 					. ' ON t3.pid = t2.playlist_id'
-					. ' WHERE t3.is_publish=1 AND t2.media_id="' . intval( $vid ) . '"'
-					. ' LIMIT '.$related_video_count
-					);
+					. ' WHERE t3.is_publish=1 AND t2.media_id="' . intval( $vid ) . '"');
 			return $video_count;
 		}
 		/**

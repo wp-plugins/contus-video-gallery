@@ -137,7 +137,7 @@ if ( class_exists( 'ContusVideoView' ) != true ) {
 					    $split = explode ( "/", $video );
 						$split_id = explode ( "_", $split [4] );
 						$video = $previewurl = $video_url = 'http://www.dailymotion.com/embed/video/' . $split_id [0]; 												
-						$output .= '<iframe src="' . $video . '" width="'.$width.'" height="'.$height.'"  class="iframe_frameborder" ></iframe>';						
+						$output .= '<iframe src="' . $video . '" width="100%" class="iframe_frameborder" ></iframe>';						
 					}  else {																		// IF VIDEO IS UPLOAD OR DIRECT PATH
 						if ( $file_type == 2 ) {														// For uploaded image
 							if( $file_type == 2 && strpos($videoUrl , '/' ) ) {
@@ -182,11 +182,12 @@ if ( class_exists( 'ContusVideoView' ) != true ) {
                  * function for show  recent ,feature ,category and popular video in home page after player  
                  */                        
 		function home_thumb( $type ) {		
-			$recent_video_order = $this->_setting_related_video_count;
 			if ( function_exists( 'homeVideo' ) != true ) {
 				$TypeSet = $recent_video_order = '';
-				$recent_video_order = $this->_settingsData;
+				$player_color = unserialize( $this->_settingsData->player_colors);
+				$recent_video_order = $player_color['recentvideo_order'];
 				switch ( $type ) {
+					default: break;
 					case 'popular':																	   // GETTING POPULAR VIDEOS STARTS
 						$TypeSet   = $this->_settingsData->popular;									   //  Popular Videos
 						$rowF	   = $this->_settingsData->rowsPop;									   //  get row of popular videos
@@ -223,7 +224,7 @@ if ( class_exists( 'ContusVideoView' ) != true ) {
 						$colF = $this->_settingsData->colFea;										//  get column of feature videos
 						$dataLimit      = $rowF * $colF;
 						if($recent_video_order =='id'){
-							$thumImageorder = 'w.vid ASC';
+							$thumImageorder = 'w.vid DESC';
 						}elseif($recent_video_order == 'hitcount'){
 							$thumImageorder = 'w.'.$recent_video_order .' DESC';
 						}elseif ($recent_video_order == 'default') {
@@ -245,10 +246,8 @@ if ( class_exists( 'ContusVideoView' ) != true ) {
 							$colF = $this->_settingsData->colCat;									//  get row of category videos
 							$category_page = $this->_settingsData->category_page;					//  get column of category videos
 							$dataLimit     = $rowF * $colF;
-							$player_color = unserialize( $this->_settingsData->player_colors);
-						    $recent_video_order = $player_color['recentvideo_order'];								
 							if($recent_video_order =='id'){
-								$thumImageorder = 'w.vid ASC';
+								$thumImageorder = 'w.vid DESC';
 							}elseif($recent_video_order == 'hitcount'){
 								$thumImageorder = 'w.'.$recent_video_order .' DESC';
 							}elseif ($recent_video_order == 'default') {
@@ -386,15 +385,15 @@ if ( class_exists( 'ContusVideoView' ) != true ) {
 			$div      .= '<style scoped> .video-block { margin-left:' . $this->_settingsData->gutterspace . 'px !important;float:left;} </style>';
 			foreach ( $TypeOFvideos as $catList ) {
 				$sql = 'SELECT s.guid,w.* FROM ' . $wpdb->prefix . 'hdflvvideoshare as w
-					INNER JOIN ' . $wpdb->prefix . 'hdflvvideoshare_med2play as m ON m.media_id = w.vid
-					INNER JOIN ' . $wpdb->prefix . 'hdflvvideoshare_playlist as p on m.playlist_id = p.pid
-					INNER JOIN ' . $this->_wpdb->prefix . 'posts s ON s.ID=w.slug
+					LEFT JOIN ' . $wpdb->prefix . 'hdflvvideoshare_med2play as m ON m.media_id = w.vid
+					LEFT JOIN ' . $wpdb->prefix . 'hdflvvideoshare_playlist as p on m.playlist_id = p.pid
+					LEFT JOIN ' . $this->_wpdb->prefix . 'posts s ON s.ID=w.slug
 					WHERE w.publish=1 and p.is_publish=1 and m.playlist_id=' . intval( $catList->pid ) . ' GROUP BY w.vid LIMIT ' . $dataLimit;
 				$playLists     = $wpdb->get_results( $sql );
 				$playlistCount = count( $playLists );
                                 //Get count video assign this category. 
                 $category_video = $wpdb->get_results('SELECT * FROM ' . $wpdb->prefix . 'hdflvvideoshare_med2play as m 
-					INNER JOIN ' . $wpdb->prefix . 'hdflvvideoshare_playlist as p on m.playlist_id = p.pid WHERE m.playlist_id='.intval($catList->pid).' AND p.is_publish=1');
+					LEFT JOIN ' . $wpdb->prefix . 'hdflvvideoshare_playlist as p on m.playlist_id = p.pid WHERE m.playlist_id='.intval($catList->pid).' AND p.is_publish=1');
                 $video_count = count($category_video);
                                 // end of  get count
                                 
