@@ -1,0 +1,962 @@
+# Copyright (C) 2010 Apptha Post Theme
+# This file is distributed under the same license as the Apptha Post Theme package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Apptha Post 2.0\n"
+"Report-Msgid-Bugs-To: http://www.apptha.com\n"
+"POT-Creation-Date: 2012-05-18 19:27:25+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2013-12-10 14:03+0530\n"
+"Last-Translator: \n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"X-Generator: Poedit 1.5.7\n"
+
+#: ContusFeatureVideos.php:78 videosetting.php:579
+msgid "Featured Videos"
+msgstr "Featured Videos"
+
+#: ContusFeatureVideos.php:73 ContusPopularVideos.php:75
+#: ContusRecentVideos.php:76 ContusRelatedVideos.php:81 videohome.php:38
+#: videomore.php:33 videoshortcode.php:350
+msgid "Views"
+msgstr "Views"
+
+#: ContusFeatureVideos.php:74 ContusPopularVideos.php:76
+#: ContusRecentVideos.php:77 ContusRelatedVideos.php:82 videohome.php:39
+#: videomore.php:34
+msgid "View"
+msgstr "View"
+
+#: ContusFeatureVideos.php:159 ContusPopularVideos.php:157
+#: ContusRecentVideos.php:157 ContusRelatedVideos.php:179 videohome.php:302
+#: videohome.php:389 videomore.php:355
+msgid "More&nbsp;Videos"
+msgstr "More&nbsp;Videos"
+
+#: ContusFeatureVideos.php:155
+msgid "No Featured Videos"
+msgstr "No Featured Videos"
+
+#: ContusPopularVideos.php:79 videosetting.php:550
+msgid "Popular Videos"
+msgstr "Popular Videos"
+
+#: ContusPopularVideos.php:153
+msgid "No Popular videos"
+msgstr "No Popular videos"
+
+#: ContusRecentVideos.php:81 videosetting.php:564
+msgid "Recent Videos"
+msgstr "Recent Videos"
+
+#: ContusRecentVideos.php:153
+msgid "No recent Videos"
+msgstr "No recent Videos"
+
+#: ContusRelatedVideos.php:75 videoshortcode.php:573
+msgid "Related Videos"
+msgstr "Related Videos"
+
+#: ContusRelatedVideos.php:171 ContusRelatedVideos.php:175
+msgid "No Related videos"
+msgstr "No Related videos"
+
+#: ContusVideoCategory.php:80 videomore.php:131 videohome.php:211
+msgid "Video&nbsp;Categories"
+msgstr "Video&nbsp;Categories"
+
+#: ContusVideoCategory.php:89
+msgid "No Categories"
+msgstr "No Categories"
+
+#: ContusVideoCategory.php:93
+msgid "More Categories"
+msgstr "More Categories"
+
+#: ContusVideoSearch.php:61
+msgid "Video Search ..."
+msgstr "Video Search ..."
+
+#: ContusVideoSearch.php:68
+msgid "Search for:"
+msgstr "Search for:"
+
+#: ContusVideoSearch.php:71
+msgid "Search"
+msgstr "Search"
+
+#: videohome.php:120 videoshortcode.php:227
+msgid "Html5 Not support This video Format."
+msgstr "Html5 Not support This video Format."
+
+#: videohome.php:143 videoshortcode.php:226
+msgid "Player doesnot support this video."
+msgstr "Player doesnot support this video."
+
+#: videohome.php:170 videomore.php:65
+msgid "Popular"
+msgstr "Popular"
+
+#: videohome.php:184 videomore.php:78
+msgid "Recent"
+msgstr "Recent"
+
+#: videohome.php:225 videohome.php:308 videomore.php:149 videomore.php:243
+#: videomore.php:245
+msgid "Videos"
+msgstr "Videos"
+
+#: videohome.php:308 videohome.php:381 videomore.php:243 videomore.php:245
+#: addvideo.php:139 addplaylist.php:49
+msgid "No"
+msgstr "No"
+
+#: videomore.php:243
+msgid "Under&nbsp;this&nbsp;Category"
+msgstr "Under&nbsp;this&nbsp;Category"
+
+#: videomore.php:103 videoshortcode.php:356 videosetting.php:16
+msgid "Category"
+msgstr "Category"
+
+#: videosetting.php:17 video.php:50 playlist.php:18 videoads.php:17
+msgid "Video Ads"
+msgstr "Video Ads"
+
+#: videomore.php:360 videohome.php:394
+msgid "No&nbsp;Videos&nbsp;for&nbsp;this&nbsp;Category"
+msgstr "No&nbsp;Videos&nbsp;for&nbsp;this&nbsp;Category"
+
+#: videomore.php:398
+msgid "Search Results"
+msgstr "Search Results"
+
+#: videoshortcode.php:539
+msgid "Tweet"
+msgstr "Tweet"
+
+#: videoshortcode.php:346
+msgid "Posted&nbsp;on"
+msgstr "Posted&nbsp;on"
+
+#: videoshortcode.php:354
+msgid "Posted&nbsp;by"
+msgstr "Posted&nbsp;by"
+
+#: videoshortcode.php:513
+msgid "Tags"
+msgstr "Tags"
+
+msgid "Ratings"
+msgstr "Ratings"
+
+#: videoshortcode.php:407 addvideo.php:362
+msgid "Description"
+msgstr "Description"
+
+#: videoshortcode.php:555
+msgid "Embed&nbsp;Code"
+msgstr "Embed&nbsp;Code"
+
+#: videoshortcode.php:665
+msgid "Post Your Comments"
+msgstr "Post Your Comments"
+
+#: videoshortcode.php:690
+msgid "Please enable JavaScript to view the"
+msgstr "Please enable JavaScript to view the"
+
+#: videoshortcode.php:691
+msgid "comments powered by Disqus."
+msgstr "comments powered by Disqus."
+
+#: videoshortcode.php:490
+msgid "comments powered by"
+msgstr "comments powered by"
+
+#: videoshortcode.php:691
+msgid "Disqus"
+msgstr "Disqus"
+
+#: videosetting.php:15 video.php:48 playlist.php:16 videoads.php:15
+msgid "All Videos"
+msgstr "All Videos"
+
+#: videosetting.php:16 video.php:49 playlist.php:17 videoads.php:16
+msgid "Categories"
+msgstr "Categories"
+
+#: videosetting.php:19 video.php:49
+msgid "Video AD"
+msgstr "Video AD"
+
+#: videosetting.php:18 videosetting.php:75 video.php:51 playlist.php:19
+#: videoads.php:18
+msgid "Settings"
+msgstr "Settings"
+
+#: videosetting.php:144
+msgid "Ex : 0xdddddd "
+msgstr "Ex : 0xdddddd "
+
+#: playlist.php:25
+msgid "Manage Categories"
+msgstr "Manage Categories"
+
+#: playlist.php:26
+msgid "Add Category"
+msgstr "Add Category"
+
+#: playlist.php:47
+msgid "Search Results for"
+msgstr "Search Results for"
+
+#: playlist.php:47 playlist.php:49
+msgid "Back to Category List"
+msgstr "Back to Category List"
+
+#: playlist.php:49
+msgid "No Search Results for"
+msgstr "No Search Results for"
+
+#: playlist.php:57
+msgid "Search Categories"
+msgstr "Search Categories"
+
+#: videosetting.php:76 videosetting.php:431
+msgid "Update Options"
+msgstr "Update Options"
+
+#: addplaylist.php:14
+msgid "Update Category"
+msgstr "Update Category"
+
+#: addplaylist.php:14
+msgid "Add a New Category"
+msgstr "Add a New Category"
+
+#: addplaylist.php:28 addvideo.php:350
+msgid "Enter Title / Name"
+msgstr "Enter Title / Name"
+
+#: addplaylist.php:33 addvideo.php:354
+msgid "Title / Name"
+msgstr "Title / Name"
+
+#: addplaylist.php:55
+msgid "Update playlist"
+msgstr "Update playlist"
+
+#: addplaylist.php:56
+msgid "Add playlist"
+msgstr "Add playlist"
+
+#: playlist.php:158
+msgid "Click here to Activate"
+msgstr "Click here to Activate"
+
+#: playlist.php:162
+msgid "Click here to Deactivate"
+msgstr "Click here to Deactivate"
+
+#: videosetting.php:126
+msgid "Display Configuration"
+msgstr "Display Configuration"
+
+#: videosetting.php:130
+msgid "Auto Play"
+msgstr "Auto Play"
+
+#: videosetting.php:134
+msgid "Player Width"
+msgstr "Player Width"
+
+#: videosetting.php:138
+msgid "Player Height"
+msgstr "Player Height"
+
+#: videosetting.php:142
+msgid "Stage Color"
+msgstr "Stage Color"
+
+#: videosetting.php:190
+msgid "Playlist Configuration"
+msgstr "Playlist Configuration"
+
+#: videosetting.php:194 addvideo.php:325 addvideo.php:320
+msgid "Playlist"
+msgstr "Playlist"
+
+#: videosetting.php:199
+msgid "HD Default"
+msgstr "HD Default"
+
+#: videosetting.php:203
+msgid "Playlist Autoplay"
+msgstr "Playlist Autoplay"
+
+msgid "Related Video View"
+msgstr "Related Video View"
+
+#: videosetting.php:245
+msgid "Facebook Settings"
+msgstr "Facebook Settings"
+
+#: videosetting.php:249
+msgid "Select Comment Type"
+msgstr "Select Comment Type"
+
+#: videosetting.php:265
+msgid "App ID"
+msgstr "App ID"
+
+#: videosetting.php:269
+msgid "Shot Name"
+msgstr "Shot Name"
+
+#: videosetting.php:272
+msgid "Link to create App ID"
+msgstr "Link to create App ID"
+
+#: videosetting.php:94
+msgid "Logo Configuration"
+msgstr "Logo Configuration"
+
+#: videosetting.php:98
+msgid "Logo Path"
+msgstr "Logo Path"
+
+#: videosetting.php:102
+msgid "Logo Target"
+msgstr "Logo Target"
+
+#: videosetting.php:106
+msgid "Logo Align"
+msgstr "Logo Align"
+
+#: videosetting.php:108
+msgid "Top Left"
+msgstr "Top Left"
+
+#: videosetting.php:109
+msgid "Top Right"
+msgstr "Top Right"
+
+#: videosetting.php:110
+msgid "Left Bottom"
+msgstr "Left Bottom"
+
+#: videosetting.php:111
+msgid "Right Bottom"
+msgstr "Right Bottom"
+
+#: videosetting.php:115
+msgid "Logo Alpha"
+msgstr "Logo Alpha"
+
+#: videosetting.php:119
+msgid "Hide YouTube Logo"
+msgstr "Hide YouTube Logo"
+
+#: videosetting.php:152
+msgid "General Settings"
+msgstr "General Settings"
+
+#: videosetting.php:157
+msgid "FFMPEG Path"
+msgstr "FFMPEG Path"
+
+#: videosetting.php:161
+msgid "Normal Scale"
+msgstr "Normal Scale"
+
+#: videosetting.php:164 videosetting.php:174
+msgid "Aspect Ratio"
+msgstr "Aspect Ratio"
+
+#: videosetting.php:165 videosetting.php:175
+msgid "Original Screen"
+msgstr "Original Screen"
+
+#: videosetting.php:166 videosetting.php:176
+msgid "Fit To Screen"
+msgstr "Fit To Screen"
+
+#: videosetting.php:171
+msgid "Full Screen Scale"
+msgstr "Full Screen Scale"
+
+#: videosetting.php:182
+msgid "Embed Visible"
+msgstr "Embed Visible"
+
+#: videosetting.php:82
+msgid "License Configuration"
+msgstr "License Configuration"
+
+#: videosetting.php:86
+msgid "License Key"
+msgstr "License Key"
+
+#: videosetting.php:214
+msgid "Ads Settings"
+msgstr "Ads Settings"
+
+#: videosetting.php:219 addvideo.php:428
+msgid "Preroll Ads"
+msgstr "Preroll Ads"
+
+#: videosetting.php:222 videosetting.php:232 videosetting.php:361
+#: videosetting.php:376 videosetting.php:391 videosetting.php:405
+msgid "Enable"
+msgstr "Enable"
+
+#: videosetting.php:224 videosetting.php:234 videosetting.php:364
+#: videosetting.php:378 videosetting.php:393 videosetting.php:407
+msgid "Disable"
+msgstr "Disable"
+
+#: videosetting.php:229 addvideo.php:450
+msgid "Postroll Ads"
+msgstr "Postroll Ads"
+
+msgid "Midroll Ads"
+msgstr "Midroll Ads"
+
+msgid "IMA Ads"
+msgstr "IMA Ads"
+
+msgid "Ad Skip"
+msgstr "Ad Skip"
+
+msgid "Ad Skip Duration"
+msgstr "Ad Skip Duration"
+
+msgid "Track Code"
+msgstr "Track Code"
+
+#: videosetting.php:277
+msgid "Video Configuration"
+msgstr "Video Configuration"
+
+#: videosetting.php:282 addvideo.php:377
+msgid "Download"
+msgstr "Download"
+
+#: videosetting.php:286
+msgid "Buffer"
+msgstr "Buffer"
+
+#: videosetting.php:290
+msgid "Volume"
+msgstr "Volume"
+
+#: videosetting.php:298
+msgid "Skin Configuration"
+msgstr "Skin Configuration"
+
+#: videosetting.php:302
+msgid "Skin"
+msgstr "Skin"
+
+#: videosetting.php:314
+msgid "Display Timer"
+msgstr "Display Timer"
+
+#: videosetting.php:320
+msgid "Display Zoom"
+msgstr "Display Zoom"
+
+#: videosetting.php:324
+msgid "Display Share"
+msgstr "Display Share"
+
+msgid "Display Email"
+msgstr "Display Email"
+
+msgid "Display Volume"
+msgstr "Display Volume"
+
+msgid "Display Progress Bar"
+msgstr "Display Progress Bar"
+
+msgid "Display Full Screen"
+msgstr "Display Full Screen"
+
+msgid "Skin Visible"
+msgstr "Skin Visible"
+
+msgid "Ad ID"
+msgstr "Ad ID"
+
+msgid "Skin Opacity"
+msgstr "Skin Opacity"
+
+msgid "Enable Ratings"
+msgstr "Enable Ratings"
+
+msgid "Enable Views"
+msgstr "Enable Views"
+
+msgid "Enable Tags"
+msgstr "Enable Tags"
+
+msgid "Enable Category"
+msgstr "Enable Category"
+
+msgid "Show Description"
+msgstr "Show Description"
+
+msgid "Display Default Image"
+msgstr "Display Default Image"
+
+msgid "Subtitle Text Color"
+msgstr "Subtitle Text Color"
+
+msgid "Subtitle Background Color"
+msgstr "Subtitle Background Color"
+
+msgid "Subtitle Font Family"
+msgstr "Subtitle Font Family"
+
+msgid "Subtitle Font Size"
+msgstr "Subtitle Font Size"
+
+msgid "Share Popup Header Color"
+msgstr "Share Popup Header Color"
+
+msgid "Share Popup Background Color"
+msgstr "Share Popup Background Color"
+
+msgid "Share Popup Text Color"
+msgstr "Share Popup Text Color"
+
+msgid "Send Button Color"
+msgstr "Send Button Color"
+
+msgid "Send Button Text Color"
+msgstr "Send Button Text Color"
+
+msgid "Player Text Color"
+msgstr "Player Text Color"
+
+msgid "Skin Background Color"
+msgstr "Skin Background Color"
+
+msgid "Seek Bar Color"
+msgstr "Seek Bar Color"
+
+msgid "Buffer Bar Color"
+msgstr "Buffer Bar Color"
+
+msgid "Skin Icons Color"
+msgstr "Skin Icons Color"
+
+msgid "Progress Bar Background Color"
+msgstr "Progress Bar Background Color"
+
+msgid "Play Button Color"
+msgstr "Play Button Color"
+
+msgid "Play Button Background Color"
+msgstr "Play Button Background Color"
+
+msgid "Player Buttons Color"
+msgstr "Player Buttons Color"
+
+msgid "Player Buttons Background Color"
+msgstr "Player Buttons Background Color"
+
+msgid "Related Videos Background Color"
+msgstr "Related Videos Background Color"
+
+msgid "Related Videos Scroll Bar Color"
+msgstr "Related Videos Scroll Bar Color"
+
+msgid "Related Videos Scroll Bar Background Color"
+msgstr "Related Videos Scroll Bar Background Color"
+
+#: videosetting.php:328
+msgid "Full Screen"
+msgstr "Full Screen"
+
+#: videosetting.php:332
+msgid "Skin Autohide"
+msgstr "Skin Autohide"
+
+#: videosetting.php:339
+msgid "Videos Page Settings"
+msgstr "Videos Page Settings"
+
+#: videosetting.php:403
+msgid "Category Videos"
+msgstr "Category Videos"
+
+#: videosetting.php:416
+msgid "No Of Categories in Home page"
+msgstr "No Of Categories in Home page"
+
+#: videosetting.php:419
+msgid "More Page"
+msgstr "More Page"
+
+#: video.php:67
+msgid "[videohome]"
+msgstr "[videohome]"
+
+#: video.php:81
+msgid "[hdvideo id=3 flashvars=autoplay=true&zoomIcon=false]"
+msgstr "[hdvideo id=3 flashvars=autoplay=true&zoomIcon=false]"
+
+#: video.php:79
+msgid ""
+"You can use the plugin code with flashvars when you would like to display a "
+"player on any page/post with some specific settings."
+msgstr ""
+"You can use the plugin code with flashvars when you would like to display a "
+"player on any page/post with some specific settings."
+
+#: video.php:77
+msgid ""
+"Both the Video ID and Category ID will be generated automatically once you "
+"add new Video or Category to 'Wordpress Video Gallery'."
+msgstr ""
+"Both the Video ID and Category ID will be generated automatically once you "
+"add new Video or Category to 'Wordpress Video Gallery'."
+
+#: video.php:75
+msgid "Playlist id - You can find the Category ID on manage Category page."
+msgstr "Playlist id - You can find the Category ID on manage Category page."
+
+#: video.php:74
+msgid ""
+"id - The Video ID, you can find the video id on 'All Videos' admin page."
+msgstr ""
+"id - The Video ID, you can find the video id on 'All Videos' admin page."
+
+#: video.php:72
+msgid ""
+"[hdvideo id=3 playlistid=2 width=400 height=400] or [hdvideo playlistid=2] "
+"or [hdvideo id=3]"
+msgstr ""
+"[hdvideo id=3 playlistid=2 width=400 height=400] or [hdvideo playlistid=2] "
+"or [hdvideo id=3]"
+
+#: video.php:69
+msgid ""
+"To display single video player on any page or post use the plugin code in "
+"any of the formats specified below."
+msgstr ""
+"To display single video player on any page or post use the plugin code in "
+"any of the formats specified below."
+
+#: video.php:68
+msgid ""
+"[hdvideo id=3 playlistid=2 width=400 height=400 ] or [hdvideo playlistid=2 ] "
+"or [hdvideo id=3 ]"
+msgstr ""
+"[hdvideo id=3 playlistid=2 width=400 height=400 ] or [hdvideo playlistid=2 ] "
+"or [hdvideo id=3 ]"
+
+#: video.php:70
+msgid ""
+"id - The video ID, you can find the video id on 'All Videos' admin page."
+msgstr ""
+"id - The video ID, you can find the video id on 'All Videos' admin page."
+
+#: video.php:71
+msgid "playlistid - You can find the playlist ID on manage playlist page."
+msgstr "playlistid - You can find the playlist ID on manage playlist page."
+
+#: video.php:73
+msgid ""
+"Both the video id and playlist id will generated automatically once you add "
+"new video or playlist to 'Wordpress Video Gallery'."
+msgstr ""
+"Both the video id and playlist id will generated automatically once you add "
+"new video or playlist to 'Wordpress Video Gallery'."
+
+#: video.php:77
+msgid "[hdvideo id=3 flashvars='autoplay=true & zoom=false']"
+msgstr "[hdvideo id=3 flashvars='autoplay=true & zoom=false']"
+
+#: video.php:60
+msgid ""
+"Once you install 'Wordpress video gallery' plugin, the page 'Videos' will be "
+"created automatically. If you would like to display the video gallery on any "
+"other page or post, you can use the following plugin code.-"
+msgstr ""
+"Once you install 'Wordpress video gallery' plugin, the page 'Videos' will be "
+"created automatically. If you would like to display the video gallery on any "
+"other page or post, you can use the following plugin code.-"
+
+#: videosetting.php:346
+msgid "Gutter Space (px)"
+msgstr "Gutter Space (px)"
+
+#: videosetting.php:351
+msgid "Player in Home Page"
+msgstr "Player in Home Page"
+
+#: videosetting.php:353
+msgid "Single player"
+msgstr "Single player"
+
+#: videosetting.php:355
+msgid "Banner"
+msgstr "Banner"
+
+#: video.php:62
+msgid "Manage Videos"
+msgstr "Manage Videos"
+
+#: video.php:62
+msgid "Add Video"
+msgstr "Add Video"
+
+#: video.php:63
+msgid "How To Use?"
+msgstr "How To Use?"
+
+#: video.php:64
+msgid ""
+"Once you install 'Wordpress Video Gallery' plugin, the page 'Videos' will be "
+"created automatically. If you would like to display the video gallery on any "
+"other page or post, you can use the following plugin code.-"
+msgstr ""
+"Once you install 'Wordpress Video Gallery' plugin, the page 'Videos' will be "
+"created automatically. If you would like to display the video gallery on any "
+"other page or post, you can use the following plugin code.-"
+
+#: video.php:117
+msgid "Search Videos"
+msgstr "Search Videos"
+
+#: video.php:123 video.php:265 playlist.php:63 playlist.php:227
+msgid "Bulk Actions"
+msgstr "Bulk Actions"
+
+#: video.php:124 video.php:266 playlist.php:66 playlist.php:230
+msgid "Delete"
+msgstr "Delete"
+
+#: video.php:126 video.php:268 playlist.php:69
+msgid "Apply"
+msgstr "Apply"
+
+#: video.php:160 video.php:245 playlist.php:105 playlist.php:194
+msgid "ID"
+msgstr "ID"
+
+#: video.php:163 video.php:248 playlist.php:111 playlist.php:200
+msgid "Title"
+msgstr "Title"
+
+#: video.php:166 video.php:251
+msgid "Path"
+msgstr "Path"
+
+msgid "Ad Type"
+msgstr "Ad Type"
+
+msgid "Ad Method"
+msgstr "Ad Method"
+
+msgid "Video URL"
+msgstr "Video URL"
+
+msgid "Preroll ads"
+msgstr "Preroll ads"
+
+msgid "Postroll ads"
+msgstr "Postroll ads"
+
+msgid "Midroll Ad"
+msgstr "Midroll Ad"
+
+msgid "IMA Ad"
+msgstr "IMA Ad"
+
+msgid "Cancel"
+msgstr "Cancel"
+
+msgid "Add video"
+msgstr "Add video"
+
+msgid "Update video"
+msgstr "Update video"
+
+msgid "Upload srt file for Subtitle1"
+msgstr "Upload srt file for Subtitle1"
+
+msgid "Upload srt file for Subtitle2"
+msgstr "Upload srt file for Subtitle2"
+
+msgid "Enter subtile1 language"
+msgstr "Enter subtile1 language"
+
+msgid "Enter subtile2 language"
+msgstr "Enter subtile2 language"
+
+#: video.php:169 video.php:254 videohome.php:198 videomore.php:91
+msgid "Featured"
+msgstr "Featured"
+
+#: video.php:174 video.php:259 addplaylist.php:46 playlist.php:211
+#: playlist.php:122
+msgid "Publish"
+msgstr "Publish"
+
+#: video.php:232 videomore.php:463
+msgid "No&nbsp;videos&nbsp;found."
+msgstr "No&nbsp;videos&nbsp;found."
+
+#: video.php:187
+msgid "Click and Drag"
+msgstr "Click and Drag"
+
+#: addvideo.php:70
+msgid "Add a new video"
+msgstr "Add a new video"
+
+#: addvideo.php:80
+msgid "YouTube URL"
+msgstr "YouTube URL"
+
+#: addvideo.php:81
+msgid "Upload file"
+msgstr "Upload file"
+
+#: addvideo.php:82
+msgid "Custom URL"
+msgstr "Custom URL"
+
+#: addvideo.php:83
+msgid "RTMP"
+msgstr "RTMP"
+
+#: addvideo.php:97
+msgid "Generate details"
+msgstr "Generate details"
+
+#: addvideo.php:99 addvideo.php:146
+msgid "Here you need to enter the URL to the video file"
+msgstr "Here you need to enter the URL to the video file"
+
+#: addvideo.php:100
+msgid ""
+"It accept also a Youtube link: http://www.youtube.com/watch?v=tTGHCRUdlBs"
+msgstr ""
+"It accept also a Youtube link: http://www.youtube.com/watch?v=tTGHCRUdlBs"
+
+#: addvideo.php:109
+msgid "Streamer Path"
+msgstr "Streamer Path"
+
+#: addvideo.php:116
+msgid "Here you need to enter the RTMP Streamer Path"
+msgstr "Here you need to enter the RTMP Streamer Path"
+
+#: addvideo.php:121
+msgid "Is Live"
+msgstr "Is Live"
+
+#: addvideo.php:127 addplaylist.php:48
+msgid "Yes"
+msgstr "Yes"
+
+#: addvideo.php:134
+msgid "Here you need to select whether your RTMP video is a live video or not"
+msgstr "Here you need to select whether your RTMP video is a live video or not"
+
+#: addvideo.php:138 addvideo.php:91
+msgid "URL to video file"
+msgstr "URL to video file"
+
+#: addvideo.php:148
+msgid "URL to HD video file(optional)"
+msgstr "URL to HD video file(optional)"
+
+#: addvideo.php:155
+msgid "Here you need to enter the URL to the HD video file"
+msgstr "Here you need to enter the URL to the HD video file"
+
+#: addvideo.php:158
+msgid "URL to Thumb image file"
+msgstr "URL to Thumb image file"
+
+#: addvideo.php:166
+msgid "Here you need to enter the URL to the image file"
+msgstr "Here you need to enter the URL to the image file"
+
+#: addvideo.php:169
+msgid "URL to Thumb Preview image file(Optional)"
+msgstr "URL to Thumb Preview image file(Optional)"
+
+#: addvideo.php:176
+msgid "Here you need to enter the URL to the Preview image file"
+msgstr "Here you need to enter the URL to the Preview image file"
+
+#: addvideo.php:184
+msgid "Supported video formats:"
+msgstr "Supported video formats:"
+
+#: addvideo.php:184
+msgid "( MP4, M4V, M4A, MOV, Mp4v or F4V)"
+msgstr "( MP4, M4V, M4A, MOV, Mp4v or F4V)"
+
+#: addvideo.php:186 addvideo.php:191
+msgid "Upload Video"
+msgstr "Upload Video"
+
+#: addvideo.php:206 addvideo.php:234 addvideo.php:262 addvideo.php:287
+msgid "Upload Failed:"
+msgstr "Upload Failed:"
+
+#: addvideo.php:206 addvideo.php:234 addvideo.php:262 addvideo.php:287
+msgid "User Cancelled the upload"
+msgstr "User Cancelled the upload"
+
+#: addvideo.php:243
+msgid "Upload Thumb Image"
+msgstr "Upload Thumb Image"
+
+#: addvideo.php:326
+msgid "Create New"
+msgstr "Create New"
+
+#: addvideo.php:327
+msgid "Name"
+msgstr "Name"
+
+#: addvideo.php:269
+msgid "Upload Preview Image(optional)"
+msgstr "Upload Preview Image(optional)"
+
+#: addvideo.php:213
+msgid "Upload HD Video(optional)"
+msgstr "Upload HD Video(optional)"
+
+#: addvideo.php:361
+msgid "Featured video"
+msgstr "Featured video"
+
+#: addvideo.php:423
+msgid "Select Ads"
+msgstr "Select Ads"
+
+#: addvideo.php:389
+msgid "Note:Not supported for YouTube videos"
+msgstr "Note:Not supported for YouTube videos"
+
+#: videosetting.php:368 videosetting.php:382 videosetting.php:396
+#: videosetting.php:412 videosetting.php:423
+msgid "Rows"
+msgstr "Rows"
+
+#: videosetting.php:369 videosetting.php:383 videosetting.php:397
+#: videosetting.php:413 videosetting.php:424
+msgid "Columns"
+msgstr "Columns"
