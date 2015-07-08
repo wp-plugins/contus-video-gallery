@@ -3,7 +3,7 @@
   Name: Wordpress Video Gallery
   URI: http://www.apptha.com/category/extension/Wordpress/Video-Gallery
   Description: Wordpress Video Gallery Installation file.
-  Version: 2.8
+  Version: 2.8.1
   Author: Apptha
   Author URI: http://www.apptha.com
   License: GPL2
